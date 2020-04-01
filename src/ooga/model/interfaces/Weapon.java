@@ -1,5 +1,9 @@
 package ooga.model.interfaces;
 
-public class Weapon {
+import ooga.model.enums.Direction;
 
+public interface Weapon {
+
+  void setFiringDirection(Direction direction);
+  void fire();
 }
