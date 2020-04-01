@@ -1,5 +1,8 @@
 package ooga.model.interfaces.map;
 
-public interface Grid {
+public interface Cell {
 
+  void setState(int state);
+
+  int getState();
 }
