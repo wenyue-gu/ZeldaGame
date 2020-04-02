@@ -1,19 +1,16 @@
 package ooga;
 
-import controller.MainController;
+import controller.MainControl;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import ooga.model.ZeldaCharacter;
 
 
 public class Main extends Application {
 
   private static final String TITLE = "Zelda";
 
-  private MainController myControl;
-  //private ZeldaCharacter myPlayer;
+  private MainControl myControl;
 
   public static void main(String[] args) {
     launch(args);
@@ -21,8 +18,9 @@ public class Main extends Application {
 
     @Override
   public void start(Stage currentStage) {
-    //myPlayer = new ZeldaCharacter();
-    myControl = new MainController();
+    myControl = new MainControl();
+    //TODO: get from data?
+    myControl.setGameType("Zelda");
     Scene myScene = null;//myControl.getScene(?)
 
     myScene.setOnKeyPressed(e -> myControl.keyInput(e.getCode()));

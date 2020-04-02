@@ -2,9 +2,6 @@ package controller;
 
 import javafx.scene.input.KeyCode;
 
-public interface ZeldaController {
+public interface PlayerControlInterface{
   void keyInput(KeyCode key);
-//  void resumeGame();
-//  void pauseGame();
-
 }
