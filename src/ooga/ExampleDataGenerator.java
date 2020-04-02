@@ -11,9 +11,13 @@ public class ExampleDataGenerator {
         GameMapGraph gameMap = new GameMapGraph();
         constructExampleGameMap(gameMap);
         try {
+            FileWriter Writer = new FileWriter("example Data");
             String jsonString = gson.toJson(gameMap);
-            gson.toJson(gameMap, new FileWriter("example Data"));
+            gson.toJson(gameMap, Writer);
+            Writer.flush();
+            Writer.close();
             System.out.println(jsonString);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
