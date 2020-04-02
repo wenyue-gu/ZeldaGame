@@ -1,13 +1,8 @@
 package ooga.model.enums;
 
-public enum Direction {
+public enum FourDirection {
   LEFT,
   RIGHT,
   UP,
   DOWN,
-
-  UPLEFT,
-  UPRIGHT,
-  DOWNLEFT,
-  DOWNRIGHT
 }
