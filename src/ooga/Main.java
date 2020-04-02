@@ -1,6 +1,7 @@
 package ooga;
 
 import controller.MainControl;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -32,6 +33,14 @@ public class Main extends Application {
     currentStage.setHeight(820);
     currentStage.setResizable(true);
     currentStage.show();
+
+    AnimationTimer timer = new AnimationTimer() {
+      @Override
+      public void handle(long now) {
+        myControl.update();
+      }
+    };
+    timer.start();
   }
 
 

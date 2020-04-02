@@ -2,6 +2,6 @@ package controller;
 
 public interface MovableControl1D {
 
-    void moveInX(double deltaX);
-
+  void left(double deltaX);
+  void right(double deltaX);
 }

@@ -24,6 +24,11 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
+  public void update() {
+
+  }
+
+  @Override
   public void moveInX(double deltaX) {
     myPlayer.moveInX(deltaX);
   }

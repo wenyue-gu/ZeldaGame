@@ -20,5 +20,9 @@ public class MainPlayerControl implements  PlayerControlInterface{
     myPlayerControl.keyInput(key);
   }
 
+  @Override
+  public void update(){
+
+  }
 
 }
