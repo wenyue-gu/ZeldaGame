@@ -1,7 +1,7 @@
 package ooga.model.interfaces.gameMap;
 
 import java.util.List;
-import java.util.Map;
+import ooga.model.enums.Direction;
 
 /**
  * GameMap is the whole map for the game. It consists many {@link GridInMap} and talk to other parts
@@ -13,12 +13,21 @@ import java.util.Map;
 public interface GameMap {
 
   /**
-   * Gets the game map representation in a map.
-   *
-   * @return the game map representation in a map. The key of this map is the id of the {@link
-   * GridInMap}; the value is the {@link GridInMap} in a 2D List.
+   * Gets the ID of current grid
+   * @return  the ID of the current grid
    */
-  Map<Integer, List<List<?>>> getGameMap();
+  int getCurrentGridID();
+
+  /**
+   * Sets the ID of current grid
+   */
+  void setCurrentGridID();
+  /**
+   * Gets the game map representation in a list.
+   *
+   * @return the game map representation of all grids in a list.
+   */
+  List<GridInMap> getGameMap();
 
   /**
    * Gets the cell state at a specific location
@@ -28,6 +37,30 @@ public interface GameMap {
    * @param col    the col of this cell
    * @return the state of this cell
    */
-  int getGameMap(int gridID, int row, int col);
+  int getCellState(int gridID, int row, int col);
 
+  /**
+   * Gets the cell state at a specific location on this grid
+   *
+   * @param row    the row of this cell
+   * @param col    the col of this cell
+   * @return the state of this cell
+   */
+  int getCellState(int row, int col);
+
+  /**
+   * Gets the grid on {@code direction} relative to the grid of {@code gridID}
+   * @param gridID  the id of that grid
+   * @param direction the direction in which the returned map is relative to that grid
+   * @return  the gird on {@code direction} of that grid, -1 if not existed
+   */
+  GridInMap getGridOn(int gridID, Direction direction);
+
+
+  /**
+   * Gets the grid on {@code direction} relative to the current grid
+   * @param direction the direction in which the returned map is relative to the current grid
+   * @return  the gird on {@code direction} of the current grid, -1 if not existed
+   */
+  GridInMap getGridOn(Direction direction);
 }
