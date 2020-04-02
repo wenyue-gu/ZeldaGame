@@ -1,7 +1,7 @@
-package ooga.model.interfaces.map;
+package ooga.model.interfaces.gameMap;
 
-import javafx.scene.control.skin.TextInputControlSkin.Direction;
-import ooga.model.enums.FourDirection;
+import java.util.List;
+import ooga.model.enums.Direction;
 
 /**
  * This interface creates a single grid that is made up of {@link Cell}. The grid can be loaded from
@@ -59,7 +59,6 @@ public interface SingleGrid {
    */
   void setCellState(int row, int col, int state);
 
-
   /**
    * Gets if a specific cell is connected to another grid on the same map
    *
@@ -68,5 +67,7 @@ public interface SingleGrid {
    * @param direction the relative position in which the other grid is
    * @return if that cell is a connected to another grid
    */
-  boolean isGateCell(int row, int col, FourDirection direction);
+  boolean isGateCell(int row, int col, Direction direction);
+
+  List<List<?>> getGrid();
 }

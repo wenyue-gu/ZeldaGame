@@ -1,4 +1,4 @@
-package ooga.model.interfaces.map;
+package ooga.model.interfaces.gameMap;
 
 /**
  * This interface stores the information of a single cell.
