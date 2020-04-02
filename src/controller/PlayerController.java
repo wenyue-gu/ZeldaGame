@@ -1,21 +1,26 @@
 package controller;
 
+import javafx.scene.input.KeyCode;
+import ooga.model.ZeldaCharacter;
+
 import java.util.*;
 
 public class PlayerController implements ZeldaController{
-  private playerView myPlayerView;
-  private playerModel myPlayerModel;
-  private Map<String, String> keyMap;
+  private ZeldaCharacter myPlayer;
+//  private PlayerView myPlayerView;
 
-  public PlayerController (){
-    myPlayerView = new playerView();
-    myPlayerModel = new playerModel();
-    keyMap = new HashMap<>();
+//  private Map<KeyCode, String> keyMap= new HashMap<>();
+
+  public PlayerController(ZeldaCharacter player){
+    myPlayer = player;
+//    myPlayerView = new playerView(player);
+  }
+  @Override
+  public void keyInput(KeyCode key){
+    switch(key) {
+      case W: myPlayer.moveInY(5); break;
+    }
   }
 
-  public void keyInput(String key){
 
   }
-
-
-}

@@ -1,28 +1,42 @@
 package controller;
 
-
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import java.util.List;
-import java.util.Map;
+import ooga.model.ZeldaCharacter;
 
+import java.util.*;
 
-public class MainController{
+public class MainController implements ZeldaController{
   private MapController myMapController;
-  private Map<ZeldaController, List<KeyCode>> keyMap;
+  private PlayerController myPlayerController;
+  //private MainView myMainView;
+  private Map<ZeldaController, List<KeyCode>> keyMap = new HashMap<>();
 
   public MainController(){
     myMapController = new MapController();
+    myPlayerController = new PlayerController(new ZeldaCharacter());
+    //myMainView = new MainView();
+
     initializeMap();
 
   }
 
-  public void handleKeyInput(KeyCode code){
-    for(ZeldaController z:keyMap.keySet()){
-      if(keyMap.get(z).contains(code)) z.keyInput(code.getName());
-    }
+  @Override
+  public void keyInput(KeyCode code) {
+//    for(ZeldaController z:keyMap.keySet()){
+//      if(keyMap.get(z).contains(code)) z.keyInput(code);
+//    }
+
   }
 
   private void initializeMap(){
 
   }
+
+//  public Scene getScene(){
+//
+//    Scene myScene = myMainView.getScene();
+//    myScene.setOnKeyPressed(e -> keyInput(e.getCode().getName()));
+//    return myScene;
+//  }
 }
