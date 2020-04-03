@@ -1,4 +1,4 @@
-package ooga;
+package ooga.usecases;
 
 import ooga.controller.WindowControl;
 import javafx.application.Application;
