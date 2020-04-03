@@ -96,8 +96,15 @@ There are other APIs that describe the state/possessions of character. These API
 - PlayerController
 - InventoryController
 
-### Data Management (Guangyu)
-
+### Data Management 
+ - DataLoaderAPI
+        It shows the interface between data files and the classes loading data from it.
+ - DataStorerAPI
+        It shows the interface between data files and the classes storing data to it.
+ - GameCell
+        Smallest Unit of every cell on the map. Are data points on the map.
+ - GameMapGraph
+        When loading Map data, data will first be converted into the GameMapGraph before being converted into the Json file. 
 ## Design Details
 ### View
 #### Game Menu
