@@ -1,5 +1,6 @@
-package ooga;
+package ooga.data;
 
+import ooga.data.GameCell;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.util.ArrayList;

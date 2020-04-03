@@ -1,4 +1,4 @@
-package ooga;
+package ooga.data;
 
 import javafx.scene.image.Image;
 

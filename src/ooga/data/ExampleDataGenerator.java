@@ -1,4 +1,4 @@
-package ooga;
+package ooga.data;
 
 import com.google.gson.Gson;
 import ooga.model.interfaces.gameMap.Cell;

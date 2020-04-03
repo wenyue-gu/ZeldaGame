@@ -1,6 +1,8 @@
-package ooga;
+package ooga.data;
 
 import javafx.scene.image.Image;
+import ooga.model.characters.UnchangableCharacter;
+import ooga.model.gameElements.Weapon;
 import ooga.model.interfaces.Inventory;
 
 import java.util.Map;
@@ -13,7 +15,7 @@ public interface DataStorerAPI {
      */
     void StoreText(String text, String keyword, String category);
 
-    void StoreCharacter(int ID, Character character);
+    void StoreCharacter(int ID, UnchangableCharacter character);
 
     void storeWeapons(int ID, Weapon weapon);
 
