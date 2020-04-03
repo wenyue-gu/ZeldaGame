@@ -1,14 +1,14 @@
-package controller.player;
+package ooga.controller.player;
 
-import controller.PlayerControlInterfaceInterface;
 import javafx.scene.input.KeyCode;
+import ooga.controller.PlayerControllInterface;
 import ooga.model.interfaces.movement.Movable1D;
 
-public class MainPlayerControl implements PlayerControlInterfaceInterface {
-  private PlayerControlInterfaceInterface myPlayerControl;
+public class MainPlayerControll implements PlayerControlInterface {
+  private PlayerControlInterface myPlayerControl;
   private PlayerControlFactory myPlayerControlFactory;
 
-  public MainPlayerControl(){
+  public MainPlayerControll(){
     myPlayerControlFactory = new PlayerControlFactory();
   }
 

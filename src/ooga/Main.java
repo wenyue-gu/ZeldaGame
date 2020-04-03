@@ -1,17 +1,17 @@
 package ooga;
 
-import controller.MainControl;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ooga.controller.MainController;
 
 
 public class Main extends Application {
 
   private static final String TITLE = "Zelda";
 
-  private MainControl myControl;
+  private MainController myControl;
   //private Model myModel;
 
   public static void main(String[] args) {
@@ -21,8 +21,8 @@ public class Main extends Application {
     @Override
   public void start(Stage currentStage) {
     //myModel = new Model();
-    //myControl = new MainControl(myModel);
-    myControl = new MainControl();
+    //myControl = new MainController(myModel);
+    myControl = new MainController();
     Scene myScene = null;//myControl.getScene(?)
 
     myScene.setOnKeyPressed(e -> myControl.keyInput(e.getCode()));

@@ -1,19 +1,20 @@
-package controller;
+package ooga.controller;
 
-import controller.player.MainPlayerControl;
+import ooga.controller.player.MainPlayerControll;
 import javafx.scene.input.KeyCode;
+import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movement.Movable1D;
 
-public class MainControl{
-  //private Model myModel;
-  private MainPlayerControl myMainPlayerController;
+public class MainController {
+  private ModelInterface myModel;
+  private MainPlayerControll myMainPlayerController;
   //private MainView myView;
 
-  //public MainControl(Model model){
-  public MainControl(){
+  //public MainController(ModelInterface model){
+  public MainController(){
     //myModel = model;
     //myView = new MainView(this, model);
-    myMainPlayerController = new MainPlayerControl();
+    myMainPlayerController = new MainPlayerControll();
     //setGameType(myModel.getGameType(), myModel.getPlayer());
   }
 

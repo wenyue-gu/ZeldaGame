@@ -1,17 +1,17 @@
-package controller.player;
+package ooga.controller.player;
 
-import controller.JumpableControl;
-import controller.MovableControl1D;
-import controller.PlayerControlInterfaceInterface;
+import ooga.controller.JumpableControll;
+import ooga.controller.MovableControll1D;
 import javafx.scene.input.KeyCode;
+import ooga.controller.PlayerControllInterface;
 import ooga.model.MarioCharacter;
 import ooga.model.interfaces.movement.Movable1D;
 
-public class MarioPlayerControl implements PlayerControlInterfaceInterface, MovableControl1D, JumpableControl {
+public class MarioPlayerControll implements PlayerControlInterface, MovableControll1D, JumpableControll {
 
   private MarioCharacter myPlayer;
 
-  public MarioPlayerControl(){
+  public MarioPlayerControll(){
 
   }
 
