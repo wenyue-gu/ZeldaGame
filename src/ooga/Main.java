@@ -1,12 +1,15 @@
 package ooga;
 
-import controller.MenuControl;
-import controller.gamecontrol.GameController;
+import ooga.controller.MenuControl;
+import ooga.controller.gamecontrol.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import ooga.view.game_view.game_state.AbstractGameStateController;
+import ooga.view.game_view.game_state.GameStateController;
+import ooga.view.game_view.game_state.GameStateView;
 
 
 public class Main extends Application {
@@ -25,6 +28,7 @@ public class Main extends Application {
   public void start(Stage currentStage) {
     //myModel = new Model();
     //myControl = new MainController(myModel);
+
     myMenuControl = new MenuControl(currentStage);
     Button start = myMenuControl.getMyStartButton();
     start.setOnAction(e->startGame(currentStage));
@@ -43,12 +47,14 @@ public class Main extends Application {
   public void startGame(Stage currentStage) {
     //myModel = new ModelInterface();
     //myGameControl = new GameController(myModel);
+
     myGameControl = new GameController();
     Scene myScene = myGameControl.getScene();
 
     myScene.setOnKeyPressed(e -> myGameControl.keyInput(e.getCode()));
     currentStage.setScene(myScene);
     currentStage.show();
+
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(long now) {
