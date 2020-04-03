@@ -240,7 +240,9 @@ This design is very extensible since adding more APIs in the backend by request 
 The controller package will contain one MenuController and one GameController. Menu Controller takes care of the buttons on the initial menu screen and starts the game. GameController holds various smaller controllers that takes in user input. Every frame, each controller under Game Controller will call its update method that updates the backend components (since front end directly binds to backend state changes, controller would not need to individually update view components). Every time user input is detected, corresponding controller will call its keyInput method that updates the backend component.  
 In order to maximize the extensibility, the design of view is structured to include an abstract API: Game View, in which the specific 2D and 3D implementation would follow the basic structure and build upon it. The specific composing parts of the Game View also follows the inheritance structure to maximize its consistency and extensibility at the same time. In addition to the Game View API, Game Menu API implements the generation of the game menu where users could interact by clicking different buttons to control the game.
 
-#### Data Management (Guangyu)
+#### Data Management
+Data are stored using Json files. For all data being loaded, they will first be converted into GameMapGraph, which will be turned into json file using Gson. When loading files, we will traverse all those data and output the data following the the DataStorerAPI
+
 
 ## Example Games
 #### Zelda RPG
