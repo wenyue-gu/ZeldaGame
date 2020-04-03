@@ -1,6 +1,6 @@
-package ooga.model.characters;
+package ooga.model.move;
 
-import ooga.model.interfaces.movement.Movable1D;
+import ooga.model.interfaces.movables.Movable1D;
 
-public abstract class Character implements Movable1D {
+public abstract class MovingObject1D implements Movable1D {
 }

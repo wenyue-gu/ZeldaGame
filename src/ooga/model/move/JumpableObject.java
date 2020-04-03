@@ -1,9 +1,8 @@
-package ooga.model.characters;
+package ooga.model.move;
 
-import ooga.model.interfaces.movement.Jumpable;
-import ooga.model.interfaces.movement.Movable1D;
+import ooga.model.interfaces.movables.Jumpable;
 
-public abstract class JumpableCharacter extends Character implements Jumpable {
+public abstract class JumpableObject extends MovingObject1D implements Jumpable {
 
 
 }

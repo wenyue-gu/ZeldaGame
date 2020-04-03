@@ -1,7 +1,7 @@
-package ooga.model.characters;
+package ooga.model.move;
 
-import ooga.model.interfaces.movement.Movable2D;
+import ooga.model.interfaces.movables.Movable2D;
 
-public abstract class Movable2DCharacter extends Character implements Movable2D {
+public abstract class MovingObject2D extends MovingObject1D implements Movable2D {
 
 }
