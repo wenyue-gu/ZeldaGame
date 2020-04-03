@@ -1,13 +1,13 @@
-####Name
-Wenyue Gu wg74  
-QiaoYi Fang qf30  
-Cady Zhou zz160  
-Guangyu Feng gf55  
+#### Name
+Wenyue Gu (wg74)  
+QiaoYi Fang (qf30)  
+Cady Zhou (zz160)  
+Guangyu Feng (gf55)  
 
-####Date
+#### Date
 2020/3/30
 
-###Contract:
+#### Contract:
 
 - We all promise to listen to each other's ideas with respect;
 - We all promise to do our work as best as we can;

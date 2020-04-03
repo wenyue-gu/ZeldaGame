@@ -1,4 +1,4 @@
-package ooga;
+package ooga.usecases;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

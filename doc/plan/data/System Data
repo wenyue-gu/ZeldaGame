@@ -1,0 +1,10 @@
+{
+  "name" : "David",
+  "ID" : 30,
+  "Weapons" : [ "Football", "Cooking", "Swimming" ],
+  "param" : {
+    "score" : 65,
+    "time" : 40,
+    "life" : 4
+  }
+}

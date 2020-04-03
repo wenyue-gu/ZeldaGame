@@ -21,7 +21,7 @@ public class Main extends Application {
 
   @Override
   public void start(Stage currentStage) {
-    myDataLoader = new DataLoader();
+    myDataLoader = new ooga.DataLoader();
     myModel = new Model(myDataLoader);
     myWindowControl = new WindowControl(currentStage);
     myWindowControl.setModel(myModel);
