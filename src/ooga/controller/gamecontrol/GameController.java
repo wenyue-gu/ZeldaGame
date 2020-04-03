@@ -1,8 +1,8 @@
 package ooga.controller.gamecontrol;
 
+import ooga.controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import ooga.controller.gamecontrol.player.MainPlayerControl;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.AbstractGameStateController;
