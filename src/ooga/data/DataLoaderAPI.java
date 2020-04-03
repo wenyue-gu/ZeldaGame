@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * The interface for game loader
  */
-public interface Data_Loader_API {
+public interface DataLoaderAPI {
 
      int loadCell(int row, int col);
 
