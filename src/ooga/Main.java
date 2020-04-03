@@ -12,6 +12,7 @@ public class Main extends Application {
   private static final String TITLE = "Zelda";
 
   private MainControl myControl;
+  //private Model myModel;
 
   public static void main(String[] args) {
     launch(args);
@@ -19,6 +20,8 @@ public class Main extends Application {
 
     @Override
   public void start(Stage currentStage) {
+    //myModel = new Model();
+
     myControl = new MainControl();
     //TODO: get from data?
     myControl.setGameType("Zelda");

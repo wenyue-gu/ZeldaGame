@@ -1,5 +1,5 @@
 package controller;
 
-public interface ZeldaControl {
+public interface ZeldaControlInterface {
     void update();
 }

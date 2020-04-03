@@ -1,6 +1,6 @@
 package controller.player;
 
-import controller.PlayerControlInterface;
+import controller.PlayerControlInterfaceInterface;
 import ooga.model.MarioCharacter;
 import ooga.model.ZeldaCharacter;
 
@@ -11,7 +11,7 @@ public class PlayerControlFactory {
   //private Map<String, Player> playerMap = new HashMap<>();
 
   //TODO: maybe make it final? since it contains all possible characters supported by our game and shouldn't be able to change
-  private Map<String, PlayerControlInterface> controlMap = new HashMap<>();
+  private Map<String, PlayerControlInterfaceInterface> controlMap = new HashMap<>();
 
   public PlayerControlFactory(){
     fillMap();
@@ -22,7 +22,7 @@ public class PlayerControlFactory {
     controlMap.put("Mario", new MarioPlayerControl(new MarioCharacter()));
   }
 
-  public PlayerControlInterface selectControl(String type){
+  public PlayerControlInterfaceInterface selectControl(String type){
     if(!controlMap.containsKey(type)) return null; //throw exception
     return controlMap.get(type);
   }

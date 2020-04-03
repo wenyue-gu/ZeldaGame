@@ -1,10 +1,10 @@
 package controller.player;
 
-import controller.PlayerControlInterface;
+import controller.PlayerControlInterfaceInterface;
 import javafx.scene.input.KeyCode;
 
-public class MainPlayerControl implements  PlayerControlInterface{
-  private PlayerControlInterface myPlayerControl;
+public class MainPlayerControl implements PlayerControlInterfaceInterface {
+  private PlayerControlInterfaceInterface myPlayerControl;
   private PlayerControlFactory myPlayerControlFactory;
 
   public MainPlayerControl(){

@@ -2,11 +2,11 @@ package controller.player;
 
 import controller.JumpableControl;
 import controller.MovableControl1D;
-import controller.PlayerControlInterface;
+import controller.PlayerControlInterfaceInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.MarioCharacter;
 
-public class MarioPlayerControl implements PlayerControlInterface, MovableControl1D, JumpableControl {
+public class MarioPlayerControl implements PlayerControlInterfaceInterface, MovableControl1D, JumpableControl {
 
   private MarioCharacter myPlayer;
 
