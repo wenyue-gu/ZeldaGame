@@ -1,13 +1,14 @@
-package controller;
+package ooga.controller;
 
-import controller.gamecontrol.GameController;
-import interfaces.view.game_menu.GameMenuView;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import ooga.Model;
+import ooga.controller.gamecontrol.GameController;
 import ooga.model.interfaces.ModelInterface;
+import ooga.view.game_menu.AbstractGameMenuView;
+import ooga.view.game_menu.GameMenuView;
 
 
 public class WindowControl {
@@ -21,11 +22,21 @@ public class WindowControl {
   private ModelInterface myModel;
 
   public WindowControl(Stage currentStage){
-    myMenuView = new GameMenuView();
+    myStage = currentStage;
+    myMenuView = new AbstractGameMenuView();
+    setMenuScene();
     myStartButton = myMenuView.getNewGameButton();
     myStartButton.setOnAction(e->startGame(currentStage));
     myExitButton = myMenuView.getExitGameButton();
     myExitButton.setOnAction(e->currentStage.close());
+  }
+
+  public void setModel(Model model){
+    myModel = model;
+  }
+
+  private void setMenuScene(){
+    myStage.setScene(myMenuView.getMenuView().getScene());
   }
 
   public Button getMyStartButton() {
@@ -36,15 +47,8 @@ public class WindowControl {
     return myExitButton;
   }
 
-  public Scene getScene(){
-    return null;
-    //return myMenuView.getMenuView();
-  }
-
   private void startGame(Stage currentStage) {
-    myModel = new Model();
-    //myGameControl = new GameController(myModel);
-    myGameController = new GameController();
+    myGameController = new GameController(myModel);
     Scene myScene = myGameController.getScene();
 
     myScene.setOnKeyPressed(e -> myGameController.keyInput(e.getCode()));

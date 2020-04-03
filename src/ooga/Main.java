@@ -1,7 +1,6 @@
 package ooga;
 
-import controller.WindowControl;
-import controller.gamecontrol.GameController;
+import ooga.controller.WindowControl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,9 +9,8 @@ public class Main extends Application {
 
   private static final String TITLE = "Zelda";
 
-  private GameController myGameControl;
   private WindowControl myWindowControl;
-  //private Model myModel;
+  private Model myModel;
 
   public static void main(String[] args) {
     launch(args);
@@ -20,10 +18,9 @@ public class Main extends Application {
 
   @Override
   public void start(Stage currentStage) {
-    //myModel = new Model();
-    //myControl = new MainController(myModel);
+    myModel = new Model();
     myWindowControl = new WindowControl(currentStage);
-    currentStage.setScene(myWindowControl.getScene());
+    myWindowControl.setModel(myModel);
     currentStage.setTitle(TITLE);
     currentStage.setWidth(1070);
     currentStage.setHeight(820);
