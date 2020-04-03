@@ -16,7 +16,7 @@ Guangyu Feng gf55
 - We all promise to communicate frequently;
 - We all promise to update progress daily;
 - We all promise to regularly check in each other's progress and provide help if asked;
-- We all promise to ask for help when unable to finish work online;
+- We all promise to ask for help when unable to finqish work online;
 - We all promise to test each other's code;
 - We all promise to test our own code before putting them together;
 - We all promise to debug in our own branch first before pushing to master
