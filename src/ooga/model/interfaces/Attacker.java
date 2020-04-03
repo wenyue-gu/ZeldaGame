@@ -9,7 +9,7 @@ import ooga.model.enums.Direction;
  * @author cady
  * @see Alive
  */
-public interface Weapon {
+public interface Attacker {
 
   /**
    * Sets weapon this object is holding
@@ -36,13 +36,13 @@ public interface Weapon {
   int getAttack();
 
   /**
-   * Sets
-   * @param direction
+   * Sets the direction in which the attack is performed
+   * @param direction the direction in which the attack is performed
    */
   void setFiringDirection(Direction direction);
 
   /**
-   * Sets this weapon to fire
+   * Sets to fire and notify the frontend
    */
   void fire();
 }
