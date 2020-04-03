@@ -4,7 +4,7 @@ import controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import ooga.model.interfaces.ModelInterface;
-import ooga.model.interfaces.movement.Movable1D;
+import ooga.model.interfaces.movables.Movable1D;
 
 public class GameController {
 

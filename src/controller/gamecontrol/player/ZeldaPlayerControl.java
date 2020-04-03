@@ -3,8 +3,8 @@ package controller.gamecontrol.player;
 import controller.gamecontrol.MovableControll2D;
 import controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
-import ooga.model.ZeldaCharacter;
-import ooga.model.interfaces.movement.Movable1D;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.interfaces.movables.Movable1D;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D {
 

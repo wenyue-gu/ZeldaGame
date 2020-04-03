@@ -2,7 +2,7 @@ package controller.gamecontrol;
 
 import controller.ZeldaControlInterface;
 import javafx.scene.input.KeyCode;
-import ooga.model.interfaces.movement.Movable1D;
+import ooga.model.interfaces.movables.Movable1D;
 
 public interface PlayerControlInterface extends ZeldaControlInterface {
   void keyInput(KeyCode key);

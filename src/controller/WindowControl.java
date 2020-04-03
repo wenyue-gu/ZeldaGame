@@ -1,26 +1,31 @@
 package controller;
 
 import controller.gamecontrol.GameController;
+import interfaces.view.game_menu.GameMenuView;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import ooga.Model;
+import ooga.model.interfaces.ModelInterface;
 
 
-public class MenuControl {
+public class WindowControl {
 
   //private MenuView myMenuView;
   private Button myStartButton;
   private Button myExitButton;
   private GameController myGameController;
   private Stage myStage;
+  private GameMenuView myMenuView;
+  private ModelInterface myModel;
 
-  public MenuControl(Stage currentStage){
-    //myMenuView = new MenuView();
+  public WindowControl(Stage currentStage){
+    myMenuView = new GameMenuView();
     myStartButton = myMenuView.getNewGameButton();
-    myStartButton.setOnAction(e->startGame(currentStage, myGameControl));
+    myStartButton.setOnAction(e->startGame(currentStage));
     myExitButton = myMenuView.getExitGameButton();
-    //Scene myScene = myMenuView.getScene();
+    myExitButton.setOnAction(e->currentStage.close());
   }
 
   public Button getMyStartButton() {
@@ -37,18 +42,18 @@ public class MenuControl {
   }
 
   private void startGame(Stage currentStage) {
-    //myModel = new ModelInterface();
+    myModel = new Model();
     //myGameControl = new GameController(myModel);
-    myGameControl = new GameController();
-    Scene myScene = myGameControl.getScene();
+    myGameController = new GameController();
+    Scene myScene = myGameController.getScene();
 
-    myScene.setOnKeyPressed(e -> myGameControl.keyInput(e.getCode()));
+    myScene.setOnKeyPressed(e -> myGameController.keyInput(e.getCode()));
     currentStage.setScene(myScene);
     currentStage.show();
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(long now) {
-        myGameControl.update();
+        myGameController.update();
       }
     };
     timer.start();
