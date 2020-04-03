@@ -1,5 +1,7 @@
 package ooga.model.characters;
 
-public class Player {
+import ooga.model.interfaces.Scorable;
+
+public abstract class MarioPlayer extends MarioCharacter implements Scorable {
 
 }

@@ -1,5 +1,7 @@
 package ooga.model.characters;
 
-public class Character {
+import ooga.model.move.JumpableObject;
+
+public abstract class MarioCharacter extends JumpableObject {
 
 }
