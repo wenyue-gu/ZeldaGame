@@ -6,6 +6,9 @@ import ooga.model.gameElements.Element;
 import ooga.model.interfaces.gameMap.GameMap;
 
 public interface ModelInterface {
+
+  void saveGame(String directory);
+
   List<?> getPlayers();
 
   List<?> getNPCs();
@@ -13,5 +16,7 @@ public interface ModelInterface {
   GameMap getMap();
 
   Map<Element, Integer> getInventory();
+
+  List<?> getGameElements();
 
 }
