@@ -22,7 +22,7 @@ public class usercase2 extends Application {
         myMenuView = new AbstractGameMenuView();
         Button myExitButton = myMenuView.getExitGameButton();
         myExitButton.setOnAction(e->primaryStage.close());
-        
+
         Scene scene = myMenuView.getMenuView().getScene();
         primaryStage.setScene(scene);
         primaryStage.show();
