@@ -8,8 +8,22 @@ import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.gameMap.GameMap;
 
 public class Model implements ModelInterface {
+  private DataLoaderAPI dataLoader;
+  private GameMap gameMap;
 
   public Model(DataLoaderAPI dataLoader) {
+    this.dataLoader = dataLoader;
+    intialize();
+  }
+
+  private void intialize() {
+    dataLoader.loadInteger("row", "display");
+
+  }
+
+
+  @Override
+  public void saveGame(String directory) {
 
   }
 
@@ -30,6 +44,11 @@ public class Model implements ModelInterface {
 
   @Override
   public Map<Element, Integer> getInventory() {
+    return null;
+  }
+
+  @Override
+  public List<?> getGameElements() {
     return null;
   }
 }

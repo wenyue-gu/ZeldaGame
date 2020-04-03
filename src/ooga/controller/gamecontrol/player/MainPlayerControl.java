@@ -2,7 +2,7 @@ package ooga.controller.gamecontrol.player;
 
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
-import ooga.model.interfaces.movement.Movable1D;
+import ooga.model.interfaces.movables.Movable1D;
 
 public class MainPlayerControl implements PlayerControlInterface {
   private PlayerControlInterface myPlayerControl;
