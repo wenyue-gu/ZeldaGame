@@ -27,7 +27,6 @@ public class Main extends Application {
     //myControl = new MainController(myModel);
     myMenuControl = new MenuControl(currentStage);
     Button start = myMenuControl.getMyStartButton();
-    start.setOnAction(e->startGame(currentStage));
     Button exit = myMenuControl.getMyStartButton();
     exit.setOnAction(e->currentStage.close());
     Scene myScene = myMenuControl.getScene();
@@ -39,27 +38,5 @@ public class Main extends Application {
     currentStage.setResizable(true);
     currentStage.show();
   }
-
-  public void startGame(Stage currentStage) {
-    //myModel = new ModelInterface();
-    //myGameControl = new GameController(myModel);
-    myGameControl = new GameController();
-    Scene myScene = myGameControl.getScene();
-
-    myScene.setOnKeyPressed(e -> myGameControl.keyInput(e.getCode()));
-    currentStage.setScene(myScene);
-    currentStage.show();
-    AnimationTimer timer = new AnimationTimer() {
-      @Override
-      public void handle(long now) {
-        myGameControl.update();
-      }
-    };
-    timer.start();
-  }
-
-
-
-
 
 }
