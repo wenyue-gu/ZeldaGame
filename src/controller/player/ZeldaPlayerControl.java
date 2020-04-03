@@ -3,14 +3,21 @@ package controller.player;
 import controller.MovableControl2D;
 import controller.PlayerControlInterfaceInterface;
 import javafx.scene.input.KeyCode;
+import ooga.model.MarioCharacter;
 import ooga.model.ZeldaCharacter;
+import ooga.model.interfaces.movement.Movable1D;
 
 public class ZeldaPlayerControl implements PlayerControlInterfaceInterface, MovableControl2D {
 
   private ZeldaCharacter myPlayer;
 
-  public ZeldaPlayerControl(ZeldaCharacter character){
-    myPlayer = character;
+  public ZeldaPlayerControl(){
+
+  }
+
+  @Override
+  public void setMyPlayer(Movable1D myPlayer) {
+    this.myPlayer = (ZeldaCharacter)myPlayer;
   }
 
   @Override

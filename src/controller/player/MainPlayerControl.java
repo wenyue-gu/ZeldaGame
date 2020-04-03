@@ -2,6 +2,7 @@ package controller.player;
 
 import controller.PlayerControlInterfaceInterface;
 import javafx.scene.input.KeyCode;
+import ooga.model.interfaces.movement.Movable1D;
 
 public class MainPlayerControl implements PlayerControlInterfaceInterface {
   private PlayerControlInterfaceInterface myPlayerControl;
@@ -18,6 +19,11 @@ public class MainPlayerControl implements PlayerControlInterfaceInterface {
   @Override
   public void keyInput(KeyCode key){
     myPlayerControl.keyInput(key);
+  }
+
+  @Override
+  public void setMyPlayer(Movable1D player) {
+    myPlayerControl.setMyPlayer(player);
   }
 
   @Override

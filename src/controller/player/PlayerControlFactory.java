@@ -18,8 +18,8 @@ public class PlayerControlFactory {
   }
 
   private void fillMap(){
-    controlMap.put("Zelda", new ZeldaPlayerControl(new ZeldaCharacter()));
-    controlMap.put("Mario", new MarioPlayerControl(new MarioCharacter()));
+    controlMap.put("Zelda", new ZeldaPlayerControl());
+    controlMap.put("Mario", new MarioPlayerControl());
   }
 
   public PlayerControlInterfaceInterface selectControl(String type){

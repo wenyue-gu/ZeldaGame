@@ -21,10 +21,8 @@ public class Main extends Application {
     @Override
   public void start(Stage currentStage) {
     //myModel = new Model();
-
+    //myControl = new MainControl(myModel);
     myControl = new MainControl();
-    //TODO: get from data?
-    myControl.setGameType("Zelda");
     Scene myScene = null;//myControl.getScene(?)
 
     myScene.setOnKeyPressed(e -> myControl.keyInput(e.getCode()));

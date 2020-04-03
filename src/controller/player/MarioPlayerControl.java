@@ -5,20 +5,26 @@ import controller.MovableControl1D;
 import controller.PlayerControlInterfaceInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.MarioCharacter;
+import ooga.model.interfaces.movement.Movable1D;
 
 public class MarioPlayerControl implements PlayerControlInterfaceInterface, MovableControl1D, JumpableControl {
 
   private MarioCharacter myPlayer;
 
-  public MarioPlayerControl(MarioCharacter character){
-    myPlayer = character;
+  public MarioPlayerControl(){
+
+  }
+
+  @Override
+  public void setMyPlayer(Movable1D myPlayer) {
+    this.myPlayer = (MarioCharacter)myPlayer;
   }
 
   @Override
   public void keyInput(KeyCode key) {
     switch (key){
-        case LEFT: moveInX(-1); break;
-        case RIGHT: moveInX(1); break;
+        case LEFT: left(1); break;
+        case RIGHT: right(1); break;
         case UP: jump(); break;
     }
   }
@@ -29,12 +35,17 @@ public class MarioPlayerControl implements PlayerControlInterfaceInterface, Mova
   }
 
   @Override
-  public void moveInX(double deltaX) {
-    myPlayer.moveInX(deltaX);
+  public void jump() {
+    myPlayer.jump();
   }
 
   @Override
-  public void jump() {
-    myPlayer.jump();
+  public void left(double deltaX) {
+    myPlayer.moveInX(-1*deltaX);
+  }
+
+  @Override
+  public void right(double deltaX) {
+    myPlayer.moveInX(deltaX);
   }
 }
