@@ -25,8 +25,6 @@ public interface DataStorerAPI {
 
     void storeInteger(String keyword, String category, int value);
 
-
-
     void updateParamSetting(Map<String, Integer> playerPreference, int category);
 
 
