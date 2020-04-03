@@ -1,6 +1,6 @@
 package ooga.model.enums;
 
-public enum CharacterState {
+public enum MovingState {
   STOP(0),
   RUN(1),
   JUMP_UP(2),
@@ -11,7 +11,7 @@ public enum CharacterState {
   ;
 
   private final int index;
-  CharacterState(int index) {
+  MovingState(int index) {
     this.index = index;
   }
 
