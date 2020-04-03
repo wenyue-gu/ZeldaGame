@@ -1,8 +1,6 @@
 package ooga;
 
 import javafx.scene.image.Image;
-import ooga.model.interfaces.Weapon;
-import ooga.model.interfaces.gameMap.Cell;
 
 import java.util.Map;
 
@@ -11,7 +9,7 @@ import java.util.Map;
  */
 public interface Data_Loader_API {
 
-    Cell loadCell(int row, int col);
+     int loadCell(int row, int col);
 
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
@@ -19,24 +17,16 @@ public interface Data_Loader_API {
      */
     String loadText(String keyword, String category);
 
-    Character loadCharacter(int ID);
+    int loadCharacter(int ID, int property);
 
-    Weapon loadWeapon(int ID);
+    int loadWeapon(int ID, int property);
 
-    Map<String, Integer> loadGameStatus();
+    Object loadInventoryElement(int ID);
 
+    Map<String, Integer> loadInternalStorage(String category);
 
     Image loadImage(String keyword, String category);
 
-    
-    /**
-     * Load the player's preference and string is the name of the preference while integer is the value
-     * @return
-     */
-    Map<String, Integer>  loadPlayerPreference();
-
     Integer loadInteger(String keyword, String category);
-
-
 
 }

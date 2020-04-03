@@ -1,29 +1,31 @@
 package ooga;
 
-import java.util.List;
+import javafx.scene.image.Image;
+import ooga.model.interfaces.Inventory;
+
 import java.util.Map;
 
 public interface DataStorerAPI {
 
     /**
-     * load text files from the database. Same concern as loadGameIcon.
+     * store text files to the database.
      * @return
      */
-    List<String> StoreText();
+    void StoreText(String text, String keyword, String category);
 
-    /**
-     * update the game's status and string is the name of the status while integer is the value
-     * @return
-     */
-     void updateGameStatus(Map<String, Integer> gameStatus);
+    void StoreCharacter(int ID, Character character);
+
+    void storeWeapons(int ID, Weapon weapon);
+
+    void StoreInventory(Inventory inventory);
+
+    void storeImage(Image image, String keyword, String category);
+
+    void storeInteger(String keyword, String category, int value);
 
 
 
-    /**
-     * update the player's preference and string is the name of the preference while integer is the value
-     * @return
-     */
-     void updatePlayerPreference(Map<String, Integer> playerPreference);
+    void updateParamSetting(Map<String, Integer> playerPreference, int category);
 
 
 }
