@@ -1,4 +1,4 @@
-package ooga;
+package ooga.usecases;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -27,7 +27,7 @@ public class usercase4 extends Application {
 
     //When user presses key RIGHT
     //MarioPlayerControl.keyInput is called
-    //In switch cases, ZeldaPlayerControl calls "right(1)"
+    //In switch cases, MarioPlayerControl calls "right(1)"
     //inside right(1) backEndPlayer.moveInX(1), moving player to the right by 1
     //front end uses listener to detect change and update its view
 

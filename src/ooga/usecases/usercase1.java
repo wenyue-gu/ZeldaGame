@@ -1,4 +1,4 @@
-package ooga;
+package ooga.usecases;
 
 import ooga.controller.WindowControl;
 import javafx.application.Application;
@@ -7,9 +7,9 @@ import ooga.data.DataLoaderAPI;
 import ooga.model.Model;
 
 
-public class Main extends Application {
+public class usercase1 extends Application {
 
-  private static final String TITLE = "Zelda";
+  private static final String TITLE = "User Example 1";
 
   private WindowControl myWindowControl;
   private Model myModel;
@@ -25,11 +25,15 @@ public class Main extends Application {
     myModel = new Model(myDataLoader);
     myWindowControl = new WindowControl(currentStage);
     myWindowControl.setModel(myModel);
+
     currentStage.setTitle(TITLE);
-    currentStage.setWidth(1070);
+    currentStage.setWidth(1080);
     currentStage.setHeight(820);
     currentStage.setResizable(true);
     currentStage.show();
+
+    //This user example shows a basic assembly of all components in the application.
+
   }
 
 }
