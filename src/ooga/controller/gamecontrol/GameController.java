@@ -16,8 +16,8 @@ public class GameController {
   GameStateController myGameStateController;
 
 //public GameController(ModelInterface model){
-  public GameController(){
-    //myModel = model;
+  public GameController(ModelInterface myModel){
+    this.myModel = myModel;
     myGameStateController = new AbstractGameStateController();
     myMainPlayerController = new MainPlayerControl();
     //setGameType(myModel.getGameType(), myModel.getPlayer());
