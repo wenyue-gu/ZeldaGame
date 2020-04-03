@@ -1,4 +1,6 @@
-package ooga.model.interfaces.movement;
+package ooga.model.interfaces.movables;
+
+import ooga.model.enums.MovingState;
 
 /**
  * This interface can be used by objects that move on a 1D line.
@@ -50,4 +52,16 @@ public interface Movable1D {
    * @return if frontend is animating
    */
   boolean isBusy();
+
+  /**
+   * Sets the current moving state
+   * @param movingState the current moving state
+   */
+  void setState(MovingState movingState);
+
+  /**
+   * Gets the current moving state
+   * @return  the current moving state
+   */
+  MovingState getState();
 }
