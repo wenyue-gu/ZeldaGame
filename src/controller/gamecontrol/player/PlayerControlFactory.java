@@ -1,6 +1,6 @@
-package controller.player;
+package controller.gamecontrol.player;
 
-import controller.PlayerControlInterface;
+import controller.gamecontrol.PlayerControlInterface;
 
 import java.util.*;
 

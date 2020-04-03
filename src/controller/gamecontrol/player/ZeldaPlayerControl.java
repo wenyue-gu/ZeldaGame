@@ -1,6 +1,7 @@
-package controller.player;
+package controller.gamecontrol.player;
 
-import controller.*;
+import controller.gamecontrol.MovableControll2D;
+import controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.ZeldaCharacter;
 import ooga.model.interfaces.movement.Movable1D;

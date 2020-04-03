@@ -1,4 +1,4 @@
-package controller;
+package controller.gamecontrol;
 
 public interface MovableControll1D {
 

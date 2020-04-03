@@ -1,5 +1,6 @@
-package controller;
+package controller.gamecontrol;
 
+import controller.ZeldaControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.interfaces.movement.Movable1D;
 
