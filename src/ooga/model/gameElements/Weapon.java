@@ -1,5 +1,5 @@
 package ooga.model.gameElements;
 
-public class Weapon {
+public abstract class Weapon {
 
 }
