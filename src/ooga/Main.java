@@ -4,7 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ooga.controller.MainController;
+import controller.MainController;
 
 
 public class Main extends Application {

@@ -1,16 +1,15 @@
-package ooga.controller.player;
+package controller.player;
 
-import ooga.controller.MovableControll2D;
+import controller.*;
 import javafx.scene.input.KeyCode;
-import ooga.controller.PlayerControllInterface;
 import ooga.model.ZeldaCharacter;
 import ooga.model.interfaces.movement.Movable1D;
 
-public class ZeldaPlayerControll implements PlayerControlInterface, MovableControll2D {
+public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D {
 
   private ZeldaCharacter myPlayer;
 
-  public ZeldaPlayerControll(){
+  public ZeldaPlayerControl(){
 
   }
 

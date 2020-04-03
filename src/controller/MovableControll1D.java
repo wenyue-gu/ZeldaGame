@@ -1,4 +1,4 @@
-package ooga.controller;
+package controller;
 
 public interface MovableControll1D {
 
