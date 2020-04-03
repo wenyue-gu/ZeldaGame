@@ -10,14 +10,14 @@ _GameMenuController(GameMenuView)_: adds event handlers to the buttons in game m
 
 #### Game View
 ##### Game State View(JavaFX.Scene):
-abstract _GameStateController_: implements the overall control of game state. It initializes the main view for the game state in its own initialization phasse.
+abstract _GameStateController_: implements the overall control of game state. It initializes the main view for the game state in its own initialization phase.
 abstract _GameStateView_() extends _JavaFX.scene_: defines the basic behaviors of the main view method. This should be the only method public to the rest of the application.
 ##### Map View:
-abstract _MapController_(boolean fixed): implements the listeners to backend. It initializes the main view for the game state in its own initialization phasse. If _fixed_ is true, thus the construction of the map remains the same throughout the game.
+abstract _MapController_(boolean fixed): implements the listeners to backend. It initializes the main view for the game state in its own initialization phase. If _fixed_ is true, thus the construction of the map remains the same throughout the game.
 abstract _MapView_: defines the basic behaviors of visualizing the map
 
 ##### Agent View:
-abstract _AgentController_: mainly implements the agent listener to the backend and manage the communication between the rest of the application with its corresponding AgentView. It initializes the main view for the game state in its own initialization phasse.
+abstract _AgentController_: mainly implements the agent listener to the backend and manage the communication between the rest of the application with its corresponding AgentView. It initializes the main view for the game state in its own initialization phase.
 abstract _AgentView_: defines the basic behaviors of Agent View
 ###### Playable Agent View
 abstract _PlayableAgentController_ extends AgentController
@@ -28,7 +28,7 @@ abstract _NonPlayableAgentController_ extends AgentController
 abstract _NonPlayableAgentView_ extends AgentView
 
 ##### Object View:
-abstract _ObjectController_: mainly implements the agent listener to the backend and manage the communication between the rest of the application with its corresponding AgentView. It initializes the main view for the game state in its own initialization phasse.
+abstract _ObjectController_: mainly implements the agent listener to the backend and manage the communication between the rest of the application with its corresponding AgentView. It initializes the main view for the game state in its own initialization phase.
 abstract _ObjectView_: defines the basic behaviors of Object View
 
 ###### Interactive Object View:
@@ -85,11 +85,11 @@ All game elements extend from the parent class Element (which implements Interac
 - *public interface InteractiveElements*: This interface records all game elements that can interact with players/NPCs
 
 #### Other classes (src/ooga/model/interfaces): 
-There are other APIs that describe the state/possessions of character. These APIs include Alive (for HP), Attackr (for attacking), Inventory (for possessions), and Scroable (for Scoring)
+There are other APIs that describe the state/possessions of character. These APIs include Alive (for HP), Attacker (for attacking), Inventory (for possessions), and Scrollable (for Scoring)
 - *public interface Alive*: Objects that implement this interface have certain HP values
-- *public interface Attacker*: bjects that implement this interface are allowed to attack other objects in different ways
+- *public interface Attacker*: objects that implement this interface are allowed to attack other objects in different ways
 - *public interface Inventory* : stores information of other objects that a player can take
-- *public interface Scorable* : helps players keep track of scores
+- *public interface Scorllable* : helps players keep track of scores
 
 ### Controller
 - MainController
