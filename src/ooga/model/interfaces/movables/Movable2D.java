@@ -1,4 +1,4 @@
-package ooga.model.interfaces.movement;
+package ooga.model.interfaces.movables;
 
 /**
  * This interface holds an object that can move on both x and y directions.

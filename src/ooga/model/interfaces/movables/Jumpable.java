@@ -1,4 +1,4 @@
-package ooga.model.interfaces.movement;
+package ooga.model.interfaces.movables;
 
 /**
  * This interface holds object that jumps following physics rules. This interface should always
