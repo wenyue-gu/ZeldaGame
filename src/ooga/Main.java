@@ -25,6 +25,7 @@ public class Main extends Application {
     myModel = new Model(myDataLoader);
     myWindowControl = new WindowControl(currentStage);
     myWindowControl.setModel(myModel);
+    myWindowControl.setDataLoader(myDataLoader);
     currentStage.setTitle(TITLE);
     currentStage.setWidth(1070);
     currentStage.setHeight(820);
