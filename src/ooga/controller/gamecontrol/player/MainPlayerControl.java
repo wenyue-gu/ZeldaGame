@@ -28,7 +28,7 @@ public class MainPlayerControl implements PlayerControlInterface {
 
   @Override
   public void update(){
-
+    myPlayerControl.update();
   }
 
 }
