@@ -26,9 +26,4 @@ public class MainPlayerControl implements PlayerControlInterface {
     myPlayerControl.setMyPlayer(player);
   }
 
-  @Override
-  public void update(){
-    myPlayerControl.update();
-  }
-
 }

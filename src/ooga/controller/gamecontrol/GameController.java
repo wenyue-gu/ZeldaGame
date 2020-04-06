@@ -39,7 +39,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   }
 
   public void update(){
-    for(MainPlayerControl mpc: myMainPlayerController) mpc.update(); // update back-end
+    //for(MainPlayerControl mpc: myMainPlayerController) mpc.update(); // update back-end //user-controlled player doesn't need to be updated
     myGameStateController.update(); // update front-end
   }
 

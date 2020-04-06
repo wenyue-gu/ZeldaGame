@@ -30,11 +30,6 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void update() {
-
-  }
-
-  @Override
   public void left(double deltaX) {
     myPlayer.moveInX(-1*deltaX);
   }

@@ -43,7 +43,7 @@ public class WindowControl {
   }
 
   private void setMenuScene(){
-    myStage.setScene(myMenuView.getMenuView().getScene());
+    myStage.setScene(myMenuView.getMenuView());
   }
 
 
