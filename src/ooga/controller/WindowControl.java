@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import ooga.DataLoader;
 import ooga.controller.gamecontrol.GameController;
+import ooga.data.DataLoaderAPI;
 import ooga.model.Model;
 import ooga.model.interfaces.ModelInterface;
 import ooga.view.game_menu.AbstractGameMenuView;
@@ -20,6 +22,7 @@ public class WindowControl {
   private Stage myStage;
   private GameMenuView myMenuView;
   private ModelInterface myModel;
+  private DataLoaderAPI myDataLoader;
 
   public WindowControl(Stage currentStage){
     myStage = currentStage;
@@ -35,20 +38,17 @@ public class WindowControl {
     myModel = model;
   }
 
+  public void setDataLoader(DataLoaderAPI Loader){
+    myDataLoader = Loader;
+  }
+
   private void setMenuScene(){
     myStage.setScene(myMenuView.getMenuView().getScene());
   }
 
-  public Button getMyStartButton() {
-    return myStartButton;
-  }
-
-  public Button getMyExitButton() {
-    return myExitButton;
-  }
 
   private void startGame(Stage currentStage) {
-    myGameController = new GameController(myModel);
+    myGameController = new GameController(myModel, myDataLoader);
     Scene myScene = myGameController.getScene();
 
     myScene.setOnKeyPressed(e -> myGameController.keyInput(e.getCode()));

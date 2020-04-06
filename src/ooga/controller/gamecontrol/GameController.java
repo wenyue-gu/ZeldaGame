@@ -3,6 +3,7 @@ package ooga.controller.gamecontrol;
 import ooga.controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import ooga.data.DataLoaderAPI;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.AbstractGameStateController;
@@ -14,15 +15,14 @@ public class GameController {
 
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController;
-  //private MainView myView;
-  GameStateController myGameStateController;
+  private GameStateController myGameStateController;
+  private DataLoaderAPI myDataLoader;
 
-public GameController(ModelInterface model){
-  //public GameController(){
+public GameController(ModelInterface model, DataLoaderAPI loader){
     myModel = model;
+    myDataLoader = loader;
     myGameStateController = new AbstractGameStateController();
     setGameType("Zelda");
-    //setGameType(myModel.getGameType(), myModel.getPlayer());
   }
 
   public void keyInput(KeyCode code) {
