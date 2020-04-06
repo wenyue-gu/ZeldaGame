@@ -4,6 +4,7 @@ import ooga.controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import ooga.data.DataLoaderAPI;
+import ooga.model.characters.ZeldaPlayer;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.AbstractGameStateController;
@@ -26,16 +27,16 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   }
 
   public void keyInput(KeyCode code) {
-    for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
+     for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
   }
 
   private void setGameType(String gameType){
-    for(Object player:myModel.getPlayers()) {
-      MainPlayerControl curControl = new MainPlayerControl();
-      curControl.setControl(gameType);
-      curControl.setMyPlayer((Movable1D)player);
-      myMainPlayerController.add(curControl);
-    }
+//    for(Object player:myModel.getPlayers()) {
+//      MainPlayerControl curControl = new MainPlayerControl();
+//      curControl.setControl(gameType);
+//      curControl.setMyPlayer((Movable1D)player);
+//      myMainPlayerController.add(curControl);
+//    }
   }
 
   public void update(){
@@ -44,7 +45,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   }
 
   public Scene getScene(){
-    return null;
+    return myGameStateController.getGameStateView();
     //return myView.getGameView();
   }
 

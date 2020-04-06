@@ -41,7 +41,7 @@ public class AbstractGameMenuView implements GameMenuView {
 
     private void setUpVBox(){
         vBox = new VBox();
-        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(myNewButton, myExitButton);
     }
 }
