@@ -11,13 +11,16 @@ import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.AbstractGameStateController;
 import ooga.view.game_view.game_state.GameStateController;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
 
   private ModelInterface myModel;
-  private List<MainPlayerControl> myMainPlayerController;
-  private GameStateController myGameStateController;
+  private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
+  private List<NPCControl> myNPCControl = new ArrayList<>();
+  private GameStateController myGameStateController; //frontend
   private DataLoaderAPI myDataLoader;
   private boolean dark;
 
@@ -26,10 +29,19 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     myDataLoader = loader;
     myGameStateController = new AbstractGameStateController();
     setGameType("Zelda");
+    setNPC();
   }
 
   public void keyInput(KeyCode code) {
      for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
+  }
+
+
+  private void setNPC(){
+    for(Object NPC:myModel.getNPCs()){
+      NPCControl npcControl = new NPCControl((Movable1D)NPC);
+      myNPCControl.add(npcControl);
+    }
   }
 
   private void setGameType(String gameType){
@@ -42,7 +54,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   }
 
   public void update(){
-    //for(MainPlayerControl mpc: myMainPlayerController) mpc.update(); // update back-end //user-controlled player doesn't need to be updated
+    for(NPCControl npc: myNPCControl) npc.update(); // update back-end //user-controlled player doesn't need to be updated, only NPC
     myGameStateController.update(); // update front-end
   }
 
