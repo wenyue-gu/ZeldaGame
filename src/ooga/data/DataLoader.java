@@ -73,6 +73,19 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public Image loadImage(int imageID, String category) {
     return null;
   }
+  private Object loadMap(Class clazz, String fileName) {
+    Object map = null;
+    try {
+
+      Reader reader = Files.newBufferedReader(Paths.get(fileName + ".json"));
+      map = gson.fromJson(reader,clazz);
+      System.out.println(map);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return map;
+
+  }
 
 
   @Override

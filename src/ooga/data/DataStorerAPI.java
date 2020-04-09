@@ -23,8 +23,6 @@ public interface DataStorerAPI {
 
     void StoreInventory(Inventory inventory);
 
-    void storeImage(Image image, String keyword, String category);
-
     void storeImage(Image image, int ImageID, String category);
 
     void storeInteger(String keyword, String category, int value);

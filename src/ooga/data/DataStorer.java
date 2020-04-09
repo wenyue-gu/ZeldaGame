@@ -61,6 +61,7 @@ public class DataStorer implements DataStorerAPI {
     public void storeImage(Image image, int ImageID, String category) {
         Map<Integer, Image> imageMap = new HashMap<>();
         imageMap.put(ImageID, image);
+        writeObjectTOJson(imageMap, category);
     }
 
     @Override

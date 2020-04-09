@@ -1,28 +1,31 @@
 package ooga.data;
 
-import ooga.model.interfaces.gameMap.Cell;
-
-import java.util.LinkedList;
-
 public class ExampleDataGenerator {
     public static void main(String[] args) {
 //        Gson gson = new Gson();
 //        ObjectMapper mapper = new ObjectMapper();
 //        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
-        LinkedList<Cell> cellLinkedList = new LinkedList<>();
-        for (int i = 0; i < 20; i++) {
-            Cell newCell = new GameCell(1);
-            newCell.setState(1);
-            newCell.setImage(9);
-            cellLinkedList.add(newCell);
-        }
-
-        DataLoader a = new DataLoader();
+        /**
+         * the following is testing the Game map loading
+         */
+//        LinkedList<Cell> cellLinkedList = new LinkedList<>();
+//        for (int i = 0; i < 20; i++) {
+//            Cell newCell = new GameCell(1);
+//            newCell.setState(1);
+//            newCell.setImage(9);
+//            cellLinkedList.add(newCell);
+//        }
+//
+//        DataLoader a = new DataLoader();
 //        DataStorer b = new DataStorer();
-        a.loadCell(1,1,1);
+//        a.loadCell(1,1,1);
 //        b.storeMap(cellLinkedList, 1);
 
+        /**
+         * the following is testing imaga map loading/storing
+         */
+        
 //        constructExampleGameMap(gameMap);
 //        try {
 //            mapper.writeValue(new File("example Data2.json"), gameMap);
