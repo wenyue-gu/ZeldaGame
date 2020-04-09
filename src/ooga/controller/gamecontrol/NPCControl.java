@@ -13,6 +13,6 @@ public class NPCControl implements ZeldaControlInterface {
 
     @Override
     public void update() {
-        //for(Object c:myNPC) c.update();
+        //myNPC.update();
     }
 }
