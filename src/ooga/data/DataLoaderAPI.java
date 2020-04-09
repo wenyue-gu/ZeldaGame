@@ -1,6 +1,7 @@
 package ooga.data;
 
 import javafx.scene.image.Image;
+import ooga.model.interfaces.gameMap.Cell;
 
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  */
 public interface DataLoaderAPI {
 
-     int loadCell(int row, int col);
+     Cell loadCell(int row, int col, int level);
 
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
@@ -25,7 +26,7 @@ public interface DataLoaderAPI {
 
     Map<String, Integer> loadInternalStorage(String category);
 
-    Image loadImage(String keyword, String category);
+    Image loadImage(int imageID, String category);
 
     Integer loadInteger(String keyword, String category);
 

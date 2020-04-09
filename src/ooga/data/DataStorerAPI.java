@@ -25,11 +25,18 @@ public interface DataStorerAPI {
 
     void storeImage(Image image, String keyword, String category);
 
+    void storeImage(Image image, int ImageID, String category);
+
     void storeInteger(String keyword, String category, int value);
 
     void updateParamSetting(Map<String, Integer> playerPreference, int category);
 
-    void storeMap(Collection<Cell> map);
-
+    /**
+     *
+     * @param map cells in the collection will first fill in the 1st row, then the 2nd row of the screen and so on...
+     * @param level the level the game displays.
+     */
+    void storeMap(Collection<Cell> map, int level);
+    void addLevel(int levelNumber);
 
 }
