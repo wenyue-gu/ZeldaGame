@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import ooga.data.DataLoaderAPI;
 import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.MovingState;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.AbstractGameStateController;
@@ -18,6 +19,7 @@ public class GameController {
   private List<MainPlayerControl> myMainPlayerController;
   private GameStateController myGameStateController;
   private DataLoaderAPI myDataLoader;
+  private boolean dark;
 
 public GameController(ModelInterface model, DataLoaderAPI loader){
     myModel = model;
@@ -31,12 +33,12 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   }
 
   private void setGameType(String gameType){
-//    for(Object player:myModel.getPlayers()) {
-//      MainPlayerControl curControl = new MainPlayerControl();
-//      curControl.setControl(gameType);
-//      curControl.setMyPlayer((Movable1D)player);
-//      myMainPlayerController.add(curControl);
-//    }
+    for(Object player:myModel.getPlayers()) {
+      MainPlayerControl curControl = new MainPlayerControl();
+      curControl.setControl(gameType);
+      curControl.setMyPlayer((Movable1D)player);
+      myMainPlayerController.add(curControl);
+    }
   }
 
   public void update(){
@@ -47,6 +49,10 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   public Scene getScene(){
     return myGameStateController.getGameStateView();
     //return myView.getGameView();
+  }
+
+  public void setMode(boolean dark){
+    this.dark = dark;
   }
 
 }
