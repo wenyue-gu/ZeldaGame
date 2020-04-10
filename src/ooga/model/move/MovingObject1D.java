@@ -1,5 +1,6 @@
 package ooga.model.move;
 
+import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 
 public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
@@ -10,6 +11,7 @@ public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D 
   protected double x;
   protected double xSpeed;
   protected MovingState movingState;
+  protected Direction movingDirection;
 
   public MovingObject1D() {
     this(DEFAULT_X);
@@ -22,7 +24,7 @@ public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D 
   public MovingObject1D(double x, double xSpeed) {
     this.x = x;
     this.xSpeed = xSpeed;
-    movingState = MovingState.STOP;
+    movingState = MovingState.IDLE;
   }
 
   @Override
@@ -65,4 +67,16 @@ public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D 
   public MovingState getState() {
     return movingState;
   }
+
+  @Override
+  public void setDirection(Direction direction) {
+    this.movingDirection = direction;
+  }
+
+  @Override
+  public Direction getDirection() {
+    return movingDirection;
+  }
+
+
 }
