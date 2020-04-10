@@ -1,3 +1,8 @@
+//PLAYER ID FROM BACKEND
+//PLAYER DIRECTION AND STUFF FOR ATTACK
+
+
+
 package ooga.controller.gamecontrol;
 
 import ooga.controller.gamecontrol.NPC.MainNPCControl;
@@ -13,6 +18,7 @@ import ooga.view.game_view.game_state.AbstractGameStateController;
 import ooga.view.game_view.game_state.GameStateController;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +38,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     setUpPlayerandNPC();
   }
 
-  public void keyInput(KeyCode code) {
+  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
      for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
   }
 

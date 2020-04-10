@@ -46,42 +46,45 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void up() {
-    myPlayer.setState(MovingState.RUN);
+    myPlayer.setState(MovingState.WALK);
     myPlayer.setDirection(Direction.NORTH);
   }
 
   @Override
   public void down() {
-    myPlayer.setState(MovingState.RUN);
+    myPlayer.setState(MovingState.WALK);
     myPlayer.setDirection(Direction.SOUTH);
   }
 
   @Override
   public void left() {
-    myPlayer.setState(MovingState.RUN);
+    myPlayer.setState(MovingState.WALK);
     myPlayer.setDirection(Direction.WEST);
   }
 
   @Override
   public void right() {
-    myPlayer.setState(MovingState.RUN);
+    myPlayer.setState(MovingState.WALK);
     myPlayer.setDirection(Direction.EAST);
   }
 
   @Override
+  public void attack0() {
+    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setAttack(0);
+  }
+
+  @Override
   public void attack1() {
-    myPlayer.setState(MovingState.MELEE_ATTACK);
+    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setAttack(1);
+
   }
 
   @Override
   public void attack2() {
-    myPlayer.setState(MovingState.MELEE_ATTACK);
-
-  }
-
-  @Override
-  public void attack3() {
-    myPlayer.setState(MovingState.MELEE_ATTACK);
+    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setAttack(2);
 
   }
 }
