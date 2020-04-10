@@ -6,9 +6,12 @@ import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.interfaces.movables.Movable1D;
 
+import java.util.Map;
+
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D {
 
   private ZeldaCharacter myPlayer;
+  private Map<String, KeyCode> myKeyCodeMap;
 
   public ZeldaPlayerControl(){
 
@@ -20,13 +23,16 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
+  public void setKeyCodeMap(Map<String, KeyCode> map) {
+    myKeyCodeMap = map;
+  }
+
+  @Override
   public void keyInput(KeyCode key) {
-    switch (key){
-      case LEFT: left(1); break;
-      case RIGHT: right(1); break;
-      case UP: up(1); break;
-      case DOWN: down(1); break;
-    }
+    if(key==myKeyCodeMap.get("left")) left(1);
+    else if (key==myKeyCodeMap.get("right")) right(1);
+    else if (key==myKeyCodeMap.get("up")) up(1);
+    else if (key==myKeyCodeMap.get("down")) down(1);
   }
 
   @Override

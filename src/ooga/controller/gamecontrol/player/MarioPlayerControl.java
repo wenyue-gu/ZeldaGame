@@ -7,9 +7,12 @@ import javafx.scene.input.KeyCode;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.interfaces.movables.Movable1D;
 
+import java.util.Map;
+
 public class MarioPlayerControl implements PlayerControlInterface, MovableControll1D, JumpableControl {
 
   private MarioCharacter myPlayer;
+  private Map<String, KeyCode> myKeyCodeMap;
 
   public MarioPlayerControl(){
 
@@ -21,12 +24,15 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
+  public void setKeyCodeMap(Map<String, KeyCode> map) {
+    myKeyCodeMap = map;
+  }
+
+  @Override
   public void keyInput(KeyCode key) {
-    switch (key){
-        case LEFT: left(1); break;
-        case RIGHT: right(1); break;
-        case UP: jump(); break;
-    }
+    if(key==myKeyCodeMap.get("left")) left(1);
+    else if (key==myKeyCodeMap.get("right")) right(1);
+    else if (key==myKeyCodeMap.get("up")) jump();
   }
 
 

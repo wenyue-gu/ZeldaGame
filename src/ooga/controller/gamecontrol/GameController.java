@@ -28,7 +28,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     myModel = model;
     myDataLoader = loader;
     myGameStateController = new AbstractGameStateController();
-    setGameType("Zelda");
+    setUpPlayer();
     setNPC();
   }
 
@@ -44,7 +44,14 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     }
   }
 
-  private void setGameType(String gameType){
+  private void setUpPlayer(){
+    //setGameType(myDataLoader.getGameType());
+    for(int playerID = 0; playerID<myMainPlayerController.size();playerID++){
+      //myMainPlayerController.get(playerID).setKeyCodeMap(myDataLoader.loadKeyCode("KeyCode",playerID));
+    }
+  }
+
+  private void setGameType(int gameType){
     for(Object player:myModel.getPlayers()) {
       MainPlayerControl curControl = new MainPlayerControl();
       curControl.setControl(gameType);

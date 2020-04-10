@@ -4,6 +4,8 @@ import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.interfaces.movables.Movable1D;
 
+import java.util.Map;
+
 public class MainPlayerControl implements PlayerControlInterface {
   private PlayerControlInterface myPlayerControl;
   private PlayerControlFactory myPlayerControlFactory;
@@ -12,7 +14,7 @@ public class MainPlayerControl implements PlayerControlInterface {
     myPlayerControlFactory = new PlayerControlFactory();
   }
 
-  public void setControl(String gameType){
+  public void setControl(int gameType){
     myPlayerControl= myPlayerControlFactory.selectControl(gameType);
   }
 
@@ -24,6 +26,11 @@ public class MainPlayerControl implements PlayerControlInterface {
   @Override
   public void setMyPlayer(Movable1D player) {
     myPlayerControl.setMyPlayer(player);
+  }
+
+  @Override
+  public void setKeyCodeMap(Map<String, KeyCode> map) {
+    myPlayerControl.setKeyCodeMap( map);
   }
 
 }
