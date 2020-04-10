@@ -8,11 +8,11 @@ import ooga.view.game_view.map.MapView;
 public class Map2DView implements MapView {
   private String path;
   private TextMapReader mapReader;
-  private Title2DView[] titles;
+  private Tile2DView[] titles;
 
   public Map2DView(String path, float window_x, float window_y) throws IOException {
     this.mapReader = new TextMapReader(path);
-    titles = new Title2DView[mapReader.getMapWidth()*mapReader.getMapHeight()];
+    titles = new Tile2DView[mapReader.getMapWidth()*mapReader.getMapHeight()];
 
     float title_x = window_x / mapReader.getMapWidth();
     float title_y = window_y / mapReader.getMapHeight();
@@ -23,7 +23,7 @@ public class Map2DView implements MapView {
     int idx = 0;
     for (int i=0; i<mapReader.getMapHeight(); i++){
       for (int j=0; j<mapReader.getMapWidth(); j++){
-        titles[idx++] = new Title2DView((int) title_x*i, (int) title_y*j, i, j, scale_x, scale_y, mapReader);
+        titles[idx++] = new Tile2DView((int) title_x*i, (int) title_y*j, i, j, scale_x, scale_y, mapReader);
       }
     }
   }
@@ -41,7 +41,7 @@ public class Map2DView implements MapView {
     int idx = 0;
     for (int i=0; i<mapReader.getMapHeight(); i++){
       for (int j=0; j<mapReader.getMapWidth(); j++){
-        titles[i++].destroyMesh();
+        titles[idx++].destroyMesh();
       }
     }
   }
@@ -51,7 +51,7 @@ public class Map2DView implements MapView {
     int idx = 0;
     for (int i=0; i<mapReader.getMapHeight(); i++){
       for (int j=0; j<mapReader.getMapWidth(); j++){
-        renderer.renderMesh(titles[i++].getGameObject());
+        renderer.renderMesh(titles[idx++].getGameObject());
       }
     }
 
