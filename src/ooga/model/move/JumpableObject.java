@@ -1,22 +1,23 @@
-package ooga.model.characters;
+package ooga.model.move;
 
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Jumpable;
+import ooga.model.move.MovingObject1D;
 
-public class Player1DJumpable extends Movable1D implements Jumpable {
+public class JumpableObject extends MovingObject1D implements Jumpable {
 
   public static final int DEFAULT_Z_SPEED = 5;
   protected double zSpeed;
 
-  public Player1DJumpable() {
+  public JumpableObject() {
     this(DEFAULT_X, DEFAULT_Z_SPEED);
   }
 
-  public Player1DJumpable(double x, double zSpeed) {
+  public JumpableObject(double x, double zSpeed) {
     this(x, DEFAULT_X_SPEED, zSpeed);
   }
 
-  public Player1DJumpable(double x, double xSpeed, double zSpeed) {
+  public JumpableObject(double x, double xSpeed, double zSpeed) {
     super(x, xSpeed);
     this.zSpeed = zSpeed;
     movingState = MovingState.STOP;
@@ -39,6 +40,7 @@ public class Player1DJumpable extends Movable1D implements Jumpable {
     notifyAnimation();
   }
 
+  // TODO
   private void notifyAnimation() {
   }
 

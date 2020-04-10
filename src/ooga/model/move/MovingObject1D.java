@@ -1,8 +1,8 @@
-package ooga.model.characters;
+package ooga.model.move;
 
 import ooga.model.enums.MovingState;
 
-public class Movable1D implements ooga.model.interfaces.movables.Movable1D {
+public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
 
   public static final int DEFAULT_X_SPEED = 5;
   public static final int DEFAULT_X = 0;
@@ -11,15 +11,15 @@ public class Movable1D implements ooga.model.interfaces.movables.Movable1D {
   protected double xSpeed;
   protected MovingState movingState;
 
-  public Movable1D() {
+  public MovingObject1D() {
     this(DEFAULT_X);
   }
 
-  public Movable1D(double x) {
+  public MovingObject1D(double x) {
     this(x, DEFAULT_X_SPEED);
   }
 
-  public Movable1D(double x, double xSpeed) {
+  public MovingObject1D(double x, double xSpeed) {
     this.x = x;
     this.xSpeed = xSpeed;
     movingState = MovingState.STOP;

@@ -1,8 +1,9 @@
-package ooga.model.characters;
+package ooga.model.move;
 
 import ooga.model.interfaces.movables.Movable2D;
+import ooga.model.move.MovingObject1D;
 
-public class Player2D extends Movable1D implements Movable2D {
+public class MovingObject2D extends MovingObject1D implements Movable2D {
   public static final int DEFAULT_Y_SPEED = 5;
   public static final int DEFAULT_Y = 0;
 
@@ -12,15 +13,15 @@ public class Player2D extends Movable1D implements Movable2D {
 
   protected boolean canMoveDiagonally;
 
-  public Player2D() {
+  public MovingObject2D() {
     this(DEFAULT_X, DEFAULT_Y);
   }
 
-  public Player2D(double x, double y) {
+  public MovingObject2D(double x, double y) {
     this(x, y, DEFAULT_X_SPEED, DEFAULT_Y_SPEED);
   }
 
-  public Player2D(double x, double y, double xSpeed, double ySpeed) {
+  public MovingObject2D(double x, double y, double xSpeed, double ySpeed) {
     super(x, xSpeed);
     this.y = y;
     this.ySpeed = ySpeed;
