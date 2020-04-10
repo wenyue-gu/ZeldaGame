@@ -17,6 +17,7 @@ public interface DataLoaderAPI {
     int getGameType();
 
     Cell loadCell(int row, int col, int subMapID, int level);
+
     int getNextSubMapID(Direction direction, int current);
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
@@ -35,7 +36,7 @@ public interface DataLoaderAPI {
 
     Map<KeyCode, String> loadKeyCode(int playerID, String category);
 
-    Path loadImage(int imageID, String category);
+    Path loadImagePath(int imageID, String category);
 
     Integer loadInteger(String keyword, String category);
 

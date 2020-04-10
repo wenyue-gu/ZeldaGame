@@ -59,7 +59,7 @@ public class DataStorer implements DataStorerAPI {
     public void storeCharacter(int characterID, ZeldaCharacter character) {
         Map<Integer, ZeldaCharacter> characterMap = new HashMap<>();
         characterMap.put(characterID, character);
-        writeObjectTOJson(characterMap, characterKeyword);
+        writeObjectTOJson(characterMap, characterKeyword+".json");
     }
 
     @Override
