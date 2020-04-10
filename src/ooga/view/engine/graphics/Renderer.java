@@ -1,14 +1,14 @@
-package engine.graphics;
+package ooga.view.engine.graphics;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL30;
 
-import engine.io.Window;
-import engine.maths.Matrix4f;
-import engine.objects.Camera;
-import engine.objects.GameObject;
+import ooga.view.engine.io.Window;
+import ooga.view.engine.maths.Matrix4f;
+import ooga.view.engine.objects.Camera;
+import ooga.view.engine.objects.GameObject;
 
 public class Renderer {
 	private Shader shader;

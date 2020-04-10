@@ -1,7 +1,7 @@
-package engine.graphics;
+package ooga.view.engine.graphics;
 
-import engine.maths.Vector2f;
-import engine.maths.Vector3f;
+import ooga.view.engine.maths.Vector2f;
+import ooga.view.engine.maths.Vector3f;
 
 public class Vertex {
 	private Vector3f position, normal;

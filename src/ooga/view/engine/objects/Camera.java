@@ -1,9 +1,9 @@
-package engine.objects;
+package ooga.view.engine.objects;
 
 import org.lwjgl.glfw.GLFW;
 
-import engine.io.Input;
-import engine.maths.Vector3f;
+import ooga.view.engine.io.Input;
+import ooga.view.engine.maths.Vector3f;
 
 public class Camera {
 	private Vector3f position, rotation;

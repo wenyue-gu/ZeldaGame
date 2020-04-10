@@ -1,7 +1,7 @@
-package engine.objects;
+package ooga.view.engine.objects;
 
-import engine.graphics.Mesh;
-import engine.maths.Vector3f;
+import ooga.view.engine.graphics.Mesh;
+import ooga.view.engine.maths.Vector3f;
 
 public class GameObject {
 	private Vector3f position, rotation, scale;
