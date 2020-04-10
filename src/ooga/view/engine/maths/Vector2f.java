@@ -1,4 +1,4 @@
-package engine.maths;
+package ooga.view.engine.maths;
 
 public class Vector2f {
 	private float x, y;

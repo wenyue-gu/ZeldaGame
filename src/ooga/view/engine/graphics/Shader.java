@@ -1,4 +1,4 @@
-package engine.graphics;
+package ooga.view.engine.graphics;
 
 import java.nio.FloatBuffer;
 
@@ -6,18 +6,18 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryUtil;
 
-import engine.maths.Matrix4f;
-import engine.maths.Vector2f;
-import engine.maths.Vector3f;
-import engine.utils.FileUtils;
+import ooga.view.engine.maths.Matrix4f;
+import ooga.view.engine.maths.Vector2f;
+import ooga.view.engine.maths.Vector3f;
+import ooga.view.engine.utils.FileUtils;
 
 public class Shader {
 	private String vertexFile, fragmentFile;
 	private int vertexID, fragmentID, programID;
 	
 	public Shader(String vertexPath, String fragmentPath) {
-		vertexFile = FileUtils.loadAsString(vertexPath);
-		fragmentFile = FileUtils.loadAsString(fragmentPath);
+		vertexFile = FileUtils.loadAsString(vertexPath, "\n");
+		fragmentFile = FileUtils.loadAsString(fragmentPath,"\n");
 	}
 	
 	public void create() {

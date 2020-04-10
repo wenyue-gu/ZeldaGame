@@ -1,11 +1,13 @@
-package engine.objects;
+package ooga.view.engine.objects;
 
-import engine.graphics.Mesh;
-import engine.maths.Vector3f;
+import ooga.view.engine.graphics.Mesh;
+import ooga.view.engine.graphics.Renderer2D;
+import ooga.view.engine.maths.Vector3f;
 
 public class GameObject {
 	private Vector3f position, rotation, scale;
 	private Mesh mesh;
+	private Renderer2D renderer;
 	
 	public GameObject(Vector3f position, Vector3f rotation, Vector3f scale, Mesh mesh) {
 		this.position = position;
@@ -14,9 +16,7 @@ public class GameObject {
 		this.mesh = mesh;
 	}
 	
-	public void update() {
-		position.setZ(position.getZ() - 0.05f);
-	}
+	public void update() {}
 
 	public Vector3f getPosition() {
 		return position;
@@ -32,5 +32,9 @@ public class GameObject {
 
 	public Mesh getMesh() {
 		return mesh;
+	}
+
+	public void setMesh(Mesh mesh) {
+		this.mesh = mesh;
 	}
 }

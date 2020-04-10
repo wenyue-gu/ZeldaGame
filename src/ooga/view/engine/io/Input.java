@@ -1,4 +1,4 @@
-package engine.io;
+package ooga.view.engine.io;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;

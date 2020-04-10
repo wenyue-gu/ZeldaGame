@@ -1,4 +1,4 @@
-package engine.graphics;
+package ooga.view.engine.graphics;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -22,7 +22,7 @@ public class Mesh {
 	}
 	
 	public void create() {
-		material.create();
+		material.createTexture();
 		
 		vao = GL30.glGenVertexArrays();
 		GL30.glBindVertexArray(vao);
@@ -108,4 +108,9 @@ public class Mesh {
 	public Material getMaterial() {
 		return material;
 	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+
 }

@@ -1,4 +1,4 @@
-package engine.io;
+package ooga.view.engine.io;
 
 import org.lwjgl.assimp.AIFace;
 import org.lwjgl.assimp.AIMesh;
@@ -6,11 +6,11 @@ import org.lwjgl.assimp.AIScene;
 import org.lwjgl.assimp.AIVector3D;
 import org.lwjgl.assimp.Assimp;
 
-import engine.graphics.Material;
-import engine.graphics.Mesh;
-import engine.graphics.Vertex;
-import engine.maths.Vector2f;
-import engine.maths.Vector3f;
+import ooga.view.engine.graphics.Material;
+import ooga.view.engine.graphics.Mesh;
+import ooga.view.engine.graphics.Vertex;
+import ooga.view.engine.maths.Vector2f;
+import ooga.view.engine.maths.Vector3f;
 
 public class ModelLoader {
 	public static Mesh loadModel(String filePath, String texturePath) {

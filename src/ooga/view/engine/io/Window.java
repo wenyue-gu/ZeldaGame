@@ -1,4 +1,4 @@
-package engine.io;
+package ooga.view.engine.io;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -6,8 +6,8 @@ import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
-import engine.maths.Matrix4f;
-import engine.maths.Vector3f;
+import ooga.view.engine.maths.Matrix4f;
+import ooga.view.engine.maths.Vector3f;
 
 public class Window {
 	private int width, height;
