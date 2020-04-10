@@ -1,9 +1,9 @@
 package ooga.controller.gamecontrol.player;
 
-import ooga.controller.gamecontrol.MovableControll2D;
+import ooga.controller.gamecontrol.playerInterface.AttackerControl;
+import ooga.controller.gamecontrol.playerInterface.MovableControll2D;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
-import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
@@ -12,7 +12,7 @@ import ooga.model.interfaces.movables.Movable1D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D {
+public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D, AttackerControl {
 
   private ZeldaPlayer myPlayer;
   private Map<KeyCode, String> myKeyCodeMap;
@@ -66,5 +66,22 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   public void right() {
     myPlayer.setState(MovingState.RUN);
     myPlayer.setDirection(Direction.EAST);
+  }
+
+  @Override
+  public void attack1() {
+    myPlayer.setState(MovingState.MELEE_ATTACK);
+  }
+
+  @Override
+  public void attack2() {
+    myPlayer.setState(MovingState.MELEE_ATTACK);
+
+  }
+
+  @Override
+  public void attack3() {
+    myPlayer.setState(MovingState.MELEE_ATTACK);
+
   }
 }

@@ -1,13 +1,8 @@
 package ooga.controller.gamecontrol.NPC;
 
-import javafx.scene.input.KeyCode;
-import ooga.controller.gamecontrol.MovableControll2D;
 import ooga.controller.gamecontrol.NPCControlInterface;
-import ooga.controller.gamecontrol.PlayerControlInterface;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.interfaces.movables.Movable1D;
-
-import java.util.Map;
 
 public class ZeldaNPCControl implements NPCControlInterface {
 

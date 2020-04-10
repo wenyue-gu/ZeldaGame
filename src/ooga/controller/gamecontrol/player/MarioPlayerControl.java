@@ -1,10 +1,10 @@
 package ooga.controller.gamecontrol.player;
 
-import ooga.controller.gamecontrol.JumpableControl;
-import ooga.controller.gamecontrol.MovableControll1D;
+import ooga.controller.gamecontrol.playerInterface.AttackerControl;
+import ooga.controller.gamecontrol.playerInterface.JumpableControl;
+import ooga.controller.gamecontrol.playerInterface.MovableControll1D;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
-import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.MarioPlayer;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
@@ -13,7 +13,7 @@ import ooga.model.interfaces.movables.Movable1D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class MarioPlayerControl implements PlayerControlInterface, MovableControll1D, JumpableControl {
+public class MarioPlayerControl implements PlayerControlInterface, MovableControll1D, JumpableControl, AttackerControl {
 
   private MarioPlayer myPlayer;
   private Map<KeyCode, String> myKeyCodeMap;
@@ -62,4 +62,19 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
     myPlayer.setDirection(Direction.EAST);
   }
 
+  @Override
+  public void attack1() {
+    myPlayer.setState(MovingState.MELEE_ATTACK);
+
+  }
+
+  @Override
+  public void attack2() {
+    myPlayer.setState(MovingState.MELEE_ATTACK);
+  }
+
+  @Override
+  public void attack3() {
+    myPlayer.setState(MovingState.MELEE_ATTACK);
+  }
 }
