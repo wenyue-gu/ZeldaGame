@@ -19,7 +19,12 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   private int myID;
 
   public ZeldaPlayerControl(){
-
+    myKeyCodeMap.put(KeyCode.LEFT, "left");
+    myKeyCodeMap.put(KeyCode.RIGHT, "right");
+    myKeyCodeMap.put(KeyCode.UP, "up");
+    myKeyCodeMap.put(KeyCode.DOWN, "down");
+    myKeyCodeMap.put(KeyCode.Q, "attack0");
+    myKeyCodeMap.put(KeyCode.W, "attack1");
   }
 
   @Override
@@ -33,8 +38,13 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setID(int id) {
-    myID = id;
+  public void setID() {
+    myID = myPlayer.getId();
+  }
+
+  @Override
+  public int getID() {
+    return myID;
   }
 
   @Override

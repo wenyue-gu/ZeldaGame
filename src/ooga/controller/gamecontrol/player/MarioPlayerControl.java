@@ -34,9 +34,15 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setID(int id) {
-    myID = id;
+  public void setID() {
+
   }
+
+  @Override
+  public int getID() {
+    return 0;
+  }
+
 
   @Override
   public void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

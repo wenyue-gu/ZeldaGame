@@ -12,6 +12,8 @@ import ooga.model.interfaces.ModelInterface;
 import ooga.view.game_menu.AbstractGameMenuView;
 import ooga.view.game_menu.GameMenuView;
 
+import java.lang.reflect.InvocationTargetException;
+
 
 public class WindowControl {
 
@@ -60,7 +62,13 @@ public class WindowControl {
     myGameController.setMode(dark);
     Scene myScene = myGameController.getScene();
 
-    myScene.setOnKeyPressed(e -> myGameController.keyInput(e.getCode()));
+    myScene.setOnKeyPressed(e -> {
+      try {
+        myGameController.keyInput(e.getCode());
+      } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException ex) {
+        System.out.println("Keymap error");
+      }
+    });
     currentStage.setScene(myScene);
     currentStage.show();
     AnimationTimer timer = new AnimationTimer() {

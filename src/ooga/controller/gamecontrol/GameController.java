@@ -44,9 +44,10 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
 
   private void setUpPlayerandNPC(){
     //setGameType(myDataLoader.getGameType());
-    for(int playerID = 0; playerID<myMainPlayerController.size();playerID++){
-      myMainPlayerController.get(playerID).setID(playerID);
-      //myMainPlayerController.get(playerID).setKeyCodeMap(myDataLoader.loadKeyCode(playerID, "KeyCode"));
+    setGameType(1);
+    for(MainPlayerControl mpc:myMainPlayerController){
+      mpc.setID();
+      //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
     }
   }
 

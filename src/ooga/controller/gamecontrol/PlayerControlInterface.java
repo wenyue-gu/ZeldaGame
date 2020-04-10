@@ -11,5 +11,6 @@ public interface PlayerControlInterface {
   void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException;
   void setMyPlayer(Movable1D player);
   void setKeyCodeMap(Map<KeyCode, String> map);
-  void setID(int id);
+  void setID();
+  int getID();
 }
