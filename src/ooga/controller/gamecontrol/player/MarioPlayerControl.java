@@ -6,14 +6,16 @@ import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.MarioPlayer;
+import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class MarioPlayerControl implements PlayerControlInterface, MovableControll1D, JumpableControl {
 
   private MarioPlayer myPlayer;
-  private Map<String, KeyCode> myKeyCodeMap;
+  private Map<KeyCode, String> myKeyCodeMap;
   private int myID;
 
   public MarioPlayerControl(){
@@ -26,7 +28,7 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setKeyCodeMap(Map<String, KeyCode> map) {
+  public void setKeyCodeMap(Map<KeyCode, String> map) {
     myKeyCodeMap = map;
   }
 
@@ -36,25 +38,24 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void keyInput(KeyCode key) {
-    if(key==myKeyCodeMap.get("left")) left(1);
-    else if (key==myKeyCodeMap.get("right")) right(1);
-    else if (key==myKeyCodeMap.get("up")) jump();
+  public void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    this.getClass().getDeclaredMethod(myKeyCodeMap.get(key)).invoke(this);
   }
 
 
   @Override
   public void jump() {
-    myPlayer.jump();
+    myPlayer.setState(MovingState.JUMP_UP);
   }
 
   @Override
-  public void left(double deltaX) {
-    myPlayer.moveInX(-1*deltaX);
+  public void left() {
+    myPlayer.setState(MovingState.RUN);
   }
 
   @Override
-  public void right(double deltaX) {
-    myPlayer.moveInX(deltaX);
+  public void right() {
+    myPlayer.setState(MovingState.RUN);
   }
+
 }

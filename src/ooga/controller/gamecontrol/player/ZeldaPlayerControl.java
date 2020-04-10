@@ -5,14 +5,16 @@ import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D {
 
   private ZeldaPlayer myPlayer;
-  private Map<String, KeyCode> myKeyCodeMap;
+  private Map<KeyCode, String> myKeyCodeMap;
   private int myID;
 
   public ZeldaPlayerControl(){
@@ -25,7 +27,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setKeyCodeMap(Map<String, KeyCode> map) {
+  public void setKeyCodeMap(Map<KeyCode, String> map) {
     myKeyCodeMap = map;
   }
 
@@ -35,30 +37,29 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void keyInput(KeyCode key) {
-    if(key==myKeyCodeMap.get("left")) left(1);
-    else if (key==myKeyCodeMap.get("right")) right(1);
-    else if (key==myKeyCodeMap.get("up")) up(1);
-    else if (key==myKeyCodeMap.get("down")) down(1);
+  public void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    this.getClass().getDeclaredMethod(myKeyCodeMap.get(key)).invoke(this);
+
+  }
+
+
+  @Override
+  public void up() {
+    myPlayer.setState(MovingState.RUN);
   }
 
   @Override
-  public void left(double deltaX) {
-    myPlayer.moveInX(-1*deltaX);
+  public void down() {
+    myPlayer.setState(MovingState.RUN);
   }
 
   @Override
-  public void right(double deltaX) {
-    myPlayer.moveInX(deltaX);
+  public void left() {
+    myPlayer.setState(MovingState.RUN);
   }
 
   @Override
-  public void up(double deltaY) {
-    myPlayer.moveInY(deltaY);
-  }
-
-  @Override
-  public void down(double deltaY) {
-    myPlayer.moveInX(-1*deltaY);
+  public void right() {
+    myPlayer.setState(MovingState.RUN);
   }
 }
