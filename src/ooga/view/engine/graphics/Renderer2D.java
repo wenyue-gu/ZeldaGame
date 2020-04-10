@@ -17,7 +17,7 @@ public class Renderer2D {
 		this.window = window;
 	}
 	
-	public void renderMesh(GameObject object, Camera camera) {
+	public void renderMesh(GameObject object) {
 		GL30.glBindVertexArray(object.getMesh().getVAO());
 		GL30.glEnableVertexAttribArray(0);
 		GL30.glEnableVertexAttribArray(1);
