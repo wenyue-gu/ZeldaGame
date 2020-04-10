@@ -30,4 +30,9 @@ public interface Cell {
    */
   void setImage(int imageIndex);
 
+  /**
+   * get cell's unique ID (unique within the level).
+   */
+  int getUniqueID();
+
 }

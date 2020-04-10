@@ -1,8 +1,8 @@
 package ooga;
 
-import ooga.controller.WindowControl;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import ooga.controller.WindowControl;
 import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
 import ooga.model.Model;

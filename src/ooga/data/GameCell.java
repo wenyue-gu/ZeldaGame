@@ -9,9 +9,9 @@ public class GameCell implements Cell {
     private int ID;
     private int cellState;
     private int imageIndex;
-    GameCell(int state, int imageIndex) {
-        setState(state);
-        setImage(imageIndex);
+
+    GameCell(int ID) {
+        this.ID = ID;
     }
     @Override
     public void setState(int state) {
@@ -32,5 +32,11 @@ public class GameCell implements Cell {
     public void setImage(int imageIndex) {
         this.imageIndex = imageIndex;
     }
+
+    @Override
+    public int getUniqueID() {
+        return this.ID;
+    }
+
 
 }
