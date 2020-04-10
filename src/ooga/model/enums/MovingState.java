@@ -2,12 +2,12 @@ package ooga.model.enums;
 
 public enum MovingState {
   STOP(0),
-  RUN(1),
-  JUMP_UP(2),
-  JUMP_FALL(3),
-  MELEE_ATTACK(4),
-  RANGE_ATTACK(5),
-  DEAD(6),
+  WALK(1),
+  RUN(2),
+  JUMP(3),
+  MELEE_ATTACK(5),
+  RANGE_ATTACK(6),
+  DEAD(7),
   ;
 
   private final int index;
