@@ -8,6 +8,10 @@ package ooga.model.interfaces;
  */
 public interface Alive {
 
+  int getId();
+
+  void setId(int id);
+
   /**
    * Gets the HP of this object
    * @return  the HP of this object

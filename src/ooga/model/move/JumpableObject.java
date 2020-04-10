@@ -2,7 +2,6 @@ package ooga.model.move;
 
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Jumpable;
-import ooga.model.move.MovingObject1D;
 
 public class JumpableObject extends MovingObject1D implements Jumpable {
 
@@ -20,7 +19,7 @@ public class JumpableObject extends MovingObject1D implements Jumpable {
   public JumpableObject(double x, double xSpeed, double zSpeed) {
     super(x, xSpeed);
     this.zSpeed = zSpeed;
-    movingState = MovingState.STOP;
+    movingState = MovingState.IDLE;
   }
 
 
@@ -51,6 +50,6 @@ public class JumpableObject extends MovingObject1D implements Jumpable {
 
   @Override
   public void setNotToJump() {
-    movingState = MovingState.STOP;
+    movingState = MovingState.IDLE;
   }
 }

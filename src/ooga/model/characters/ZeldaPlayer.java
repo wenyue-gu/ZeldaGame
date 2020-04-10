@@ -7,16 +7,16 @@ public class ZeldaPlayer extends ZeldaCharacter implements Scorable {
   protected double score;
   private boolean isScoring;
 
-  public ZeldaPlayer(int initialHp) {
-    super(initialHp);
+  public ZeldaPlayer(int initialHp, int id) {
+    super(initialHp, id);
   }
 
-  public ZeldaPlayer(int initialHp, int weapon) {
-    super(initialHp, weapon);
+  public ZeldaPlayer(int initialHp, int weapon, int id) {
+    super(initialHp, weapon, id);
   }
 
-  public ZeldaPlayer(int initialHp, int weapon, int attack) {
-    super(initialHp, weapon, attack);
+  public ZeldaPlayer(int initialHp, int weapon, int attack, int id) {
+    super(initialHp, weapon, attack, id);
     isScoring = true;
     score = 0;
   }

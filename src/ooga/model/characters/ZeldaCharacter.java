@@ -9,21 +9,38 @@ import ooga.model.move.MovingObject2D;
 public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker {
 
   public static final int DEFAULT_ATTACK = 0;
+  public static final int DEFAULT_WEAPON = 0;
 
   protected int hp;
   protected int weapon;
   protected int attack;
+  protected int id;
   protected Direction attackingDirection;
 
-  public ZeldaCharacter(int initialHp, int weapon) {
-    this(initialHp, weapon, DEFAULT_ATTACK);
+  public ZeldaCharacter(int initialHp, int id) {
+    this(initialHp, DEFAULT_WEAPON, id);
   }
 
-  public ZeldaCharacter(int initialHp, int weapon, int attack) {
+  public ZeldaCharacter(int initialHp, int weapon, int id) {
+    this(initialHp, weapon, DEFAULT_ATTACK, id);
+  }
+
+  public ZeldaCharacter(int initialHp, int weapon, int attack, int id) {
     hp = initialHp;
     this.weapon = weapon;
     this.attack = attack;
+    this.id = id;
     attackingDirection = movingDirection;
+  }
+
+  @Override
+  public int getId() {
+    return id;
+  }
+
+  @Override
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override
