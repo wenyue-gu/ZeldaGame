@@ -1,9 +1,10 @@
 package ooga.data;
 
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import ooga.model.enums.CharacterProperty;
 import ooga.model.interfaces.gameMap.Cell;
 
+import java.nio.file.Path;
 import java.util.Map;
 
 /**
@@ -11,16 +12,17 @@ import java.util.Map;
  */
 public interface DataLoaderAPI {
     void setGame(int GameID);
+
     int getGameType();
+
     Cell loadCell(int row, int col, int level);
 
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
-     *
      */
     String loadText(String keyword, String category);
 
-    int loadCharacter(int ID, int property);
+    int loadCharacter(int ID, CharacterProperty property);
 
     int loadWeapon(int ID, int property);
 
@@ -30,9 +32,9 @@ public interface DataLoaderAPI {
 
     Map<String, Integer> loadInternalStorage(String category);
 
-    Map<String, KeyCode> loadKeyCode(String category);
+    Map<KeyCode, String> loadKeyCode(int playerID, String category);
 
-    Image loadImage(int imageID, String category);
+    Path loadImage(int imageID, String category);
 
     Integer loadInteger(String keyword, String category);
 

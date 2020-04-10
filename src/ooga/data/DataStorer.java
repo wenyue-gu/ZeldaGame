@@ -37,8 +37,10 @@ public class DataStorer implements DataStorerAPI {
 
 
     @Override
-    public void StoreCharacter(int ID, UnchangableCharacter character) {
+    public void storeCharacter(int characterID, UnchangableCharacter character) {
+        Map<Integer, UnchangableCharacter> characterMap = new HashMap<>();
 
+        writeObjectTOJson(character);
     }
 
     @Override

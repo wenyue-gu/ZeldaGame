@@ -88,6 +88,9 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
 
+  public String loadSetting(int property) {
+  
+  }
   @Override
   public Integer loadInteger(String keyword, String category) {
     return null;

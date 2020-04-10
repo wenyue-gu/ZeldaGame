@@ -1,6 +1,7 @@
 package ooga.data;
 
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
 import ooga.model.gameElements.Weapon;
 import ooga.model.interfaces.Inventory;
@@ -18,11 +19,13 @@ public interface DataStorerAPI {
      */
     void StoreText(String text, String keyword, String category);
 
-    void StoreCharacter(int ID, UnchangableCharacter character);
+    void storeCharacter(int ID, UnchangableCharacter character);
 
     void storeWeapons(int ID, Weapon weapon);
 
     void StoreInventory(Inventory inventory);
+
+    void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID);
 
     void storeImage(Image image, int ImageID, String category);
 
