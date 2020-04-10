@@ -7,14 +7,14 @@ import ooga.data.DataLoaderAPI;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.SingleGrid;
 
-public class gameSingleGrid implements SingleGrid {
-  private int width;
-  private int length;
+public class GameSingleGrid implements SingleGrid {
+  protected int width;
+  protected int length;
 
-  private List<List<gameCell>> grid;
-  private DataLoaderAPI loader;
+  protected List<List<GameCell>> grid;
+  protected DataLoaderAPI loader;
 
-  public gameSingleGrid(DataLoaderAPI loader) {
+  public GameSingleGrid(DataLoaderAPI loader) {
     grid = new ArrayList<>();
     this.loader = loader;
   }
@@ -38,9 +38,9 @@ public class gameSingleGrid implements SingleGrid {
   @Override
   public void loadGrid(int id, int level) {
     for (int r = 0; r < length; r++) {
-      List<gameCell> currentRow = new ArrayList<>();
+      List<GameCell> currentRow = new ArrayList<>();
       for (int c = 0; c < width; c++) {
-        currentRow.add((gameCell) loader.loadCell(r, c, id, level));
+        currentRow.add((GameCell) loader.loadCell(r, c, id, level));
       }
       grid.add(currentRow);
     }

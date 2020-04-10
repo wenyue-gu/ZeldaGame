@@ -2,7 +2,7 @@ package ooga.model.map;
 
 import ooga.model.interfaces.gameMap.Cell;
 
-public class gameCell implements Cell {
+public class GameCell implements Cell {
 
   @Override
   public void setState(int state) {
