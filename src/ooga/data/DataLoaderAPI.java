@@ -17,7 +17,7 @@ public interface DataLoaderAPI {
     int getGameType();
 
     Cell loadCell(int row, int col, int subMapID, int level);
-    int getNextSubMaID(Direction direction, int current);
+    int getNextSubMapID(Direction direction, int current);
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
      */
