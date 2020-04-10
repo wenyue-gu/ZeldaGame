@@ -14,6 +14,7 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
 
   private MarioPlayer myPlayer;
   private Map<String, KeyCode> myKeyCodeMap;
+  private int myID;
 
   public MarioPlayerControl(){
 
@@ -27,6 +28,11 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void setKeyCodeMap(Map<String, KeyCode> map) {
     myKeyCodeMap = map;
+  }
+
+  @Override
+  public void setID(int id) {
+    myID = id;
   }
 
   @Override

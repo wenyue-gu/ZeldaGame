@@ -10,4 +10,5 @@ public interface PlayerControlInterface {
   void keyInput(KeyCode key);
   void setMyPlayer(Movable1D player);
   void setKeyCodeMap(Map<String, KeyCode> map);
+  void setID(int id);
 }

@@ -13,6 +13,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   private ZeldaPlayer myPlayer;
   private Map<String, KeyCode> myKeyCodeMap;
+  private int myID;
 
   public ZeldaPlayerControl(){
 
@@ -26,6 +27,11 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void setKeyCodeMap(Map<String, KeyCode> map) {
     myKeyCodeMap = map;
+  }
+
+  @Override
+  public void setID(int id) {
+    myID = id;
   }
 
   @Override
