@@ -1,5 +1,6 @@
 package ooga.view.game_view.map.interactive;
 
+import java.io.IOException;
 import ooga.view.engine.graphics.Material;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Renderer2D;
@@ -37,13 +38,14 @@ public class Title2DView {
 
   private Material material;
 
-  public Title2DView(int x, int y, float scale_x, float scale_y, TextMapReader mapReader){
-    this.map_x = x;
-    this.map_y = y;
+  public Title2DView(int window_pos_x, int window_pos_y, int map_x, int map_y, float scale_x, float scale_y, TextMapReader mapReader)
+      throws IOException {
+    this.map_x = map_x;
+    this.map_y = map_y;
 
     controller = new Title2DController(map_x, map_y, mapReader);
 
-    position = new Vector3f(x, y, 0);
+    position = new Vector3f(window_pos_x, window_pos_y, 0);
     scale = new Vector3f(scale_x, scale_y, 1);
 
     mesh = new Mesh( vertices, indices, controller.getMaterial());

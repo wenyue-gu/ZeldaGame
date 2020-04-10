@@ -1,5 +1,6 @@
 package ooga.view.engine.graphics;
 
+import java.io.IOException;
 import ooga.view.engine.objects.GameObject;
 import ooga.view.engine.utils.Timer;
 
@@ -18,7 +19,7 @@ public class Animation2D {
   private double lastTime;
   private double fps;
 
-  public Animation2D(GameObject object, int cnt, int fps, String path){
+  public Animation2D(GameObject object, int cnt, int fps, String path) throws IOException {
 
     this.object = object;
     this.framePointer = 0;

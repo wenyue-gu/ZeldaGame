@@ -1,6 +1,7 @@
 package ooga.view.test.lwjgl;
 
 
+import java.io.IOException;
 import ooga.view.engine.graphics.Material;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Renderer2D;
@@ -11,6 +12,7 @@ import ooga.view.engine.io.Window;
 import ooga.view.engine.maths.Vector2f;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
+import ooga.view.engine.utils.TitleCropper;
 import ooga.view.game_view.map.interactive.Map2DView;
 import org.lwjgl.glfw.GLFW;
 
@@ -30,19 +32,24 @@ public class testMap implements Runnable {
     game.start();
   }
 
-  public void init() {
+  public void init() throws IOException {
     window = new Window(WIDTH, HEIGHT, "Game");
     shader = new Shader("/view/shaders/2d/cyberpunkTitleVertex.glsl", "/view/shaders/2d/cyberpunkTitleFragment.glsl");
-    mapView = new Map2DView(mapPath,WIDTH, HEIGHT);
     renderer = new Renderer2D(shader);
+    TitleCropper cropit = new TitleCropper();
     window.setBackgroundColor(1.0f, 0, 0);
     window.create();
+    mapView = new Map2DView(mapPath,WIDTH, HEIGHT);
     mapView.createMesh();
     shader.create();
   }
 
   public void run() {
-    init();
+    try {
+      init();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     while (!window.shouldClose() && !Input.isKeyDown(GLFW.GLFW_KEY_ESCAPE)) {
       update();
       render();

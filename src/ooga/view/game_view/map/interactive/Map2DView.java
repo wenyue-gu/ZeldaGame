@@ -1,5 +1,6 @@
 package ooga.view.game_view.map.interactive;
 
+import java.io.IOException;
 import ooga.view.engine.graphics.Renderer2D;
 import ooga.view.engine.utils.TextMapReader;
 import ooga.view.game_view.map.MapView;
@@ -9,7 +10,7 @@ public class Map2DView implements MapView {
   private TextMapReader mapReader;
   private Title2DView[] titles;
 
-  public Map2DView(String path, float window_x, float window_y){
+  public Map2DView(String path, float window_x, float window_y) throws IOException {
     this.mapReader = new TextMapReader(path);
     titles = new Title2DView[mapReader.getMapWidth()*mapReader.getMapHeight()];
 
@@ -22,7 +23,7 @@ public class Map2DView implements MapView {
     int idx = 0;
     for (int i=0; i<mapReader.getMapHeight(); i++){
       for (int j=0; j<mapReader.getMapWidth(); j++){
-        titles[idx++] = new Title2DView((int) title_x*i, (int) title_y*j, scale_x, scale_y, mapReader);
+        titles[idx++] = new Title2DView((int) title_x*i, (int) title_y*j, i, j, scale_x, scale_y, mapReader);
       }
     }
   }
