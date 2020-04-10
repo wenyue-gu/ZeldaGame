@@ -4,6 +4,7 @@ import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.interfaces.movables.Movable1D;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class MainPlayerControl implements PlayerControlInterface {
@@ -19,7 +20,7 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
-  public void keyInput(KeyCode key){
+  public void keyInput(KeyCode key) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     myPlayerControl.keyInput(key);
   }
 
@@ -29,8 +30,8 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
-  public void setKeyCodeMap(Map<String, KeyCode> map) {
-    myPlayerControl.setKeyCodeMap( map);
+  public void setKeyCodeMap(Map<KeyCode, String> map) {
+    myPlayerControl.setKeyCodeMap(map);
   }
 
   public void setID(int id){myPlayerControl.setID(id);}

@@ -5,6 +5,7 @@ import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
@@ -46,20 +47,24 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void up() {
     myPlayer.setState(MovingState.RUN);
+    myPlayer.setDirection(Direction.NORTH);
   }
 
   @Override
   public void down() {
     myPlayer.setState(MovingState.RUN);
+    myPlayer.setDirection(Direction.SOUTH);
   }
 
   @Override
   public void left() {
     myPlayer.setState(MovingState.RUN);
+    myPlayer.setDirection(Direction.WEST);
   }
 
   @Override
   public void right() {
     myPlayer.setState(MovingState.RUN);
+    myPlayer.setDirection(Direction.EAST);
   }
 }

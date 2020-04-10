@@ -6,6 +6,7 @@ import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.MarioPlayer;
+import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
@@ -45,17 +46,20 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void jump() {
-    myPlayer.setState(MovingState.JUMP_UP);
+    myPlayer.setState(MovingState.JUMP);
+    myPlayer.setDirection(Direction.UP);
   }
 
   @Override
   public void left() {
     myPlayer.setState(MovingState.RUN);
+    myPlayer.setDirection(Direction.WEST);
   }
 
   @Override
   public void right() {
     myPlayer.setState(MovingState.RUN);
+    myPlayer.setDirection(Direction.EAST);
   }
 
 }
