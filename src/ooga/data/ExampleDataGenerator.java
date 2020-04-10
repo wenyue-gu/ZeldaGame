@@ -25,7 +25,7 @@ public class ExampleDataGenerator {
         /**
          * the following is testing imaga map loading/storing
          */
-        
+
 //        constructExampleGameMap(gameMap);
 //        try {
 //            mapper.writeValue(new File("example Data2.json"), gameMap);

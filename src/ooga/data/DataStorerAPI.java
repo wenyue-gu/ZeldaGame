@@ -10,7 +10,8 @@ import java.util.Collection;
 import java.util.Map;
 
 public interface DataStorerAPI {
-
+    int getGameType();
+    void setGame(int GameID);
     /**
      * store text files to the database.
      * @return
