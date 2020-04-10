@@ -23,7 +23,7 @@ public class Main extends Application {
   @Override
   public void start(Stage currentStage) {
     myDataLoader = new DataLoader();
-    myModel = new Model(myDataLoader);
+    myModel = new Model(myDataLoader,"Zelda");
     myWindowControl = new WindowControl(currentStage);
     myWindowControl.setModel(myModel);
     myWindowControl.setDataLoader(myDataLoader);

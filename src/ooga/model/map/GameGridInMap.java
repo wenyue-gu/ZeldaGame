@@ -20,7 +20,7 @@ public class GameGridInMap extends GameSingleGrid implements GridInMap {
 
   private void initializeSurrounding() {
     for (Direction d: Direction.values()) {
-      int neighbor = loader.getNextSubMaID(d, id);
+      int neighbor = loader.getNextSubMapID(d, id);
       if (neighbor != ID_NOT_DEFINED) {
         surroundingMaps.put(d, neighbor);
       }
@@ -48,7 +48,7 @@ public class GameGridInMap extends GameSingleGrid implements GridInMap {
     surroundingMaps.put(direction, gridID);
   }
 
-  @Override
+  //@Override
   public void loadGrid(int level) {
     loadGrid(this.id, level);
   }

@@ -35,7 +35,7 @@ public class GameMapInstance implements GameMap {
   private void initialize() {
     for (int i = 0; i < mapNumber; i++) {
       GridInMap grid = new GameGridInMap(loader, i);
-      grid.loadGrid(level);
+      grid.loadGrid(grid.getID(), level);
       allGrids.put(i, grid);
     }
   }

@@ -21,7 +21,7 @@ public interface GameMap {
   /**
    * Sets the ID of current grid
    */
-  void setCurrentGridID();
+  void setCurrentGridID(int id);
   /**
    * Gets the game map representation in a list.
    *
