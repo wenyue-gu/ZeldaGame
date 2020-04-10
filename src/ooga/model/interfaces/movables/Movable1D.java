@@ -1,5 +1,6 @@
 package ooga.model.interfaces.movables;
 
+import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 
 /**
@@ -64,4 +65,8 @@ public interface Movable1D {
    * @return  the current moving state
    */
   MovingState getState();
+
+  void setDirection(Direction direction);
+
+  Direction getDirection();
 }
