@@ -1,6 +1,7 @@
 package ooga.model.map;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import ooga.data.DataLoaderAPI;
@@ -19,7 +20,7 @@ public class GameMapInstance implements GameMap {
   protected int level;
   protected int currentGrid;
   protected DataLoaderAPI loader;
-  protected Map<Integer, GridInMap> allGrids;
+  protected Map<Integer, GridInMap> allGrids = new HashMap<>();
 
   public GameMapInstance(DataLoaderAPI loader) {
     this(loader, DEFAULT_LEVEL);

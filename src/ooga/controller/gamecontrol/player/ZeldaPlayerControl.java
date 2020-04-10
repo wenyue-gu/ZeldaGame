@@ -10,12 +10,13 @@ import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D, AttackerControl {
 
   private ZeldaPlayer myPlayer;
-  private Map<KeyCode, String> myKeyCodeMap;
+  private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private int myID;
 
   public ZeldaPlayerControl(){
