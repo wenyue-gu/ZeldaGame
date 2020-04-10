@@ -1,9 +1,13 @@
 package ooga.view.game_view.agent;
 
 import java.util.Map;
+import ooga.view.engine.graphics.Animation2D;
 import ooga.view.game_view.animation.StateAnimation;
 
 public class AbstractAgentController implements AgentController {
+  protected Animation2D animations;
+  private int inUseAnimationIndex;
+
 
   @Override
   public AgentView getAgentView() {

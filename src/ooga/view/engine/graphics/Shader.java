@@ -16,8 +16,8 @@ public class Shader {
 	private int vertexID, fragmentID, programID;
 	
 	public Shader(String vertexPath, String fragmentPath) {
-		vertexFile = FileUtils.loadAsString(vertexPath);
-		fragmentFile = FileUtils.loadAsString(fragmentPath);
+		vertexFile = FileUtils.loadAsString(vertexPath, "\n");
+		fragmentFile = FileUtils.loadAsString(fragmentPath,"\n");
 	}
 	
 	public void create() {
