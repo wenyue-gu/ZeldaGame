@@ -5,7 +5,7 @@ import ooga.view.engine.utils.ImageLoader;
 import ooga.view.engine.utils.TextMapReader;
 
 public class Title2DController {
-  private static String path = "resources/map/Itch_release_raw_tileset_01.png";
+  private static String path = "/view/textures/2d/cyberpunk/map/Itch_release_raw_tileset_01.png";
   private static int id_idx = 0;
   private boolean walkable;
   private int map_x, map_y;

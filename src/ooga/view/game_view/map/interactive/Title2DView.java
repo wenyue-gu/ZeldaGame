@@ -51,6 +51,10 @@ public class Title2DView {
     object = new GameObject(position, rotation, scale, mesh);
   }
 
+  public void createMesh(){mesh.create();}
+
+  public void destroyMesh(){mesh.destroy();}
+
   public GameObject getGameObject() {return object;}
 
 }

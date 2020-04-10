@@ -27,7 +27,25 @@ public class Map2DView implements MapView {
     }
   }
 
-  public void render(Renderer2D renderer){
+  public void createMesh(){
+    int idx = 0;
+    for (int i=0; i<mapReader.getMapHeight(); i++){
+      for (int j=0; j<mapReader.getMapWidth(); j++){
+        titles[idx++].createMesh();
+      }
+    }
+  }
+
+  public void destroyMesh(){
+    int idx = 0;
+    for (int i=0; i<mapReader.getMapHeight(); i++){
+      for (int j=0; j<mapReader.getMapWidth(); j++){
+        titles[i++].destroyMesh();
+      }
+    }
+  }
+
+  public void renderMesh(Renderer2D renderer){
 
     int idx = 0;
     for (int i=0; i<mapReader.getMapHeight(); i++){
