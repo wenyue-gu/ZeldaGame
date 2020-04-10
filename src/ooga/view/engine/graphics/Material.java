@@ -37,9 +37,9 @@ public class Material {
 	}
 
 	/**
-	 * Read texture as sprites
+	 * Read texture as titles
 	 */
-	public void createCroppedTexture(int x, int y, int textureWidth, int textureHeight){
+	public void createTitledTexture(int x, int y, int textureWidth, int textureHeight){
 		SpriteSheet Titles = new SpriteSheet(ImageLoader.loadImage(path));
 		BufferedImage croppedImage = Titles.crop(x,y,textureWidth, textureHeight);
 
@@ -52,6 +52,17 @@ public class Material {
 			System.err.println("Can't find texture at " + path);
 		}
 
+	}
+
+	/**
+	 * Read texture as sprites
+	 */
+	public void createSpriteTexture(int y, int cnt){
+		BufferedImage sheet = ImageLoader.loadImage(path);
+		int textureWidth = sheet.getWidth() / cnt;
+		int textureHeight = sheet.getHeight();
+		SpriteSheet Titles = new SpriteSheet(ImageLoader.loadImage(path));
+		createTitledTexture(0, y, textureWidth, textureHeight);
 	}
 	
 	public void destroy() {
@@ -68,5 +79,10 @@ public class Material {
 
 	public int getTextureID() {
 		return textureID;
+	}
+
+	public void bind(){
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		GL13.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
 	}
 }
