@@ -1,7 +1,12 @@
 package ooga.data;
 
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.Direction;
+
 public class ExampleDataGenerator {
     public static void main(String[] args) {
+        DataLoader a = new DataLoader();
+        DataStorer b = new DataStorer();
 //        Gson gson = new Gson();
 //        ObjectMapper mapper = new ObjectMapper();
 //        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
@@ -21,9 +26,15 @@ public class ExampleDataGenerator {
 //        DataStorer b = new DataStorer();
 //        a.loadCell(1,1,1);
 //        b.storeMap(cellLinkedList, 1);
-
         /**
-         * the following is testing imaga map loading/storing
+         * the following is generating character loading
+         *
+         */
+        ZeldaCharacter ZC = new ZeldaCharacter(1,2,3,4);
+        ZC.setFiringDirection(Direction.EAST);
+        b.storeCharacter(2, ZC);
+        /**
+         * the following is testing image map loading/storing (incomplete)
          */
 
 //        constructExampleGameMap(gameMap);

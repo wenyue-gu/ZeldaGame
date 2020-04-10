@@ -1,10 +1,12 @@
 package ooga.data;
 
-import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import ooga.model.enums.CharacterProperty;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
@@ -28,7 +30,17 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
-  public Cell loadCell(int row, int col, int level) {
+  public void setGame(int GameID) {
+
+  }
+
+  @Override
+  public int getGameType() {
+    return 0;
+  }
+
+  @Override
+  public Cell loadCell(int row, int col, int subMapID, int level) {
     return loadMap(level).getElement(row, col);
   }
 
@@ -50,12 +62,17 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
-  public int loadCharacter(int ID, int property) {
+  public int loadCharacter(int ID, CharacterProperty property) {
     return 0;
   }
 
   @Override
   public int loadWeapon(int ID, int property) {
+    return 0;
+  }
+
+  @Override
+  public int currentLevel() {
     return 0;
   }
 
@@ -70,10 +87,15 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
-  public Image loadImage(int imageID, String category) {
+  public Map<KeyCode, String> loadKeyCode(int playerID, String category) {
     return null;
   }
-  private Object loadMap(Class clazz, String fileName) {
+
+  @Override
+  public Path loadImage(int imageID, String category) {
+    return null;
+  }
+  private Object loadMap(Class clazz, int subMapID, String fileName) {
     Object map = null;
     try {
 
@@ -87,9 +109,9 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   }
 
-
+  //todo: finish the method
   public String loadSetting(int property) {
-  
+    return "";
   }
   @Override
   public Integer loadInteger(String keyword, String category) {

@@ -1,7 +1,9 @@
 package ooga.data;
 
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
+import ooga.model.characters.ZeldaCharacter;
 import ooga.model.gameElements.Weapon;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
@@ -17,6 +19,7 @@ public class DataStorer implements DataStorerAPI {
     public static final int mapRowNum = 10;//from frontend
     public static final int mapColNum = 10;//from frontend
     public static final String mapKeyword =  "MapOfLevel";
+    public static final String characterKeyword =  "CharacterData";
     private Map<String, String> generalLevelFile;
     private com.google.gson.Gson gson;
 
@@ -30,17 +33,33 @@ public class DataStorer implements DataStorerAPI {
         generalLevelFile.put("fileName", "level");
         generalLevelFile.put("map", "MapOfLevel");
     }
+
+    @Override
+    public int getGameType() {
+        return 0;
+    }
+
+    @Override
+    public void setGame(int GameID) {
+
+    }
+
     @Override
     public void StoreText(String text, String keyword, String category) {
 
     }
 
-
     @Override
-    public void storeCharacter(int characterID, UnchangableCharacter character) {
-        Map<Integer, UnchangableCharacter> characterMap = new HashMap<>();
+    public void storeCharacter(int ID, UnchangableCharacter character) {
 
-        writeObjectTOJson(character);
+    }
+
+
+    //@Override
+    public void storeCharacter(int characterID, ZeldaCharacter character) {
+        Map<Integer, ZeldaCharacter> characterMap = new HashMap<>();
+        characterMap.put(characterID, character);
+        writeObjectTOJson(characterMap, characterKeyword);
     }
 
     @Override
@@ -50,6 +69,11 @@ public class DataStorer implements DataStorerAPI {
 
     @Override
     public void StoreInventory(Inventory inventory) {
+
+    }
+
+    @Override
+    public void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID) {
 
     }
 

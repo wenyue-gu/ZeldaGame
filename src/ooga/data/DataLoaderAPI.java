@@ -2,6 +2,7 @@ package ooga.data;
 
 import javafx.scene.input.KeyCode;
 import ooga.model.enums.CharacterProperty;
+import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.nio.file.Path;
@@ -15,8 +16,8 @@ public interface DataLoaderAPI {
 
     int getGameType();
 
-    Cell loadCell(int row, int col, int level);
-
+    Cell loadCell(int row, int col, int subMapID, int level);
+    int getNextSubMaID(Direction direction, int current);
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
      */
