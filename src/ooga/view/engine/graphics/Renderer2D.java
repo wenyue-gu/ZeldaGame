@@ -10,11 +10,11 @@ import org.lwjgl.opengl.GL30;
 
 public class Renderer2D {
 	private Shader shader;
-	private Window window;
+	//private Window window;
 
-	public Renderer2D(Window window, Shader shader) {
+	public Renderer2D(Shader shader) {
 		this.shader = shader;
-		this.window = window;
+		//this.window = window;
 	}
 	
 	public void renderMesh(GameObject object) {
