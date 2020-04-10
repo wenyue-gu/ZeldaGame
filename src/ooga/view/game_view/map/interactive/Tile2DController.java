@@ -5,8 +5,8 @@ import ooga.view.engine.graphics.Material;
 import ooga.view.engine.utils.ImageLoader;
 import ooga.view.engine.utils.TextMapReader;
 
-public class Title2DController {
-  private static String path = "/view/textures/2d/cyberpunk/map/Itch_release_raw_tileset_01.png";
+public class Tile2DController {
+  private static String path = "/view/textures/2d/cyberpunk/map/subtitles";
   private static int id_idx = 0;
   private boolean walkable;
   private int map_x, map_y;
@@ -14,7 +14,7 @@ public class Title2DController {
   private Material material;
   private int id;
 
-  public Title2DController(int map_x, int map_y, TextMapReader mapReader) throws IOException {
+  public Tile2DController(int map_x, int map_y, TextMapReader mapReader) throws IOException {
 
     this.id = id_idx++;
     System.out.println(map_x);
@@ -28,8 +28,8 @@ public class Title2DController {
     System.out.println(palette_x);
     System.out.println(palette_y);
 
-    this.material = new Material(path);
-    this.material.createTitledTexture(palette_x,palette_y,mapReader.getTitlePixel(), mapReader.getTitlePixel());
+    this.material = new Material(String.format("%s/%s_%s.png", path, String.valueOf(palette_x), String.valueOf(palette_y)));
+    //this.material.createTitledTexture(palette_x,palette_y,mapReader.getTitlePixel(), mapReader.getTitlePixel());
 
     this.walkable = mapReader.isMapCellWalkable(map_x, map_y);
 
