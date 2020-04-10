@@ -1,20 +1,18 @@
 package ooga.view.engine.graphics;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL30;
-
 import ooga.view.engine.io.Window;
 import ooga.view.engine.maths.Matrix4f;
 import ooga.view.engine.objects.Camera;
 import ooga.view.engine.objects.GameObject;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL30;
 
-public class Renderer {
+public class Renderer2D {
 	private Shader shader;
 	private Window window;
-	
-	public Renderer(Window window, Shader shader) {
+
+	public Renderer2D(Window window, Shader shader) {
 		this.shader = shader;
 		this.window = window;
 	}
@@ -30,8 +28,8 @@ public class Renderer {
 		object.getMesh().getMaterial().bind();
 		shader.bind();
 		shader.setUniform("model", Matrix4f.transform(object.getPosition(), object.getRotation(), object.getScale()));
-		shader.setUniform("view", Matrix4f.view(camera.getPosition(), camera.getRotation()));
-		shader.setUniform("projection", window.getProjectionMatrix());
+		//shader.setUniform("view", Matrix4f.view(camera.getPosition(), camera.getRotation()));
+		//shader.setUniform("projection", window.getProjectionMatrix());
 		GL11.glDrawElements(GL11.GL_TRIANGLES, object.getMesh().getIndices().length, GL11.GL_UNSIGNED_INT, 0);
 		shader.unbind();
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
