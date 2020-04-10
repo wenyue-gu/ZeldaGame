@@ -1,5 +1,6 @@
 package ooga.controller.gamecontrol;
 
+import ooga.controller.gamecontrol.NPC.MainNPCControl;
 import ooga.controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -19,7 +20,7 @@ public class GameController {
 
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
-  private List<NPCControl> myNPCControl = new ArrayList<>();
+  private List<MainNPCControl> myNPCControl = new ArrayList<>();
   private GameStateController myGameStateController; //frontend
   private DataLoaderAPI myDataLoader;
   private boolean dark;
@@ -28,23 +29,14 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     myModel = model;
     myDataLoader = loader;
     myGameStateController = new AbstractGameStateController();
-    setUpPlayer();
-    setNPC();
+    setUpPlayerandNPC();
   }
 
   public void keyInput(KeyCode code) {
      for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
   }
 
-
-  private void setNPC(){
-    for(Object NPC:myModel.getNPCs()){
-      NPCControl npcControl = new NPCControl((Movable1D)NPC);
-      myNPCControl.add(npcControl);
-    }
-  }
-
-  private void setUpPlayer(){
+  private void setUpPlayerandNPC(){
     //setGameType(myDataLoader.getGameType());
     for(int playerID = 0; playerID<myMainPlayerController.size();playerID++){
       //myMainPlayerController.get(playerID).setKeyCodeMap(myDataLoader.loadKeyCode("KeyCode",playerID));
@@ -58,10 +50,17 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
       curControl.setMyPlayer((Movable1D)player);
       myMainPlayerController.add(curControl);
     }
+
+    for(Object NPC:myModel.getNPCs()){
+      MainNPCControl npcControl = new MainNPCControl();
+      npcControl.setControl(gameType);
+      npcControl.setMyNPC((Movable1D)NPC);
+      myNPCControl.add(npcControl);
+    }
   }
 
   public void update(){
-    for(NPCControl npc: myNPCControl) npc.update(); // update back-end //user-controlled player doesn't need to be updated, only NPC
+    for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end //user-controlled player doesn't need to be updated, only NPC
     myGameStateController.update(); // update front-end
   }
 

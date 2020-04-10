@@ -4,13 +4,14 @@ import ooga.controller.gamecontrol.MovableControll2D;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
+import ooga.model.characters.ZeldaPlayer;
 import ooga.model.interfaces.movables.Movable1D;
 
 import java.util.Map;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D {
 
-  private ZeldaCharacter myPlayer;
+  private ZeldaPlayer myPlayer;
   private Map<String, KeyCode> myKeyCodeMap;
 
   public ZeldaPlayerControl(){
@@ -19,7 +20,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void setMyPlayer(Movable1D myPlayer) {
-    this.myPlayer = (ZeldaCharacter)myPlayer;
+    this.myPlayer = (ZeldaPlayer)myPlayer;
   }
 
   @Override

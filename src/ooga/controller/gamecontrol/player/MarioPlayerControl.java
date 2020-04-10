@@ -5,13 +5,14 @@ import ooga.controller.gamecontrol.MovableControll1D;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.MarioCharacter;
+import ooga.model.characters.MarioPlayer;
 import ooga.model.interfaces.movables.Movable1D;
 
 import java.util.Map;
 
 public class MarioPlayerControl implements PlayerControlInterface, MovableControll1D, JumpableControl {
 
-  private MarioCharacter myPlayer;
+  private MarioPlayer myPlayer;
   private Map<String, KeyCode> myKeyCodeMap;
 
   public MarioPlayerControl(){
@@ -20,7 +21,7 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void setMyPlayer(Movable1D myPlayer) {
-    this.myPlayer = (MarioCharacter)myPlayer;
+    this.myPlayer = (MarioPlayer)myPlayer;
   }
 
   @Override
