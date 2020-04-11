@@ -20,6 +20,7 @@ public class DataStorer implements DataStorerAPI {
     public static final int subMapColNum = 10;//from frontend
     public static final String mapKeyword =  "MapOfLevel";
     public static final String characterKeyword =  "CharacterData";
+    public static final String gameMapAddressPrefix = "data/GameMap/";
     private Map<String, String> generalLevelFile;
     private com.google.gson.Gson gson;
     private DataLoader dataLoader; //for just tentative measure.
@@ -116,11 +117,12 @@ public class DataStorer implements DataStorerAPI {
         }
         /**
          * How storer knows the name of the game map file being stored is challenging.
-         * It causes circular dependency.
-         * I write the following line with the hard-coded address. It refers to game 1 level 1 submap 0.
+         * Storer and loader are therefore not independent.
+         *
          */
         GameInfo currentGameInfo = dataLoader.loadGameInfo(level, 1);
-        writeObjectTOJson(mapGraph, currentGameInfo.getSubMapInfo().get(level).get(subMapID));
+         String subMapFileName = currentGameInfo.getSubMapInfo().get(level).get(subMapID);
+        writeObjectTOJson(mapGraph, gameMapAddressPrefix + subMapFileName);
 
     }
 
