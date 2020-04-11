@@ -39,6 +39,11 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
+  public int loadGameParam(GamePara para) {
+    return 0;
+  }
+
+  @Override
   public void setGame(int GameID) {
 
   }

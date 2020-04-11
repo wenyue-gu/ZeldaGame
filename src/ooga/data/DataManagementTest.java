@@ -49,4 +49,6 @@ public class DataManagementTest {
         a.loadCharacter(2, CharacterProperty.ATTACK);
     }
 
+
+
 }
