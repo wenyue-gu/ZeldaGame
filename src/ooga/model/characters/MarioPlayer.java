@@ -1,7 +1,7 @@
 package ooga.model.characters;
 
-import ooga.model.interfaces.Scorable;
+import ooga.model.move.JumpableObject;
 
-public abstract class MarioPlayer extends MarioCharacter {
+public abstract class MarioPlayer extends JumpableObject {
 
 }

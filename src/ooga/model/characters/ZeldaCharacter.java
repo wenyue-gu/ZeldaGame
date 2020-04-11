@@ -1,12 +1,15 @@
 package ooga.model.characters;
 
+import java.beans.PropertyChangeListener;
+import ooga.model.PropertyChangeNotifier;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.Alive;
 import ooga.model.interfaces.Attacker;
+import ooga.model.interfaces.Notifier;
 import ooga.model.move.MovingObject2D;
 
-public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker {
+public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
 
   public static final int DEFAULT_ATTACK = 0;
   public static final int DEFAULT_WEAPON = 0;
@@ -16,6 +19,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker {
   protected int attack;
   protected int id;
   protected Direction attackingDirection;
+  protected PropertyChangeNotifier notifier;
 
   public ZeldaCharacter(int initialHp, int id) {
     this(initialHp, DEFAULT_WEAPON, id);
@@ -26,11 +30,13 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker {
   }
 
   public ZeldaCharacter(int initialHp, int weapon, int attack, int id) {
+    super();
     hp = initialHp;
     this.weapon = weapon;
     this.attack = attack;
     this.id = id;
     attackingDirection = movingDirection;
+    notifier = new PropertyChangeNotifier(this);
   }
 
   @Override
@@ -96,10 +102,21 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker {
   @Override
   public void fire() {
     setState(MovingState.ATTACK);
-    notifyAnimation();
   }
 
-  // TODO: implement this
-  private void notifyAnimation() {
+  @Override
+  public void addListener(PropertyChangeListener listener) {
+    notifier.addListener(listener);
+  }
+
+  @Override
+  public void removeListener(PropertyChangeListener listener) {
+    notifier.removeListener(listener);
+  }
+
+  // TODO: change the string
+  @Override
+  protected void notifyStateChange(MovingState oldState, MovingState newState) {
+    notifier.firePropertyChange("TODO",oldState, newState);
   }
 }

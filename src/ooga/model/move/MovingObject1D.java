@@ -3,7 +3,7 @@ package ooga.model.move;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 
-public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
+public abstract class MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
 
   public static final int DEFAULT_X_SPEED = 5;
   public static final int DEFAULT_X = 0;
@@ -60,8 +60,14 @@ public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D 
 
   @Override
   public void setState(MovingState movingState) {
+    MovingState oldState = this.movingState;
     this.movingState = movingState;
+
+    notifyStateChange(oldState, movingState);
   }
+
+  protected abstract void notifyStateChange(MovingState oldState,
+      MovingState newState);
 
   @Override
   public MovingState getState() {
