@@ -1,6 +1,6 @@
 package ooga.model.map;
 
-import java.util.Map;
+import java.util.*;
 import ooga.data.DataLoaderAPI;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.GridInMap;
@@ -10,7 +10,7 @@ public class GameGridInMap extends GameSingleGrid implements GridInMap {
   public static final int ID_NOT_DEFINED = 666;
 
   protected int id;
-  protected Map<Direction, Integer> surroundingMaps;
+  protected Map<Direction, Integer> surroundingMaps = new HashMap<>();
 
   public GameGridInMap(DataLoaderAPI loader, int id) {
     super(loader);
@@ -48,7 +48,7 @@ public class GameGridInMap extends GameSingleGrid implements GridInMap {
     surroundingMaps.put(direction, gridID);
   }
 
-  @Override
+  //@Override
   public void loadGrid(int level) {
     loadGrid(this.id, level);
   }

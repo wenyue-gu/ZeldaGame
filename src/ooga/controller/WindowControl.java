@@ -4,7 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-//import ooga.DataLoader;
+import ooga.data.DataLoader;
 import ooga.controller.gamecontrol.GameController;
 import ooga.data.DataLoaderAPI;
 import ooga.model.Model;
@@ -12,26 +12,27 @@ import ooga.model.interfaces.ModelInterface;
 import ooga.view.game_menu.AbstractGameMenuView;
 import ooga.view.game_menu.GameMenuView;
 
+import java.lang.reflect.InvocationTargetException;
+
 
 public class WindowControl {
 
-  //private MenuView myMenuView;
   private Button myStartButton;
   private Button myExitButton;
+  private Button myLoadButton;
+  private Button myChangeBackgroundButton;
   private GameController myGameController;
   private Stage myStage;
   private GameMenuView myMenuView;
   private ModelInterface myModel;
   private DataLoaderAPI myDataLoader;
+  private boolean dark = false;
 
   public WindowControl(Stage currentStage){
     myStage = currentStage;
     myMenuView = new AbstractGameMenuView();
     setMenuScene();
-    myStartButton = myMenuView.getNewGameButton();
-    myStartButton.setOnAction(e->startGame(currentStage));
-    myExitButton = myMenuView.getExitGameButton();
-    myExitButton.setOnAction(e->currentStage.close());
+    initializeButtons();
   }
 
   public void setModel(Model model){
@@ -43,15 +44,33 @@ public class WindowControl {
   }
 
   private void setMenuScene(){
-    myStage.setScene(myMenuView.getMenuView().getScene());
+    myStage.setScene(myMenuView.getMenuView());
+  }
+
+
+  private void initializeButtons(){
+    myStartButton = myMenuView.getNewGameButton();
+    myStartButton.setOnAction(e->startGame(myStage));
+    myExitButton = myMenuView.getExitGameButton();
+    myExitButton.setOnAction(e->myStage.close());
+    myChangeBackgroundButton = myMenuView.getBackgroundButton();
+    myChangeBackgroundButton.setOnAction(e->switchMode());
+    myLoadButton = myMenuView.getLoadButton();
   }
 
 
   private void startGame(Stage currentStage) {
     myGameController = new GameController(myModel, myDataLoader);
+    myGameController.setMode(dark);
     Scene myScene = myGameController.getScene();
 
-    myScene.setOnKeyPressed(e -> myGameController.keyInput(e.getCode()));
+    myScene.setOnKeyPressed(e -> {
+      try {
+        myGameController.keyInput(e.getCode());
+      } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException ex) {
+        System.out.println("Keymap error");
+      }
+    });
     currentStage.setScene(myScene);
     currentStage.show();
     AnimationTimer timer = new AnimationTimer() {
@@ -61,5 +80,10 @@ public class WindowControl {
       }
     };
     timer.start();
+  }
+
+  private void switchMode(){
+    dark = !dark;
+    myMenuView.switchMode(dark);
   }
 }
