@@ -15,13 +15,79 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerKeyInputTest1 {
     @Test
-    void testLeftArrow () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    void testLeft () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         ZeldaPlayer player = new ZeldaPlayer(100,0);
         ZeldaPlayerControl control = new ZeldaPlayerControl();
         control.setMyPlayer(player);
+
+        //walk left
         control.keyInput(KeyCode.LEFT);
         assertEquals(MovingState.WALK, player.getState());
         assertEquals(Direction.WEST, player.getDirection());
+    }
+
+    @Test
+    void testRight () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        ZeldaPlayer player = new ZeldaPlayer(100,0);
+        ZeldaPlayerControl control = new ZeldaPlayerControl();
+        control.setMyPlayer(player);
+
+        //walk right
+        control.keyInput(KeyCode.RIGHT);
+        assertEquals(MovingState.WALK, player.getState());
+        assertEquals(Direction.EAST, player.getDirection());
+    }
+
+    @Test
+    void testUp () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        ZeldaPlayer player = new ZeldaPlayer(100,0);
+        ZeldaPlayerControl control = new ZeldaPlayerControl();
+        control.setMyPlayer(player);
+
+        //walk upwards
+        control.keyInput(KeyCode.UP);
+        assertEquals(MovingState.WALK, player.getState());
+        assertEquals(Direction.NORTH, player.getDirection());
+    }
+
+    @Test
+    void testDown () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        ZeldaPlayer player = new ZeldaPlayer(100,0);
+        ZeldaPlayerControl control = new ZeldaPlayerControl();
+        control.setMyPlayer(player);
+
+        //walk downwards
+        control.keyInput(KeyCode.DOWN);
+        assertEquals(MovingState.WALK, player.getState());
+        assertEquals(Direction.SOUTH, player.getDirection());
+    }
+
+    @Test
+    void testAttack () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        ZeldaPlayer player = new ZeldaPlayer(100,0);
+        ZeldaPlayerControl control = new ZeldaPlayerControl();
+        control.setMyPlayer(player);
+        control.keyInput(KeyCode.Q);
+        assertEquals(MovingState.ATTACK, player.getState());
+        assertEquals(0, player.getAttack());
+
+        //different attack
+        control.keyInput(KeyCode.W);
+        assertEquals(1, player.getAttack());
+    }
+
+    @Test
+    void testNonExistingInput () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        ZeldaPlayer player = new ZeldaPlayer(100,0);
+        ZeldaPlayerControl control = new ZeldaPlayerControl();
+        MovingState state = player.getState();
+        Direction direction = player.getDirection();
+        control.setMyPlayer(player);
+
+        //nothing changes since keycode is not part of the map
+        control.keyInput(KeyCode.K);
+        assertEquals(state, player.getState());
+        assertEquals(direction, player.getDirection());
     }
 
 
