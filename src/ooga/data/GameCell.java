@@ -9,9 +9,7 @@ public class GameCell implements Cell {
     private int ID;
     private int cellState;
     private int imageIndex;
-    GameCell() {
 
-    }
     GameCell(int ID) {
         this.ID = ID;
     }

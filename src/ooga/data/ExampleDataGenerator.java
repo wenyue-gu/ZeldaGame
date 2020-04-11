@@ -1,6 +1,7 @@
 package ooga.data;
 
 import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
 
 public class ExampleDataGenerator {
@@ -22,9 +23,8 @@ public class ExampleDataGenerator {
 //            cellLinkedList.add(newCell);
 //        }
 //
-//        DataLoader a = new DataLoader();
-//        DataStorer b = new DataStorer();
-//        a.loadCell(1,1,1);
+//
+//        a.loadCell(1,1,1, 1);
 //        b.storeMap(cellLinkedList, 1);
         /**
          * the following is generating character loading
@@ -33,6 +33,7 @@ public class ExampleDataGenerator {
         ZeldaCharacter ZC = new ZeldaCharacter(1,2,3,4);
         ZC.setFiringDirection(Direction.EAST);
         b.storeCharacter(2, ZC);
+        a.loadCharacter(2, CharacterProperty.ATTACK);
         /**
          * the following is testing image map loading/storing (incomplete)
          */
