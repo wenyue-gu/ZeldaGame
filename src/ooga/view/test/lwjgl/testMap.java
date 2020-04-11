@@ -38,7 +38,7 @@ public class testMap implements Runnable {
     shader = new Shader("/view/shaders/2d/cyberpunkTitleVertex.glsl", "/view/shaders/2d/cyberpunkTitleFragment.glsl");
     renderer = new Renderer2D(shader);
     //TitleCropper cropit = new TitleCropper();
-    GenerateCroppedSprites cropit = new GenerateCroppedSprites();
+    //GenerateCroppedSprites cropit = new GenerateCroppedSprites();
     window.setBackgroundColor(22.0f/255.0f, 23.0f/255.0f, 25.0f/255.0f);
     window.create();
     mapView = new Map2DView(mapPath,WIDTH, HEIGHT);
