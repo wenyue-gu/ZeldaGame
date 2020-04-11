@@ -12,9 +12,12 @@ public class ImageLoader {
    */
   public static BufferedImage loadImage(String path){
     try {
-      return ImageIO.read(ImageLoader.class.getResourceAsStream(path)); //Loads in image
+      System.out.println("loading img" + path);
+      return ImageIO.read(ImageLoader.class.getResourceAsStream(path));
+      //Loads in image
     } catch (IOException e) {
-      //System.exit(1); //If the image cannot be loaded, the window closes
+      // System.exit(1);
+      // If the image cannot be loaded, the window closes
       System.err.println(path + " was not loaded.");
     }
     return null;

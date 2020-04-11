@@ -56,5 +56,27 @@ public class SpriteSheet {
     }
   }
 
+  public String crop(int x, int y, int width, int height, boolean isMap, String tag, String dir) {
+    System.out.println(x);
+    System.out.println(y);
+    System.out.println(x*width);
+    System.out.println(y*height);
+    System.out.println(sheet.getWidth());
+    System.out.println(sheet.getHeight());
+    BufferedImage cropped = sheet.getSubimage(x*width, y*height, width, height);
+    String imageName = String.format("%s_%s_%s.png", tag, String.valueOf(x), String.valueOf(y));
+    saveCroppedImage(imageName, dir, cropped);
+    return String.format("%s%s", dir, imageName);
+    //return sheet.getSubimage(0, 0, 8, 8);
+  }
+
+  public void saveCroppedImage(String filename, String dir, BufferedImage cropped){
+    try {
+      File outputfile = new File(String.format("%s%s/%s",GLOBAL, dir, filename));
+      ImageIO.write(cropped, "png", outputfile);
+    } catch (IOException e) {
+      System.err.println("Cannot save this cursed image");
+    }
+  }
 
 }
