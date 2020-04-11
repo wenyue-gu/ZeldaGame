@@ -38,7 +38,7 @@ public interface DataStorerAPI {
      * @param map cells in the collection will first fill in the 1st row, then the 2nd row of the screen and so on...
      * @param level the level the game displays.
      */
-    void storeMap(Collection<Cell> map, int level);
+    void storeSubMap(Collection<Cell> map, int level, int subMapID);
     void addLevel(int levelNumber);
 
 }

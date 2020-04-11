@@ -5,10 +5,11 @@ import ooga.model.interfaces.gameMap.Cell;
 public class GameMapGraph {
     private Cell[][] cellArray;
     private int level;
+    private int ID;
     public GameMapGraph() {
 
     }
-    public GameMapGraph(int level, int row, int column) {
+    public GameMapGraph(int level, int ID, int row, int column) {
         this.level = level;
         cellArray = new GameCell[row][column];
         for (int i = 0; i< row; i++) {

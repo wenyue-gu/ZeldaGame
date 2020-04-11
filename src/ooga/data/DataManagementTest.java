@@ -33,7 +33,7 @@ public class DataManagementTest {
             cellLinkedList.add(newCell);
         }
 
-        b.storeMap(cellLinkedList, 1);
+        b.storeSubMap(cellLinkedList, 1, 1);
         a.loadCell(1, 1, 1, 1);
 
     }

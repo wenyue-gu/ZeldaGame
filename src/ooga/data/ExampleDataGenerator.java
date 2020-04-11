@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * this class will not be part of the final submission. It's purely used for generating data for the example file for the presentation only.
  */
 public class ExampleDataGenerator {
+    public static final int SubMapPerMap = 4;
     static Gson gson;
     public static void main(String[] args) {
         DataLoader a = new DataLoader();
@@ -16,13 +18,26 @@ public class ExampleDataGenerator {
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
         gson = gsonBuilder.create();
+        generateLevelData();
     }
     private static void generateLevelData() {
-        writeObjectTOJson()
+        int levelNum = 1;
+        int gameType = 1;
+        List<Integer> npcID= new ArrayList<>();
+        npcID.add(1);
+        List<Integer> playerID = new ArrayList<>();
+        playerID.add(1);
+        Map<Integer, String> subMapID = new HashMap<>();
+        for (int i = 0; i  < SubMapPerMap; i++) {
+            subMapID.put(i, UUID.randomUUID().toString());//file name is a random unique ID.
+        }
+
+        GameInfo gameInfo1 = new GameInfo(npcID, playerID, levelNum, subMapID, gameType);
+        writeObjectTOJson(gameInfo1, "data/GameInfo/ZeldaGame.json");
     }
-    private static void writeObjectTOJson(Object object, String fileName) {
+    private static void writeObjectTOJson(Object object, String filePath) {
         try {
-            FileWriter Writer1 = new FileWriter(fileName);
+            FileWriter Writer1 = new FileWriter(filePath);
             String jsonString2 = gson.toJson(object);
             gson.toJson(object, Writer1);
             Writer1.flush();

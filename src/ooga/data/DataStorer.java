@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class DataStorer implements DataStorerAPI {
     public static final int numFilesPerLevel = 1;
-    public static final int mapRowNum = 10;//from frontend
-    public static final int mapColNum = 10;//from frontend
+    public static final int subMapRowNum = 10;//from frontend
+    public static final int subMapColNum = 10;//from frontend
     public static final String mapKeyword =  "MapOfLevel";
     public static final String characterKeyword =  "CharacterData";
     private Map<String, String> generalLevelFile;
@@ -101,24 +101,24 @@ public class DataStorer implements DataStorerAPI {
     }
 
     @Override
-    public void storeMap(Collection<Cell> map, int level) {
-        if (map.size() > mapRowNum * mapColNum) {
+    public void storeSubMap(Collection<Cell> map, int level, int subMapID) {
+        if (map.size() > subMapRowNum * subMapColNum) {
             System.out.println("map stored didn't fit in dimension");
             //throw an exception
         }
-        GameMapGraph mapGraph = new GameMapGraph(level, mapRowNum, mapColNum);
+        GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum);
         int i = 0;
         for (Cell cell: map) {
-            mapGraph.setElement(i/mapColNum, i%mapRowNum, cell.getState(), cell.getImage() );
+            mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell.getState(), cell.getImage() );
             i++;
         }
         writeObjectTOJson(mapGraph, mapKeyword + String.valueOf(level)+".json");
 
     }
 
-    private void writeObjectTOJson(Object object, String fileName) {
+    private void writeObjectTOJson(Object object, String filePath) {
         try {
-            FileWriter Writer1 = new FileWriter(fileName);
+            FileWriter Writer1 = new FileWriter(filePath);
             String jsonString2 = gson.toJson(object);
             gson.toJson(object, Writer1);
             Writer1.flush();
