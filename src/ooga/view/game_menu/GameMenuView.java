@@ -14,6 +14,8 @@ public interface GameMenuView { // will be extending Scene
 
   Button getBackgroundButton();
 
+  Button getLoadButton();
+
   void switchMode(boolean dark);
 
 }

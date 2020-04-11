@@ -17,7 +17,8 @@ import javafx.scene.text.Font;
 public class AbstractGameMenuView implements GameMenuView {
     private PrettyButtons myNewButton;
     private PrettyButtons myExitButton;
-    private PrettyButtons toggle;
+    private PrettyButtons myMode;
+    private PrettyButtons myLoad;
     private VBox vBox;
     private Scene myScene;
 
@@ -48,7 +49,12 @@ public class AbstractGameMenuView implements GameMenuView {
 
     @Override
     public Button getBackgroundButton(){
-        return toggle;
+        return myMode;
+    }
+
+    @Override
+    public Button getLoadButton() {
+        return myLoad;
     }
 
     @Override
@@ -57,18 +63,20 @@ public class AbstractGameMenuView implements GameMenuView {
         else vBox.setBackground(lightMode);
         myNewButton.switchMode(dark);
         myExitButton.switchMode(dark);
-        toggle.switchMode(dark);
+        myMode.switchMode(dark);
+        myLoad.switchMode(dark);
     }
 
     private void setUpButton(){
         myNewButton = new PrettyButtons("New Game");
         myExitButton = new PrettyButtons("Exit");
-        toggle = new PrettyButtons("Change Background") ;
+        myMode = new PrettyButtons("Change Background") ;
+        myLoad = new PrettyButtons("Load Game");
     }
 
     private void setUpVBox(){
         vBox = new VBox(10);
         vBox.setAlignment(Pos.BASELINE_CENTER);
-        vBox.getChildren().addAll(myNewButton, myExitButton, toggle);
+        vBox.getChildren().addAll(myNewButton, myExitButton, myLoad, myMode);
     }
 }

@@ -19,12 +19,13 @@ public class WindowControl {
 
   private Button myStartButton;
   private Button myExitButton;
+  private Button myLoadButton;
+  private Button myChangeBackgroundButton;
   private GameController myGameController;
   private Stage myStage;
   private GameMenuView myMenuView;
   private ModelInterface myModel;
   private DataLoaderAPI myDataLoader;
-  private Button myChangeBackgroundButton;
   private boolean dark = false;
 
   public WindowControl(Stage currentStage){
@@ -54,6 +55,7 @@ public class WindowControl {
     myExitButton.setOnAction(e->myStage.close());
     myChangeBackgroundButton = myMenuView.getBackgroundButton();
     myChangeBackgroundButton.setOnAction(e->switchMode());
+    myLoadButton = myMenuView.getLoadButton();
   }
 
 

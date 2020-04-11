@@ -9,11 +9,16 @@ import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D, AttackerControl {
+public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D, AttackerControl, PropertyChangeListener {
+
+  public static final String STATE = "state";
+  public static final String DIRECTION = "direction";
 
   private ZeldaPlayer myPlayer;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
@@ -97,5 +102,16 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     myPlayer.setState(MovingState.ATTACK);
     myPlayer.setAttack(2);
 
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String s = evt.getPropertyName();
+    switch(s){
+      case STATE:
+        break;
+      case DIRECTION:
+        break;
+    }
   }
 }
