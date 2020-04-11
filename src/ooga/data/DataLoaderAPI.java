@@ -12,6 +12,8 @@ import java.util.Map;
  * The interface for game loader
  */
 public interface DataLoaderAPI {
+    int loadGameParam(GamePara para);
+
     void setGame(int GameID);
 
     int getGameType();
