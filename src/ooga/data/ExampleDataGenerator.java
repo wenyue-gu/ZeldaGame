@@ -28,12 +28,14 @@ public class ExampleDataGenerator {
         List<Integer> playerID = new ArrayList<>();
         playerID.add(1);
         Map<Integer, String> subMapID = new HashMap<>();
+        Map<Integer, Map<Integer, String>> a = new HashMap<>();
         for (int i = 0; i  < SubMapPerMap; i++) {
+
             subMapID.put(i, UUID.randomUUID().toString());//file name is a random unique ID.
         }
-
-        GameInfo gameInfo1 = new GameInfo(npcID, playerID, levelNum, subMapID, gameType);
-        writeObjectTOJson(gameInfo1, "data/GameInfo/ZeldaGame.json");
+        a.put(levelNum, subMapID);
+        GameInfo gameInfo1 = new GameInfo(npcID, playerID, levelNum, a, gameType);
+        writeObjectTOJson(gameInfo1, "data/GameInfo/Game"+gameType+"level"+levelNum+".json");
     }
     private static void writeObjectTOJson(Object object, String filePath) {
         try {

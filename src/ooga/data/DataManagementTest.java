@@ -17,7 +17,7 @@ public class DataManagementTest {
 
     public static void main(String[] args) {
         gameMapLoadingTest();
-        characterLoadingStoringTest();
+//        characterLoadingStoringTest();
     }
 
     /**
@@ -29,12 +29,12 @@ public class DataManagementTest {
         for (int i = 0; i < 20; i++) {
             Cell newCell = new GameCell(1);
             newCell.setState(1);
-            newCell.setImage(9);
+            newCell.setImage(10);
             cellLinkedList.add(newCell);
         }
 
-        b.storeSubMap(cellLinkedList, 1, 1);
-        a.loadCell(1, 1, 1, 1);
+        b.storeSubMap(cellLinkedList, 1, 2);
+        a.loadCell(1, 1, 0, 1);
 
     }
     /**

@@ -16,12 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static ooga.data.DataStorer.characterKeyword;
-import static ooga.data.DataStorer.mapKeyword;
 
 public class DataLoader implements ooga.data.DataLoaderAPI {
+  public static final String DATA_Directory = "data/";
   public static final String Image_Keyword = "image";
   public static final String Text_Keyword = "text";
   public static final String GAME_Keyword = "Game";
+  public static final String LEVEL_Keyword = "level";
+  public static final String JsonPostFix = ".json";
+  public static int gameID = 1;
   private int currentLevel;
   private com.google.gson.Gson gson;
   public DataLoader() {
@@ -66,20 +69,27 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   private GameMapGraph loadMap(int level, int subMapID) {
 
     GameMapGraph map = new GameMapGraph();
+
+    GameInfo gameInfo = loadGameInfo(level, gameID);
+
     try {
       //two readings: 1. read level files 2. read subMap file.
       //Map<String, String> levelInfoMap = loadLevelInfo(GameName, level);
       //loadJson(GAME_Keyword + String.valueOf(level), );
-      map = (GameMapGraph) loadJson(mapKeyword+ String.valueOf(level) + ".json", map.getClass());
+      map = loadJson("data/GameMap/"+ gameInfo.getSubMapInfo().get(level).get(subMapID), map.getClass());
     } catch (Exception e) {
       e.printStackTrace();
     }
     return map;
   }
+
+  public GameInfo loadGameInfo(int level, int gameID) {
+    return ( loadJson("data/GameInfo/"+ GAME_Keyword + gameID + LEVEL_Keyword + level + JsonPostFix , GameInfo.class));
+  }
   @Override
   public String loadText(String keyword, String category) {
     Map<String, String> text = new HashMap<>();
-    text = (Map<String, String>) loadJson(Text_Keyword + category, text.getClass());
+    text = loadJson(Text_Keyword + category, text.getClass());
     return text.get(keyword);
   }
 
@@ -87,7 +97,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public int loadCharacter(int ID, CharacterProperty property) {
     ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1,2);
 
-    zeldaCharacter = (ZeldaCharacter) loadJson(characterKeyword + ".json", zeldaCharacter.getClass());
+    zeldaCharacter =  loadJson(characterKeyword + ".json", zeldaCharacter.getClass());
     try {
       Method methodcall = zeldaCharacter.getClass().getDeclaredMethod("get" + property.toString().substring(0,1)+ property.toString().substring(1).toLowerCase());
       int a = (int) methodcall.invoke(zeldaCharacter);
@@ -128,19 +138,18 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   @Override
   public Path loadImagePath(int imageID, String category) {
     Map<Integer, Path> imagePath = new HashMap<>();
-    imagePath = (Map<Integer, Path>) loadJson(Image_Keyword + category, imagePath.getClass());
+    imagePath = loadJson(Image_Keyword + category, imagePath.getClass());
     return imagePath.get(imageID);
   }
 
-  //seems I can't do generic for this guy and have to use the Object class?
-  private Object loadJson(String fileName, Class clazz) {
+  private <clazz> clazz loadJson(String fileName, Class clazz) {
     try {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
-      return gson.fromJson(reader, clazz);
+      return (clazz) gson.fromJson(reader, clazz);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return 0;
+    return null;
   }
 
   //todo: finish the method

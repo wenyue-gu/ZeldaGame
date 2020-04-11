@@ -9,21 +9,21 @@ public class GameInfo {
     private List<Integer> NPC_ID;
     private List<Integer> Player_ID;
     private int levelNum;
-    private Map<Integer, String> subMap_ID;
+    private Map<Integer, Map<Integer, String>> subMapInfo;
     private int gameType;
 
     GameInfo() {
         NPC_ID = new ArrayList<>();
         Player_ID = new ArrayList<>();
-        subMap_ID = new HashMap<>();
+        subMapInfo = new HashMap<>();
     }
-    GameInfo(List<Integer> NPC_ID, List<Integer> Player_ID, int levelNum, Map<Integer, String> subMap_ID, int gameType) {
+    GameInfo(List<Integer> NPC_ID, List<Integer> Player_ID, int levelNum, Map<Integer, Map<Integer, String>> subMapInfo, int gameType) {
         this();
         setGameType(gameType);
         setLevelNum(levelNum);
         setNPC_ID(NPC_ID);
         setPlayer_ID(Player_ID);
-        setSubMap_ID(subMap_ID);
+        setSubMapInfo(subMapInfo);
     }
     public List<Integer> getPlayer_ID() {
         return Player_ID;
@@ -49,12 +49,12 @@ public class GameInfo {
         this.levelNum = levelNum;
     }
 
-    public Map<Integer, String> getSubMap_ID() {
-        return subMap_ID;
+    public Map<Integer, Map<Integer, String>> getSubMapInfo() {
+        return subMapInfo;
     }
 
-    public void setSubMap_ID(Map<Integer, String> subMap_ID) {
-        this.subMap_ID = subMap_ID;
+    public void setSubMapInfo(Map<Integer, Map<Integer, String>> subMapInfo) {
+        this.subMapInfo = subMapInfo;
     }
 
     public int getGameType() {

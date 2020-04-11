@@ -22,11 +22,13 @@ public class DataStorer implements DataStorerAPI {
     public static final String characterKeyword =  "CharacterData";
     private Map<String, String> generalLevelFile;
     private com.google.gson.Gson gson;
+    private DataLoader dataLoader; //for just tentative measure.
 
     public DataStorer() {
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
         gson = gsonBuilder.create();
+        dataLoader = new DataLoader();
 
         //delete in the future and move into property files.
         generalLevelFile = new HashMap<>();
@@ -112,7 +114,13 @@ public class DataStorer implements DataStorerAPI {
             mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell.getState(), cell.getImage() );
             i++;
         }
-        writeObjectTOJson(mapGraph, mapKeyword + String.valueOf(level)+".json");
+        /**
+         * How storer knows the name of the game map file being stored is challenging.
+         * It causes circular dependency.
+         * I write the following line with the hard-coded address. It refers to game 1 level 1 submap 0.
+         */
+        GameInfo currentGameInfo = dataLoader.loadGameInfo(level, 1);
+        writeObjectTOJson(mapGraph, currentGameInfo.getSubMapInfo().get(level).get(subMapID));
 
     }
 
