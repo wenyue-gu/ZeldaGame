@@ -4,17 +4,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import ooga.data.DataLoaderAPI;
+import ooga.data.GamePara;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.GameMap;
 import ooga.model.interfaces.gameMap.GridInMap;
 
 public class GameMapInstance implements GameMap {
 
-  public static final int DEFAULT_LEVEL = 0;
   public static final int ROW_PLACE_HOLDER = 0;
   public static final int COL_PLACE_HOLDER = 0;
-  //TODO: delete this
-  int mapNumber = 3;
 
   protected int level;
   protected int currentGrid;
@@ -22,18 +20,15 @@ public class GameMapInstance implements GameMap {
   protected Map<Integer, GridInMap> allGrids;
 
   public GameMapInstance(DataLoaderAPI loader) {
-    this(loader, DEFAULT_LEVEL);
-  }
-
-  public GameMapInstance(DataLoaderAPI loader, int level) {
     this.loader = loader;
-    this.level = level;
+    this.level = loader.loadGameParam(GamePara.LEVEL_NUM);
     currentGrid = 0;
     initialize();
   }
 
+  //TODO: possibly have non-consecutive ids
   private void initialize() {
-    for (int i = 0; i < mapNumber; i++) {
+    for (int i = 0; i < loader.loadGameParam(GamePara.GRID_NUM); i++) {
       GridInMap grid = new GameGridInMap(loader, i);
       grid.loadGrid(level);
       allGrids.put(i, grid);
