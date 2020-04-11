@@ -13,7 +13,7 @@ import ooga.model.map.GameMapInstance;
 public class Model implements ModelInterface {
   private DataLoaderAPI dataLoader;
   private GameMap gameMap;
-  private List<ZeldaPlayer> players;
+  private List<?> players;
 
   // TODO: use reflection API to create players dynamically once the data figures out
   public Model(DataLoaderAPI dataLoader, String gameType) {
@@ -25,7 +25,7 @@ public class Model implements ModelInterface {
     gameMap = new GameMapInstance(dataLoader);
     players = new ArrayList<ZeldaPlayer>();
     // TODO: change this after data is implemented
-    players.add(new ZeldaPlayer(100, 0));
+//    players.add(new ZeldaPlayer(100, 0));
   }
 
   @Override
