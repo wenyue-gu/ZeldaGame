@@ -16,4 +16,5 @@ public interface AgentController {
   void setAgentState(int ID);
 
   int getAnimatingState();
+
 }
