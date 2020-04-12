@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class PlayerKeyInputTest1 {
+public class PlayerKeyInputTest {
     @Test
     void testLeft () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         ZeldaPlayer player = new ZeldaPlayer(100,0);
@@ -28,7 +28,7 @@ public class PlayerKeyInputTest1 {
     }
 
     @Test
-    void testRight () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    void testWalkAround () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         ZeldaPlayer player = new ZeldaPlayer(100,0);
         ZeldaPlayerControl control = new ZeldaPlayerControl();
         control.setMyPlayer(player);
@@ -37,17 +37,30 @@ public class PlayerKeyInputTest1 {
         control.keyInput(KeyCode.RIGHT);
         assertEquals(MovingState.WALK, player.getState());
         assertEquals(Direction.EAST, player.getDirection());
-    }
-
-    @Test
-    void testUp () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        ZeldaPlayer player = new ZeldaPlayer(100,0);
-        ZeldaPlayerControl control = new ZeldaPlayerControl();
-        control.setMyPlayer(player);
 
         //walk upwards
         control.keyInput(KeyCode.UP);
         assertEquals(MovingState.WALK, player.getState());
+        assertEquals(Direction.NORTH, player.getDirection());
+    }
+
+    @Test
+    void testReleased () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        ZeldaPlayer player = new ZeldaPlayer(100,0);
+        ZeldaPlayerControl control = new ZeldaPlayerControl();
+        control.setMyPlayer(player);
+
+        //default
+        assertEquals(MovingState.IDLE, player.getState());
+
+        //walk upwards
+        control.keyInput(KeyCode.UP);
+        assertEquals(MovingState.WALK, player.getState());
+        assertEquals(Direction.NORTH, player.getDirection());
+
+        //key released (stop)
+        control.keyReleased();
+        assertEquals(MovingState.IDLE, player.getState());
         assertEquals(Direction.NORTH, player.getDirection());
     }
 
@@ -89,6 +102,12 @@ public class PlayerKeyInputTest1 {
         control.keyInput(KeyCode.K);
         assertEquals(state, player.getState());
         assertEquals(direction, player.getDirection());
+
+        //key released (stop)
+        control.keyReleased();
+        assertEquals(MovingState.IDLE, player.getState());
+        assertEquals(direction, player.getDirection());
+
     }
 
 
