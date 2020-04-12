@@ -54,7 +54,13 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
+  public void keyReleased() {
+    myPlayer.setState(MovingState.IDLE);
+  }
+
+  @Override
   public void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    if(myKeyCodeMap.get(key)==null) return;
     this.getClass().getDeclaredMethod(myKeyCodeMap.get(key)).invoke(this);
 
   }
