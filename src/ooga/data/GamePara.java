@@ -6,4 +6,6 @@ public enum GamePara {
   LEVEL_NUM,
   GRID_NUM,
   GAME_TYPE,
+  INIT_POS_X,
+  INIT_POS_Y,
 }

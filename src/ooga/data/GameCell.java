@@ -9,7 +9,11 @@ public class GameCell implements Cell {
     private int ID;
     private int cellState;
     private int imageIndex;
+    private boolean walkable;
 
+    GameCell() {
+
+    }
     GameCell(int ID) {
         this.ID = ID;
     }
@@ -38,5 +42,13 @@ public class GameCell implements Cell {
         return this.ID;
     }
 
+    @Override
+    public boolean isMapCellWalkable() {
+        return walkable;
+    }
 
+    @Override
+    public void setWalkable(boolean walkable) {
+        this.walkable = walkable;
+    }
 }
