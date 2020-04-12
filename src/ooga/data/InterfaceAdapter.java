@@ -2,6 +2,7 @@ package ooga.data;
 
 
 import com.google.gson.*;
+import ooga.model.map.GameCell;
 
 import java.lang.reflect.Type;
 
@@ -22,7 +23,7 @@ public class InterfaceAdapter implements JsonSerializer, JsonDeserializer{
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         //JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
 //        String className = prim.getAsString();
-        String className = "ooga.data.GameCell";
+        String className = "ooga.model.map.GameCell";
         Class klass = getObjectClass(className);
         GameCell a = jsonDeserializationContext.deserialize(jsonObject, klass);
         return a;

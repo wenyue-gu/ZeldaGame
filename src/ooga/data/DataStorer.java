@@ -16,17 +16,20 @@ import java.util.Map;
 
 public class DataStorer implements DataStorerAPI {
     public static final int numFilesPerLevel = 1;
-    public static final int mapRowNum = 10;//from frontend
-    public static final int mapColNum = 10;//from frontend
+    public static final int subMapRowNum = 22;//from frontend
+    public static final int subMapColNum = 34;//from frontend
     public static final String mapKeyword =  "MapOfLevel";
     public static final String characterKeyword =  "CharacterData";
+    public static final String gameMapAddressPrefix = "data/GameMap/";
     private Map<String, String> generalLevelFile;
     private com.google.gson.Gson gson;
+    private DataLoader dataLoader; //for just tentative measure.
 
     public DataStorer() {
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
         gson = gsonBuilder.create();
+        dataLoader = new DataLoader();
 
         //delete in the future and move into property files.
         generalLevelFile = new HashMap<>();
@@ -43,6 +46,10 @@ public class DataStorer implements DataStorerAPI {
     public void setGame(int GameID) {
 
     }
+    public void initializePlayerStatus(int gameID, int playerID) {
+        PlayerStatus playerStatus = new PlayerStatus(gameID, playerID);
+        writeObjectTOJson(playerStatus, "data/Player/player" + playerID+".json");
+    }
 
     @Override
     public void StoreText(String text, String keyword, String category) {
@@ -57,9 +64,7 @@ public class DataStorer implements DataStorerAPI {
 
     //@Override
     public void storeCharacter(int characterID, ZeldaCharacter character) {
-        Map<Integer, ZeldaCharacter> characterMap = new HashMap<>();
-        characterMap.put(characterID, character);
-        writeObjectTOJson(characterMap, characterKeyword+".json");
+        writeObjectTOJson(character, "data/ZeldaCharacter/" + characterKeyword + characterID + ".json");
     }
 
     @Override
@@ -101,24 +106,32 @@ public class DataStorer implements DataStorerAPI {
     }
 
     @Override
-    public void storeMap(Collection<Cell> map, int level) {
-        if (map.size() > mapRowNum * mapColNum) {
+    public void storeSubMap(Collection<Cell> map, int level, int subMapID) {
+        if (map.size() != subMapRowNum * subMapColNum) {
             System.out.println("map stored didn't fit in dimension");
             //throw an exception
         }
-        GameMapGraph mapGraph = new GameMapGraph(level, mapRowNum, mapColNum);
+        GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum);
         int i = 0;
         for (Cell cell: map) {
-            mapGraph.setElement(i/mapColNum, i%mapRowNum, cell.getState(), cell.getImage() );
+
+            mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell);
             i++;
         }
-        writeObjectTOJson(mapGraph, mapKeyword + String.valueOf(level)+".json");
+        /**
+         * How storer knows the name of the game map file being stored is challenging.
+         * Storer and loader are therefore not independent.
+         *
+         */
+        GameInfo currentGameInfo = dataLoader.loadGameInfo(level, 1);
+         String subMapFileName = currentGameInfo.getSubMapInfo().get(level).get(subMapID);
+        writeObjectTOJson(mapGraph, gameMapAddressPrefix + subMapFileName);
 
     }
 
-    private void writeObjectTOJson(Object object, String fileName) {
+    private void writeObjectTOJson(Object object, String filePath) {
         try {
-            FileWriter Writer1 = new FileWriter(fileName);
+            FileWriter Writer1 = new FileWriter(filePath);
             String jsonString2 = gson.toJson(object);
             gson.toJson(object, Writer1);
             Writer1.flush();
@@ -140,5 +153,7 @@ public class DataStorer implements DataStorerAPI {
 //            String jsonString = gson.toJson(person);
         }
     }
+
+
 
 }
