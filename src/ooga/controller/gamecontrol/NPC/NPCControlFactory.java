@@ -17,7 +17,7 @@ public class NPCControlFactory {
 
   private void fillMap(){
     controlMap.put(1, new ZeldaNPCControl());
-    controlMap.put(0, new MarioNPCControl());
+//    controlMap.put(0, new MarioNPCControl());
   }
 
   public NPCControlInterface selectControl(int type){
