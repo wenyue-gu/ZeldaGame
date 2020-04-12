@@ -34,12 +34,12 @@ public class SpriteSheet {
    * @return
    */
   public String crop(int x, int y, int width, int height, boolean isMap) {
-    System.out.println(x);
-    System.out.println(y);
-    System.out.println(x*width);
-    System.out.println(y*height);
-    System.out.println(sheet.getWidth());
-    System.out.println(sheet.getHeight());
+    //System.out.println(x);
+    //System.out.println(y);
+    //System.out.println(x*width);
+    //System.out.println(y*height);
+    //System.out.println(sheet.getWidth());
+    //System.out.println(sheet.getHeight());
     BufferedImage cropped = sheet.getSubimage(x*width, y*height, width, height);
     String imageName = String.format("%s_%s.png", String.valueOf(x),String.valueOf(y));
     saveCroppedImage(imageName, cropped);
@@ -57,12 +57,12 @@ public class SpriteSheet {
   }
 
   public String crop(int x, int y, int width, int height, boolean isMap, String tag, String dir) {
-    System.out.println(x);
-    System.out.println(y);
-    System.out.println(x*width);
-    System.out.println(y*height);
-    System.out.println(sheet.getWidth());
-    System.out.println(sheet.getHeight());
+    //System.out.println(x);
+    //System.out.println(y);
+    //System.out.println(x*width);
+    //System.out.println(y*height);
+    //System.out.println(sheet.getWidth());
+    //System.out.println(sheet.getHeight());
     BufferedImage cropped = sheet.getSubimage(x*width, y*height, width, height);
     String imageName = String.format("%s_%s_%s.png", tag, String.valueOf(x), String.valueOf(y));
     saveCroppedImage(imageName, dir, cropped);

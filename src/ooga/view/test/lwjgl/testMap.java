@@ -6,6 +6,7 @@ import ooga.view.engine.graphics.Renderer2D;
 import ooga.view.engine.graphics.Shader;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
+import ooga.view.engine.utils.cyberpunk2d.GenerateMergedSprites;
 import ooga.view.game_view.map.map2d.Map2DView;
 import org.lwjgl.glfw.GLFW;
 
@@ -31,6 +32,7 @@ public class testMap implements Runnable {
     renderer = new Renderer2D(shader);
     //TitleCropper cropit = new TitleCropper();
     //GenerateCroppedSprites cropit = new GenerateCroppedSprites();
+    //GenerateMergedSprites mergeit = new GenerateMergedSprites();
     window.setBackgroundColor(22.0f/255.0f, 23.0f/255.0f, 25.0f/255.0f);
     window.create();
     mapView = new Map2DView(mapPath,WIDTH, HEIGHT);

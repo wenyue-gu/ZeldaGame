@@ -1,9 +1,12 @@
-package ooga.view.engine.utils;
+package ooga.view.engine.utils.cyberpunk2d;
 
-public class TitleCropper {
+import ooga.view.engine.utils.ImageLoader;
+import ooga.view.engine.utils.SpriteSheet;
+
+public class GenerateCroppedTitles {
   String path = "/view/textures/2d/cyberpunk/map/Itch_release_raw_tileset_01.png";
 
-  public TitleCropper(){
+  public GenerateCroppedTitles(){
     for (int i=0; i<15; i++){
       for (int j=0; j<8;j++){
         SpriteSheet palette = new SpriteSheet(ImageLoader.loadImage(path));

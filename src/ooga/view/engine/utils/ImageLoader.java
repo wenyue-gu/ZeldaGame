@@ -22,4 +22,13 @@ public class ImageLoader {
     }
     return null;
   }
+
+  public static int getImageWidth(String path){
+    return loadImage(path).getWidth();
+  }
+
+  public static int getImageHeight(String path){
+    return loadImage(path).getHeight();
+  }
+
 }
