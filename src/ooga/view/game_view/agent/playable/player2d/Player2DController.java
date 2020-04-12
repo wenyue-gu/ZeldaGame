@@ -14,11 +14,11 @@ public class Player2DController extends AgentController {
     agentAnimationDict = new AgentAnimationDict();
     direction = INITIAL_DIRECTION;
     action = INITIAL_ACTION;
+    this.setCurrentAnimation(direction, action);
   }
 
   @Override
   public void move(Vector2f directions) {
-
   }
 
 }
