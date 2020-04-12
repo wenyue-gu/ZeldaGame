@@ -131,7 +131,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
     zeldaCharacter =  loadJson("data/ZeldaCharacter/" + characterKeyword + ID + ".json", zeldaCharacter.getClass());
     try {
-      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod("get" + property.toString().substring(0,1)+ property.toString().substring(1).toLowerCase());
+      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod("get" + property.toString().substring(0,1)+ property.toString().substring(1));
       int a = (int) methodcall.invoke(zeldaCharacter);
       return (int) methodcall.invoke(zeldaCharacter);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
