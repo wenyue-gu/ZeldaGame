@@ -25,6 +25,10 @@ public class GameInfo {
         initialPosition = new int[]{0, 0};
         availableAttackDirections = new ArrayList<>();
         availableAttackDirections.add(SE);
+        availableAttackDirections.add(SOUTH);
+        availableAttackDirections.add(NE);
+        availableAttackDirections.add(NORTH);
+        availableAttackDirections.add(EAST);
 
     }
     public GameInfo(List<Integer> NPC_ID, List<Integer> Player_ID, int levelNum, Map<Integer, Map<Integer, String>> subMapInfo, int gameType) {
@@ -37,6 +41,9 @@ public class GameInfo {
     }
     public List<Integer> getPlayer_ID() {
         return Player_ID;
+    }
+    public List<Direction> getAvailableAttackDirections() {
+        return this.availableAttackDirections;
     }
 
     public void setPlayer_ID(List<Integer> player_ID) {
