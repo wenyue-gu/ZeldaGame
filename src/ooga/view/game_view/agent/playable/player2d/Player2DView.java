@@ -5,7 +5,6 @@ import ooga.view.engine.assets.Asset2D;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Renderer2D;
 import ooga.view.engine.graphics.Vertex;
-import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
 import ooga.view.game_view.agent.interfaces.agent2d.AgentView;
 
@@ -25,7 +24,7 @@ public class Player2DView extends AgentView {
   public void update(String direction, String action) {
     controller.setCurrentAnimation(direction, action);
     printVertices();
-    //if (action.equals(MOVE_ACTION)) move(direction);
+    if (action.equals(MOVE_ACTION)) controller.move(direction, mesh);
   }
 
   @Override
@@ -44,14 +43,9 @@ public class Player2DView extends AgentView {
     renderer.renderMesh(object);
   }
 
-  private void move(String direction){
-    for (Vertex v:vertices){
-      v.setPosition(Vector3f.add(v.getPosition(), Asset2D.convertDirectionalSpeed(direction)));
-    }
-  }
 
   private void printVertices(){
-    for (Vertex v:vertices){
+    for (Vertex v:mesh.getVertices()){
       System.out.println(String.format("(%s, %s, %s)", v.getPosition().getX(), v.getPosition().getY(), v.getPosition().getZ()));
     }
   }

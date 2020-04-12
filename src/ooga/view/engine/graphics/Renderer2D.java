@@ -23,10 +23,11 @@ public class Renderer2D {
 	public void renderMesh(GameObject object) {
 		GL30.glBindVertexArray(object.getMesh().getVAO());
 		GL30.glEnableVertexAttribArray(0);
-		GL30.glEnableVertexAttribArray(1);
+		//GL30.glEnableVertexAttribArray(1);
 		GL30.glEnableVertexAttribArray(2);
 		GL30.glEnable(GL11.GL_BLEND);
 		GL30.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//GL30.glBlendFunc(GL11.GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, object.getMesh().getIBO());
 		//GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		//GL13.glBindTexture(GL11.GL_TEXTURE_2D, object.getMesh().getMaterial().getTextureID());
