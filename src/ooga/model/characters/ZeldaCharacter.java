@@ -9,9 +9,9 @@ import ooga.model.interfaces.Alive;
 import ooga.model.interfaces.Attacker;
 import ooga.model.interfaces.Notifier;
 import ooga.model.move.MovingObject2D;
+import ooga.model.test.listener.ExampleController;
 
 import java.beans.PropertyChangeListener;
-import ooga.model.test.listener.ExampleController;
 
 public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
 
@@ -20,7 +20,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
 
   private CharacterBase cb;
   private WeaponBase weaponBase;
-  protected PropertyChangeNotifier notifier;
+  protected transient PropertyChangeNotifier notifier;
 
   public ZeldaCharacter(int initialHp, int id) {
     this(initialHp, DEFAULT_WEAPON, id);
