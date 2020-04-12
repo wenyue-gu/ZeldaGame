@@ -34,7 +34,7 @@ public class Tile2DView {
     setLocation(map_x, map_y);
 
     mesh = new Mesh( vertices, indices, controller.getMaterial());
-    object = new GameObject(Asset2D.getPosition(), Asset2D.getRotation(), Asset2D.getScale(), mesh);
+    object = new GameObject(Asset2D.getMapPosition(), Asset2D.getMapRotation(), Asset2D.getMapScale(), mesh);
   }
 
   private void setLocation(int x, int y){

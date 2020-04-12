@@ -1,6 +1,7 @@
 package ooga.view.engine.graphics;
 
 import java.io.IOException;
+import ooga.view.engine.utils.ImageLoader;
 import ooga.view.engine.utils.Timer;
 
 //not sure if this gonna works, if not, it sucks
@@ -23,10 +24,13 @@ public class Animation2D {
     resetAnimation();
     this.fps = 1.0 / fps;
     this.frameAmount = cnt;
+    dir = dir.replace("\\", "/");
 
     this.animatedFrames = new Material[cnt];
     for(int i=0; i<cnt;i++){
       String spritePath = String.format("%s/%s.png", dir, i);
+      System.out.println(ImageLoader.getImageHeight(spritePath));
+      System.out.println(ImageLoader.getImageWidth(spritePath));
       this.animatedFrames[i] = new Material(spritePath);
       this.animatedFrames[i].createTexture();
     }

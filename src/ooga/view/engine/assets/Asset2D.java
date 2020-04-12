@@ -12,10 +12,10 @@ public class Asset2D {
   public static Vertex[] getTileVertices(){
 
     return new Vertex[]{
-        new Vertex(new Vector3f(-0.5f, 0.5f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector2f(0.0f, 0.0f)),
-        new Vertex(new Vector3f(-0.5f, -0.5f, 0.0f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0.0f, 1.0f)),
-        new Vertex(new Vector3f(0.5f, -0.5f, 0.0f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector2f(1.0f, 1.0f)),
-        new Vertex(new Vector3f(0.5f, 0.5f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(1.0f, 0.0f))
+        new Vertex(new Vector3f(-1f, 1f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector2f(0.0f, 0.0f)),
+        new Vertex(new Vector3f(-1f, -1f, 0.0f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0.0f, 2.0f)),
+        new Vertex(new Vector3f(1f, -1f, 0.0f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector2f(2.0f, 2.0f)),
+        new Vertex(new Vector3f(1f, 1f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(2.0f, 0.0f))
     };
 
   }
@@ -29,10 +29,10 @@ public class Asset2D {
 
   public static Vertex[] getAgentVertices(){
     return new Vertex[]{
-        new Vertex(new Vector3f(-1f, 0.5f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector2f(0.0f, 0.0f)),
-        new Vertex(new Vector3f(-1f, -0.5f, 0.0f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0.0f, 1.0f)),
-        new Vertex(new Vector3f(1f, -0.5f, 0.0f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector2f(1.0f, 1.0f)),
-        new Vertex(new Vector3f(1f, 0.5f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(1.0f, 0.0f))
+        new Vertex(new Vector3f(-0.5f, 0.5f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector2f(0.0f, 0.0f)),
+        new Vertex(new Vector3f(-0.5f, -0.5f, 0.0f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0.0f, 0.5f)),
+        new Vertex(new Vector3f(0.5f, -0.5f, 0.0f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector2f(0.5f, 0.5f)),
+        new Vertex(new Vector3f(0.5f, 0.5f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(0.5f, 0.0f))
     };
   }
 
@@ -43,16 +43,28 @@ public class Asset2D {
     };
   }
 
-  public static Vector3f getPosition(){
-    return new Vector3f(0, 0, 5f);
+  public static Vector3f getMapPosition(){
+    return new Vector3f(0, 0, 1f);
   }
 
-  public static Vector3f getRotation(){
+  public static Vector3f getMapRotation(){
     return new Vector3f(0,0,0);
   }
 
-  public static Vector3f getScale(){
-    return new Vector3f(0.05f, 0.05f, 0.05f);
+  public static Vector3f getMapScale(){
+    return new Vector3f(0.06f, 0.06f, 0.06f);
+  }
+
+  public static Vector3f getPlayerPosition(){
+    return new Vector3f(0, 0, 1f);
+  }
+
+  public static Vector3f getPlayerRotation(){
+    return new Vector3f(0,0,0);
+  }
+
+  public static Vector3f getPlayerScale(){
+    return new Vector3f(0.6f, 0.6f, 0.6f);
   }
 
   public static Vector3f convertDirectionalSpeed(String direction){

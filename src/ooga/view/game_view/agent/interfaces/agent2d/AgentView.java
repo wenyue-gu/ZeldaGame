@@ -23,6 +23,10 @@ abstract public class AgentView {
 
   abstract public void update(String direction, String action);
 
-  abstract public void render(Renderer2D renderer);
+  abstract public void createMesh();
+
+  abstract public void destroyMesh();
+
+  abstract public void renderMesh(Renderer2D renderer);
 
 }

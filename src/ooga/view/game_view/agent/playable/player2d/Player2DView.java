@@ -17,14 +17,31 @@ public class Player2DView extends AgentView {
     super();
     controller = new Player2DController();
     mesh = new Mesh( vertices, indices, controller.getMaterial());
-    object = new GameObject(Asset2D.getPosition(), Asset2D.getRotation(), Asset2D.getScale(), mesh);
+    object = new GameObject(Asset2D.getPlayerPosition(), Asset2D.getPlayerRotation(), Asset2D.getPlayerScale(), mesh);
 
   }
 
   @Override
   public void update(String direction, String action) {
     controller.setCurrentAnimation(direction, action);
-    if (action.equals(MOVE_ACTION)) move(direction);
+    printVertices();
+    //if (action.equals(MOVE_ACTION)) move(direction);
+  }
+
+  @Override
+  public void createMesh() {
+    mesh.create();
+  }
+
+  @Override
+  public void destroyMesh() {
+    mesh.destroy();
+  }
+
+  @Override
+  public void renderMesh(Renderer2D renderer) {
+    object.getMesh().setMaterial(controller.getMaterial());
+    renderer.renderMesh(object);
   }
 
   private void move(String direction){
@@ -33,10 +50,9 @@ public class Player2DView extends AgentView {
     }
   }
 
-  @Override
-  public void render(Renderer2D renderer) {
-    object.getMesh().setMaterial(controller.getMaterial());
-    renderer.renderMesh(object);
+  private void printVertices(){
+    for (Vertex v:vertices){
+      System.out.println(String.format("(%s, %s, %s)", v.getPosition().getX(), v.getPosition().getY(), v.getPosition().getZ()));
+    }
   }
-
 }
