@@ -4,10 +4,14 @@ import java.io.IOException;
 import ooga.view.engine.assets.Asset2D;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Renderer2D;
+import ooga.view.engine.graphics.Vertex;
+import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
 import ooga.view.game_view.agent.interfaces.agent2d.AgentView;
 
 public class Player2DView extends AgentView {
+
+  final static String MOVE_ACTION = "SPRINT";
 
   public Player2DView() throws IOException {
     super();
@@ -20,7 +24,13 @@ public class Player2DView extends AgentView {
   @Override
   public void update(String direction, String action) {
     controller.setCurrentAnimation(direction, action);
-    // move
+    if (action.equals(MOVE_ACTION)) move(direction);
+  }
+
+  private void move(String direction){
+    for (Vertex v:vertices){
+      v.setPosition(Vector3f.add(v.getPosition(), Asset2D.convertDirectionalSpeed(direction)));
+    }
   }
 
   @Override

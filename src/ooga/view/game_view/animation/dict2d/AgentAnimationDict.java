@@ -2,6 +2,7 @@ package ooga.view.game_view.animation.dict2d;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Map.Entry;
 import ooga.view.engine.graphics.Animation2D;
 import ooga.view.engine.utils.cyberpunk2d.LoadCyberpunkAnimations;
 
@@ -19,6 +20,13 @@ public class AgentAnimationDict {
     this.direction = direction;
     this.pre_action = this.action;
     this.action = action;
+    resetAnimationDict();
+  }
+
+  private void resetAnimationDict(){
+    for(Entry<String, Animation2D> entry:dict.entrySet()){
+      entry.getValue().resetAnimation();
+    }
   }
 
   public Animation2D getAnimation(){
@@ -38,6 +46,7 @@ public class AgentAnimationDict {
 
       return Animation2D.combineAnimations(animation_1, animation_2);
     }
+
 
     return getAnimationMap(direction, action);
   }

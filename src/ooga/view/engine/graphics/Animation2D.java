@@ -20,10 +20,7 @@ public class Animation2D {
 
   public Animation2D(int cnt, int fps, String dir) {
 
-    this.framePointer = 0;
-    this.elapsedTime = 0;
-    this.currentTime = 0;
-    this.lastTime = Timer.getTime();
+    resetAnimation();
     this.fps = 1.0 / fps;
     this.frameAmount = cnt;
 
@@ -36,12 +33,18 @@ public class Animation2D {
   }
 
   public Animation2D(int cnt) {
+    resetAnimation();
+    this.fps = 1.0 / fps;
+    this.frameAmount = cnt;
+    this.animatedFrames = new Material[cnt];
+  }
+
+  public void resetAnimation(){
     this.framePointer = 0;
     this.elapsedTime = 0;
     this.currentTime = 0;
     this.lastTime = Timer.getTime();
-    this.fps = 1.0 / fps;
-    this.animatedFrames = new Material[cnt];
+
   }
 
   public static Animation2D combineAnimations(Animation2D animation_1, Animation2D animation_2){
@@ -97,7 +100,11 @@ public class Animation2D {
       framePointer++;
     }
 
-    if (framePointer >= animatedFrames.length) framePointer = 0;
+    if (framePointer >= animatedFrames.length)
+    {
+      framePointer = 0;
+      return null;
+    }
 
     this.lastTime = currentTime;
     return animatedFrames[framePointer];
