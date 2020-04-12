@@ -5,9 +5,7 @@ import static org.lwjgl.opengl.GL11C.GL_TEXTURE_MIN_FILTER;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import java.nio.ByteBuffer;
-import java.util.Map;
 import ooga.view.engine.utils.ImageLoader;
 import ooga.view.engine.utils.SpriteSheet;
 import org.lwjgl.BufferUtils;
@@ -15,11 +13,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
-import org.lwjgl.system.CallbackI.S;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.BufferedImageUtil;
 
 public class Material {
 	private static int BYTES_PER_PIXEL = 3; //4 for RGBA, 3 for RGB
