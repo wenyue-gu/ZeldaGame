@@ -1,9 +1,13 @@
 package ooga.data;
 
+import ooga.model.enums.Direction;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static ooga.model.enums.Direction.*;
 
 public class GameInfo {
     private int[] initialPosition;
@@ -11,15 +15,19 @@ public class GameInfo {
     private List<Integer> Player_ID;
     private int levelNum;
     private Map<Integer, Map<Integer, String>> subMapInfo;
+    private List<Direction> availableAttackDirections;
     private int gameType;
 
-    GameInfo() {
+    public GameInfo() {
         NPC_ID = new ArrayList<>();
         Player_ID = new ArrayList<>();
         subMapInfo = new HashMap<>();
         initialPosition = new int[]{0, 0};
+        availableAttackDirections = new ArrayList<>();
+        availableAttackDirections.add(SE);
+
     }
-    GameInfo(List<Integer> NPC_ID, List<Integer> Player_ID, int levelNum, Map<Integer, Map<Integer, String>> subMapInfo, int gameType) {
+    public GameInfo(List<Integer> NPC_ID, List<Integer> Player_ID, int levelNum, Map<Integer, Map<Integer, String>> subMapInfo, int gameType) {
         this();
         setGameType(gameType);
         setLevelNum(levelNum);
@@ -74,4 +82,5 @@ public class GameInfo {
     public void setInitialPosition(int[] initialPosition) {
         this.initialPosition = initialPosition;
     }
+
 }
