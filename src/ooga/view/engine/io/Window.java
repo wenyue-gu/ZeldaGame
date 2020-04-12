@@ -1,5 +1,8 @@
 package ooga.view.engine.io;
 
+import static org.lwjgl.opengl.GL11C.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11C.GL_SRC_ALPHA;
+
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
@@ -8,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import ooga.view.engine.maths.Matrix4f;
 import ooga.view.engine.maths.Vector3f;
+import org.lwjgl.opengl.GL30;
 
 public class Window {
 	private int width, height;
@@ -51,7 +55,10 @@ public class Window {
 		GLFW.glfwMakeContextCurrent(window);
 		GL.createCapabilities();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		
+		GL30.glEnable(GL11.GL_BLEND);
+		//GL30.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GL30.glBlendFunc(GL11.GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
 		createCallbacks();
 		
 		GLFW.glfwShowWindow(window);

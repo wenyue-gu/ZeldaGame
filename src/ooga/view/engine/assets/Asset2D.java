@@ -6,7 +6,7 @@ import ooga.view.engine.maths.Vector3f;
 
 public class Asset2D {
 
-  private static final float SPEED_MELEE_SPRINT = 0.5f;
+  private static final float SPEED_MELEE_SPRINT = 0.005f;
 
 
   public static Vertex[] getTileVertices(){
@@ -29,10 +29,10 @@ public class Asset2D {
 
   public static Vertex[] getAgentVertices(){
     return new Vertex[]{
-        new Vertex(new Vector3f(-0.5f, 0.5f, 0.0f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector2f(0.0f, 0.0f)),
-        new Vertex(new Vector3f(-0.5f, -0.5f, 0.0f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0.0f, 1f)),
-        new Vertex(new Vector3f(0.5f, -0.5f, 0.0f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector2f(1f, 1f)),
-        new Vertex(new Vector3f(0.5f, 0.5f, 0.0f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(1f, 0.0f))
+        new Vertex(new Vector3f(-0.5f, 0.5f, -0.01f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector2f(0.0f, 0.0f)),
+        new Vertex(new Vector3f(-0.5f, -0.5f, -0.01f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0.0f, 1f)),
+        new Vertex(new Vector3f(0.5f, -0.5f, -0.01f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector2f(1f, 1f)),
+        new Vertex(new Vector3f(0.5f, 0.5f, -0.01f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(1f, 0.0f))
     };
   }
 
@@ -56,7 +56,7 @@ public class Asset2D {
   }
 
   public static Vector3f getPlayerPosition(){
-    return new Vector3f(0, 0, 1f);
+    return new Vector3f(0f, 0f, 0f);
   }
 
   public static Vector3f getPlayerRotation(){
@@ -64,7 +64,7 @@ public class Asset2D {
   }
 
   public static Vector3f getPlayerScale(){
-    return new Vector3f(0.6f, 0.6f, 0.6f);
+    return new Vector3f(0.8f, 0.8f, 0.8f);
   }
 
   public static Vector3f convertDirectionalSpeed(String direction){

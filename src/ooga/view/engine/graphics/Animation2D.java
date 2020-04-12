@@ -31,8 +31,8 @@ public class Animation2D {
     this.animatedFrames = new Material[cnt];
     for(int i=0; i<cnt;i++){
       String spritePath = String.format("%s/%s_.png", dir, i);
-      System.out.println(ImageLoader.getImageHeight(spritePath));
-      System.out.println(ImageLoader.getImageWidth(spritePath));
+      //System.out.println(ImageLoader.getImageHeight(spritePath));
+      //System.out.println(ImageLoader.getImageWidth(spritePath));
       this.animatedFrames[i] = new Material(spritePath);
       this.animatedFrames[i].createTexture();
     }
@@ -98,14 +98,14 @@ public class Animation2D {
   }
   */
   public Material getCurrentFrame(){
-    System.out.println(framePointer);
-    System.out.println(animatedFrames.length);
-    System.out.println(currentTime);
-    System.out.println(elapsedTime);
-    System.out.println(lastTime);
-    System.out.println(currentTime - lastTime);
-    System.out.println(fps);
-    System.out.println();
+    //System.out.println(framePointer);
+    //System.out.println(animatedFrames.length);
+    //System.out.println(currentTime);
+    //System.out.println(elapsedTime);
+    //System.out.println(lastTime);
+    //System.out.println(currentTime - lastTime);
+    //System.out.println(fps);
+    //System.out.println();
 
     this.currentTime = Timer.getTime();
     this.elapsedTime += currentTime - lastTime;
