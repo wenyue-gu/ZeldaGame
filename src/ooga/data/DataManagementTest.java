@@ -47,7 +47,7 @@ public class DataManagementTest {
     private static void characterLoadingStoringTest() {
 
         ZeldaCharacter ZC = new ZeldaCharacter(1, 2, 3, 4);
-        ZC.setFiringDirection(Direction.EAST);
+        ZC.setFiringDirection(Direction.E);
         b.storeCharacter(2, ZC);
         a.loadCharacter(2, CharacterProperty.ATTACK);
     }

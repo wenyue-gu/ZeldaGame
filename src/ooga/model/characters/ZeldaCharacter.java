@@ -54,8 +54,8 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
 
   // TODO: change the string
   @Override
-  protected void notifyStateChange(MovingState oldState, MovingState newState) {
-    notifier.firePropertyChange(ZeldaPlayerControl.PROPERTY_STATE, oldState, newState);
+  protected void notifyChange(String property, Object oldState, Object newState) {
+    notifier.firePropertyChange(property, oldState, newState);
   }
 
   @Override

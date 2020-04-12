@@ -1,5 +1,8 @@
 package ooga.model.move;
 
+import ooga.controller.ZeldaControlInterface;
+import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
+import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 
@@ -64,11 +67,11 @@ public abstract class MovingObject1D implements ooga.model.interfaces.movables.M
     MovingState oldState = this.movingState;
     this.movingState = movingState;
 
-    notifyStateChange(oldState, movingState);
+    notifyChange(ZeldaPlayerControl.PROPERTY_STATE, oldState, movingState);
   }
 
-  protected abstract void notifyStateChange(MovingState oldState,
-      MovingState newState);
+  protected abstract void notifyChange(String property, Object oldState,
+      Object newState);
 
   @Override
   public MovingState getState() {
@@ -77,7 +80,9 @@ public abstract class MovingObject1D implements ooga.model.interfaces.movables.M
 
   @Override
   public void setDirection(Direction direction) {
+    Direction oldDir = movingDirection;
     this.movingDirection = direction;
+    notifyChange(ZeldaPlayerControl.PROPERTY_MOVING_DIRECTION, oldDir, movingDirection);
   }
 
   @Override
