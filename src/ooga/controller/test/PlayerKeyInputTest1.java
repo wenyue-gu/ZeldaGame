@@ -19,6 +19,7 @@ public class PlayerKeyInputTest1 {
         ZeldaPlayer player = new ZeldaPlayer(100,0);
         ZeldaPlayerControl control = new ZeldaPlayerControl();
         control.setMyPlayer(player);
+        assertEquals(MovingState.IDLE, player.getState());
 
         //walk left
         control.keyInput(KeyCode.LEFT);
