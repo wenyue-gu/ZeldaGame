@@ -1,7 +1,7 @@
 package ooga.view.game_view.object.interactive.interfaces;
 
 import java.util.Map;
-import ooga.view.game_view.animation.StateAnimation;
+import ooga.view.game_view.animation.interfaces.StateAnimation;
 import ooga.view.game_view.object.interfaces.ObjectView;
 
 public class AbstractInteractiveObjectController implements InteractiveObjectController {

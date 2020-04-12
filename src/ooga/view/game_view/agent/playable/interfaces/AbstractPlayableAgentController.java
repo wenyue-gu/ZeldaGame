@@ -2,7 +2,7 @@ package ooga.view.game_view.agent.playable.interfaces;
 
 import java.util.Map;
 import ooga.view.game_view.agent.interfaces.AgentView;
-import ooga.view.game_view.animation.StateAnimation;
+import ooga.view.game_view.animation.interfaces.StateAnimation;
 
 public class AbstractPlayableAgentController implements PlayableAgentController {
 

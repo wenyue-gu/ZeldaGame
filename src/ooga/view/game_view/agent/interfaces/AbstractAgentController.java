@@ -2,7 +2,7 @@ package ooga.view.game_view.agent.interfaces;
 
 import java.util.Map;
 import ooga.view.engine.graphics.Animation2D;
-import ooga.view.game_view.animation.StateAnimation;
+import ooga.view.game_view.animation.interfaces.StateAnimation;
 
 public class AbstractAgentController implements AgentController {
   protected Animation2D animations;

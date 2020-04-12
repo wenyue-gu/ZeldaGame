@@ -1,4 +1,4 @@
-package ooga.view.game_view.animation;
+package ooga.view.game_view.animation.interfaces;
 
 import javafx.animation.Animation;
 

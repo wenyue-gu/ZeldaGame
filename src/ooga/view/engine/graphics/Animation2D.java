@@ -9,7 +9,6 @@ import ooga.view.engine.utils.Timer;
 
 public class Animation2D {
 
-  private GameObject object;
   private Material animatedFrames[];
 
   private int framePointer;
@@ -19,9 +18,8 @@ public class Animation2D {
   private double lastTime;
   private double fps;
 
-  public Animation2D(GameObject object, int cnt, int fps, String path) throws IOException {
+  public Animation2D(int cnt, int fps, String dir) throws IOException {
 
-    this.object = object;
     this.framePointer = 0;
     this.elapsedTime = 0;
     this.currentTime = 0;
@@ -30,8 +28,9 @@ public class Animation2D {
 
     this.animatedFrames = new Material[cnt];
     for(int i=0; i<cnt;i++){
-      this.animatedFrames[i] = new Material(path);
-      this.animatedFrames[i].createSpriteTexture(i, cnt);
+      String spritePath = String.format("%s/%s.png", dir, i);
+      this.animatedFrames[i] = new Material(spritePath);
+      this.animatedFrames[i].createTexture();
     }
   }
 

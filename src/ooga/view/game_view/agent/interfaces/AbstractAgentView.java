@@ -1,6 +1,6 @@
 package ooga.view.game_view.agent.interfaces;
 
-import ooga.view.game_view.animation.StateAnimation;
+import ooga.view.game_view.animation.interfaces.StateAnimation;
 
 public class AbstractAgentView implements AgentView {
 

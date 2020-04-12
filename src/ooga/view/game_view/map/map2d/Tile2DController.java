@@ -16,16 +16,16 @@ public class Tile2DController {
   public Tile2DController(int map_x, int map_y, TextMapReader mapReader) throws IOException {
 
     this.id = id_idx++;
-    System.out.println(map_x);
-    System.out.println(map_y);
+    //System.out.println(map_x);
+    //System.out.println(map_y);
     this.map_x = map_x;
     this.map_y = map_y;
 
     this.palette_x = mapReader.getMapCell(map_x, map_y)%mapReader.getPaletteWidth();
     this.palette_y = mapReader.getMapCell(map_x, map_y)/mapReader.getPaletteWidth();
 
-    System.out.println(palette_x);
-    System.out.println(palette_y);
+    //System.out.println(palette_x);
+    //System.out.println(palette_y);
 
     this.material = new Material(String.format("%s/%s_%s.png", path, String.valueOf(palette_x), String.valueOf(palette_y)));
     //this.material.createTitledTexture(palette_x,palette_y,mapReader.getTitlePixel(), mapReader.getTitlePixel());

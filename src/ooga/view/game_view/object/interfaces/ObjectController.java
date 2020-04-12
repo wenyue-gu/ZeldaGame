@@ -1,6 +1,6 @@
 package ooga.view.game_view.object.interfaces;
 
-import ooga.view.game_view.animation.StateAnimation;
+import ooga.view.game_view.animation.interfaces.StateAnimation;
 import java.util.Map;
 
 public interface ObjectController {
