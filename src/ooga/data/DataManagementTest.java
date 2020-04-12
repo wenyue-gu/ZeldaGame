@@ -16,7 +16,7 @@ public class DataManagementTest {
     private static DataStorer b = new DataStorer();
 
     public static void main(String[] args) {
-//        gameMapLoadingTest();
+        gameMapLoadingTest();
         characterLoadingStoringTest();
 //        playerLoadingAndStoring();
     }
