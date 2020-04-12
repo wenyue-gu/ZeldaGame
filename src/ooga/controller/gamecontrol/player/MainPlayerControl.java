@@ -44,5 +44,10 @@ public class MainPlayerControl implements PlayerControlInterface {
     return myPlayerControl.getID();
   }
 
+  @Override
+  public void keyReleased() {
+    myPlayerControl.keyReleased();
+  }
+
 
 }

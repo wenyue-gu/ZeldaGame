@@ -81,4 +81,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     this.dark = dark;
   }
 
+  public void keyReleased() {
+    for(MainPlayerControl mpc:myMainPlayerController) mpc.keyReleased();
+  }
 }

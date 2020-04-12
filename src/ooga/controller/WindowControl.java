@@ -1,8 +1,13 @@
 package ooga.controller;
 
 import javafx.animation.AnimationTimer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ooga.data.DataLoader;
 import ooga.controller.gamecontrol.GameController;
@@ -13,6 +18,7 @@ import ooga.view.game_menu.AbstractGameMenuView;
 import ooga.view.game_menu.GameMenuView;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 
 public class WindowControl {
@@ -56,6 +62,7 @@ public class WindowControl {
     myChangeBackgroundButton = myMenuView.getBackgroundButton();
     myChangeBackgroundButton.setOnAction(e->switchMode());
     myLoadButton = myMenuView.getLoadButton();
+    myLoadButton.setOnAction(e->loadlist());
   }
 
 
@@ -71,6 +78,7 @@ public class WindowControl {
         System.out.println("Keymap error");
       }
     });
+    myScene.setOnKeyReleased(e->myGameController.keyReleased());
     currentStage.setScene(myScene);
     currentStage.show();
     AnimationTimer timer = new AnimationTimer() {
@@ -85,5 +93,19 @@ public class WindowControl {
   private void switchMode(){
     dark = !dark;
     myMenuView.switchMode(dark);
+  }
+
+  private void loadlist(){
+    Stage newstage = new Stage();
+    ObservableList<String> savedGame = FXCollections.observableArrayList();
+    savedGame.add("Game 1");
+    ListView listView = new ListView();
+    listView.setItems( savedGame);
+
+    VBox box = new VBox();
+    box.getChildren().add(listView);
+    newstage.setScene(new Scene(box, 200, 250));
+    newstage.show();
+
   }
 }

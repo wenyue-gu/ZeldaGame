@@ -43,6 +43,11 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
     return 0;
   }
 
+  @Override
+  public void keyReleased() {
+    myPlayer.setState(MovingState.IDLE);
+  }
+
 
   @Override
   public void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

@@ -13,4 +13,5 @@ public interface PlayerControlInterface {
   void setKeyCodeMap(Map<KeyCode, String> map);
   void setID();
   int getID();
+  void keyReleased();
 }
