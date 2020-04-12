@@ -1,6 +1,6 @@
 package ooga.view.game_view.panels.inventory_panel;
 
-import ooga.view.game_view.object.ObjectView;
+import ooga.view.game_view.object.interfaces.ObjectView;
 
 public interface Grid {
 

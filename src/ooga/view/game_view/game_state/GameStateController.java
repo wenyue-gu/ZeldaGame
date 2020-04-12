@@ -1,8 +1,10 @@
 package ooga.view.game_view.game_state;
 
+import javafx.scene.Scene;
+
 public interface GameStateController {
 
-  void getGameStateView();
+  Scene getGameStateView();
 
   void update();
 

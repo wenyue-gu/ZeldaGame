@@ -1,51 +1,97 @@
-//package ooga.controller.gamecontrol.player;
-//
-//import ooga.controller.gamecontrol.JumpableControl;
-//import ooga.controller.gamecontrol.MovableControll1D;
-//import ooga.controller.gamecontrol.PlayerControlInterface;
-//import javafx.scene.input.KeyCode;
-//import ooga.model.characters.MarioCharacter;
-//import ooga.model.interfaces.movables.Movable1D;
-//
-//public class MarioPlayerControl implements PlayerControlInterface, MovableControll1D, JumpableControl {
-//
-//  private MarioCharacter myPlayer;
-//
-//  public MarioPlayerControl(){
-//
-//  }
-//
-//  @Override
-//  public void setMyPlayer(Movable1D myPlayer) {
-//    this.myPlayer = (MarioCharacter)myPlayer;
-//  }
-//
-//  @Override
-//  public void keyInput(KeyCode key) {
-//    switch (key){
-//        case LEFT: left(1); break;
-//        case RIGHT: right(1); break;
-//        case UP: jump(); break;
-//    }
-//  }
-//
-//  @Override
-//  public void update() {
-//
-//  }
-//
-//  @Override
-//  public void jump() {
-//    myPlayer.jump();
-//  }
-//
-//  @Override
-//  public void left(double deltaX) {
-//    myPlayer.moveInX(-1*deltaX);
-//  }
-//
-//  @Override
-//  public void right(double deltaX) {
-//    myPlayer.moveInX(deltaX);
-//  }
-//}
+package ooga.controller.gamecontrol.player;
+
+import ooga.controller.gamecontrol.playerInterface.AttackerControl;
+import ooga.controller.gamecontrol.playerInterface.JumpableControl;
+import ooga.controller.gamecontrol.playerInterface.MovableControll1D;
+import ooga.controller.gamecontrol.PlayerControlInterface;
+import javafx.scene.input.KeyCode;
+import ooga.model.characters.MarioPlayer;
+import ooga.model.enums.Direction;
+import ooga.model.enums.MovingState;
+import ooga.model.interfaces.movables.Movable1D;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+public class MarioPlayerControl implements PlayerControlInterface, MovableControll1D, JumpableControl, AttackerControl {
+
+  private MarioPlayer myPlayer;
+  private Map<KeyCode, String> myKeyCodeMap;
+  private int myID;
+
+  public MarioPlayerControl(){
+
+  }
+
+  @Override
+  public void setMyPlayer(Movable1D myPlayer) {
+    this.myPlayer = (MarioPlayer)myPlayer;
+  }
+
+  @Override
+  public void setKeyCodeMap(Map<KeyCode, String> map) {
+    myKeyCodeMap = map;
+  }
+
+  @Override
+  public void setID() {
+
+  }
+
+  @Override
+  public int getID() {
+    return 0;
+  }
+
+  @Override
+  public void keyReleased() {
+    myPlayer.setState(MovingState.IDLE);
+  }
+
+
+  @Override
+  public void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    if(myKeyCodeMap.get(key)==null) return;
+    this.getClass().getDeclaredMethod(myKeyCodeMap.get(key)).invoke(this);
+  }
+
+
+  @Override
+  public void jump() {
+    myPlayer.setState(MovingState.JUMP);
+    myPlayer.setDirection(Direction.UP);
+  }
+
+  @Override
+  public void left() {
+    myPlayer.setState(MovingState.WALK);
+    myPlayer.setDirection(Direction.WEST);
+  }
+
+  @Override
+  public void right() {
+    myPlayer.setState(MovingState.WALK);
+    myPlayer.setDirection(Direction.EAST);
+  }
+
+
+  @Override
+  public void attack0() {
+    myPlayer.setState(MovingState.ATTACK);
+    //myPlayer.setAttack(0);
+  }
+
+  @Override
+  public void attack1() {
+    myPlayer.setState(MovingState.ATTACK);
+    //myPlayer.setAttack(1);
+
+  }
+
+  @Override
+  public void attack2() {
+    myPlayer.setState(MovingState.ATTACK);
+    //myPlayer.setAttack(2);
+
+  }
+}
