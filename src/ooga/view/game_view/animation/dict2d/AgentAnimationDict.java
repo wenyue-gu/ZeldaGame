@@ -5,14 +5,23 @@ import java.util.Map;
 import ooga.view.engine.graphics.Animation2D;
 import ooga.view.engine.utils.cyberpunk2d.LoadCyberpunkAnimations;
 
-public class AnimationDict {
+public class AgentAnimationDict {
   private Map<String, Animation2D> dict;
+  private String direction;
+  private String pre_action;
+  private String action;
 
-  public AnimationDict() throws IOException {
+  public AgentAnimationDict() throws IOException {
     dict = LoadCyberpunkAnimations.loadMeleeRobotAnimations();
   }
 
-  public Animation2D getAnimation(String direction, String pre_pre_action, String pre_action, String action){
+  public void setInUseAnimation (String direction, String action){
+    this.direction = direction;
+    this.pre_action = this.action;
+    this.action = action;
+  }
+
+  public Animation2D getAnimation(){
 
     if (!pre_action.equals("SPRINT") && action.equals("SPRINT")){
 
@@ -33,7 +42,7 @@ public class AnimationDict {
     return getAnimationMap(direction, action);
   }
 
-  public Animation2D getAnimationMap(String direction, String action){
+  private Animation2D getAnimationMap(String direction, String action){
     return dict.get(String.format("%s_%s", direction, action));
   }
 

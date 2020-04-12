@@ -71,6 +71,7 @@ public class Animation2D {
 
   public int getFrameAmount(){return frameAmount;}
 
+  /*
   public void bind(){
     this.currentTime = Timer.getTime();
     this.elapsedTime += currentTime - lastTime;
@@ -85,5 +86,20 @@ public class Animation2D {
     this.lastTime = currentTime;
 
     animatedFrames[framePointer].bind();
+  }
+  */
+  public Material getCurrentFrame(){
+    this.currentTime = Timer.getTime();
+    this.elapsedTime += currentTime - lastTime;
+
+    if (elapsedTime >= fps){
+      elapsedTime = 0;
+      framePointer++;
+    }
+
+    if (framePointer >= animatedFrames.length) framePointer = 0;
+
+    this.lastTime = currentTime;
+    return animatedFrames[framePointer];
   }
 }

@@ -40,4 +40,18 @@ public class Asset2D {
     };
   }
 
+  public static Vector3f getPosition(){
+    return new Vector3f(0, 0, 5f);
+  }
+
+  public static Vector3f getRotation(){
+    return new Vector3f(0,0,0);
+  }
+
+  public static Vector3f getScale(){
+    return new Vector3f(0.05f, 0.05f, 0.05f);
+  }
+
+
+
 }
