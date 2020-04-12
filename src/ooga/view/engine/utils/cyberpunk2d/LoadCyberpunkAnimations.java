@@ -10,7 +10,7 @@ import org.newdawn.slick.opengl.Texture;
 
 public class LoadCyberpunkAnimations {
 
-  private static int fps = 15;
+  private static int fps = 18;
   private static LinkedHashTreeMap<String, Animation2D> meleeDict;
 
   // E sprintsheet
@@ -79,6 +79,8 @@ public class LoadCyberpunkAnimations {
     meleeDict.put(mapKey, new Animation2D(6, fps, DIR_E_ATT2));
     mapKey = "E_ATTACK3";
     meleeDict.put(mapKey, new Animation2D(15, fps, DIR_E_ATT3));
+    mapKey = "E_ATTACKCOMBO";
+    meleeDict.put(mapKey, Animation2D.combineAnimations(new Animation2D(6, fps, DIR_E_ATT2), new Animation2D(15, fps, DIR_E_ATT3)));
     mapKey = "E_DEATH";
     meleeDict.put(mapKey, new Animation2D(9, fps, DIR_E_DEATH));
     mapKey = "E_IDLE";
@@ -95,6 +97,8 @@ public class LoadCyberpunkAnimations {
     meleeDict.put(mapKey, new Animation2D(6, fps, DIR_N_ATT2));
     mapKey = "N_ATTACK3";
     meleeDict.put(mapKey, new Animation2D(15, fps, DIR_N_ATT3));
+    mapKey = "N_ATTACKCOMBO";
+    meleeDict.put(mapKey, Animation2D.combineAnimations(new Animation2D(6, fps, DIR_N_ATT2), new Animation2D(15, fps, DIR_N_ATT3)));
     mapKey = "N_DEATH";
     meleeDict.put(mapKey, new Animation2D(9, fps, DIR_N_DEATH));
     mapKey = "N_IDLE";
@@ -111,6 +115,8 @@ public class LoadCyberpunkAnimations {
     meleeDict.put(mapKey, new Animation2D(6, fps, DIR_NE_ATT2));
     mapKey = "NE_ATTACK3";
     meleeDict.put(mapKey, new Animation2D(15, fps, DIR_NE_ATT3));
+    mapKey = "NE_ATTACKCOMBO";
+    meleeDict.put(mapKey, Animation2D.combineAnimations(new Animation2D(6, fps, DIR_NE_ATT2), new Animation2D(15, fps, DIR_NE_ATT3)));
     mapKey = "NE_DEATH";
     meleeDict.put(mapKey, new Animation2D(9, fps, DIR_NE_DEATH));
     mapKey = "NE_IDLE";
@@ -127,6 +133,8 @@ public class LoadCyberpunkAnimations {
     meleeDict.put(mapKey, new Animation2D(6, fps, DIR_S_ATT2));
     mapKey = "S_ATTACK3";
     meleeDict.put(mapKey, new Animation2D(15, fps, DIR_S_ATT3));
+    mapKey = "S_ATTACKCOMBO";
+    meleeDict.put(mapKey, Animation2D.combineAnimations(new Animation2D(6, fps, DIR_S_ATT2), new Animation2D(15, fps, DIR_S_ATT3)));
     mapKey = "S_DEATH";
     meleeDict.put(mapKey, new Animation2D(9, fps, DIR_S_DEATH));
     mapKey = "S_IDLE";
@@ -143,6 +151,8 @@ public class LoadCyberpunkAnimations {
     meleeDict.put(mapKey, new Animation2D(6, fps, DIR_SE_ATT2));
     mapKey = "SE_ATTACK3";
     meleeDict.put(mapKey, new Animation2D(15, fps, DIR_SE_ATT3));
+    mapKey = "SE_ATTACKCOMBO";
+    meleeDict.put(mapKey, Animation2D.combineAnimations(new Animation2D(6, fps, DIR_SE_ATT2), new Animation2D(15, fps, DIR_SE_ATT3)));
     mapKey = "SE_DEATH";
     meleeDict.put(mapKey, new Animation2D(9, fps, DIR_SE_DEATH));
     mapKey = "SE_IDLE";

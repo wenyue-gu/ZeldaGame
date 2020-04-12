@@ -45,10 +45,7 @@ public class AgentAnimationDict {
 
     if (!pre_action.equals("ATTACK1") && action.equals("ATTACK3")){
 
-      Animation2D animation_1 = getAnimationMap(direction, "ATTACK2");
-      Animation2D animation_2 = getAnimationMap(direction, action);
-
-      return Animation2D.combineAnimations(animation_1, animation_2);
+      return getAnimationMap(direction, "ATTACKCOMBO");
     }
 
 
