@@ -16,7 +16,7 @@ public class testMap implements Runnable {
   public Window window;
   public Renderer2D renderer;
   public Shader shader;
-  public final int WIDTH = 1280, HEIGHT = 1280;
+  public final int WIDTH = 1080, HEIGHT = 1080;
 
   public Map2DView mapView;
   public String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";

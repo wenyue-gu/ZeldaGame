@@ -21,10 +21,6 @@ public class Tile2DView {
   private Vertex[] vertices;
   private int[] indices;
 
-  Vector3f position;
-  Vector3f rotation = new Vector3f(0,0,0);
-  Vector3f scale;
-
   private Material material;
 
   public Tile2DView(int window_pos_x, int window_pos_y, int map_x, int map_y, float scale_x, float scale_y, TextMapReader mapReader)
@@ -35,16 +31,10 @@ public class Tile2DView {
     this.indices = Asset2D.getTileIndices();
 
     controller = new Tile2DController(map_x, map_y, mapReader);
-
-    position = new Vector3f(0, 0, 5f);
-    //scale = new Vector3f(scale_x, scale_y, 1);
-    scale =new Vector3f(0.05f, 0.05f, 0.05f);
-    //System.out.println(window_pos_x);
-    //System.out.println(window_pos_y);
     setLocation(map_x, map_y);
 
     mesh = new Mesh( vertices, indices, controller.getMaterial());
-    object = new GameObject(position, rotation, scale, mesh);
+    object = new GameObject(Asset2D.getMapPosition(), Asset2D.getMapRotation(), Asset2D.getMapScale(), mesh);
   }
 
   private void setLocation(int x, int y){
