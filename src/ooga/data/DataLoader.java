@@ -37,7 +37,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
   public void setCurrentLevel(int currentLevel) {
     this.currentLevel = currentLevel;
-  }
+}
 
   public int getCurrentLevel() {
     return currentLevel;
@@ -52,8 +52,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
       case GRID_NUM:
         return gameInfo.getSubMapInfo().get(level).size();
       case LEVEL_NUM:
-        System.out.println("Retriving level is currently not supported");
-        break;
+        return level;
       case NPC_NUM:
         return gameInfo.getNPC_ID().size();
       case GAME_TYPE:

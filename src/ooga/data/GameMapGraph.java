@@ -1,6 +1,7 @@
 package ooga.data;
 
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.model.map.GameCell;
 
 public class GameMapGraph {
     private Cell[][] cellArray;

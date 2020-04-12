@@ -2,6 +2,7 @@ package ooga.data;
 
 import com.google.gson.Gson;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.model.map.GameCell;
 import ooga.view.engine.utils.TextMapReader;
 
 import java.io.FileWriter;
@@ -66,9 +67,6 @@ public class ExampleDataGenerator {
                 int a = textMapReader.getMapCell(5, 6);
                 tempCell.setImage(imageID);
                 tempCell.setWalkable(textMapReader.isMapCellWalkable(i, j));
-                if (textMapReader.isMapCellWalkable(i, j)) {
-                    System.out.println(i+", " + j);
-                }
                 cellList.add(tempCell);
             }
         }

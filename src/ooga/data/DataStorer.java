@@ -107,13 +107,14 @@ public class DataStorer implements DataStorerAPI {
 
     @Override
     public void storeSubMap(Collection<Cell> map, int level, int subMapID) {
-        if (map.size() > subMapRowNum * subMapColNum) {
+        if (map.size() != subMapRowNum * subMapColNum) {
             System.out.println("map stored didn't fit in dimension");
             //throw an exception
         }
         GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum);
         int i = 0;
         for (Cell cell: map) {
+
             mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell);
             i++;
         }
