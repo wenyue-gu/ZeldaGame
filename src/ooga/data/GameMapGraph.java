@@ -18,9 +18,8 @@ public class GameMapGraph {
             }
         }
     }
-    public void setElement(int row, int column, int state, int imageIndex) {
-        getElement(row, column).setImage(imageIndex);
-        getElement(row, column).setState(state);
+    public void setElement(int row, int column, Cell cell) {
+        cellArray[row][column] = cell;
     }
 
     public Cell getElement(int row, int column) {

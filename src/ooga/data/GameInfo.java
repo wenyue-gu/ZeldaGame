@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GameInfo {
+    private int[] initialPosition;
     private List<Integer> NPC_ID;
     private List<Integer> Player_ID;
     private int levelNum;
@@ -16,6 +17,7 @@ public class GameInfo {
         NPC_ID = new ArrayList<>();
         Player_ID = new ArrayList<>();
         subMapInfo = new HashMap<>();
+        initialPosition = new int[]{0, 0};
     }
     GameInfo(List<Integer> NPC_ID, List<Integer> Player_ID, int levelNum, Map<Integer, Map<Integer, String>> subMapInfo, int gameType) {
         this();
@@ -63,5 +65,13 @@ public class GameInfo {
 
     public void setGameType(int gameType) {
         this.gameType = gameType;
+    }
+
+    public int[] getInitialPosition() {
+        return initialPosition;
+    }
+
+    public void setInitialPosition(int[] initialPosition) {
+        this.initialPosition = initialPosition;
     }
 }

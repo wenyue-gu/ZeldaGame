@@ -1,6 +1,5 @@
 package ooga.model.characters;
 
-import java.beans.PropertyChangeListener;
 import ooga.model.PropertyChangeNotifier;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
@@ -8,6 +7,8 @@ import ooga.model.interfaces.Alive;
 import ooga.model.interfaces.Attacker;
 import ooga.model.interfaces.Notifier;
 import ooga.model.move.MovingObject2D;
+
+import java.beans.PropertyChangeListener;
 
 public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
 
@@ -19,7 +20,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
   protected int attack;
   protected int id;
   protected Direction attackingDirection;
-  protected PropertyChangeNotifier notifier;
+  protected transient PropertyChangeNotifier notifier;
 
   public ZeldaCharacter(int initialHp, int id) {
     this(initialHp, DEFAULT_WEAPON, id);

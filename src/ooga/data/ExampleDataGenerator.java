@@ -1,6 +1,8 @@
 package ooga.data;
 
 import com.google.gson.Gson;
+import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.utils.TextMapReader;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +20,8 @@ public class ExampleDataGenerator {
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
         gson = gsonBuilder.create();
-        generateLevelData();
+        //generateLevelData();
+        generateTheMapForFirstSprint();
     }
     private static void generateLevelData() {
         int levelNum = 1;
@@ -48,6 +51,34 @@ public class ExampleDataGenerator {
             e.printStackTrace();
             //throw appropriate Exceptions
         }
+
+    }
+    private static void generateTheMapForFirstSprint() {
+        String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
+        TextMapReader textMapReader = new TextMapReader(mapPath);
+        int subMapHeight = textMapReader.getMapHeight();
+        int subMapWidth = textMapReader.getMapWidth();
+        List<Cell> cellList = new ArrayList<>();
+        for (int i = 0; i < subMapHeight; i++) {
+            for (int j = 0; j < subMapWidth; j++) {
+                Cell tempCell = new GameCell();
+                int imageID = textMapReader.getMapCell(i, j);
+                int a = textMapReader.getMapCell(5, 6);
+                tempCell.setImage(imageID);
+                tempCell.setWalkable(textMapReader.isMapCellWalkable(i, j));
+                if (textMapReader.isMapCellWalkable(i, j)) {
+                    System.out.println(i+", " + j);
+                }
+                cellList.add(tempCell);
+            }
+        }
+
+        //store data
+        DataStorer b = new DataStorer();
+        System.out.println(cellList.size());
+        b.storeSubMap(cellList, 1, 0);
+
+
 
     }
 ////        Gson gson = new Gson();

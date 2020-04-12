@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static ooga.data.DataStorer.characterKeyword;
+import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 public class DataLoader implements ooga.data.DataLoaderAPI {
   public static final String DATA_Directory = "data/";
@@ -24,8 +25,9 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public static final String GAME_Keyword = "Game";
   public static final String LEVEL_Keyword = "level";
   public static final String JsonPostFix = ".json";
-  public static int gameID = 1;
+  public static final int gameID = 1;//the belonging of Game ID is a problem. Where should it get from?
   private int currentLevel;
+
   private com.google.gson.Gson gson;
   public DataLoader() {
     com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
@@ -43,6 +45,26 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   @Override
   public int loadGameParam(GamePara para) {
+    PlayerStatus currentPlayerStatus = loadJson("data/Player/player1.json", PlayerStatus.class);
+    int level = currentPlayerStatus.getLevel();
+    GameInfo gameInfo = loadGameInfo(level,gameID);
+    switch (para) {
+      case GRID_NUM:
+        return gameInfo.getSubMapInfo().get(level).size();
+      case LEVEL_NUM:
+        System.out.println("Retriving level is currently not supported");
+        break;
+      case NPC_NUM:
+        return gameInfo.getNPC_ID().size();
+      case GAME_TYPE:
+        return gameInfo.getGameType();
+      case PLAYER_NUM:
+        return gameInfo.getPlayer_ID().size();
+      case INIT_POS_X:
+        return gameInfo.getInitialPosition()[0];
+      case INIT_POS_Y:
+        return gameInfo.getInitialPosition()[1];
+    }
     return 0;
   }
 
@@ -63,7 +85,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   @Override
   public int getNextSubMapID(Direction direction, int current) {
-    return 0;
+    return ID_NOT_DEFINED;
   }
   //todo: upgrade it from whole map to submap.
   private GameMapGraph loadMap(int level, int subMapID) {
@@ -97,7 +119,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public int loadCharacter(int ID, CharacterProperty property) {
     ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1,2);
 
-    zeldaCharacter =  loadJson(characterKeyword + ".json", zeldaCharacter.getClass());
+    zeldaCharacter =  loadJson("data/ZeldaCharacter/" + characterKeyword + ID + ".json", zeldaCharacter.getClass());
     try {
       Method methodcall = zeldaCharacter.getClass().getDeclaredMethod("get" + property.toString().substring(0,1)+ property.toString().substring(1).toLowerCase());
       int a = (int) methodcall.invoke(zeldaCharacter);

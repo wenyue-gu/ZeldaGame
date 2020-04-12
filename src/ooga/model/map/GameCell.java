@@ -3,7 +3,7 @@ package ooga.model.map;
 import ooga.model.interfaces.gameMap.Cell;
 
 public class GameCell implements Cell {
-
+  private boolean walkable;
   @Override
   public void setState(int state) {
 
@@ -27,5 +27,15 @@ public class GameCell implements Cell {
   @Override
   public int getUniqueID() {
     return 0;
+  }
+
+  @Override
+  public boolean isMapCellWalkable() {
+    return walkable;
+  }
+
+  @Override
+  public void setWalkable(boolean walkable) {
+    this.walkable = walkable;
   }
 }

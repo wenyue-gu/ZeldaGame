@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class DataStorer implements DataStorerAPI {
     public static final int numFilesPerLevel = 1;
-    public static final int subMapRowNum = 10;//from frontend
-    public static final int subMapColNum = 10;//from frontend
+    public static final int subMapRowNum = 22;//from frontend
+    public static final int subMapColNum = 34;//from frontend
     public static final String mapKeyword =  "MapOfLevel";
     public static final String characterKeyword =  "CharacterData";
     public static final String gameMapAddressPrefix = "data/GameMap/";
@@ -46,6 +46,10 @@ public class DataStorer implements DataStorerAPI {
     public void setGame(int GameID) {
 
     }
+    public void initializePlayerStatus(int gameID, int playerID) {
+        PlayerStatus playerStatus = new PlayerStatus(gameID, playerID);
+        writeObjectTOJson(playerStatus, "data/Player/player" + playerID+".json");
+    }
 
     @Override
     public void StoreText(String text, String keyword, String category) {
@@ -60,9 +64,7 @@ public class DataStorer implements DataStorerAPI {
 
     //@Override
     public void storeCharacter(int characterID, ZeldaCharacter character) {
-        Map<Integer, ZeldaCharacter> characterMap = new HashMap<>();
-        characterMap.put(characterID, character);
-        writeObjectTOJson(characterMap, characterKeyword+".json");
+        writeObjectTOJson(character, "data/ZeldaCharacter/" + characterKeyword + characterID + ".json");
     }
 
     @Override
@@ -112,7 +114,7 @@ public class DataStorer implements DataStorerAPI {
         GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum);
         int i = 0;
         for (Cell cell: map) {
-            mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell.getState(), cell.getImage() );
+            mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell);
             i++;
         }
         /**
