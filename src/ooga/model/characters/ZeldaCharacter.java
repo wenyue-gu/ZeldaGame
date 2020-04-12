@@ -1,5 +1,6 @@
 package ooga.model.characters;
 
+import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
 import ooga.model.PropertyChangeNotifier;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
@@ -34,7 +35,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
     this.weaponBase = new WeaponBase(weapon, attack, movingDirection) {
       @Override
       public void fire() {
-        setState(MovingState.ATTACK);
+        setState(MovingState.ATTACK1);
       }
     };
     notifier = new PropertyChangeNotifier(this);
@@ -54,7 +55,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
   // TODO: change the string
   @Override
   protected void notifyStateChange(MovingState oldState, MovingState newState) {
-    notifier.firePropertyChange(ExampleController.STATE_CHANGE, oldState, newState);
+    notifier.firePropertyChange(ZeldaPlayerControl.PROPERTY_STATE, oldState, newState);
   }
 
   @Override

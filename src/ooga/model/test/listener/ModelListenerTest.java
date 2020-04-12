@@ -5,7 +5,7 @@ import ooga.model.enums.MovingState;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ListenerTest {
+class ModelListenerTest {
   ExampleController ec = new ExampleController();
   ZeldaCharacter zeldaCharacter = new ZeldaCharacter(0,0);
 
@@ -15,7 +15,7 @@ class ListenerTest {
     zeldaCharacter.setState(MovingState.DEATH);
     assertEquals(zeldaCharacter.getState(), MovingState.DEATH);
 
-    zeldaCharacter.setState(MovingState.ATTACK);
-    assertEquals(zeldaCharacter.getState(), MovingState.ATTACK);
+    zeldaCharacter.setState(MovingState.ATTACK1);
+    assertEquals(zeldaCharacter.getState(), MovingState.ATTACK1);
   }
 }

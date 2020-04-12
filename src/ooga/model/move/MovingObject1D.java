@@ -25,6 +25,7 @@ public abstract class MovingObject1D implements ooga.model.interfaces.movables.M
     this.x = x;
     this.xSpeed = xSpeed;
     movingState = MovingState.IDLE;
+    movingDirection = Direction.E;
   }
 
   @Override
