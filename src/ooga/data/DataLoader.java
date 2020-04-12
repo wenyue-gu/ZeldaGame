@@ -135,7 +135,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
       int a = (int) methodcall.invoke(zeldaCharacter);
       return (int) methodcall.invoke(zeldaCharacter);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-      e.printStackTrace();
+        e.printStackTrace();
     }
 
 
