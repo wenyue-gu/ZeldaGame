@@ -49,7 +49,8 @@ public class DataManagementTest {
         ZeldaCharacter ZC = new ZeldaCharacter(1, 2, 3, 4);
         ZC.setFiringDirection(Direction.EAST);
         b.storeCharacter(2, ZC);
-        a.loadCharacter(2, CharacterProperty.ATTACK);
+//        a.loadCharacter(2, CharacterProperty.ATTACK);
+        a.loadCharacter(2, CharacterProperty.SCORE);
     }
 
     /**

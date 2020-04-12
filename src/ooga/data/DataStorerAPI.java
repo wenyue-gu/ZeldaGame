@@ -3,7 +3,7 @@ package ooga.data;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
-import ooga.model.gameElements.Weapon;
+import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
 
@@ -21,7 +21,7 @@ public interface DataStorerAPI {
 
     void storeCharacter(int ID, UnchangableCharacter character);
 
-    void storeWeapons(int ID, Weapon weapon);
+    void storeWeapons(int ID, WeaponBase weapon);
 
     void StoreInventory(Inventory inventory);
 
