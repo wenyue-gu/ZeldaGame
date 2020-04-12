@@ -1,9 +1,12 @@
 package ooga.model.move;
 
+import ooga.controller.ZeldaControlInterface;
+import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
+import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 
-public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
+public abstract class MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
 
   public static final int DEFAULT_X_SPEED = 5;
   public static final int DEFAULT_X = 0;
@@ -25,6 +28,7 @@ public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D 
     this.x = x;
     this.xSpeed = xSpeed;
     movingState = MovingState.IDLE;
+    movingDirection = Direction.E;
   }
 
   @Override
@@ -60,8 +64,14 @@ public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D 
 
   @Override
   public void setState(MovingState movingState) {
+    MovingState oldState = this.movingState;
     this.movingState = movingState;
+
+    notifyChange(ZeldaPlayerControl.PROPERTY_STATE, oldState, movingState);
   }
+
+  protected abstract void notifyChange(String property, Object oldState,
+      Object newState);
 
   @Override
   public MovingState getState() {
@@ -70,7 +80,9 @@ public class MovingObject1D implements ooga.model.interfaces.movables.Movable1D 
 
   @Override
   public void setDirection(Direction direction) {
+    Direction oldDir = movingDirection;
     this.movingDirection = direction;
+    notifyChange(ZeldaPlayerControl.PROPERTY_MOVING_DIRECTION, oldDir, movingDirection);
   }
 
   @Override

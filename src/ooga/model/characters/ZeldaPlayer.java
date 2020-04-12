@@ -1,11 +1,11 @@
 package ooga.model.characters;
 
+import ooga.model.Scorer;
 import ooga.model.interfaces.Scorable;
 
 public class ZeldaPlayer extends ZeldaCharacter implements Scorable {
 
-  protected double score;
-  private boolean isScoring;
+  Scorer scorer;
 
   public ZeldaPlayer(int initialHp, int id) {
     super(initialHp, id);
@@ -17,27 +17,26 @@ public class ZeldaPlayer extends ZeldaCharacter implements Scorable {
 
   public ZeldaPlayer(int initialHp, int weapon, int attack, int id) {
     super(initialHp, weapon, attack, id);
-    isScoring = true;
-    score = 0;
+    scorer = new Scorer();
   }
 
   @Override
   public boolean isScoring() {
-    return isScoring;
+    return scorer.isScoring();
   }
 
   @Override
   public double getScore() {
-    return score;
+    return scorer.getScore();
   }
 
   @Override
   public void setScore(double score) {
-    this.score = score;
+    scorer.setScore(score);
   }
 
   @Override
   public void addScore(double deltaScore) {
-    score += deltaScore;
+    scorer.addScore(deltaScore);
   }
 }

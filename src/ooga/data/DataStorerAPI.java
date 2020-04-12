@@ -3,7 +3,8 @@ package ooga.data;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
-import ooga.model.gameElements.Weapon;
+import ooga.model.gameElements.WeaponBase;
+import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
 
@@ -21,7 +22,7 @@ public interface DataStorerAPI {
 
     void storeCharacter(int ID, UnchangableCharacter character);
 
-    void storeWeapons(int ID, Weapon weapon);
+    void storeWeapons(int ID, WeaponBase weapon);
 
     void StoreInventory(Inventory inventory);
 
@@ -38,7 +39,7 @@ public interface DataStorerAPI {
      * @param map cells in the collection will first fill in the 1st row, then the 2nd row of the screen and so on...
      * @param level the level the game displays.
      */
-    void storeMap(Collection<Cell> map, int level);
+    void storeSubMap(Collection<Cell> map, int level, int subMapID);
     void addLevel(int levelNumber);
 
 }

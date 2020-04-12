@@ -35,4 +35,14 @@ public interface Cell {
    */
   int getUniqueID();
 
+  int setUniqueID();
+
+  /**
+   * return whether the cell is walkable.
+   */
+  boolean isMapCellWalkable();
+
+  void setWalkable(boolean walkable);
+
+
 }

@@ -45,4 +45,6 @@ public interface GridInMap extends SingleGrid {
    * @param gridID    the ID of the additional gird
    */
   void setGridIDOn(int row, int col, Direction direction, int gridID);
+
+  void loadGrid(int level);
 }

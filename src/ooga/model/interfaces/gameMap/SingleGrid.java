@@ -37,9 +37,10 @@ public interface SingleGrid {
   /**
    * Loads the grid from an external file
    *
-   * @param filename the filename in which the grid information is stored in
+   * @param id
+   * @param level
    */
-  void loadGridFrom(String filename);
+  void loadGrid(int id, int level);
 
   /**
    * Gets the cell state at a specific location

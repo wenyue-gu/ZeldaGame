@@ -1,21 +1,26 @@
 package ooga.model.characters;
 
+import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
+import ooga.model.PropertyChangeNotifier;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
+import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Alive;
 import ooga.model.interfaces.Attacker;
+import ooga.model.interfaces.Notifier;
 import ooga.model.move.MovingObject2D;
 
-public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker {
+import java.beans.PropertyChangeListener;
+import ooga.model.test.listener.ExampleController;
+
+public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
 
   public static final int DEFAULT_ATTACK = 0;
   public static final int DEFAULT_WEAPON = 0;
 
-  protected int hp;
-  protected int weapon;
-  protected int attack;
-  protected int id;
-  protected Direction attackingDirection;
+  private CharacterBase cb;
+  private WeaponBase weaponBase;
+  protected PropertyChangeNotifier notifier;
 
   public ZeldaCharacter(int initialHp, int id) {
     this(initialHp, DEFAULT_WEAPON, id);
@@ -26,80 +31,96 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker {
   }
 
   public ZeldaCharacter(int initialHp, int weapon, int attack, int id) {
-    hp = initialHp;
-    this.weapon = weapon;
-    this.attack = attack;
-    this.id = id;
-    attackingDirection = movingDirection;
+    cb = new CharacterBase(id, initialHp);
+    this.weaponBase = new WeaponBase(weapon, attack, movingDirection) {
+      @Override
+      public void fire() {
+        setState(MovingState.ATTACK1);
+      }
+    };
+    notifier = new PropertyChangeNotifier(this);
+  }
+
+
+  @Override
+  public void addListener(PropertyChangeListener listener) {
+    notifier.addListener(listener);
+  }
+
+  @Override
+  public void removeListener(PropertyChangeListener listener) {
+    notifier.removeListener(listener);
+  }
+
+  // TODO: change the string
+  @Override
+  protected void notifyChange(String property, Object oldState, Object newState) {
+    notifier.firePropertyChange(property, oldState, newState);
   }
 
   @Override
   public int getId() {
-    return id;
+    return cb.getId();
   }
 
   @Override
   public void setId(int id) {
-    this.id = id;
+    cb.setId(id);
   }
 
   @Override
   public int getHP() {
-    return hp;
+    return cb.getHP();
   }
+
 
   @Override
   public void setHP(int hp) {
-    this.hp = hp;
+    cb.setHP(hp);
   }
 
   @Override
   public void addHP(int deltaHP) {
-    hp += deltaHP;
+    cb.addHP(deltaHP);
   }
 
   @Override
   public void subtractHP(int deltaHP) {
-    hp -= deltaHP;
+    cb.subtractHP(deltaHP);
   }
 
   @Override
   public boolean isAlive() {
-    return hp > 0;
+    return cb.isAlive();
   }
 
   @Override
   public void setWeapon(int weapon) {
-    this.weapon = weapon;
+    weaponBase.setWeapon(weapon);
   }
 
   @Override
   public int getWeapon() {
-    return weapon;
+    return weaponBase.getWeapon();
   }
 
   @Override
   public void setAttack(int attack) {
-    this.attack = attack;
+    weaponBase.setAttack(attack);
   }
 
   @Override
   public int getAttack() {
-    return attack;
+    return weaponBase.getAttack();
   }
 
   @Override
   public void setFiringDirection(Direction direction) {
-    this.attackingDirection = direction;
+    weaponBase.setFiringDirection(direction);
   }
 
   @Override
   public void fire() {
-    setState(MovingState.ATTACK);
-    notifyAnimation();
-  }
-
-  // TODO: implement this
-  private void notifyAnimation() {
+    weaponBase.fire();
   }
 }
