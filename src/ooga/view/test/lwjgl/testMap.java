@@ -2,18 +2,12 @@ package ooga.view.test.lwjgl;
 
 
 import java.io.IOException;
-import ooga.view.engine.graphics.Material;
-import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Renderer2D;
 import ooga.view.engine.graphics.Shader;
-import ooga.view.engine.graphics.Vertex;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
-import ooga.view.engine.maths.Vector2f;
-import ooga.view.engine.maths.Vector3f;
-import ooga.view.engine.objects.GameObject;
-import ooga.view.engine.utils.TitleCropper;
-import ooga.view.game_view.map.interactive.Map2DView;
+import ooga.view.engine.utils.cyberpunk2d.GenerateMergedSprites;
+import ooga.view.game_view.map.map2d.Map2DView;
 import org.lwjgl.glfw.GLFW;
 
 public class testMap implements Runnable {
@@ -22,7 +16,7 @@ public class testMap implements Runnable {
   public Window window;
   public Renderer2D renderer;
   public Shader shader;
-  public final int WIDTH = 1280, HEIGHT = 760;
+  public final int WIDTH = 1280, HEIGHT = 1280;
 
   public Map2DView mapView;
   public String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
@@ -36,7 +30,9 @@ public class testMap implements Runnable {
     window = new Window(WIDTH, HEIGHT, "Game");
     shader = new Shader("/view/shaders/2d/cyberpunkTitleVertex.glsl", "/view/shaders/2d/cyberpunkTitleFragment.glsl");
     renderer = new Renderer2D(shader);
-    TitleCropper cropit = new TitleCropper();
+    //TitleCropper cropit = new TitleCropper();
+    //GenerateCroppedSprites cropit = new GenerateCroppedSprites();
+    //GenerateMergedSprites mergeit = new GenerateMergedSprites();
     window.setBackgroundColor(22.0f/255.0f, 23.0f/255.0f, 25.0f/255.0f);
     window.create();
     mapView = new Map2DView(mapPath,WIDTH, HEIGHT);
