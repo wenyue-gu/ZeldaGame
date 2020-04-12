@@ -65,32 +65,32 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void left() {
     myPlayer.setState(MovingState.WALK);
-    myPlayer.setDirection(Direction.WEST);
+    myPlayer.setDirection(Direction.W);
   }
 
   @Override
   public void right() {
     myPlayer.setState(MovingState.WALK);
-    myPlayer.setDirection(Direction.EAST);
+    myPlayer.setDirection(Direction.E);
   }
 
 
   @Override
   public void attack0() {
-    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setState(MovingState.ATTACK1);
     //myPlayer.setAttack(0);
   }
 
   @Override
   public void attack1() {
-    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setState(MovingState.ATTACK1);
     //myPlayer.setAttack(1);
 
   }
 
   @Override
   public void attack2() {
-    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setState(MovingState.ATTACK1);
     //myPlayer.setAttack(2);
 
   }

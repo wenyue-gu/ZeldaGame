@@ -24,7 +24,7 @@ public class PlayerKeyInputTest {
         //walk left
         control.keyInput(KeyCode.LEFT);
         assertEquals(MovingState.WALK, player.getState());
-        assertEquals(Direction.WEST, player.getDirection());
+        assertEquals(Direction.W, player.getDirection());
     }
 
     @Test
@@ -36,12 +36,12 @@ public class PlayerKeyInputTest {
         //walk right
         control.keyInput(KeyCode.RIGHT);
         assertEquals(MovingState.WALK, player.getState());
-        assertEquals(Direction.EAST, player.getDirection());
+        assertEquals(Direction.E, player.getDirection());
 
         //walk upwards
         control.keyInput(KeyCode.UP);
         assertEquals(MovingState.WALK, player.getState());
-        assertEquals(Direction.NORTH, player.getDirection());
+        assertEquals(Direction.N, player.getDirection());
     }
 
     @Test
@@ -56,12 +56,12 @@ public class PlayerKeyInputTest {
         //walk upwards
         control.keyInput(KeyCode.UP);
         assertEquals(MovingState.WALK, player.getState());
-        assertEquals(Direction.NORTH, player.getDirection());
+        assertEquals(Direction.N, player.getDirection());
 
         //key released (stop)
         control.keyReleased();
         assertEquals(MovingState.IDLE, player.getState());
-        assertEquals(Direction.NORTH, player.getDirection());
+        assertEquals(Direction.N, player.getDirection());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class PlayerKeyInputTest {
         //walk downwards
         control.keyInput(KeyCode.DOWN);
         assertEquals(MovingState.WALK, player.getState());
-        assertEquals(Direction.SOUTH, player.getDirection());
+        assertEquals(Direction.S, player.getDirection());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class PlayerKeyInputTest {
         ZeldaPlayerControl control = new ZeldaPlayerControl();
         control.setMyPlayer(player);
         control.keyInput(KeyCode.Q);
-        assertEquals(MovingState.ATTACK, player.getState());
+        assertEquals(MovingState.ATTACK1, player.getState());
         assertEquals(0, player.getAttack());
 
         //different attack

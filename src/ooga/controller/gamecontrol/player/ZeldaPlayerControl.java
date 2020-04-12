@@ -14,17 +14,20 @@ import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import ooga.view.game_view.agent.playable.player2d.Player2DView;
 
-public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D, AttackerControl, PropertyChangeListener {
+public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
+    AttackerControl, PropertyChangeListener {
 
-  public static final String STATE = "state";
-  public static final String DIRECTION = "direction";
+  public static final String PROPERTY_STATE = "state";
+  public static final String PROPERTY_MOVING_DIRECTION = "direction";
 
   private ZeldaPlayer myPlayer;
+  private Player2DView playerView;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private int myID;
 
-  public ZeldaPlayerControl(){
+  public ZeldaPlayerControl() {
     myKeyCodeMap.put(KeyCode.LEFT, "left");
     myKeyCodeMap.put(KeyCode.RIGHT, "right");
     myKeyCodeMap.put(KeyCode.UP, "up");
@@ -33,9 +36,13 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     myKeyCodeMap.put(KeyCode.W, "attack1");
   }
 
+  public void setPlayerView(Player2DView playerView) {
+    this.playerView = playerView;
+  }
+
   @Override
   public void setMyPlayer(Movable1D myPlayer) {
-    this.myPlayer = (ZeldaPlayer)myPlayer;
+    this.myPlayer = (ZeldaPlayer) myPlayer;
   }
 
   @Override
@@ -59,8 +66,11 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void keyInput(KeyCode key) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    if(myKeyCodeMap.get(key)==null) return;
+  public void keyInput(KeyCode key)
+      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    if (myKeyCodeMap.get(key) == null) {
+      return;
+    }
     this.getClass().getDeclaredMethod(myKeyCodeMap.get(key)).invoke(this);
 
   }
@@ -69,43 +79,43 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void up() {
     myPlayer.setState(MovingState.WALK);
-    myPlayer.setDirection(Direction.NORTH);
+    myPlayer.setDirection(Direction.N);
   }
 
   @Override
   public void down() {
     myPlayer.setState(MovingState.WALK);
-    myPlayer.setDirection(Direction.SOUTH);
+    myPlayer.setDirection(Direction.S);
   }
 
   @Override
   public void left() {
     myPlayer.setState(MovingState.WALK);
-    myPlayer.setDirection(Direction.WEST);
+    myPlayer.setDirection(Direction.W);
   }
 
   @Override
   public void right() {
     myPlayer.setState(MovingState.WALK);
-    myPlayer.setDirection(Direction.EAST);
+    myPlayer.setDirection(Direction.E);
   }
 
   @Override
   public void attack0() {
-    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setState(MovingState.ATTACK1);
     myPlayer.setAttack(0);
   }
 
   @Override
   public void attack1() {
-    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setState(MovingState.ATTACK1);
     myPlayer.setAttack(1);
 
   }
 
   @Override
   public void attack2() {
-    myPlayer.setState(MovingState.ATTACK);
+    myPlayer.setState(MovingState.ATTACK1);
     myPlayer.setAttack(2);
 
   }
@@ -113,11 +123,10 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String s = evt.getPropertyName();
-    switch(s){
-      case STATE:
-        break;
-      case DIRECTION:
-        break;
+    switch (s) {
+      case PROPERTY_STATE:
+      case PROPERTY_MOVING_DIRECTION:
+        playerView.update(myPlayer.getDirection().toString(), myPlayer.getState().toString());
     }
   }
 }
