@@ -67,7 +67,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return 0;
   }
   private GameInfo loadGameParamPrep() {
-    GameInfo gameInfo = loadGameParamPrep();
+    //GameInfo gameInfo = loadGameParamPrep();
     PlayerStatus currentPlayerStatus = loadJson("data/Player/player1.json", PlayerStatus.class);
     int level = currentPlayerStatus.getLevel();
     return loadGameInfo(level,gameID);
