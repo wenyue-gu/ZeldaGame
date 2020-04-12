@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import ooga.view.engine.utils.ImageLoader;
+import ooga.view.engine.utils.PngMerger;
 
 public class ResizeSprites {
 
@@ -188,6 +189,58 @@ public class ResizeSprites {
     ImageIO.write(canvas, "png", outputfile);
 
   }
+
+  public static void resizeAll() throws IOException {
+
+    resizeAnimation(DIR_E_ATT1, 5);
+    resizeAnimation(DIR_E_ATT2, 6);
+    resizeAnimation(DIR_E_ATT3, 15);
+    resizeAnimation(DIR_E_DEATH, 9);
+    resizeAnimation(DIR_E_IDLE, 11);
+    resizeAnimation(DIR_E_PRESPRINT, 7);
+    resizeAnimation(DIR_E_SPRINT, 6);
+
+    resizeAnimation(DIR_N_ATT1, 5);
+    resizeAnimation(DIR_N_ATT2, 6);
+    resizeAnimation(DIR_N_ATT3, 15);
+    resizeAnimation(DIR_N_DEATH, 9);
+    resizeAnimation(DIR_N_IDLE, 11);
+    resizeAnimation(DIR_N_PRESPRINT, 7);
+    resizeAnimation(DIR_N_SPRINT, 6);
+
+    resizeAnimation(DIR_NE_ATT1, 5);
+    resizeAnimation(DIR_NE_ATT2, 6);
+    resizeAnimation(DIR_NE_ATT3, 15);
+    resizeAnimation(DIR_NE_DEATH, 9);
+    resizeAnimation(DIR_NE_IDLE, 11);
+    resizeAnimation(DIR_NE_PRESPRINT, 7);
+    resizeAnimation(DIR_NE_SPRINT, 6);
+
+    resizeAnimation(DIR_S_ATT1, 5);
+    resizeAnimation(DIR_S_ATT2, 6);
+    resizeAnimation(DIR_S_ATT3, 15);
+    resizeAnimation(DIR_S_DEATH, 9);
+    resizeAnimation(DIR_S_IDLE, 11);
+    resizeAnimation(DIR_S_PRESPRINT, 7);
+    resizeAnimation(DIR_S_SPRINT, 6);
+
+    resizeAnimation(DIR_SE_ATT1, 5);
+    resizeAnimation(DIR_SE_ATT2, 6);
+    resizeAnimation(DIR_SE_ATT3, 15);
+    resizeAnimation(DIR_SE_DEATH, 9);
+    resizeAnimation(DIR_SE_IDLE, 11);
+    resizeAnimation(DIR_SE_PRESPRINT, 7);
+    resizeAnimation(DIR_SE_SPRINT, 6);
+
+  }
+
+  public static void resizeAnimation(String dir, int frame_amount) throws IOException {
+    for (int i=0; i<frame_amount; i++){
+      PngMerger.mergeCanvasPic("\\view\\textures\\2d\\cyberpunk\\playable\\MELEE ROBOT/canvas.png".replace("\\", "/"),
+          String.format("%s/%s.png", dir,i).replace("\\", "/"), String.format("%s/%s_.png",dir, i).replace("\\", "/"));
+    }
+  }
+
 
 
 }

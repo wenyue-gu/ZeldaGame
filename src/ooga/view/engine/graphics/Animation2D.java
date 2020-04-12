@@ -28,7 +28,7 @@ public class Animation2D {
 
     this.animatedFrames = new Material[cnt];
     for(int i=0; i<cnt;i++){
-      String spritePath = String.format("%s/%s.png", dir, i);
+      String spritePath = String.format("%s/%s_.png", dir, i);
       System.out.println(ImageLoader.getImageHeight(spritePath));
       System.out.println(ImageLoader.getImageWidth(spritePath));
       this.animatedFrames[i] = new Material(spritePath);

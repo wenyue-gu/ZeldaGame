@@ -1,7 +1,5 @@
 package ooga.view.engine.utils;
 
-import static ooga.view.engine.utils.ImageLoader.loadImage;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,6 +31,32 @@ public class PngMerger {
     g.dispose();
 
     String newImagePath = String.format("resources/%s/%s", dir, newpath);
+    System.out.println(newImagePath);
+    File outputfile = new File(newImagePath);
+    ImageIO.write(combined, "png", outputfile);
+
+    return newImagePath;
+  }
+
+  public static String mergeCanvasPic(String canvasPath, String pic, String newpath)
+      throws IOException {
+
+
+
+    //System.out.println(fullPaths.get(0));
+    BufferedImage combined = new BufferedImage(ImageLoader.getImageWidth(canvasPath), ImageLoader.getImageHeight(canvasPath), BufferedImage.TYPE_INT_ARGB);
+
+    Graphics g = combined.getGraphics();
+
+    BufferedImage canvas = ImageLoader.loadImage(canvasPath);
+    g.drawImage(canvas, 0, 0, null);
+
+    BufferedImage layer = ImageLoader.loadImage(pic);
+    g.drawImage(layer, (canvas.getWidth()-layer.getWidth())/2, (canvas.getHeight() - layer.getHeight())/2, null);
+
+    g.dispose();
+
+    String newImagePath = String.format("resources/%s", newpath);
     System.out.println(newImagePath);
     File outputfile = new File(newImagePath);
     ImageIO.write(combined, "png", outputfile);

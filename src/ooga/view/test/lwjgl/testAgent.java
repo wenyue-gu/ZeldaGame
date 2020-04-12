@@ -7,6 +7,7 @@ import ooga.view.engine.graphics.Shader;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
 import ooga.view.engine.utils.cyberpunk2d.GenerateMergedSprites;
+import ooga.view.engine.utils.cyberpunk2d.ResizeSprites;
 import ooga.view.game_view.agent.interfaces.AgentView;
 import ooga.view.game_view.agent.playable.player2d.Player2DView;
 import ooga.view.game_view.map.map2d.Map2DView;
@@ -29,6 +30,8 @@ public class testAgent implements Runnable {
   }
 
   public void init() throws IOException {
+    //ResizeSprites.createCanvas();
+    //ResizeSprites.resizeAll();
     window = new Window(WIDTH, HEIGHT, "Game");
     shader = new Shader("/view/shaders/2d/cyberpunkTitleVertex.glsl", "/view/shaders/2d/cyberpunkTitleFragment.glsl");
     renderer = new Renderer2D(shader);
