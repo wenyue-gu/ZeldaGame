@@ -6,6 +6,7 @@ import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,6 +14,8 @@ import java.util.Map;
  */
 public interface DataLoaderAPI {
     int loadGameParam(GamePara para);
+
+    List<Direction> loadAvailableDirection(GamePara para);
 
     void setGame(int GameID);
 

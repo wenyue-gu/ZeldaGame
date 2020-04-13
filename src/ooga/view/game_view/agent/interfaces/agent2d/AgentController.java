@@ -1,7 +1,9 @@
 package ooga.view.game_view.agent.interfaces.agent2d;
 
 import ooga.view.engine.graphics.Material;
+import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.maths.Vector2f;
+import ooga.view.engine.maths.Vector3f;
 import ooga.view.game_view.animation.dict2d.AgentAnimationDict;
 
 abstract public class AgentController {
@@ -30,7 +32,7 @@ abstract public class AgentController {
     }
   }
 
-  public abstract void move(Vector2f directions);
+  public abstract void move(String direction, Mesh mesh);
 
 
 

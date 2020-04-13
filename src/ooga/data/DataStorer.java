@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
 import ooga.model.characters.ZeldaCharacter;
+//import ooga.model.gameElements.Weapon;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
@@ -61,16 +62,18 @@ public class DataStorer implements DataStorerAPI {
 
     }
 
+    @Override
+    public void storeWeapons(int ID, WeaponBase weapon) {
+        
+    }
+
 
     //@Override
     public void storeCharacter(int characterID, ZeldaCharacter character) {
         writeObjectTOJson(character, "data/ZeldaCharacter/" + characterKeyword + characterID + ".json");
     }
 
-    @Override
-    public void storeWeapons(int ID, WeaponBase weapon) {
 
-    }
 
     @Override
     public void StoreInventory(Inventory inventory) {

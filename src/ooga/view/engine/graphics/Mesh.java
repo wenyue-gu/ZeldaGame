@@ -3,6 +3,7 @@ package ooga.view.engine.graphics;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import ooga.view.engine.maths.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
@@ -81,6 +82,12 @@ public class Mesh {
 		return vertices;
 	}
 
+	public void setVerticesPosition(int i, Vector3f newPos){
+		vertices[i].setPosition(newPos);
+		destroy();
+		create();
+	}
+
 	public int[] getIndices() {
 		return indices;
 	}
@@ -111,6 +118,18 @@ public class Mesh {
 
 	public void setMaterial(Material material) {
 		this.material = material;
+	}
+
+	private FloatBuffer getPositionalBuffer(){
+		FloatBuffer positionBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
+		float[] positionData = new float[vertices.length * 3];
+		for (int i = 0; i < vertices.length; i++) {
+			positionData[i * 3] = vertices[i].getPosition().getX();
+			positionData[i * 3 + 1] = vertices[i].getPosition().getY();
+			positionData[i * 3 + 2] = vertices[i].getPosition().getZ();
+		}
+		positionBuffer.put(positionData).flip();
+		return positionBuffer;
 	}
 
 }

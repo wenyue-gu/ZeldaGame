@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static ooga.data.DataStorer.characterKeyword;
@@ -45,9 +46,8 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   @Override
   public int loadGameParam(GamePara para) {
-    PlayerStatus currentPlayerStatus = loadJson("data/Player/player1.json", PlayerStatus.class);
-    int level = currentPlayerStatus.getLevel();
-    GameInfo gameInfo = loadGameInfo(level,gameID);
+    GameInfo gameInfo = loadGameParamPrep();
+    int level = gameInfo.getLevelNum();
     switch (para) {
       case GRID_NUM:
         return gameInfo.getSubMapInfo().get(level).size();
@@ -65,6 +65,17 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
         return gameInfo.getInitialPosition()[1];
     }
     return 0;
+  }
+  private GameInfo loadGameParamPrep() {
+    GameInfo gameInfo = loadGameParamPrep();
+    PlayerStatus currentPlayerStatus = loadJson("data/Player/player1.json", PlayerStatus.class);
+    int level = currentPlayerStatus.getLevel();
+    return loadGameInfo(level,gameID);
+  }
+  @Override
+  public List<Direction> loadAvailableDirection(GamePara para) {
+    GameInfo gameInfo = loadGameParamPrep();
+    return gameInfo.getAvailableAttackDirections();
   }
 
   @Override
@@ -120,11 +131,11 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
     zeldaCharacter =  loadJson("data/ZeldaCharacter/" + characterKeyword + ID + ".json", zeldaCharacter.getClass());
     try {
-      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod("get" + property.toString().substring(0,1)+ property.toString().substring(1).toLowerCase());
+      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod("get" + property.toString().substring(0,1)+ property.toString().substring(1));
       int a = (int) methodcall.invoke(zeldaCharacter);
       return (int) methodcall.invoke(zeldaCharacter);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-      e.printStackTrace();
+        e.printStackTrace();
     }
 
 
