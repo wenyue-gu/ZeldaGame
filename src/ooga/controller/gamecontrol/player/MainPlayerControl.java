@@ -49,5 +49,10 @@ public class MainPlayerControl implements PlayerControlInterface {
     myPlayerControl.keyReleased();
   }
 
+  @Override
+  public void updateKey(){
+    myPlayerControl.updateKey();
+  }
+
 
 }

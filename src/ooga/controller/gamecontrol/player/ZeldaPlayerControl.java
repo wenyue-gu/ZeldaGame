@@ -14,7 +14,10 @@ import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+
+import ooga.view.engine.io.Input;
 import ooga.view.game_view.agent.playable.player2d.Player2DView;
+import org.lwjgl.glfw.GLFW;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
     AttackerControl, PropertyChangeListener {
@@ -25,15 +28,27 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   private ZeldaPlayer myPlayer;
   private Player2DView playerView;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
+  private Map<Integer, String> myGLFWMap = new HashMap<>();
   private int myID;
 
   public ZeldaPlayerControl() {
+    //keycode map hard code
     myKeyCodeMap.put(KeyCode.LEFT, "left");
     myKeyCodeMap.put(KeyCode.RIGHT, "right");
     myKeyCodeMap.put(KeyCode.UP, "up");
     myKeyCodeMap.put(KeyCode.DOWN, "down");
     myKeyCodeMap.put(KeyCode.Q, "attack0");
     myKeyCodeMap.put(KeyCode.W, "attack1");
+
+    //glfw map hard code
+    myGLFWMap.put(GLFW.GLFW_KEY_LEFT, "left");
+    myGLFWMap.put(GLFW.GLFW_KEY_RIGHT, "right");
+    myGLFWMap.put(GLFW.GLFW_KEY_UP, "up");
+    myGLFWMap.put(GLFW.GLFW_KEY_DOWN, "down");
+    myGLFWMap.put(GLFW.GLFW_KEY_Q, "attack0");
+    myGLFWMap.put(GLFW.GLFW_KEY_W, "attack1");
+
+
   }
 
   public void setPlayerView(Player2DView playerView) {
@@ -67,7 +82,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void keyInput(KeyCode key)
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+          throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     if (myKeyCodeMap.get(key) == null) {
       return;
     }
@@ -127,6 +142,20 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
         playerView.update(myPlayer.getDirection().toString(), myPlayer.getState().toString());
+    }
+  }
+
+  @Override
+  public void updateKey() {
+    try {
+      for (int i : myGLFWMap.keySet()) {
+        if (Input.isKeyDown(i)){
+          this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
+        }
+      }
+
+    } catch (Exception e) {
+      System.out.println("map fault");
     }
   }
 }

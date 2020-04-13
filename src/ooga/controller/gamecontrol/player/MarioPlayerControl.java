@@ -94,4 +94,7 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
     //myPlayer.setAttack(2);
 
   }
+  @Override
+  public void updateKey(){
+  }
 }
