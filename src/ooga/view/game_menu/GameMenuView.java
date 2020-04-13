@@ -4,9 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
-public interface GameMenuView { // will be extending Scene
-
-  Scene getMenuView();
+public interface GameMenuView extends MenuView{ // will be extending Scene
 
   Button getNewGameButton();
 
@@ -16,6 +14,5 @@ public interface GameMenuView { // will be extending Scene
 
   Button getLoadButton();
 
-  void switchMode(boolean dark);
 
 }

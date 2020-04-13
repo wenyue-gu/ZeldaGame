@@ -1,8 +1,3 @@
-//PLAYER ID FROM BACKEND
-//PLAYER DIRECTION AND STUFF FOR ATTACK
-
-
-
 package ooga.controller.gamecontrol;
 
 import ooga.controller.gamecontrol.NPC.MainNPCControl;

@@ -21,6 +21,7 @@ public class AbstractGameMenuView implements GameMenuView {
     private PrettyButtons myLoad;
     private VBox vBox;
     private Scene myScene;
+    private boolean dark;
 
     private Background darkMode = new Background(new BackgroundFill(new Color(0.15,0.15,0.15,1), CornerRadii.EMPTY, Insets.EMPTY));
     private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
@@ -59,6 +60,11 @@ public class AbstractGameMenuView implements GameMenuView {
 
     @Override
     public void switchMode(boolean dark){
+        this.dark = dark;
+        setColor();
+    }
+
+    private void setColor(){
         if(dark) vBox.setBackground(darkMode);
         else vBox.setBackground(lightMode);
         myNewButton.switchMode(dark);
