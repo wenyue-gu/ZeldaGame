@@ -4,6 +4,7 @@ import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.Cell;
+import org.junit.Assert;
 
 import static ooga.data.GamePara.NPC_NUM;
 
@@ -46,10 +47,11 @@ public class DataManagementTest {
      */
     private static void characterLoadingStoringTest() {
 
-        ZeldaCharacter ZC = new ZeldaCharacter(1, 2, 3, 4);
+        ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4);
         ZC.setFiringDirection(Direction.E);
         b.storeCharacter(2, ZC);
-        a.loadCharacter(2, CharacterProperty.HP);
+        Assert.assertEquals(a.loadCharacter(2, CharacterProperty.HP), 9);
+        System.out.println(a.loadCharacter(2, CharacterProperty.HP));
 //        a.loadCharacter(2, CharacterProperty.SCORE);
     }
 
