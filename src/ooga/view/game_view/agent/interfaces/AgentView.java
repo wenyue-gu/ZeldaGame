@@ -1,15 +1,28 @@
 package ooga.view.game_view.agent.interfaces;
 
-import ooga.view.game_view.animation.interfaces.StateAnimation;
+import ooga.view.engine.graphics.Mesh;
+import ooga.view.engine.graphics.render.Renderer2D;
+import ooga.view.engine.graphics.Vertex;
+import ooga.view.engine.objects.GameObject;
 
-public interface AgentView {
+abstract public class AgentView {
 
-  void getView(); // the returned data type depends on the view
+  protected Vertex[] vertices;
+  protected int[] indices;
+  protected Mesh mesh;
+  protected GameObject object;
+  protected AgentController controller;
 
-  void addStateAnimation(int ID, StateAnimation animation);
+  public AgentView(){}
 
-  void setAgentState(int ID);
+  abstract public void update(String direction, String action);
 
-  int getAnimatingState();
+  abstract public void createMesh();
+
+  abstract public void destroyMesh();
+
+  abstract public void renderMesh(Renderer2D renderer);
+
+  public Vertex[] getVertices(){return vertices;}
 
 }

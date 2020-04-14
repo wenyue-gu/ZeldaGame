@@ -1,9 +1,12 @@
 package ooga.view.game_view.map.interfaces;
 
-public interface MapController { // (boolean fixed)
+abstract public class MapController{
 
-  MapView getMapView();
+  public MapView getMapView() {
+    return null;
+  }
 
-  void update();
+  public void update() {
 
+  }
 }
