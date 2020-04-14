@@ -36,7 +36,6 @@ public class Animation2dDict extends AnimationDict {
     }
   }
 
-  @Override
   public Animation2D getAnimation(){
 
     //TODO: should remove from hardcoded!
