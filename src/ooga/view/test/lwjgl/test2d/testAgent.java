@@ -1,4 +1,4 @@
-package ooga.view.test.lwjgl;
+package ooga.view.test.lwjgl.test2d;
 
 
 import java.io.IOException;
@@ -7,10 +7,9 @@ import ooga.view.engine.graphics.Shader;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
 import ooga.view.game_view.agent.agent2d.Agent2DView;
-import ooga.view.game_view.map.map2d.Map2DView;
 import org.lwjgl.glfw.GLFW;
 
-public class testAgentMap implements Runnable {
+public class testAgent implements Runnable {
 
   public Thread game;
   public Window window;
@@ -19,7 +18,6 @@ public class testAgentMap implements Runnable {
   public final int WIDTH = 1080, HEIGHT = 1080;
 
   public Agent2DView agentView;
-  public Map2DView mapView;
   public String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
 
   public void start() {
@@ -28,15 +26,15 @@ public class testAgentMap implements Runnable {
   }
 
   public void init() throws IOException {
+    //ResizeSprites.createCanvas();
+    //ResizeSprites.resizeAll();
     window = new Window(WIDTH, HEIGHT, "Game");
     shader = new Shader("/view/shaders/2d/cyberpunkTitleVertex.glsl", "/view/shaders/2d/cyberpunkTitleFragment.glsl");
     renderer = new Renderer2D(shader);
     window.setBackgroundColor(22.0f/255.0f, 23.0f/255.0f, 25.0f/255.0f);
     window.create();
-    mapView = new Map2DView(mapPath, WIDTH, HEIGHT);
     agentView = new Agent2DView();
     agentView.createMesh();
-    mapView.createMesh();
     shader.create();
   }
 
@@ -46,7 +44,7 @@ public class testAgentMap implements Runnable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-     while (!window.shouldClose() && !Input.isKeyDown(GLFW.GLFW_KEY_ESCAPE)) {
+    while (!window.shouldClose() && !Input.isKeyDown(GLFW.GLFW_KEY_ESCAPE)) {
       update();
       render();
       if (Input.isKeyDown(GLFW.GLFW_KEY_F11)) {
@@ -83,7 +81,6 @@ public class testAgentMap implements Runnable {
   }
 
   private void render() {
-    mapView.renderMesh(renderer);
     agentView.renderMesh(renderer);
     window.swapBuffers();
   }
@@ -91,11 +88,10 @@ public class testAgentMap implements Runnable {
   private void close() {
     window.destroy();
     agentView.destroyMesh();
-    mapView.destroyMesh();
     shader.destroy();
   }
 
   public static void main(String[] args) {
-    new testAgentMap().start();
+    new testAgent().start();
   }
 }

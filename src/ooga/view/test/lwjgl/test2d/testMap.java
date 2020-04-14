@@ -1,4 +1,4 @@
-package ooga.view.test.lwjgl;
+package ooga.view.test.lwjgl.test2d;
 
 
 import java.io.IOException;
