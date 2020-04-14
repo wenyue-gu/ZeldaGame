@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -34,6 +35,8 @@ public class WindowControl {
   private Button myGameButton1;
   private Button myGameButton2;
   private Button myGameButton3;
+
+  private ComboBox myLanguagePicker;
 
   private GameController myGameController;
   private Stage myStage;
@@ -85,6 +88,9 @@ public class WindowControl {
     myGameButton3 = mySelectView.getGame1();
     myGameButton3.setOnAction(e->startGame(3));
 
+    myLanguagePicker = myMenuView.getLanguagePicker();
+    myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
+
   }
 
   private void selectGameMenu(){
@@ -93,13 +99,18 @@ public class WindowControl {
     secondStage.show();
   }
 
+  private void setLanguage(String language){
+    myMenuView.setLanguage(language);
+    mySelectView.setLanguage(language);
+  }
+
 
   private void startGame(int type) {
     secondStage.close();
     myGameController = new GameController(myModel, myDataLoader);
     myGameController.setMode(dark);
 
-    //create window based on type (?)
+    //TODO: create window based on type (?)
 
 
 

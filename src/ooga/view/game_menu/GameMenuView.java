@@ -3,6 +3,7 @@ package ooga.view.game_menu;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 public interface GameMenuView extends MenuView{ // will be extending Scene
 
@@ -15,4 +16,5 @@ public interface GameMenuView extends MenuView{ // will be extending Scene
   Button getLoadButton();
 
 
+  ComboBox getLanguagePicker();
 }

@@ -63,6 +63,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   }
 
   public void update(){
+    //TODO: check this
     for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end
     for(MainPlayerControl mpc: myMainPlayerController) mpc.updateKey();
     myGameStateController.update(); // update front-end

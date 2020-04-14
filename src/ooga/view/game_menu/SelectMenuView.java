@@ -10,18 +10,26 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SelectMenuView implements SelectMenu {
     private PrettyButtons myGameButton1;
     private PrettyButtons myGameButton2;
     private PrettyButtons myGameButton3;
+
+    private List<PrettyButtons> myButtonList = new ArrayList<>();
+
     private VBox vBox;
     private Scene myScene;
     private boolean dark;
+    private String myLanguage;
 
     private Background darkMode = new Background(new BackgroundFill(new Color(0.15,0.15,0.15,1), CornerRadii.EMPTY, Insets.EMPTY));
     private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
 
     public SelectMenuView(){
+        myLanguage = "English";
         setUpButton();
         setUpVBox();
         myScene = new Scene(vBox, 500, 500);
@@ -53,18 +61,24 @@ public class SelectMenuView implements SelectMenu {
         setColor();
     }
 
+    @Override
+    public void setLanguage(String language) {
+        myLanguage = language;
+        for(PrettyButtons button:myButtonList) button.changeLanguage(myLanguage);
+    }
+
     private void setColor(){
         if(dark) vBox.setBackground(darkMode);
         else vBox.setBackground(lightMode);
-        myGameButton1.switchMode(dark);
-        myGameButton2.switchMode(dark);
-        myGameButton3.switchMode(dark);
+        for(PrettyButtons button:myButtonList) button.switchMode(dark);
     }
 
     private void setUpButton(){
-        myGameButton1 = new PrettyButtons("Type1");
-        myGameButton2 = new PrettyButtons("Type2");
-        myGameButton3 = new PrettyButtons("Type3") ;
+        myGameButton1 = new PrettyButtons("Type1", myLanguage);
+        myGameButton2 = new PrettyButtons("Type2", myLanguage);
+        myGameButton3 = new PrettyButtons("Type3", myLanguage) ;
+
+        myButtonList = List.of(myGameButton1, myGameButton2, myGameButton3);
     }
 
     private void setUpVBox(){

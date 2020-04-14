@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.control.Button;
 
+import java.util.ResourceBundle;
+
 public class PrettyButtons extends Button
 {
     private static final int BUTTON_HEIGHT = 45, BUTTON_WIDTH = 300;
@@ -18,10 +20,13 @@ public class PrettyButtons extends Button
     private Background darkMode = new Background(new BackgroundFill(new Color(0.4,0.4,0.4,1), CornerRadii.EMPTY, Insets.EMPTY));
     private Background lightMode = new Background(new BackgroundFill(new Color(0.85,0.85,0.85,1), CornerRadii.EMPTY, Insets.EMPTY));
     private DropShadow shadow = new DropShadow();
+    private String myWord;
+    private String myLanguage;
 
-
-    public PrettyButtons(String words) {
-        setText(words);
+    public PrettyButtons(String words, String Language) {
+        myWord = words;
+        myLanguage = Language;
+        changeLanguage(Language);
         setPrefHeight(BUTTON_HEIGHT);//45
         setPrefWidth(BUTTON_WIDTH);//190
         setFont(Font.font("Ariel", 20));
@@ -29,6 +34,13 @@ public class PrettyButtons extends Button
         shadow.setSpread(0.7);
         mouseUpdateListener();
     }
+
+    public void changeLanguage(String language) {
+        myLanguage = language;
+        var resources = ResourceBundle.getBundle(AbstractGameMenuView.class.getPackageName() + ".menuResource." + language);
+        setText(resources.getString(myWord));
+    }
+
 
     public void switchMode(boolean dark){
 

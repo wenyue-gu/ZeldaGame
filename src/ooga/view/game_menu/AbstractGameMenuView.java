@@ -7,27 +7,33 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbstractGameMenuView implements GameMenuView {
     private PrettyButtons myNewButton;
     private PrettyButtons myExitButton;
     private PrettyButtons myMode;
     private PrettyButtons myLoad;
+    private List<PrettyButtons> myButtonList;
     private VBox vBox;
+    private HBox hBox;
     private Scene myScene;
     private boolean dark;
+    private String myLanguage;
+    private ComboBox myLanguagePicker;
 
     private Background darkMode = new Background(new BackgroundFill(new Color(0.15,0.15,0.15,1), CornerRadii.EMPTY, Insets.EMPTY));
     private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
 
     public AbstractGameMenuView(){
+        myLanguage = "English";
         setUpButton();
+        setUpHBox();
         setUpVBox();
         myScene = new Scene(vBox);
     }
@@ -59,30 +65,59 @@ public class AbstractGameMenuView implements GameMenuView {
     }
 
     @Override
+    public ComboBox getLanguagePicker() {
+        return myLanguagePicker;
+    }
+
+    @Override
     public void switchMode(boolean dark){
         this.dark = dark;
         setColor();
     }
 
+    @Override
+    public void setLanguage(String language) {
+        myLanguage = language;
+        for (PrettyButtons button : myButtonList) button.changeLanguage(myLanguage);
+    }
+
     private void setColor(){
         if(dark) vBox.setBackground(darkMode);
         else vBox.setBackground(lightMode);
-        myNewButton.switchMode(dark);
-        myExitButton.switchMode(dark);
-        myMode.switchMode(dark);
-        myLoad.switchMode(dark);
+        for(PrettyButtons button:myButtonList) button.switchMode(dark);
+//        myNewButton.switchMode(dark);
+//        myExitButton.switchMode(dark);
+//        myMode.switchMode(dark);
+//        myLoad.switchMode(dark);
     }
 
     private void setUpButton(){
-        myNewButton = new PrettyButtons("New Game");
-        myExitButton = new PrettyButtons("Exit");
-        myMode = new PrettyButtons("Change Background") ;
-        myLoad = new PrettyButtons("Load Game");
+        myNewButton = new PrettyButtons("New", myLanguage);
+        myExitButton = new PrettyButtons("Exit", myLanguage);
+        myMode = new PrettyButtons("Background", myLanguage) ;
+        myLoad = new PrettyButtons("Load", myLanguage);
+        myButtonList = List.of(myNewButton, myExitButton, myMode, myLoad);
     }
 
     private void setUpVBox(){
         vBox = new VBox(10);
         vBox.setAlignment(Pos.BASELINE_CENTER);
-        vBox.getChildren().addAll(myNewButton, myExitButton, myLoad, myMode);
+        vBox.getChildren().add(hBox);
+        vBox.getChildren().addAll(myButtonList);
     }
+
+    private void setUpHBox(){
+        setUpLanguageMenu();
+        hBox = new HBox(10);
+        hBox.getChildren().add(myLanguagePicker);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+    }
+
+    private void setUpLanguageMenu(){
+        myLanguagePicker = new ComboBox();
+        myLanguagePicker.setPromptText("English");
+        myLanguagePicker.getItems().addAll("English", "Chinese");
+    }
+
+
 }

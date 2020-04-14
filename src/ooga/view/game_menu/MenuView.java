@@ -6,4 +6,6 @@ public interface MenuView {
     Scene getMenuView();
 
     void switchMode(boolean dark);
+
+    void setLanguage(String language);
 }
