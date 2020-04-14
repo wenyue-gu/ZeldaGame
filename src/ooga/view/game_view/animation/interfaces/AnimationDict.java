@@ -8,5 +8,5 @@ abstract public class AnimationDict {
 
   abstract public void setInUseAnimation (String direction, String action);
 
-  abstract public Animation2D getAnimation();
+  //abstract public Animation2D getAnimation();
 }

@@ -1,8 +1,6 @@
 package ooga.view.game_view.game_state.interfaces;
 
 import java.io.IOException;
-import ooga.view.engine.io.Input;
-import org.lwjgl.glfw.GLFW;
 
 abstract public class GameStateView {
 
