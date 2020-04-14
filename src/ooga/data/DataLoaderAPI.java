@@ -39,7 +39,7 @@ public interface DataLoaderAPI {
 
     Map<String, Integer> loadInternalStorage(String category);
 
-    Map<KeyCode, String> loadKeyCode(int playerID, String category);
+    Map<KeyCode, String> loadKeyCode(int playerID);
 
     Path loadImagePath(int imageID, String category);
 

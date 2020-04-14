@@ -1,10 +1,15 @@
 package ooga.data;
 
+import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.Cell;
 import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static ooga.data.GamePara.NPC_NUM;
 
@@ -17,9 +22,10 @@ public class DataManagementTest {
     private static DataStorer b = new DataStorer();
 
     public static void main(String[] args) {
-        gameMapLoadingTest();
-        characterLoadingStoringTest();
+//        gameMapLoadingTest();
+//        characterLoadingStoringTest();
 //        playerLoadingAndStoring();
+        KeyCodeTest();
     }
 
     /**
@@ -61,6 +67,16 @@ public class DataManagementTest {
     private static void playerLoadingAndStoring() {
         b.initializePlayerStatus(1, 1);
         System.out.println(a.loadGameParam(NPC_NUM));
+    }
+    @Test
+    private static void KeyCodeTest() {
+        Map<KeyCode, String> keyCodeMap = new HashMap<>();
+        keyCodeMap.put(KeyCode.UP, "hello");
+        b.storeKeyCode(keyCodeMap, 1);
+        b.storeKeyCode(keyCodeMap, 2);
+        Map<KeyCode, String> keyCodeMap2 = a.loadKeyCode(1);
+        System.out.println(keyCodeMap2.get(KeyCode.UP));
+        Assert.assertEquals("hello", a.loadKeyCode(1).get(KeyCode.UP));
     }
 
 

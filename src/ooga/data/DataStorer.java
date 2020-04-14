@@ -4,16 +4,18 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
 import ooga.model.characters.ZeldaCharacter;
-//import ooga.model.gameElements.Weapon;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+//import ooga.model.gameElements.Weapon;
 
 public class DataStorer implements DataStorerAPI {
     public static final int numFilesPerLevel = 1;
@@ -82,7 +84,20 @@ public class DataStorer implements DataStorerAPI {
 
     @Override
     public void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID) {
+        PlayerStatus player;
+        String FilePath = "data/Player/player" + playerID + ".json";
+        if (fileExist(FilePath)) {
+            player = dataLoader.loadJson(FilePath, PlayerStatus.class);
+        } else {
+            player = new PlayerStatus(playerID);
+        }
+        player.setKeyCodeMap(keyCodeMap);
+        writeObjectTOJson(player, FilePath);
+    }
 
+    private boolean fileExist(String filePath) {
+        File tmpDir = new File(filePath);
+        return tmpDir.exists();
     }
 
     /**

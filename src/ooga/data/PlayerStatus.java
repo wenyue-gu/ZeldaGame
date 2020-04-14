@@ -1,17 +1,26 @@
 package ooga.data;
 
+import javafx.scene.input.KeyCode;
+
+import java.util.Map;
+
 public class PlayerStatus {
+    public static int initLevel = 1;
     private int gameID;
     private int playerID;
     private int score;
     private int level;
+    private Map<KeyCode, String> keyCodeMap;
 
+
+    public PlayerStatus(int playerID) {
+        this.playerID = playerID;
+        this.level = initLevel;
+    }
 
     public PlayerStatus(int gameID, int playerID) {
+        this(playerID);
         this.gameID = gameID;
-        this.playerID = playerID;
-        this.level = 1;
-
     }
 
     public int getScore() {
@@ -44,5 +53,13 @@ public class PlayerStatus {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setKeyCodeMap(Map<KeyCode, String> keyCodeMap) {
+        this.keyCodeMap = keyCodeMap;
+    }
+
+    public Map<KeyCode, String> getKeyCodeMap() {
+        return keyCodeMap;
     }
 }

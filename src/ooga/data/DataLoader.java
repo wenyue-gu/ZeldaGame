@@ -6,6 +6,7 @@ import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.Cell;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -163,8 +164,11 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
-  public Map<KeyCode, String> loadKeyCode(int playerID, String category) {
-    return null;
+  public Map<KeyCode, String> loadKeyCode(int playerID) {
+    String filePath = "data/Player/player" + playerID + ".json";
+    Map<KeyCode, String> tempMap = new HashMap<>();
+    PlayerStatus player =  loadJson(filePath, PlayerStatus.class);
+    return player.getKeyCodeMap();
   }
 
   @Override
@@ -174,12 +178,12 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return imagePath.get(imageID);
   }
 
-  private <clazz> clazz loadJson(String fileName, Class clazz) {
+  public <clazz> clazz loadJson(String fileName, Class clazz) {
     try {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
       return (clazz) gson.fromJson(reader, clazz);
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (IOException e) {
+      System.out.println("file at " + fileName + "hasn't been created.");
     }
     return null;
   }
