@@ -1,19 +1,21 @@
 package ooga.data;
 
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
 import ooga.model.characters.ZeldaCharacter;
-//import ooga.model.gameElements.Weapon;
+import ooga.model.enums.ImageCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+//import ooga.model.gameElements.Weapon;
 
 public class DataStorer implements DataStorerAPI {
     public static final int numFilesPerLevel = 1;
@@ -47,9 +49,15 @@ public class DataStorer implements DataStorerAPI {
     public void setGame(int GameID) {
 
     }
-    public void initializePlayerStatus(int gameID, int playerID) {
-        PlayerStatus playerStatus = new PlayerStatus(gameID, playerID);
-        writeObjectTOJson(playerStatus, "data/Player/player" + playerID+".json");
+    public void initializePlayerStatus(int playerID) {
+        PlayerStatus playerStatus = new PlayerStatus(playerID);
+        String filePath = "data/Player/player" + playerID +".json";
+        if (fileExist(filePath)) {
+            //todo: throw an error.
+            System.out.println("player has already been initialized");
+        } else {
+            writeObjectTOJson(playerStatus, filePath);
+        }
     }
 
     @Override
@@ -82,20 +90,43 @@ public class DataStorer implements DataStorerAPI {
 
     @Override
     public void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID) {
+        PlayerStatus player;
+        String FilePath = "data/Player/player" + playerID + ".json";
+        if (fileExist(FilePath)) {
+            player = dataLoader.loadJson(FilePath, PlayerStatus.class);
+        } else {
+            player = new PlayerStatus(playerID);
+        }
+        player.setKeyCodeMap(keyCodeMap);
+        writeObjectTOJson(player, FilePath);
+    }
 
+    private boolean fileExist(String filePath) {
+        File tmpDir = new File(filePath);
+        return tmpDir.exists();
     }
 
     /**
      * Slow if serialize every time?
-     * @param image
+     * @param imagePath
      * @param ImageID
-     * @param category
+     * @param
      */
     @Override
-    public void storeImage(Image image, int ImageID, String category) {
-        Map<Integer, Image> imageMap = new HashMap<>();
-        imageMap.put(ImageID, image);
-        writeObjectTOJson(imageMap, category);
+    //todo: finish testing
+    public void storeImage(String imagePath, int ImageID, ImageCategory imageCategory) {
+        Map<String, String> imageMap = new HashMap<>();
+        String filePath = "data/Image/" + imageCategory.toString();
+        if (fileExist(filePath)) {
+            imageMap = dataLoader.loadJson(filePath, imageMap.getClass());
+        }
+        boolean a = imageMap.containsKey(String.valueOf(ImageID));
+        if (!imageMap.containsKey(String.valueOf(ImageID))) {
+            imageMap.put(String.valueOf(ImageID), imagePath);
+        } else {
+            imageMap.replace(String.valueOf(ImageID), imagePath);
+        }
+        writeObjectTOJson(imageMap, filePath);
     }
 
     @Override

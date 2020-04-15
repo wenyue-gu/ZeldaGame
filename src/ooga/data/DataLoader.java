@@ -4,13 +4,14 @@ import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
+import ooga.model.enums.ImageCategory;
 import ooga.model.interfaces.gameMap.Cell;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -163,23 +164,32 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
-  public Map<KeyCode, String> loadKeyCode(int playerID, String category) {
-    return null;
+  public Map<KeyCode, String> loadKeyCode(int playerID) {
+    String filePath = "data/Player/player" + playerID + ".json";
+    Map<KeyCode, String> tempMap = new HashMap<>();
+    PlayerStatus player =  loadJson(filePath, PlayerStatus.class);
+    return player.getKeyCodeMap();
   }
 
+  /**
+   * in Json, <int, String> always returns <Stirng, String>
+   * @param imageID
+   * @param category
+   * @return
+   */
   @Override
-  public Path loadImagePath(int imageID, String category) {
-    Map<Integer, Path> imagePath = new HashMap<>();
-    imagePath = loadJson(Image_Keyword + category, imagePath.getClass());
-    return imagePath.get(imageID);
+  public String loadImagePath(int imageID, ImageCategory category) {
+    Map<String, String> imagePath = new HashMap<>();
+    imagePath = loadJson("data/Image/" + category.toString(), imagePath.getClass());
+    return imagePath.get(String.valueOf(imageID));
   }
 
-  private <clazz> clazz loadJson(String fileName, Class clazz) {
+  public <clazz> clazz loadJson(String fileName, Class clazz) {
     try {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
       return (clazz) gson.fromJson(reader, clazz);
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (IOException e) {
+      System.out.println("file at " + fileName + "hasn't been created.");
     }
     return null;
   }
