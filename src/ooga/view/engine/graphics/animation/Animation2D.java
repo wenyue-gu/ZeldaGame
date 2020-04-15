@@ -1,57 +1,32 @@
 package ooga.view.engine.graphics.animation;
 
 import ooga.view.engine.graphics.Material;
-import ooga.view.engine.utils.Timer;
 
-public class Animation2D {
+public class Animation2D extends Animation{
 
-  private final static double HARDSET_TIME = 1.0/18.0;
-  private Material animatedFrames[];
-
-  private int framePointer;
-  private int frameAmount;
-
-  private double elapsedTime;
-  private double currentTime;
-  private double lastTime;
-  private double fps;
+  private Material[] animatedFrames;
+  private boolean is2D = true;
 
   public Animation2D(int cnt, int fps, String dir) {
-
-    resetAnimation();
-    this.fps = 1.0 / fps;
-    this.frameAmount = cnt;
-    dir = dir.replace("\\", "/");
-
+    super(cnt,fps);
     this.animatedFrames = new Material[cnt];
+
     for(int i=0; i<cnt;i++){
-      String spritePath = String.format("%s/%s_.png", dir, i);
-      //System.out.println(ImageLoader.getImageHeight(spritePath));
-      //System.out.println(ImageLoader.getImageWidth(spritePath));
+      String spritePath = String.format("%s/%s_.png", dir.replace("\\", "/"), i);
       this.animatedFrames[i] = new Material(spritePath);
       this.animatedFrames[i].createTexture();
     }
   }
 
-  public Animation2D(int cnt) {
-    resetAnimation();
-    this.fps = 1.0 / fps;
-    this.frameAmount = cnt;
+  public Animation2D(int cnt, int fps) {
+    super(cnt, fps);
     this.animatedFrames = new Material[cnt];
-  }
-
-  public void resetAnimation(){
-    this.framePointer = 0;
-    this.elapsedTime = 0;
-    this.currentTime = 0;
-    this.lastTime = Timer.getTime();
-
   }
 
   public static Animation2D combineAnimations(Animation2D animation_1, Animation2D animation_2){
 
     int totalFrames = animation_1.getFrameAmount()+animation_2.getFrameAmount();
-    Animation2D combined = new Animation2D(totalFrames);
+    Animation2D combined = new Animation2D(totalFrames, DEFAULT_FPS_2D);
 
     int idx = 0;
     for (int i=0; i<animation_1.getFrameAmount(); i++){
@@ -73,51 +48,10 @@ public class Animation2D {
     return this.animatedFrames[idx];
   }
 
-  public int getFrameAmount(){return frameAmount;}
-
-  /*
-  public void bind(){
-    this.currentTime = Timer.getTime();
-    this.elapsedTime += currentTime - lastTime;
-
-    if (elapsedTime >= fps){
-      elapsedTime = 0;
-      framePointer++;
-    }
-
-    if (framePointer >= animatedFrames.length) framePointer = 0;
-
-    this.lastTime = currentTime;
-
-    animatedFrames[framePointer].bind();
-  }
-  */
   public Material getCurrentFrame(){
-    //System.out.println(framePointer);
-    //System.out.println(animatedFrames.length);
-    //System.out.println(currentTime);
-    //System.out.println(elapsedTime);
-    //System.out.println(lastTime);
-    //System.out.println(currentTime - lastTime);
-    //System.out.println(fps);
-    //System.out.println();
-
-    this.currentTime = Timer.getTime();
-    this.elapsedTime += currentTime - lastTime;
-
-    if (elapsedTime >= fps || elapsedTime >= HARDSET_TIME){
-      elapsedTime = 0;
-      framePointer++;
-      this.lastTime = currentTime;
-    }
-
-    if (framePointer >= animatedFrames.length)
-    {
-      framePointer = 0;
-      return null;
-    }
-
-
-    return animatedFrames[framePointer];
+    return animatedFrames[updateFramePointer(is2D)];
   }
+
+
+
 }
