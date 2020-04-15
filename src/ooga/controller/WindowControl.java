@@ -10,6 +10,7 @@ import ooga.model.interfaces.ModelInterface;
 import ooga.view.game_menu.GameMenuView;
 import ooga.view.game_menu.GameMenu;
 import ooga.view.game_menu.SelectMenuView;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 
 public class WindowControl {
@@ -32,6 +33,8 @@ public class WindowControl {
   private ModelInterface myModel;
   private DataLoaderAPI myDataLoader;
   private boolean dark = false;
+
+  private GameState2DView myGameView;
 
   public WindowControl(Stage currentStage){
     myStage = currentStage;
@@ -69,9 +72,9 @@ public class WindowControl {
 
     myGameButton1 = mySelectView.getGame1();
     myGameButton1.setOnAction(e->startGame1());
-    myGameButton2 = mySelectView.getGame1();
+    myGameButton2 = mySelectView.getGame2();
     myGameButton2.setOnAction(e->startGame2());
-    myGameButton3 = mySelectView.getGame1();
+    myGameButton3 = mySelectView.getGame3();
     myGameButton3.setOnAction(e->startGame3());
     myLanguagePicker = myMenuView.getLanguagePicker();
     myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
@@ -90,25 +93,31 @@ public class WindowControl {
   }
 
   private void startGame1(){
+    System.out.println("111");
     //TODO: set up data and stuff for game one, then call startGame?
-    startGame();
+    myGameController = new GameController(myModel, myDataLoader);
+    myGameController.setMode(dark);
+    try {
+      myGameView = new GameState2DView(myModel.getPlayers().size());
+      System.out.println(myModel.getPlayers().size());
+      myGameController.setView(myGameView);
+      myGameView.createWindow();
+      secondStage.close();
+      myStage.close();
+    }
+    catch(Exception e){
+      System.out.println("GameState2DViewError");
+    }
   }
 
   private void startGame2(){
-    startGame();
+    secondStage.close();
   }
 
   private void startGame3(){
-    startGame();
-  }
-
-  private void startGame() {
     secondStage.close();
-    myGameController = new GameController(myModel, myDataLoader);
-    myGameController.setMode(dark);
-
-    //TODO: create window based on type (?)
   }
+
 
   private void switchMode(){
     dark = !dark;

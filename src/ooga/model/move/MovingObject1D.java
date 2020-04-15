@@ -1,6 +1,5 @@
 package ooga.model.move;
 
-import ooga.controller.ZeldaControlInterface;
 import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.Direction;

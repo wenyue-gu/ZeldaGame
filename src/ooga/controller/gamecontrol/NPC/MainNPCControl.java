@@ -1,7 +1,6 @@
 package ooga.controller.gamecontrol.NPC;
 
 import javafx.scene.input.KeyCode;
-import ooga.controller.ZeldaControlInterface;
 import ooga.controller.gamecontrol.NPCControlInterface;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import ooga.model.interfaces.movables.Movable1D;

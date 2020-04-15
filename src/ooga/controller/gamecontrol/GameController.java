@@ -11,6 +11,7 @@ import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.AbstractGameStateController;
 import ooga.view.game_view.game_state.GameStateController;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -26,6 +27,7 @@ public class GameController {
   private PauseControl myPauseControl;
   private DataLoaderAPI myDataLoader;
   private boolean dark;
+  private GameState2DView myGameView;
 
 public GameController(ModelInterface model, DataLoaderAPI loader){
     myModel = model;
@@ -68,6 +70,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end
     for(MainPlayerControl mpc: myMainPlayerController) mpc.updateKey();
     //myGameStateController.update(); // update front-end
+    myGameView.updateWindow();
   }
 
 //  public Scene getScene(){
@@ -77,6 +80,11 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
 
   public void setMode(boolean dark){
     this.dark = dark;
+  }
+
+  public void setView(GameState2DView view){
+    myGameView = view;
+    for(MainPlayerControl mpc:myMainPlayerController) mpc.setView(view);
   }
 
   public void keyReleased() {

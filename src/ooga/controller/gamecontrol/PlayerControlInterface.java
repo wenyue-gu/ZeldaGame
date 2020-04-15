@@ -1,8 +1,8 @@
 package ooga.controller.gamecontrol;
 
-import ooga.controller.ZeldaControlInterface;
 import javafx.scene.input.KeyCode;
 import ooga.model.interfaces.movables.Movable1D;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -15,4 +15,5 @@ public interface PlayerControlInterface{
   int getID();
   void keyReleased();
   void updateKey();
+  void setView(GameState2DView view);
 }

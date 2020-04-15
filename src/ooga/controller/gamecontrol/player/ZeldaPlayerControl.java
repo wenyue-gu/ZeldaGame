@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ooga.view.engine.io.Input;
-import ooga.view.game_view.agent.playable.player2d.Player2DView;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 import org.lwjgl.glfw.GLFW;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
@@ -26,7 +26,8 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   public static final String PROPERTY_MOVING_DIRECTION = "direction";
 
   private ZeldaPlayer myPlayer;
-  private Player2DView playerView;
+  //private Player2DView playerView;
+  private GameState2DView myView;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private Map<Integer, String> myGLFWMap = new HashMap<>();
   private int myID;
@@ -52,9 +53,9 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   }
 
-  public void setPlayerView(Player2DView playerView) {
-    this.playerView = playerView;
-  }
+//  public void setPlayerView(Player2DView playerView) {
+//    this.playerView = playerView;
+//  }
 
   public void setView(){
 
@@ -146,7 +147,8 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     switch (s) {
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
-        playerView.update(myPlayer.getDirection().toString(), myPlayer.getState().toString());
+        //playerView.update(myPlayer.getDirection().toString(), myPlayer.getState().toString());
+        myView.updatePlayer(myID,myPlayer.getDirection().toString(), myPlayer.getState().toString());
     }
   }
 
@@ -162,5 +164,10 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     } catch (Exception e) {
       System.out.println("map fault");
     }
+  }
+
+  @Override
+  public void setView(GameState2DView view) {
+    myView = view;
   }
 }
