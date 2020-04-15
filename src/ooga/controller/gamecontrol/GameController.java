@@ -23,6 +23,7 @@ public class GameController {
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
   private GameStateController myGameStateController; //frontend
+  private PauseControl myPauseControl;
   private DataLoaderAPI myDataLoader;
   private boolean dark;
 
@@ -33,9 +34,9 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     setUpPlayerandNPC();
   }
 
-  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-     for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
-  }
+//  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+//     for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
+//  }
 
   private void setUpPlayerandNPC(){
     //setGameType(myDataLoader.getGameType());
@@ -69,10 +70,10 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     myGameStateController.update(); // update front-end
   }
 
-  public Scene getScene(){
-    return myGameStateController.getGameStateView();
-    //return myView.getGameView();
-  }
+//  public Scene getScene(){
+//    return myGameStateController.getGameStateView();
+//    //return myView.getGameView();
+//  }
 
   public void setMode(boolean dark){
     this.dark = dark;

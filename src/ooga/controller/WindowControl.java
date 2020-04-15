@@ -68,12 +68,11 @@ public class WindowControl {
     myLoadButton.setOnAction(e->loadlist());
 
     myGameButton1 = mySelectView.getGame1();
-    myGameButton1.setOnAction(e->startGame(1));
+    myGameButton1.setOnAction(e->startGame1());
     myGameButton2 = mySelectView.getGame1();
-    myGameButton2.setOnAction(e->startGame(2));
+    myGameButton2.setOnAction(e->startGame2());
     myGameButton3 = mySelectView.getGame1();
-    myGameButton3.setOnAction(e->startGame(3));
-
+    myGameButton3.setOnAction(e->startGame3());
     myLanguagePicker = myMenuView.getLanguagePicker();
     myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
 
@@ -90,36 +89,25 @@ public class WindowControl {
     mySelectView.setLanguage(language);
   }
 
+  private void startGame1(){
+    //TODO: set up data and stuff for game one, then call startGame?
+    startGame();
+  }
 
-  private void startGame(int type) {
+  private void startGame2(){
+    startGame();
+  }
+
+  private void startGame3(){
+    startGame();
+  }
+
+  private void startGame() {
     secondStage.close();
-    System.out.println(type);
     myGameController = new GameController(myModel, myDataLoader);
     myGameController.setMode(dark);
 
     //TODO: create window based on type (?)
-
-
-
-//    Scene myScene = myGameController.getScene();
-//
-//    myScene.setOnKeyPressed(e -> {
-//      try {
-//        myGameController.keyInput(e.getCode());
-//      } catch (NoSuchMethodException|IllegalAccessException|InvocationTargetException ex) {
-//        System.out.println("Keymap error");
-//      }
-//    });
-//    myScene.setOnKeyReleased(e->myGameController.keyReleased());
-//    currentStage.setScene(myScene);
-//    currentStage.show();
-//    AnimationTimer timer = new AnimationTimer() {
-//      @Override
-//      public void handle(long now) {
-//        myGameController.update();
-//      }
-//    };
-//    timer.start();
   }
 
   private void switchMode(){
