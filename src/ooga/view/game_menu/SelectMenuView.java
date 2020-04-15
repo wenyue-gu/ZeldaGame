@@ -4,10 +4,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -17,6 +16,10 @@ public class SelectMenuView implements SelectMenu {
     private PrettyButtons myGameButton1;
     private PrettyButtons myGameButton2;
     private PrettyButtons myGameButton3;
+
+    private HBox description1;
+    private HBox description2;
+    private HBox description3;
 
     private List<PrettyButtons> myButtonList = new ArrayList<>();
 
@@ -31,8 +34,13 @@ public class SelectMenuView implements SelectMenu {
     public SelectMenuView(){
         myLanguage = "English";
         setUpButton();
+        setUpDescription();
         setUpVBox();
-        myScene = new Scene(vBox, 500, 500);
+        myScene = new Scene(vBox, 800, 800);
+    }
+
+    private void setUpDescription() {
+       
     }
 
     @Override
@@ -83,7 +91,7 @@ public class SelectMenuView implements SelectMenu {
 
     private void setUpVBox(){
         vBox = new VBox(10);
-        vBox.setAlignment(Pos.BASELINE_CENTER);
+        vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(myGameButton1, myGameButton2, myGameButton3);
     }
 }

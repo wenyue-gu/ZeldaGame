@@ -1,29 +1,15 @@
 package ooga.controller;
 
-import javafx.animation.AnimationTimer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import ooga.data.DataLoader;
 import ooga.controller.gamecontrol.GameController;
 import ooga.data.DataLoaderAPI;
 import ooga.model.Model;
 import ooga.model.interfaces.ModelInterface;
-import ooga.view.game_menu.AbstractGameMenuView;
 import ooga.view.game_menu.GameMenuView;
-import ooga.view.game_menu.PrettyButtons;
+import ooga.view.game_menu.GameMenu;
 import ooga.view.game_menu.SelectMenuView;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
 
 
 public class WindowControl {
@@ -42,7 +28,7 @@ public class WindowControl {
   private Stage myStage;
   private Stage secondStage;
   private SelectMenuView mySelectView;
-  private GameMenuView myMenuView;
+  private GameMenu myMenuView;
   private ModelInterface myModel;
   private DataLoaderAPI myDataLoader;
   private boolean dark = false;
@@ -50,7 +36,7 @@ public class WindowControl {
   public WindowControl(Stage currentStage){
     myStage = currentStage;
 
-    myMenuView = new AbstractGameMenuView();
+    myMenuView = new GameMenuView();
     mySelectView = new SelectMenuView();
 
     setMenuScene();
@@ -107,6 +93,7 @@ public class WindowControl {
 
   private void startGame(int type) {
     secondStage.close();
+    System.out.println(type);
     myGameController = new GameController(myModel, myDataLoader);
     myGameController.setMode(dark);
 
