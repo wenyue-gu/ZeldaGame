@@ -5,7 +5,7 @@ import ooga.data.DataLoaderAPI;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.GridInMap;
 
-public class GameGridInMap extends GameSingleGrid implements GridInMap {
+public class  GameGridInMap extends GameSingleGrid implements GridInMap {
 
   public static final int ID_NOT_DEFINED = 666;
 

@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 
 import java.util.Map;
 
-public class PlayerStatus {
+public class  PlayerStatus {
     public static int initLevel = 1;
     private int gameID;
     private int playerID;

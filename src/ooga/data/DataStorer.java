@@ -17,7 +17,7 @@ import java.util.Map;
 
 //import ooga.model.gameElements.Weapon;
 
-public class DataStorer implements DataStorerAPI {
+public class  DataStorer implements DataStorerAPI {
     public static final int numFilesPerLevel = 1;
     public static final int subMapRowNum = 22;//from frontend
     public static final int subMapColNum = 34;//from frontend

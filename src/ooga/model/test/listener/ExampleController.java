@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import ooga.model.characters.ZeldaCharacter;
 
-public class ExampleController implements PropertyChangeListener {
+public class  ExampleController implements PropertyChangeListener {
 
   public static final String STATE_CHANGE = "State";
 //  public static final String STATE_CHANGE = "State";

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * this is the man, the object storing EVERY piece of info!
  */
-public class GameObjectConfiguration {
+public class  GameObjectConfiguration {
     public static String GameInfoPath = "data/GameInfo/";
     public static String GameMapPath = "data/GameMap/";
     public static String imageMapPath = "data/Image/";

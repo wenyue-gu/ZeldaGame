@@ -16,7 +16,7 @@ public class MainNPCControl implements NPCControlInterface {
     myNPCControlFactory = new NPCControlFactory();
   }
 
-  public void setControl(int gameType){
+  public  void setControl(int gameType){
     myNPCControl= myNPCControlFactory.selectControl(gameType);
   }
 

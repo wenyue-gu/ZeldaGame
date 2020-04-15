@@ -10,7 +10,7 @@ import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.GameMap;
 import ooga.model.interfaces.gameMap.GridInMap;
 
-public class GameMapInstance implements GameMap {
+public class  GameMapInstance implements GameMap {
 
   public static final int ROW_PLACE_HOLDER = 0;
   public static final int COL_PLACE_HOLDER = 0;

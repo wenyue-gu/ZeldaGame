@@ -5,7 +5,7 @@ import ooga.model.enums.MovingState;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ModelListenerTest {
+class  ModelListenerTest {
   ExampleController ec = new ExampleController();
   ZeldaCharacter zeldaCharacter = new ZeldaCharacter(0,0);
 

@@ -96,5 +96,5 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   }
   @Override
   public void updateKey(){
-  }
+   }
 }

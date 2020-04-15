@@ -10,7 +10,7 @@ import ooga.model.interfaces.gameMap.Cell;
 import java.util.Collection;
 import java.util.Map;
 
-public interface DataStorerAPI {
+public interface  DataStorerAPI {
     int getGameType();
     void setGame(int GameID);
     /**

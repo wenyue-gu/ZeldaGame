@@ -7,7 +7,7 @@ import ooga.data.DataLoaderAPI;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.gameMap.SingleGrid;
 
-public class GameSingleGrid implements SingleGrid {
+public class  GameSingleGrid implements SingleGrid {
   protected int width;
   protected int length;
 

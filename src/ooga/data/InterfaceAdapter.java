@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  */
 
 
-public class InterfaceAdapter implements JsonSerializer, JsonDeserializer{
+public class  InterfaceAdapter implements JsonSerializer, JsonDeserializer{
 
     private static final String CLASSNAME = "CLASSNAME";
     private static final String DATA = "DATA";

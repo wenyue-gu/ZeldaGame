@@ -3,7 +3,7 @@ package ooga.model.move;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Jumpable;
 
-public abstract class JumpableObject extends MovingObject1D implements Jumpable {
+public abstract class  JumpableObject extends MovingObject1D implements Jumpable {
 
   public static final int DEFAULT_Z_SPEED = 5;
   protected double zSpeed;

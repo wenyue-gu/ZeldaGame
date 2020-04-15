@@ -1,6 +1,6 @@
 package ooga.model.enums;
 
-public enum  ImageCategory {
+public enum   ImageCategory {
     MAP,
     RESOURCE,
 }

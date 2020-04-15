@@ -19,7 +19,7 @@ import static ooga.data.GamePara.NPC_NUM;
  * @author Guangyu Feng
  */
 
-public class DataManagementTest {
+public class  DataManagementTest {
     private static DataLoader loader = new DataLoader();
     private static DataStorer storer = new DataStorer();
 

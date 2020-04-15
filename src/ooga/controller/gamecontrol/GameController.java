@@ -22,7 +22,7 @@ public class GameController {
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
-  private GameStateController myGameStateController; //frontend
+  //private GameStateController myGameStateController; //frontend
   private PauseControl myPauseControl;
   private DataLoaderAPI myDataLoader;
   private boolean dark;
@@ -30,7 +30,7 @@ public class GameController {
 public GameController(ModelInterface model, DataLoaderAPI loader){
     myModel = model;
     myDataLoader = loader;
-    myGameStateController = new AbstractGameStateController();
+    //myGameStateController = new AbstractGameStateController();
     setUpPlayerandNPC();
   }
 
@@ -67,7 +67,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     //TODO: check this
     for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end
     for(MainPlayerControl mpc: myMainPlayerController) mpc.updateKey();
-    myGameStateController.update(); // update front-end
+    //myGameStateController.update(); // update front-end
   }
 
 //  public Scene getScene(){

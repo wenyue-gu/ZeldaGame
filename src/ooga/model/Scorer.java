@@ -2,7 +2,7 @@ package ooga.model;
 
 import ooga.model.interfaces.Scorable;
 
-public class Scorer implements Scorable {
+public class  Scorer implements Scorable {
   protected double score;
   private boolean isScoring;
 

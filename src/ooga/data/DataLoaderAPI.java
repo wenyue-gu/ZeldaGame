@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * The interface for game loader
  */
-public interface DataLoaderAPI {
+public interface  DataLoaderAPI {
     int loadGameParam(GamePara para);
 
     List<Direction> loadAvailableDirection(GamePara para);

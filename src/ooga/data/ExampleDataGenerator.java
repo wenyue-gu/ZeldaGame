@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * this class will not be part of the final submission. It's purely used for generating data for the example file for the presentation only.
  */
-public class ExampleDataGenerator {
+public class  ExampleDataGenerator {
     public static final int SubMapPerMap = 4;
     static Gson gson;
     public static void main(String[] args) {

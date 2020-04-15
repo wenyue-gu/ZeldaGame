@@ -31,6 +31,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   private Map<Integer, String> myGLFWMap = new HashMap<>();
   private int myID;
 
+
   public ZeldaPlayerControl() {
     //keycode map hard code
     myKeyCodeMap.put(KeyCode.LEFT, "left");
@@ -53,6 +54,10 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   public void setPlayerView(Player2DView playerView) {
     this.playerView = playerView;
+  }
+
+  public void setView(){
+
   }
 
   @Override

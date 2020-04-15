@@ -3,7 +3,7 @@ package ooga.model.characters;
 import ooga.model.Scorer;
 import ooga.model.interfaces.Scorable;
 
-public class ZeldaPlayer extends ZeldaCharacter implements Scorable {
+public class  ZeldaPlayer extends ZeldaCharacter implements Scorable {
 
   Scorer scorer;
 

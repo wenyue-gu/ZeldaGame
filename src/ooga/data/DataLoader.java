@@ -103,7 +103,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
     GameMapGraph map = new GameMapGraph();
 
-    GameInfo gameInfo = loadGameInfo(level, gameID);
+     GameInfo gameInfo = loadGameInfo(level, gameID);
 
     try {
       //two readings: 1. read level files 2. read subMap file.

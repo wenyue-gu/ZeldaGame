@@ -3,7 +3,7 @@ package ooga.model.move;
 import ooga.model.interfaces.movables.Movable2D;
 import ooga.model.move.MovingObject1D;
 
-public abstract class MovingObject2D extends MovingObject1D implements Movable2D {
+public abstract class  MovingObject2D extends MovingObject1D implements Movable2D {
   public static final int DEFAULT_Y_SPEED = 5;
   public static final int DEFAULT_Y = 0;
 

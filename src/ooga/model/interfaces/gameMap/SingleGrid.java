@@ -10,7 +10,7 @@ import ooga.model.enums.Direction;
  * @author cady
  * @see Cell
  */
-public interface SingleGrid {
+public interface  SingleGrid {
 
   /**
    * Sets the size of this grid

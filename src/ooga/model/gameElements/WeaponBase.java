@@ -3,7 +3,7 @@ package ooga.model.gameElements;
 import ooga.model.enums.Direction;
 import ooga.model.interfaces.Attacker;
 
-public abstract class WeaponBase implements Attacker {
+public abstract class  WeaponBase implements Attacker {
 
   protected int weapon;
   protected int attack;
