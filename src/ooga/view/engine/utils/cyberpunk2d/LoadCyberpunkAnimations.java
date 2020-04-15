@@ -2,11 +2,8 @@ package ooga.view.engine.utils.cyberpunk2d;
 
 import com.google.gson.internal.LinkedHashTreeMap;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import ooga.view.engine.graphics.Animation2D;
-import ooga.view.engine.graphics.Material;
-import org.newdawn.slick.opengl.Texture;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 public class LoadCyberpunkAnimations {
 

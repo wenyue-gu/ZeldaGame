@@ -14,6 +14,9 @@ import ooga.view.engine.maths.Vector3f;
 import org.lwjgl.opengl.GL30;
 
 public class Window {
+	private static final float fov = 70.0f;
+	private static final float near_plane = 0.1f;
+	private static final float far_plane = 1000.0f;
 	private int width, height;
 	private String title;
 	private long window;
@@ -31,7 +34,7 @@ public class Window {
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		projection = Matrix4f.projection(70.0f, (float) width / (float) height, 0.1f, 1000.0f);
+		projection = Matrix4f.projection(fov, getPerspectiveAspect(), near_plane, far_plane);
 	}
 	
 	public void create() {
@@ -57,7 +60,7 @@ public class Window {
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL30.glEnable(GL11.GL_BLEND);
 		//GL30.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		GL30.glBlendFunc(GL11.GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+		GL30.glBlendFunc(GL11.GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // allow transparent rendering
 
 		createCallbacks();
 		
@@ -158,4 +161,9 @@ public class Window {
 	public Matrix4f getProjectionMatrix() {
 		return projection;
 	}
+
+	private float getPerspectiveAspect(){
+		return (float) width / (float) height;
+	}
+
 }

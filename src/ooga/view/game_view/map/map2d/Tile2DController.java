@@ -2,7 +2,7 @@ package ooga.view.game_view.map.map2d;
 
 import java.io.IOException;
 import ooga.view.engine.graphics.Material;
-import ooga.view.engine.utils.TextMapReader;
+import ooga.view.engine.utils.cyberpunk2d.Text2DMapReader;
 
 public class Tile2DController {
   private static String path = "/view/textures/2d/cyberpunk/map/subtitles";
@@ -13,7 +13,7 @@ public class Tile2DController {
   private Material material;
   private int id;
 
-  public Tile2DController(int map_x, int map_y, TextMapReader mapReader) throws IOException {
+  public Tile2DController(int map_x, int map_y, Text2DMapReader mapReader) throws IOException {
 
     this.id = id_idx++;
     //System.out.println(map_x);
