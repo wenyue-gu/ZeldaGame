@@ -3,9 +3,9 @@ package ooga.data;
 import javafx.scene.input.KeyCode;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
+import ooga.model.enums.ImageCategory;
 import ooga.model.interfaces.gameMap.Cell;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public interface DataLoaderAPI {
 
     Map<KeyCode, String> loadKeyCode(int playerID);
 
-    Path loadImagePath(int imageID, String category);
+    String loadImagePath(int imageID, ImageCategory category);
 
     Integer loadInteger(String keyword, String category);
 

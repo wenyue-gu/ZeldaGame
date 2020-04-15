@@ -1,9 +1,9 @@
 package ooga.data;
 
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
 import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.ImageCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
@@ -102,15 +102,25 @@ public class DataStorer implements DataStorerAPI {
 
     /**
      * Slow if serialize every time?
-     * @param image
+     * @param imagePath
      * @param ImageID
-     * @param category
+     * @param
      */
     @Override
-    public void storeImage(Image image, int ImageID, String category) {
-        Map<Integer, Image> imageMap = new HashMap<>();
-        imageMap.put(ImageID, image);
-        writeObjectTOJson(imageMap, category);
+    //todo: finish testing
+    public void storeImage(String imagePath, int ImageID, ImageCategory imageCategory) {
+        Map<String, String> imageMap = new HashMap<>();
+        String filePath = "data/Image/" + imageCategory.toString();
+        if (fileExist(filePath)) {
+            imageMap = dataLoader.loadJson(filePath, imageMap.getClass());
+        }
+        boolean a = imageMap.containsKey(String.valueOf(ImageID));
+        if (!imageMap.containsKey(String.valueOf(ImageID))) {
+            imageMap.put(String.valueOf(ImageID), imagePath);
+        } else {
+            imageMap.replace(String.valueOf(ImageID), imagePath);
+        }
+        writeObjectTOJson(imageMap, filePath);
     }
 
     @Override
