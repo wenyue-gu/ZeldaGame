@@ -1,6 +1,8 @@
-package ooga.view.engine.utils;
+package ooga.view.engine.utils.cyberpunk2d;
 
-public class TextMapReader {
+import ooga.view.engine.utils.FileUtils;
+
+public class Text2DMapReader {
   private String path;
   private String separator = ",";
   private int mapWidth;
@@ -12,7 +14,7 @@ public class TextMapReader {
   private int numWalls;
   private int[] walls;
 
-  public TextMapReader(String path){
+  public Text2DMapReader(String path){
 
     String mapText = FileUtils.loadAsString(path, "");
     String[] mapContent = mapText.split(separator);
