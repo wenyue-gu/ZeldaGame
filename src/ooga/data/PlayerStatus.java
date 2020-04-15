@@ -10,6 +10,10 @@ public class PlayerStatus {
     private int playerID;
     private int score;
     private int level;
+    private int life;
+    private int loudness;
+    private int goal;
+    private int difficulty;
     private Map<KeyCode, String> keyCodeMap;
 
 
@@ -61,5 +65,37 @@ public class PlayerStatus {
 
     public Map<KeyCode, String> getKeyCodeMap() {
         return keyCodeMap;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public int getLoudness() {
+        return loudness;
+    }
+
+    public void setLoudness(int loudness) {
+        this.loudness = loudness;
+    }
+
+    public int getGoal() {
+        return goal;
+    }
+
+    public void setGoal(int goal) {
+        this.goal = goal;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 }

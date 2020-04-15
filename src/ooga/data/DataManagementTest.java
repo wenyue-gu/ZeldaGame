@@ -28,6 +28,7 @@ public class DataManagementTest {
 //        characterLoadingStoringTest();
 //        playerLoadingAndStoring();
 //        KeyCodeTest();
+
     }
 
     /**
@@ -35,7 +36,7 @@ public class DataManagementTest {
      */
     @Test
     public void gameMapLoadingTest() {
-
+        new GameObjectConfiguration();
 //        LinkedList<Cell> cellLinkedList = new LinkedList<>();
 //        for (int i = 0; i < 20; i++) {
 //            Cell newCell = new GameCell(1);
@@ -67,8 +68,8 @@ public class DataManagementTest {
     /**
      * test player info loading and storing
      */
-    private static void playerLoadingAndStoring() {
-        storer.initializePlayerStatus(1, 1);
+    public void playerLoadingAndStoring() {
+        storer.initializePlayerStatus(1);
         System.out.println(loader.loadGameParam(NPC_NUM));
     }
     @Test

@@ -49,9 +49,15 @@ public class DataStorer implements DataStorerAPI {
     public void setGame(int GameID) {
 
     }
-    public void initializePlayerStatus(int gameID, int playerID) {
-        PlayerStatus playerStatus = new PlayerStatus(gameID, playerID);
-        writeObjectTOJson(playerStatus, "data/Player/player" + playerID+".json");
+    public void initializePlayerStatus(int playerID) {
+        PlayerStatus playerStatus = new PlayerStatus(playerID);
+        String filePath = "data/Player/player" + playerID +".json";
+        if (fileExist(filePath)) {
+            //todo: throw an error.
+            System.out.println("player has already been initialized");
+        } else {
+            writeObjectTOJson(playerStatus, filePath);
+        }
     }
 
     @Override
