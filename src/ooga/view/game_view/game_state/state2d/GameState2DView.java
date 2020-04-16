@@ -10,7 +10,6 @@ import ooga.view.engine.io.Window;
 import ooga.view.game_view.agent.agent2d.Agent2DView;
 import ooga.view.game_view.game_state.interfaces.GameStateView;
 import ooga.view.game_view.map.map2d.Map2DView;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.glfw.GLFW;
 
 public class GameState2DView extends GameStateView {
@@ -45,10 +44,6 @@ public class GameState2DView extends GameStateView {
 
   @Override
   public void createWindow() throws IOException {
-    GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-    GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 2);
-    GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
-    GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
 
     window = new Window(WIDTH, HEIGHT, "Game");
     shader = new Shader(VERTEX_SHADER_PATH, FRAGMENT_SHADER_PATH);
@@ -58,7 +53,7 @@ public class GameState2DView extends GameStateView {
     window.create();
     //window.setFullscreen(true);
 
-    map = new Map2DView(mapPath, WIDTH, HEIGHT);
+    map = new Map2DView(mapPath);
     for(int i=0; i<numPlayers; i++){
       players.add(new Agent2DView());
       players.get(i).createMesh();

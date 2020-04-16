@@ -1,9 +1,8 @@
 package ooga.view.game_menu;
 
-import javafx.event.EventHandler;
+import java.util.Locale;
 import javafx.geometry.Insets;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -37,7 +36,7 @@ public class PrettyButtons extends Button
 
     public void changeLanguage(String language) {
         myLanguage = language;
-        var resources = ResourceBundle.getBundle(GameMenuView.class.getPackageName() + ".menuResource." + myLanguage);
+        var resources = ResourceBundle.getBundle("menu", new Locale(myLanguage));
         setText(resources.getString(myWord));
     }
 
@@ -45,7 +44,6 @@ public class PrettyButtons extends Button
         setPrefHeight(y);
         setPrefWidth(x);
     }
-
 
     public void switchMode(boolean dark){
 

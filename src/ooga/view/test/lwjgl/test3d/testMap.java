@@ -1,24 +1,27 @@
-package ooga.view.test.lwjgl.test2d;
+package ooga.view.test.lwjgl.test3d;
 
 
 import java.io.IOException;
-import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.graphics.Shader;
+import ooga.view.engine.graphics.render.Renderer3D;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
-import ooga.view.game_view.map.map2d.Map2DView;
+import ooga.view.engine.maths.Vector3f;
+import ooga.view.engine.objects.Camera;
+import ooga.view.game_view.map.map3d.Map3DView;
 import org.lwjgl.glfw.GLFW;
 
 public class testMap implements Runnable {
 
   public Thread game;
   public Window window;
-  public Renderer2D renderer;
+  public Renderer3D renderer;
   public Shader shader;
-  public final int WIDTH = 1080, HEIGHT = 1080;
+  public final int WIDTH = 1580, HEIGHT = 1080;
 
-  public Map2DView mapView;
-  public String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
+  public Map3DView mapView;
+  public String mapPath = "/view/data/3d/map_test.txt";
+  public Camera camera = new Camera(new Vector3f(100, 0, 0), new Vector3f(0, 1, -1));
 
   public void start() {
     game = new Thread(this, "game");
@@ -27,14 +30,11 @@ public class testMap implements Runnable {
 
   public void init() throws IOException {
     window = new Window(WIDTH, HEIGHT, "Game");
-    shader = new Shader("/view/shaders/2d/cyberpunkTitleVertex.glsl", "/view/shaders/2d/cyberpunkTitleFragment.glsl");
-    renderer = new Renderer2D(shader);
-    //TitleCropper cropit = new TitleCropper();
-    //GenerateCroppedSprites cropit = new GenerateCroppedSprites();
-    //GenerateMergedSprites mergeit = new GenerateMergedSprites();
+    shader = new Shader("/view/shaders/3d/mainVertex.glsl", "/view/shaders/2d/mainFragment.glsl");
+    renderer = new Renderer3D(window, shader);
     window.setBackgroundColor(22.0f/255.0f, 23.0f/255.0f, 25.0f/255.0f);
     window.create();
-    mapView = new Map2DView(mapPath);
+    mapView = new Map3DView(mapPath);
     mapView.createMesh();
     shader.create();
   }
@@ -64,7 +64,7 @@ public class testMap implements Runnable {
   }
 
   private void render() {
-    mapView.renderMesh(renderer);
+    mapView.renderMesh(renderer, camera);
     window.swapBuffers();
   }
 
