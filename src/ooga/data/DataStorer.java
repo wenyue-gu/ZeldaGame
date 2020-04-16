@@ -78,6 +78,7 @@ public class DataStorer implements DataStorerAPI {
 
     //@Override
     public void storeCharacter(int characterID, ZeldaCharacter character) {
+        //todo: change characterID when storing character!
         writeObjectTOJson(character, "data/ZeldaCharacter/" + characterKeyword + characterID + ".json");
     }
 
@@ -98,6 +99,7 @@ public class DataStorer implements DataStorerAPI {
             player = new PlayerStatus(playerID);
         }
         player.setKeyCodeMap(keyCodeMap);
+
         writeObjectTOJson(player, FilePath);
     }
 
