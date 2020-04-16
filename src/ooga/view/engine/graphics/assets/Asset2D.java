@@ -1,4 +1,4 @@
-package ooga.view.engine.assets;
+package ooga.view.engine.graphics.assets;
 
 import ooga.view.engine.graphics.Vertex;
 import ooga.view.engine.maths.Vector2f;

@@ -1,7 +1,7 @@
 package ooga.view.game_view.map.map2d;
 
 import java.io.IOException;
-import ooga.view.engine.assets.Asset2D;
+import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.graphics.Material;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Vertex;
@@ -49,5 +49,7 @@ public class Tile2DView {
   public void destroyMesh(){mesh.destroy();}
 
   public GameObject getGameObject() {return object;}
+
+  public boolean isWalkable(){return controller.isWalkable();}
 
 }

@@ -2,15 +2,11 @@ package ooga.view.test.lwjgl;
 
 
 import java.io.IOException;
-import ooga.view.engine.graphics.Renderer2D;
+import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.graphics.Shader;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
-import ooga.view.engine.utils.cyberpunk2d.GenerateMergedSprites;
-import ooga.view.engine.utils.cyberpunk2d.ResizeSprites;
-import ooga.view.game_view.agent.interfaces.AgentView;
-import ooga.view.game_view.agent.playable.player2d.Player2DView;
-import ooga.view.game_view.map.map2d.Map2DView;
+import ooga.view.game_view.agent.agent2d.Agent2DView;
 import org.lwjgl.glfw.GLFW;
 
 public class testAgent implements Runnable {
@@ -21,7 +17,7 @@ public class testAgent implements Runnable {
   public Shader shader;
   public final int WIDTH = 1080, HEIGHT = 1080;
 
-  public Player2DView agentView;
+  public Agent2DView agentView;
   public String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
 
   public void start() {
@@ -37,7 +33,7 @@ public class testAgent implements Runnable {
     renderer = new Renderer2D(shader);
     window.setBackgroundColor(22.0f/255.0f, 23.0f/255.0f, 25.0f/255.0f);
     window.create();
-    agentView = new Player2DView();
+    agentView = new Agent2DView();
     agentView.createMesh();
     shader.create();
   }

@@ -1,7 +1,7 @@
 package ooga.view.engine.objects;
 
 import ooga.view.engine.graphics.Mesh;
-import ooga.view.engine.graphics.Renderer2D;
+import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.maths.Vector3f;
 
 public class GameObject {

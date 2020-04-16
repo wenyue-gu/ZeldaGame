@@ -1,12 +1,7 @@
-package ooga.view.engine.graphics;
+package ooga.view.engine.graphics.animation;
 
-import java.io.IOException;
-import ooga.view.engine.utils.ImageLoader;
+import ooga.view.engine.graphics.Material;
 import ooga.view.engine.utils.Timer;
-import org.lwjglx.Sys;
-
-//not sure if this gonna works, if not, it sucks
-//change the material in the mesh of the game object each frame
 
 public class Animation2D {
 

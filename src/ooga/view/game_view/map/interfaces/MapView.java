@@ -1,9 +1,12 @@
 package ooga.view.game_view.map.interfaces;
 
-public interface MapView {
+import ooga.view.engine.graphics.render.Renderer;
 
-  void getView(); // the returned data type is dependent to the 2D / 3D
+abstract public class MapView {
 
-  void update();
+  abstract public void createMesh();
 
+  abstract public void destroyMesh();
+
+  //abstract public void renderMesh();
 }
