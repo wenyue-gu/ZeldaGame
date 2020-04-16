@@ -19,12 +19,14 @@
 - *Save Game*: The controller detects that the user wants to save the game and calls Model.saveGame(directory). The Model packs all its elements into unmodifiable classes (which will be created later) that only contains getters, and then calls the data management API to store them at some location. 
 
 #### Guangyu (Data Management):
-- When starting the game, load data from the data file.
-- Generate error when nonexisting player is requested to be loaded.
-- Load the Map into the backend when the game starts.
-- Load the user's data and score from the data to the backend when game resumes.
-- Save user’s weapons that the player picks up on the way.
-- Tell the backend the user’s key setting.
+- *When starting the game, load data from the data file* : the main will call the backend, which will call the data loader to load their data. The data loader will load their data by traversing the Json file and finding the data that is in the correct file and has the correct tag.
+- *Generate error when nonexisting player is requested to be loaded* : When data are loaded through dataLoader, data Loader will check the validity of the data （in this case, check whether the ID corresponding to the character exists). If the data is invalid, it will report error and throws an exception, which will be picked up by the controller and displayed to the User interface if needed.
+- *Save Game Map* : After controller sensing user's intention to save the Game map, it will call on the Model, which will save the data by calling storeMap(Collection<Cell> map); on the data loader. Data loader first will convert the data into a GameMapGraph and then Gson will convert GameMapGraph into Json data file.  
+- *Save Game Life* : Other classes will save the data by calling on the data loader, which will convert data into a Setting Node and Gson will convert GameMapGraph into Json data file.  
+- *Save player profile* : Other classes will save the data by calling on the data loader, which will convert the data into a Setting Node and Gson will convert GameMapGraph into Json data file.  
+- *Save user’s weapons that the player picks up on the way* : When backend want's to gives out the weapons with certain properties, it requests the property from the data file by calling methods on the DataLoaderAPI. 
+- *Tell the backend the user’s key setting* : User key's setting will be stored into one of the Json file by methods on DataLoaderAPI. When the controller requests the dataFile for key's setting, it will access it through the interface of DataLoaderAPI.
+- *Present different pattern on Map* : For every cell on the Grid, there is a number associated with it. That number represents the type of the grid. The frontend will generate the map based on the number on every cell.
 
 #### Qiaoyi (Front-end):
 - *Add a new item in inventor*y: After the user collects an item by making a collision between the object and the playable character and pressing the key E, the controller will notice the back-end to update the inventory status of the character and the status of the object. During the routine view update in the main game loop, the view will notice the new status of the object and update its visualization to being invisible.  
