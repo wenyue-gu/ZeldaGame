@@ -4,6 +4,7 @@ import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
+import ooga.model.enums.GamePara;
 import ooga.model.enums.ImageCategory;
 import ooga.model.interfaces.gameMap.Cell;
 

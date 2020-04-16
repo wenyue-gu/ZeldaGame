@@ -12,7 +12,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static ooga.data.GamePara.NPC_NUM;
+import static ooga.model.enums.GamePara.NPC_NUM;
 
 /**
  * Testing for DataManagement.

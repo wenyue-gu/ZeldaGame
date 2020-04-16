@@ -1,14 +1,15 @@
 package ooga.model.map;
 
+import ooga.data.DataLoaderAPI;
+import ooga.model.enums.Direction;
+import ooga.model.enums.GamePara;
+import ooga.model.interfaces.gameMap.GameMap;
+import ooga.model.interfaces.gameMap.GridInMap;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ooga.data.DataLoaderAPI;
-import ooga.data.GamePara;
-import ooga.model.enums.Direction;
-import ooga.model.interfaces.gameMap.GameMap;
-import ooga.model.interfaces.gameMap.GridInMap;
 
 public class GameMapInstance implements GameMap {
 
