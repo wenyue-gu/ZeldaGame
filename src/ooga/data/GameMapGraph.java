@@ -6,12 +6,13 @@ import ooga.model.map.GameCell;
 public class GameMapGraph {
     private Cell[][] cellArray;
     private int level;
-    private int ID;
+    private int gameID;
     public GameMapGraph() {
 
     }
     public GameMapGraph(int level, int ID, int row, int column) {
         this.level = level;
+        this.gameID = ID;
         cellArray = new GameCell[row][column];
         for (int i = 0; i< row; i++) {
             for (int j = 0; j < column; j++) {
@@ -25,6 +26,22 @@ public class GameMapGraph {
 
     public Cell getElement(int row, int column) {
         return cellArray[row][column];
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 //    private Map<Cell, List<Cell>> adjacencyList;
 //    private int numOfEdge;

@@ -3,6 +3,7 @@ package ooga.data;
 import com.google.gson.GsonBuilder;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.ImageCategory;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.io.File;
@@ -29,24 +30,36 @@ public class GameObjectConfiguration {
     public static String textPath = "data/Text/";
 
     private List<GameInfo> gameInfoList;
-    private List<Map<String, GameMapGraph>> gameMapList;
+    private Map<String, GameMapGraph> gameMapList;
     private Map<String, Map<String, String>> imageMap;
     private List<MarioCharacter> marioCharacterList;
     private List<PlayerStatus> playerList;
     private List<ZeldaCharacter> zeldaCharacterList;
     private Map<String, Map<String, String>> textMap;
-    private com.google.gson.Gson gson;
+    private com.google.gson.Gson gsonLoad;
+    private com.google.gson.Gson gsonStore;
+
+    private static GameObjectConfiguration gameObjectConfiguration;
 
     private Map<Object, String> fieldToPathMap;
 
-    public GameObjectConfiguration() {
+
+    /** Static 'instance' method */
+    public static GameObjectConfiguration getInstance() {
+        if (gameObjectConfiguration == null) {
+            gameObjectConfiguration = new GameObjectConfiguration();
+        }
+        return gameObjectConfiguration;
+    }
+    private GameObjectConfiguration() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
+        gsonStore = gsonBuilder.create();
         gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
-        gson = gsonBuilder.create();//3 lines above are the same as DataStorer
+        gsonLoad = gsonBuilder.create();//3 lines above are the same as DataStorer
 
         gameInfoList = new ArrayList<>();
-        gameMapList = new ArrayList<>();
+        gameMapList = new HashMap<>();
         imageMap = new HashMap<>();
         marioCharacterList = new ArrayList<>();
         playerList = new ArrayList<>();
@@ -58,14 +71,8 @@ public class GameObjectConfiguration {
 //        for (String i: fieldToPathMap.values()) {
 //            loadFilesUnderDirectory(fieldToPathMap.get(i), i.getClass());
 //        }
-        loadFilesUnderDirectory(GameInfoPath, GameInfo.class);
-        loadFilesUnderDirectory(GameMapPath, GameMapGraph.class);
-        loadFilesUnderDirectory(imageMapPath, imageMap.getClass());
-        loadFilesUnderDirectory(marioCharacterPath, MarioCharacter.class);
-        loadFilesUnderDirectory(playerPath, PlayerStatus.class);
-        loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
-        loadFilesUnderDirectory(textPath, textMap.getClass());
 
+        loadGameEverything();
         fieldToPathMap.put(gameInfoList, GameInfoPath);
         fieldToPathMap.put(gameMapList, GameMapPath);
         fieldToPathMap.put(imageMap, imageMapPath);
@@ -73,15 +80,24 @@ public class GameObjectConfiguration {
         fieldToPathMap.put(playerList, playerPath);
         fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
         fieldToPathMap.put(textMap, textPath);
+
     }
 
-
+    private void loadGameEverything() {
+        loadFilesUnderDirectory(GameInfoPath, GameInfo.class);
+        loadFilesUnderDirectory(GameMapPath, GameMapGraph.class);
+        loadFilesUnderDirectory(imageMapPath, imageMap.getClass());
+        loadFilesUnderDirectory(marioCharacterPath, MarioCharacter.class);
+        loadFilesUnderDirectory(playerPath, PlayerStatus.class);
+        loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
+        loadFilesUnderDirectory(textPath, textMap.getClass());
+    }
     /**
      * two problems regarding centralized storing:
      * 1. Need to store the relative information for storing ---- overly complicated
      * 2. Cache problem for data synchronization.
      */
-    private void storeGameInfoList() {
+    public void storeGameEverything() {
         for (Map.Entry<Object, String> i : fieldToPathMap.entrySet()) {
             String path = i.getValue();
             String[] folderName = path.split("/");
@@ -92,29 +108,34 @@ public class GameObjectConfiguration {
                     }
                     break;
                 case "GameMap":
-                    for (Map<String, GameMapGraph> j : gameMapList) {
-                        for (String k : j.keySet()) {
-                            writeObjectTOJson(j.get(k), path + );
-                        }
+                    for (String j : gameMapList.keySet()) {
+                        writeObjectTOJson(gameMapList.get(j), path + j);
                     }
-//                    Map<String, GameMapGraph> tempMap = new HashMap<>();
-//                    tempMap.put(child.getName(), loadJson(myDirectoryPath + child.getName(), classType));
-//                    gameMapList.add(tempMap);
+
                     break;
                 case "Image":
-//                    imageMap.put(child.getName(), loadJson(myDirectoryPath + child.getName(), classType));
+                    for (String j : imageMap.keySet()) {
+                        writeObjectTOJson(imageMap.get(j), path + j);
+                    }
                     break;
                 case "MarioCharacter":
+                    System.out.println("MarioCharacter storing is not supported");
 //                    marioCharacterList.add(loadJson(myDirectoryPath + child.getName(), classType));
                     break;
                 case "Player":
-//                    playerList.add(loadJson(myDirectoryPath + child.getName(), classType));
-                    break;
+                    for (PlayerStatus j : playerList) {
+                        writeObjectTOJson(j, path + "player" + j.getPlayerID() +".json");
+                    }
+                   break;
                 case "ZeldaCharacter":
-//                    zeldaCharacterList.add(loadJson(myDirectoryPath + child.getName(), classType));
+                    for (ZeldaCharacter j : zeldaCharacterList) {
+                        writeObjectTOJson(j, path + "CharacterData" + j.getId() +".json");
+                    }
                     break;
                 case "Text":
-//                    textMap.put(child.getName(), loadJson(myDirectoryPath + child.getName(), classType));
+                    for (String j : textMap.keySet()) {
+                        writeObjectTOJson(textMap.get(j), path + j );
+                    }
                     break;
             }
         }
@@ -131,9 +152,7 @@ public class GameObjectConfiguration {
                         gameInfoList.add(loadJson(myDirectoryPath + child.getName(), classType));
                         break;
                     case "GameMap":
-                        Map<String, GameMapGraph> tempMap = new HashMap<>();
-                        tempMap.put(child.getName(), loadJson(myDirectoryPath + child.getName(), classType));
-                        gameMapList.add(tempMap);
+                        gameMapList.put(child.getName(), loadJson(myDirectoryPath + child.getName(), classType));
                         break;
                     case "Image":
                         imageMap.put(child.getName(), loadJson(myDirectoryPath + child.getName(), classType));
@@ -169,11 +188,11 @@ public class GameObjectConfiguration {
         this.gameInfoList = gameInfoList;
     }
 
-    public List<Map<String, GameMapGraph>> getGameMapList() {
+    public Map<String, GameMapGraph> getGameMapList() {
         return gameMapList;
     }
 
-    public void setGameMapList(List<Map<String, GameMapGraph>> gameMapList) {
+    public void setGameMapList(Map<String, GameMapGraph> gameMapList) {
         this.gameMapList = gameMapList;
     }
 
@@ -220,7 +239,7 @@ public class GameObjectConfiguration {
     public <clazz> clazz loadJson(String fileName, Class clazz) {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(fileName));
-            return (clazz) gson.fromJson(reader, clazz);
+            return (clazz) gsonLoad.fromJson(reader, clazz);
         } catch (IOException e) {
             System.out.println("file at " + fileName + "hasn't been created.");
         }
@@ -231,12 +250,22 @@ public class GameObjectConfiguration {
     private void writeObjectTOJson(Object object, String filePath) {
         try {
             FileWriter Writer1 = new FileWriter(filePath);
-            gson.toJson(object, Writer1);
+            gsonStore.toJson(object, Writer1);
             Writer1.flush();
             Writer1.close();
         } catch (IOException e) {
             e.printStackTrace();
             //throw appropriate Exceptions
         }
+    }
+
+    public void setImageMap(Map<String, String> newImageMap, ImageCategory imageCategory) {
+        String newKey = imageCategory.toString();
+        if (imageMap.containsKey(newKey)) {
+            imageMap.replace(newKey, newImageMap);
+        } else {
+            imageMap.put(newKey, newImageMap);
+        }
+
     }
 }

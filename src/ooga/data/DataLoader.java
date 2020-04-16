@@ -21,7 +21,7 @@ import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 public class DataLoader implements ooga.data.DataLoaderAPI {
   private int gameID = 1;//the belonging of Game ID is a problem. Where should it get from?
   private int currentLevel;
-  private static GameObjectConfiguration gameObjectConfiguration;
+  private static  GameObjectConfiguration gameObjectConfiguration;
 
   private com.google.gson.Gson gson;
   public DataLoader() {
@@ -29,7 +29,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     gsonBuilder.serializeNulls(); //ensure gson storing null values.
     gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
     gson = gsonBuilder.create();//3 lines above are the same as DataStorer
-    gameObjectConfiguration = new GameObjectConfiguration();
+    gameObjectConfiguration = GameObjectConfiguration.getInstance();
   }
   public void setCurrentLevel(int currentLevel) {
     this.currentLevel = currentLevel;
@@ -85,6 +85,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   @Override
   public Cell loadCell(int row, int col, int subMapID, int level) {
+    GameMapGraph a = loadMap(level, subMapID);
     return loadMap(level, subMapID).getElement(row, col);
   }
 
@@ -98,16 +99,15 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     GameMapGraph map = new GameMapGraph();
 
     GameInfo gameInfo = loadGameInfo(level, gameID);
-    String keyOfSubmap = gameInfo.getSubMapInfo().get(level).get(subMapID);
+    String keyOfSubmap = gameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
     try {
-      for (Map<String, GameMapGraph> i: gameObjectConfiguration.getGameMapList()) {
-        if (i.keySet().contains(keyOfSubmap)) {
-          map = i.get(keyOfSubmap);
-          break;
-        } else {
-          //todo: throw errors for file not found.
-        }
+      Map<String, GameMapGraph> tempMap = gameObjectConfiguration.getGameMapList();
+      if (tempMap.keySet().contains(keyOfSubmap)) {
+        map = tempMap.get(keyOfSubmap);
+      } else {
+        //todo: throw errors for file not found.
       }
+
 
 //      map = loadJson("data/GameMap/"+ gameInfo.getSubMapInfo().get(level).get(subMapID), map.getClass());
     } catch (Exception e) {
@@ -247,4 +247,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return (map.get(key) != null);
   }
 
+  public static GameObjectConfiguration getGameObjectConfiguration() {
+    return gameObjectConfiguration;
+  }
 }

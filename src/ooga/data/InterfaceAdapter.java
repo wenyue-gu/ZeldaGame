@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  */
 
 
-public class InterfaceAdapter implements JsonSerializer, JsonDeserializer{
+public class InterfaceAdapter implements  JsonDeserializer{
 
     private static final String CLASSNAME = "CLASSNAME";
     private static final String DATA = "DATA";
@@ -28,12 +28,12 @@ public class InterfaceAdapter implements JsonSerializer, JsonDeserializer{
         GameCell a = jsonDeserializationContext.deserialize(jsonObject, klass);
         return a;
     }
-    public JsonElement serialize(Object jsonElement, Type type, JsonSerializationContext jsonSerializationContext) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(CLASSNAME, jsonElement.getClass().getName());
-        jsonObject.add(DATA, jsonSerializationContext.serialize(jsonElement));
-        return jsonObject;
-    }
+//    public JsonElement serialize(Object jsonElement, Type type, JsonSerializationContext jsonSerializationContext) {
+//        JsonObject jsonObject = new JsonObject();
+//        jsonObject.addProperty(CLASSNAME, jsonElement.getClass().getName());
+//        jsonObject.add(DATA, jsonSerializationContext.serialize(jsonElement));
+//        return jsonObject;
+//    }
     /****** Helper method to get the className of the object to be deserialized *****/
     public Class getObjectClass(String className) {
         try {
