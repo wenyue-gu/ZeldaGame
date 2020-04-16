@@ -30,4 +30,19 @@ public interface Cell {
    */
   void setImage(int imageIndex);
 
+  /**
+   * get cell's unique ID (unique within the level).
+   */
+  int getUniqueID();
+
+  int setUniqueID();
+
+  /**
+   * return whether the cell is walkable.
+   */
+  boolean isMapCellWalkable();
+
+  void setWalkable(boolean walkable);
+
+
 }

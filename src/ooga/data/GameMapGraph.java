@@ -1,22 +1,30 @@
 package ooga.data;
 
-import ooga.data.GameCell;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.model.map.GameCell;
 
 public class GameMapGraph {
     private Cell[][] cellArray;
+    private int level;
+    private int ID;
+    public GameMapGraph() {
 
-    public GameMapGraph(int row, int column) {
+    }
+    public GameMapGraph(int level, int ID, int row, int column) {
+        this.level = level;
         cellArray = new GameCell[row][column];
         for (int i = 0; i< row; i++) {
             for (int j = 0; j < column; j++) {
-                cellArray[i][j] = new GameCell(0,0);
+                cellArray[i][j] = new GameCell(i*(column-1) + j);
             }
         }
     }
-    public void setElement(int row, int column, int state, int imageIndex) {
-        cellArray[row][column].setImage(imageIndex);
-        cellArray[row][column].setState(state);
+    public void setElement(int row, int column, Cell cell) {
+        cellArray[row][column] = cell;
+    }
+
+    public Cell getElement(int row, int column) {
+        return cellArray[row][column];
     }
 //    private Map<Cell, List<Cell>> adjacencyList;
 //    private int numOfEdge;

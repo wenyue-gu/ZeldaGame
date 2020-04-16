@@ -1,8 +1,9 @@
 package ooga;
 
-import ooga.controller.WindowControl;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import ooga.controller.WindowControl;
+import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
 import ooga.model.Model;
 
@@ -21,10 +22,11 @@ public class Main extends Application {
 
   @Override
   public void start(Stage currentStage) {
-    myDataLoader = new ooga.DataLoader();
-    myModel = new Model(myDataLoader);
+    myDataLoader = new DataLoader();
+    myModel = new Model(myDataLoader,"Zelda");
     myWindowControl = new WindowControl(currentStage);
     myWindowControl.setModel(myModel);
+    myWindowControl.setDataLoader(myDataLoader);
     currentStage.setTitle(TITLE);
     currentStage.setWidth(1070);
     currentStage.setHeight(820);
