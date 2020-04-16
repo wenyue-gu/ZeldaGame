@@ -109,7 +109,7 @@ public class GameMenuView implements GameMenu {
     }
 
     private void setUpLanguageMenu(){
-        var resource = ResourceBundle.getBundle(GameMenuView.class.getPackageName() + ".menuResource." + "Language");
+        var resource = ResourceBundle.getBundle("menu");
         myLanguagePicker = new PrettyBox("Language");
         myLanguagePicker.setSize(200, 30);
     }

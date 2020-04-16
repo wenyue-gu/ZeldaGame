@@ -31,7 +31,7 @@ public class PrettyBox extends ComboBox {
     }
 
     private void setContent(){
-        var resources = ResourceBundle.getBundle(GameMenuView.class.getPackageName() + ".menuResource." + myResource);
+        var resources = ResourceBundle.getBundle("menu");
         this.getItems().addAll(resources.keySet());
         this.setPromptText(myResource);
     }
