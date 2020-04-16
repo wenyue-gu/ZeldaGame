@@ -21,7 +21,7 @@ public class Mesh {
 		this.indices = indices;
 		this.material = material;
 	}
-	   
+
 	public void create() {
 		material.createTexture();
 		
