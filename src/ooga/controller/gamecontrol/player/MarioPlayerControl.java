@@ -9,6 +9,7 @@ import ooga.model.characters.MarioPlayer;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   private MarioPlayer myPlayer;
   private Map<KeyCode, String> myKeyCodeMap;
   private int myID;
+  private GameState2DView myView;
 
   public MarioPlayerControl(){
 
@@ -93,5 +95,13 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
     myPlayer.setState(MovingState.ATTACK1);
     //myPlayer.setAttack(2);
 
+  }
+  @Override
+  public void updateKey(){
+   }
+
+  @Override
+  public void setView(GameState2DView view) {
+    myView = view;
   }
 }

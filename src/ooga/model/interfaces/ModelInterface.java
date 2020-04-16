@@ -5,7 +5,7 @@ import java.util.Map;
 import ooga.model.gameElements.Element;
 import ooga.model.interfaces.gameMap.GameMap;
 
-public interface ModelInterface {
+public interface  ModelInterface {
 
   void saveGame(String directory);
 

@@ -1,8 +1,3 @@
-//PLAYER ID FROM BACKEND
-//PLAYER DIRECTION AND STUFF FOR ATTACK
-
-
-
 package ooga.controller.gamecontrol;
 
 import ooga.controller.gamecontrol.NPC.MainNPCControl;
@@ -16,6 +11,7 @@ import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.AbstractGameStateController;
 import ooga.view.game_view.game_state.GameStateController;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -27,20 +23,22 @@ public class GameController {
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
-  private GameStateController myGameStateController; //frontend
+  //private GameStateController myGameStateController; //frontend
+  private PauseControl myPauseControl;
   private DataLoaderAPI myDataLoader;
   private boolean dark;
+  private GameState2DView myGameView;
 
 public GameController(ModelInterface model, DataLoaderAPI loader){
     myModel = model;
     myDataLoader = loader;
-    myGameStateController = new AbstractGameStateController();
+    //myGameStateController = new AbstractGameStateController();
     setUpPlayerandNPC();
   }
 
-  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-     for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
-  }
+//  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+//     for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
+//  }
 
   private void setUpPlayerandNPC(){
     //setGameType(myDataLoader.getGameType());
@@ -68,17 +66,25 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
   }
 
   public void update(){
-    for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end //user-controlled player doesn't need to be updated, only NPC
-    myGameStateController.update(); // update front-end
+    //TODO: check this
+    for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end
+    for(MainPlayerControl mpc: myMainPlayerController) mpc.updateKey();
+    //myGameStateController.update(); // update front-end
+    myGameView.updateWindow();
   }
 
-  public Scene getScene(){
-    return myGameStateController.getGameStateView();
-    //return myView.getGameView();
-  }
+//  public Scene getScene(){
+//    return myGameStateController.getGameStateView();
+//    //return myView.getGameView();
+//  }
 
   public void setMode(boolean dark){
     this.dark = dark;
+  }
+
+  public void setView(GameState2DView view){
+    myGameView = view;
+    for(MainPlayerControl mpc:myMainPlayerController) mpc.setView(view);
   }
 
   public void keyReleased() {

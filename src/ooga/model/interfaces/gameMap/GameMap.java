@@ -10,7 +10,7 @@ import ooga.model.enums.Direction;
  * @author cady
  * @see GridInMap
  */
-public interface GameMap {
+public interface  GameMap {
 
   /**
    * Gets the ID of current grid

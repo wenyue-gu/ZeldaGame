@@ -1,12 +1,11 @@
 package ooga.model.move;
 
-import ooga.controller.ZeldaControlInterface;
 import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 
-public abstract class MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
+public abstract class  MovingObject1D implements ooga.model.interfaces.movables.Movable1D {
 
   public static final int DEFAULT_X_SPEED = 5;
   public static final int DEFAULT_X = 0;

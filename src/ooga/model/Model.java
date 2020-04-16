@@ -11,7 +11,7 @@ import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.gameMap.GameMap;
 import ooga.model.map.GameMapInstance;
 
-public class Model implements ModelInterface {
+public class  Model implements ModelInterface {
   private DataLoaderAPI dataLoader;
   private GameMap gameMap;
   private List<ZeldaPlayer> players;

@@ -3,7 +3,7 @@ package ooga.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class PropertyChangeNotifier {
+public class  PropertyChangeNotifier {
   protected PropertyChangeSupport propertyChangeSupport;
 
   public PropertyChangeNotifier(Object sourceBean)

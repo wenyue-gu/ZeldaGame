@@ -6,7 +6,7 @@ package ooga.model.interfaces;
  * @author cady
  * @see Character
  */
-public interface Scorable {
+public interface  Scorable {
 
   boolean isScoring();
 

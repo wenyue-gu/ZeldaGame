@@ -4,7 +4,7 @@ import ooga.model.interfaces.gameMap.Cell;
 
 import java.util.ArrayList;
 
-public class GameCell implements Cell {
+public class  GameCell implements Cell {
     private ArrayList<Cell> neighbours;
     private int ID;
     private int cellState;

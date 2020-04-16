@@ -1,5 +1,5 @@
 package ooga.model.characters;
 
-public abstract class UnchangableCharacter {
+public abstract class  UnchangableCharacter {
 
 }

@@ -1,8 +1,8 @@
 package ooga.data;
 
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
+import ooga.model.enums.ImageCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
@@ -10,7 +10,7 @@ import ooga.model.interfaces.gameMap.Cell;
 import java.util.Collection;
 import java.util.Map;
 
-public interface DataStorerAPI {
+public interface  DataStorerAPI {
     int getGameType();
     void setGame(int GameID);
     /**
@@ -27,7 +27,8 @@ public interface DataStorerAPI {
 
     void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID);
 
-    void storeImage(Image image, int ImageID, String category);
+
+    void storeImage(String image, int ImageID, ImageCategory imageCategory);
 
     void storeInteger(String keyword, String category, int value);
 

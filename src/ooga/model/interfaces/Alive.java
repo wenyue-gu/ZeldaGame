@@ -6,7 +6,7 @@ package ooga.model.interfaces;
  *
  * @author cady
  */
-public interface Alive {
+public interface  Alive {
 
   int getId();
 

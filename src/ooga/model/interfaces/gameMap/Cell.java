@@ -5,7 +5,7 @@ package ooga.model.interfaces.gameMap;
  *
  * @author cady, Guangyu
  */
-public interface Cell {
+public interface  Cell {
   /**
    *
    * @param state the state value of the cell

@@ -2,7 +2,7 @@ package ooga.model.characters;
 
 import ooga.model.interfaces.Alive;
 
-public class CharacterBase implements Alive {
+public class  CharacterBase implements Alive {
   protected int hp;
   protected int id;
 
