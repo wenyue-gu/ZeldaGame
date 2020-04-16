@@ -1,5 +1,6 @@
 package ooga.controller;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -102,8 +103,16 @@ public class WindowControl {
       System.out.println(myModel.getPlayers().size());
       myGameController.setView(myGameView);
       myGameView.createWindow();
-      secondStage.close();
-      myStage.close();
+      AnimationTimer timer = new AnimationTimer() {
+      @Override
+      public void handle(long now) {
+        myGameController.update();
+      }
+    };
+    timer.start();
+
+    secondStage.close();
+    //myStage.close();
     }
     catch(Exception e){
       System.out.println("GameState2DViewError");
