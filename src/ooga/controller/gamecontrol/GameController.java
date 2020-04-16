@@ -9,8 +9,6 @@ import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
-import ooga.view.game_view.game_state.AbstractGameStateController;
-import ooga.view.game_view.game_state.GameStateController;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.lang.reflect.Array;
