@@ -19,7 +19,16 @@ import java.util.Map;
  */
 
 public class  DataManagementTest {
-    private static DataLoader loader = new DataLoader();
+    private static DataLoader loader;
+
+    static {
+        try {
+            loader = new DataLoader();
+        } catch (DataLoadingException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static DataStorer storer = new DataStorer();
 
     public static void main(String[] args) {
@@ -34,7 +43,7 @@ public class  DataManagementTest {
      * the following is testing the Game map loading and storing
      */
     @Test
-    public void gameMapLoadingTest() {
+    public void gameMapLoadingTest() throws DataLoadingException {
         loader.setGameAndPlayer(1,1);
         ExampleDataGenerator.generateTheMapForFirstSprint();
 
@@ -60,7 +69,7 @@ public class  DataManagementTest {
     }
 
     @Test
-    public void KeyCodeTest() {
+    public void KeyCodeTest() throws DataLoadingException {
         Map<KeyCode, String> keyCodeMap = new HashMap<>();
         keyCodeMap.put(KeyCode.UP, "hello");
         storer.addPlayer(3);
@@ -83,10 +92,10 @@ public class  DataManagementTest {
      * todo: interger 99 != String 99
      */
     @Test
-    public void loadAndStoreParam() {
+    public void loadAndStoreParam() throws DataLoadingException {
         storer.addPlayer(3);
-        storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
-        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));
+        storer.setPlayerParam(PlayerPara.CURRENT_SCORE, 99, 3);
+        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.CURRENT_SCORE, 3));
         System.out.println("谢谢cady同学帮忙refactor！！");
     }
 

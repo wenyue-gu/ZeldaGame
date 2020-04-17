@@ -31,7 +31,7 @@ public class DataStorer implements DataStorerAPI {
     private DataLoader dataLoader; //for just tentative measure.
     private GameObjectConfiguration gameObjectConfiguration;
 
-    public DataStorer() {
+    public DataStorer() throws DataLoadingException {
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
         gson = gsonBuilder.create();
