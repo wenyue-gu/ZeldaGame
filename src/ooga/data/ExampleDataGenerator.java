@@ -9,11 +9,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import static ooga.data.DataLoader.SubMapPerMap;
+
 /**
  * this class will not be part of the final submission. It's purely used for generating data for the example file for the presentation only.
  */
 public class ExampleDataGenerator {
-    public static final int SubMapPerMap = 4;
+
     static Gson gson;
     public static void main(String[] args) {
         DataLoader a = new DataLoader();
@@ -54,7 +56,7 @@ public class ExampleDataGenerator {
         }
 
     }
-    private static void generateTheMapForFirstSprint() {
+    protected static void generateTheMapForFirstSprint() {
         String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
         TextMapReader textMapReader = new TextMapReader(mapPath);
         int subMapHeight = textMapReader.getMapHeight();
@@ -74,10 +76,10 @@ public class ExampleDataGenerator {
         //store data
         DataStorer b = new DataStorer();
         System.out.println(cellList.size());
-        b.storeSubMap(cellList, 1, 0);
-
-
-
+        b.storeSubMap(cellList, 1, 0, 1);
+        DataLoader c = new DataLoader();
+//        GameObjectConfiguration d = c.getGameObjectConfiguration();
+        c.getGameObjectConfiguration().storeGameEverything();
     }
 ////        Gson gson = new Gson();
 ////        ObjectMapper mapper = new ObjectMapper();

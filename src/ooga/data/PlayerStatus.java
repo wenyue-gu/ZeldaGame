@@ -1,26 +1,42 @@
 package ooga.data;
 
-public class PlayerStatus {
-    private int gameID;
-    private int playerID;
-    private int score;
-    private int level;
+import javafx.scene.input.KeyCode;
+import ooga.model.enums.PlayerPara;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
+
+public class PlayerStatus {
+    public static int initLevel = 1;
+    private int playerID;
+    private Map<PlayerPara, Integer> playerParaMap;
+    private Map<KeyCode, String> keyCodeMap;
+
+
+    public PlayerStatus(int playerID) {
+        this.playerID = playerID;
+        playerParaMap = new HashMap<>();
+        for (PlayerPara i : PlayerPara.values()) {
+            playerParaMap.put(i, ID_NOT_DEFINED);
+        }
+        setPlayerParam(PlayerPara.CURRENT_LEVEL, initLevel);
+        keyCodeMap = new HashMap<>();
+    }
 
     public PlayerStatus(int gameID, int playerID) {
-        this.gameID = gameID;
-        this.playerID = playerID;
-        this.level = 1;
-
+        this(playerID);
+        setPlayerParam(PlayerPara.Game, gameID);
     }
 
-    public int getScore() {
-        return score;
+    public int getPlayerParam(PlayerPara playerPara) {
+        return playerParaMap.get(playerPara);
+    }
+    public void setPlayerParam(PlayerPara playerParam, int paramValue) {
+        playerParaMap.replace(playerParam, paramValue);
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     public int getPlayerID() {
         return playerID;
@@ -30,19 +46,20 @@ public class PlayerStatus {
         this.playerID = playerID;
     }
 
-    public int getGameID() {
-        return gameID;
+
+    public void setKeyCodeMap(Map<KeyCode, String> keyCodeMap) {
+        this.keyCodeMap = keyCodeMap;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
+    public Map<KeyCode, String> getKeyCodeMap() {
+        return keyCodeMap;
     }
 
-    public int getLevel() {
-        return level;
+    public Map<PlayerPara, Integer> getPlayerParaMap() {
+        return playerParaMap;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setPlayerParaMap(Map<PlayerPara, Integer> playerParaMap) {
+        this.playerParaMap = playerParaMap;
     }
 }

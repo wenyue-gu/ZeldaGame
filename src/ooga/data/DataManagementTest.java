@@ -1,43 +1,46 @@
 package ooga.data;
 
+import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
+import ooga.model.enums.ImageCategory;
+import ooga.model.enums.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
 import org.junit.Assert;
+import org.junit.Test;
 
-import static ooga.data.GamePara.NPC_NUM;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Testing for DataManagement for sprint 1.
+ * Testing for DataManagement.
  * @author Guangyu Feng
  */
+
 public class DataManagementTest {
-    private static DataLoader a = new DataLoader();
-    private static DataStorer b = new DataStorer();
+    private static DataLoader loader = new DataLoader();
+    private static DataStorer storer = new DataStorer();
 
     public static void main(String[] args) {
-        gameMapLoadingTest();
-        characterLoadingStoringTest();
+//        gameMapLoadingTest();
+//        characterLoadingStoringTest();
 //        playerLoadingAndStoring();
+//        KeyCodeTest();
+
     }
 
     /**
      * the following is testing the Game map loading and storing
      */
-    private static void gameMapLoadingTest() {
+    @Test
+    public void gameMapLoadingTest() {
+        loader.setGameAndPlayer(1,1);
+        ExampleDataGenerator.generateTheMapForFirstSprint();
 
-//        LinkedList<Cell> cellLinkedList = new LinkedList<>();
-//        for (int i = 0; i < 20; i++) {
-//            Cell newCell = new GameCell(1);
-//            newCell.setState(1);
-//            newCell.setImage(10);
-//            cellLinkedList.add(newCell);
-//        }
-//
-//        b.storeSubMap(cellLinkedList, 1, 1);
-        Cell testCell = a.loadCell(19, 5, 0, 1);
-        System.out.println(testCell.isMapCellWalkable());
+        Cell testCell = loader.loadCell(6, 2, 0, 1);
+        Assert.assertTrue(testCell.isMapCellWalkable());
+        Assert.assertEquals(testCell.getImage(), 82);
         System.out.println(testCell.getState());
 
     }
@@ -45,22 +48,46 @@ public class DataManagementTest {
      * the following is testing character loading and storing
      *
      */
-    private static void characterLoadingStoringTest() {
+    @Test
+    public void characterLoadingStoringTest() {
 
         ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4);
         ZC.setFiringDirection(Direction.E);
-        b.storeCharacter(2, ZC);
-        Assert.assertEquals(a.loadCharacter(2, CharacterProperty.HP), 9);
-        System.out.println(a.loadCharacter(2, CharacterProperty.HP));
+        storer.storeCharacter(4, ZC);
+        Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);
 //        a.loadCharacter(2, CharacterProperty.SCORE);
+        loader.getGameObjectConfiguration().storeGameEverything();
+    }
+
+    @Test
+    public void KeyCodeTest() {
+        Map<KeyCode, String> keyCodeMap = new HashMap<>();
+        keyCodeMap.put(KeyCode.UP, "hello");
+        storer.addPlayer(3);
+        storer.addPlayer(2);
+        storer.storeKeyCode(keyCodeMap, 3);
+        storer.storeKeyCode(keyCodeMap, 2);
+        Map<KeyCode, String> keyCodeMap2 = loader.loadKeyCode(3);
+        Assert.assertEquals("hello", loader.loadKeyCode(3).get(KeyCode.UP));
+        loader.getGameObjectConfiguration().storeGameEverything();
+    }
+    @Test
+    public void imageLoadingStoringTest() {
+        storer.storeImage("321", 2, ImageCategory.RESOURCE);
+        storer.storeImage("123", 2, ImageCategory.RESOURCE);
+        String imagePath = loader.loadImagePath(2, ImageCategory.RESOURCE);
+        Assert.assertEquals("123", imagePath);
     }
 
     /**
-     * test player info loading and storing
+     * todo: interger 99 != String 99
      */
-    private static void playerLoadingAndStoring() {
-        b.initializePlayerStatus(1, 1);
-        System.out.println(a.loadGameParam(NPC_NUM));
+    @Test
+    public void loadAndStoreParam() {
+        storer.addPlayer(3);
+        storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
+        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));
+        System.out.println("谢谢cady同学帮忙refactor！！");
     }
 
 
