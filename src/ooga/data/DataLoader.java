@@ -17,44 +17,24 @@ import java.util.Map;
 import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 public class DataLoader implements ooga.data.DataLoaderAPI {
-  public static final int SubMapPerMap = 4;
-//  private int currentGameID = 1;//the belonging of Game ID is a problem. Where should it get from?
-//  private int currentPlayerID = 1;
-  private int currentLevel;
-  private static  GameObjectConfiguration gameObjectConfiguration;
 
+  public static final int SubMapPerMap = 4;
+  //  private int currentGameID = 1;//the belonging of Game ID is a problem. Where should it get from?
+//  private int currentPlayerID = 1;
+  private static GameObjectConfiguration gameObjectConfiguration;
   private com.google.gson.Gson gson;
-  public DataLoader() {
+
+  public DataLoader() throws DataLoadingException {
     com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
     gsonBuilder.serializeNulls(); //ensure gson storing null values.
     gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
     gson = gsonBuilder.create();//3 lines above are the same as DataStorer
     gameObjectConfiguration = GameObjectConfiguration.getInstance();
   }
-  public void setCurrentLevel(int currentLevel) {
-    this.currentLevel = currentLevel;
-}
 
-  public int getCurrentLevel() {
-    return currentLevel;
-  }
-  @Override
-  public int loadCurrentPlayerPara(PlayerPara playerPara) {
-    return loadPlayerPara(playerPara, gameObjectConfiguration.getCurrentPlayer());
-  }
-  @Override
-  public int loadPlayerPara(PlayerPara playerPara, int playerID) {
-    PlayerStatus playerStatus = gameObjectConfiguration.getPlayerWithID(playerID);
-    if (playerStatus != null) {
-        return playerStatus.getPlayerParam(playerPara);
-    }
-    System.out.println("player not existing");
-    //todo: throw errors.
-    return ID_NOT_DEFINED;
-  }
   @Override
   public int loadGameParam(GamePara para) {
-    GameInfo gameInfo = loadGameParamPrep();
+    GameInfo gameInfo = gameObjectConfiguration.getCurrentGameInfo();
     int level = gameInfo.getLevelNum();
     switch (para) {
       case GRID_NUM:
@@ -67,6 +47,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
         return gameInfo.getGameType();
       case PLAYER_NUM:
         return gameInfo.getPlayer_ID().size();
+        //TODO: move XY to player
       case INIT_POS_X:
         return gameInfo.getInitialPosition()[0];
       case INIT_POS_Y:
@@ -74,18 +55,30 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     }
     return ID_NOT_DEFINED;
   }
-  private GameInfo loadGameParamPrep() {
-    int level = loadPlayerPara(PlayerPara.CURRENT_LEVEL, gameObjectConfiguration.getCurrentPlayer());
-    return loadGameInfo(level, gameObjectConfiguration.getCurrentGameID());
+
+  @Override
+  public int loadPlayerPara(PlayerPara playerPara, int playerID) throws DataLoadingException {
+    PlayerStatus playerStatus = gameObjectConfiguration.getPlayerWithID(playerID);
+    if (playerStatus != null) {
+      return playerStatus.getPlayerParam(playerPara);
+    }
+    throw new DataLoadingException("Player " + playerID + " does not exist");
   }
+
+  @Override
+  public int loadCurrentPlayerPara(PlayerPara playerPara) throws DataLoadingException {
+    return loadPlayerPara(playerPara, gameObjectConfiguration.getCurrentPlayerID());
+  }
+
   @Override
   public List<Direction> loadAvailableDirection(GamePara para) {
-    GameInfo gameInfo = loadGameParamPrep();
+    GameInfo gameInfo = gameObjectConfiguration.getCurrentGameInfo();
     return gameInfo.getAvailableAttackDirections();
   }
 
   /**
    * ***this method has to be called before using any of the loader/storer.
+   *
    * @param GameID
    * @param PlayerID
    */
@@ -101,7 +94,6 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   @Override
   public Cell loadCell(int row, int col, int subMapID, int level) {
-    GameMapGraph a = loadMap(level, subMapID);
     return loadMap(level, subMapID).getElement(row, col);
   }
 
@@ -109,21 +101,20 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public int getNextSubMapID(Direction direction, int current) {
     return ID_NOT_DEFINED;
   }
+
   //todo: upgrade it from whole map to submap.
   private GameMapGraph loadMap(int level, int subMapID) {
 
     GameMapGraph map = new GameMapGraph();
-    int a = gameObjectConfiguration.getCurrentGameID();
-    GameInfo gameInfo = loadGameInfo(level, gameObjectConfiguration.getCurrentGameID());
+    GameInfo gameInfo = gameObjectConfiguration.getCurrentGameInfo();
     String keyOfSubmap = gameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
     try {
       Map<String, GameMapGraph> tempMap = gameObjectConfiguration.getGameMapList();
-      if (tempMap.keySet().contains(keyOfSubmap)) {
+      if (tempMap.containsKey(keyOfSubmap)) {
         map = tempMap.get(keyOfSubmap);
       } else {
         //todo: throw errors for file not found.
       }
-
 
 //      map = loadJson("data/GameMap/"+ gameInfo.getSubMapInfo().get(level).get(subMapID), map.getClass());
     } catch (Exception e) {
@@ -132,20 +123,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return map;
   }
 
-  public GameInfo loadGameInfo(int level, int gameID) {
 
-    for (GameInfo i: gameObjectConfiguration.getGameInfoList()) {
-      if (i.getGameType() == gameID && i.getLevelNum()==level) {
-        return i;
-      }
-    }
-
-      //todo: throw errors for file not available.
-    System.out.println("gameInfo isn't loaded");
-
-//    return ( loadJson("data/GameInfo/"+ GAME_Keyword + gameID + LEVEL_Keyword + level + JsonPostFix , GameInfo.class));
-    return null;
-  }
   @Override
   public String loadText(String keyword, String category) {
     Map<String, String> textMap = gameObjectConfiguration.getTextMap().get(category);
@@ -154,7 +132,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   @Override
   public int loadCharacter(int ID, CharacterProperty property) {
-    ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1,2);
+    ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1, 2);
 
 //    zeldaCharacter =  loadJson("data/ZeldaCharacter/" + characterKeyword + ID + ".json", zeldaCharacter.getClass());
     for (ZeldaCharacter i : gameObjectConfiguration.getZeldaCharacterList()) {
@@ -163,13 +141,13 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
       }
     }
     try {
-      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod("get" + property.toString().substring(0,1)+ property.toString().substring(1));
+      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod(
+          "get" + property.toString().substring(0, 1) + property.toString().substring(1));
       int a = (int) methodcall.invoke(zeldaCharacter);
       return (int) methodcall.invoke(zeldaCharacter);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-        e.printStackTrace();
+      e.printStackTrace();
     }
-
 
     return 0;
   }
@@ -196,23 +174,23 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   /**
    * keycode are stored in the player files.
+   *
    * @param playerID
    * @return
    */
   @Override
-  public Map<KeyCode, String> loadKeyCode(int playerID) {
-    PlayerStatus player =  gameObjectConfiguration.getPlayerWithID(playerID);
+  public Map<KeyCode, String> loadKeyCode(int playerID) throws DataLoadingException {
+    PlayerStatus player = gameObjectConfiguration.getPlayerWithID(playerID);
     if (player == null) {
-      //todo: throw excpetions here.
-      System.out.println("player with" + playerID + "is not found");
+      throw new DataLoadingException("Player with" + playerID + "is not found while loading key code");
     }
-
 
     return player.getKeyCodeMap();
   }
 
   /**
    * in Json, <int, String> always returns <Stirng, String>
+   *
    * @param imageID
    * @param category
    * @return
@@ -226,6 +204,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   /**
    * load value of the map
+   *
    * @param map
    * @param key
    * @return
@@ -252,12 +231,13 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public String loadSetting(int property) {
     return "";
   }
+
   @Override
   public Integer loadInteger(String keyword, String category) {
     return null;
   }
 
-  private <K,V> boolean  checkKeyExist(Map<K,V> map, K key) {
+  private <K, V> boolean checkKeyExist(Map<K, V> map, K key) {
     return (map.get(key) != null);
   }
 

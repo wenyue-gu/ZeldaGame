@@ -1,6 +1,6 @@
 package ooga.model.enums;
 
-public enum  GamePara {
+public enum GamePara {
   NPC_NUM,
   PLAYER_NUM,
   LEVEL_NUM,

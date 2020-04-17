@@ -1,4 +1,4 @@
-package ooga;
+package ooga.game;
 
 import java.io.IOException;
 import ooga.view.game_view.game_state.state2d.GameState2DView;

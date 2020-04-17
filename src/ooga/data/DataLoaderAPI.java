@@ -11,9 +11,9 @@ import java.util.Map;
  * The interface for game loader
  */
 public interface DataLoaderAPI {
-    int loadCurrentPlayerPara(PlayerPara playerPara);
+    int loadCurrentPlayerPara(PlayerPara playerPara) throws DataLoadingException;
 
-    int loadPlayerPara(PlayerPara playerPara, int playerID);
+    int loadPlayerPara(PlayerPara playerPara, int playerID) throws DataLoadingException;
 
     int loadGameParam(GamePara para);
 
@@ -41,7 +41,7 @@ public interface DataLoaderAPI {
 
     Map<String, Integer> loadInternalStorage(String category);
 
-    Map<KeyCode, String> loadKeyCode(int playerID);
+    Map<KeyCode, String> loadKeyCode(int playerID) throws DataLoadingException;
 
     String loadImagePath(int imageID, ImageCategory category);
 

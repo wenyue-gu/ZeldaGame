@@ -94,7 +94,7 @@ public class DataStorer implements DataStorerAPI {
     }
     @Override
     public void storePlayerParamToCurrentPlayer(PlayerPara para, int value) {
-        int playerID = gameObjectConfiguration.getCurrentPlayer();
+        int playerID = gameObjectConfiguration.getCurrentPlayerID();
         setPlayerParam(para, value, playerID);
     }
     @Override
@@ -160,7 +160,7 @@ public class DataStorer implements DataStorerAPI {
         Map<String, String> imageMap = gameObjectConfiguration.getImageMap().get(imageCategory);
 
         if (imageMap != null) {
-            if (!imageMap.containsKey(imageIDString)) {
+            if (!imageMap.containsKey(imageIDString + ".json")) {
                 imageMap.put(imageIDString, imagePath);
             } else {
                 imageMap.replace(imageIDString, imagePath);
