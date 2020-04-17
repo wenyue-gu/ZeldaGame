@@ -2,10 +2,7 @@ package ooga.data;
 
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
-import ooga.model.enums.CharacterProperty;
-import ooga.model.enums.Direction;
-import ooga.model.enums.GamePara;
-import ooga.model.enums.ImageCategory;
+import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.io.IOException;
@@ -41,7 +38,15 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public int getCurrentLevel() {
     return currentLevel;
   }
-
+  @Override
+  public int loadCurrentPlayerPara(PlayerPara playerPara) {
+    return loadPlayerPara(playerPara, gameObjectConfiguration.getCurrentPlayer());
+  }
+  @Override
+  public int loadPlayerPara(PlayerPara playerPara, int playerID) {
+    PlayerStatus playerStatus = gameObjectConfiguration.getPlayerWithID(playerID);
+    return playerStatus.getPlayerParam(playerPara);
+  }
   @Override
   public int loadGameParam(GamePara para) {
     GameInfo gameInfo = loadGameParamPrep();
@@ -66,7 +71,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
   private GameInfo loadGameParamPrep() {
     PlayerStatus currentPlayerStatus = getGameObjectConfiguration().getPlayerWithID(getGameObjectConfiguration().getCurrentPlayer());
-    int level = currentPlayerStatus.getLevel();
+    int level = currentPlayerStatus.getPlayerParam(PlayerPara.CURRENT_LEVEL);
     return loadGameInfo(level,gameObjectConfiguration.getCurrentGameID());
   }
   @Override

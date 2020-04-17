@@ -5,10 +5,13 @@ package ooga.model.enums;
  */
 public enum PlayerPara {
     COLOR,
+    Game,
     IMAGE,
     LOUDNESS,
     DIFFICULTY,
     LIFE,
     SCORE_GOAL,
-    CURRENT_LEVEL,
+    CURRENT_SCORE,
+    CURRENT_LEVEL;
+
 }

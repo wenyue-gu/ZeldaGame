@@ -1,39 +1,42 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
+import ooga.model.enums.PlayerPara;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 public class PlayerStatus {
     public static int initLevel = 1;
-    private int gameID;
     private int playerID;
-    private int score;
-    private int level;
-    private int life;
-    private int loudness;
-    private int goal;
-    private int difficulty;
+    private Map<PlayerPara, Integer> playerParaMap;
     private Map<KeyCode, String> keyCodeMap;
 
 
     public PlayerStatus(int playerID) {
         this.playerID = playerID;
-        this.level = initLevel;
+        playerParaMap = new HashMap<>();
+        for (PlayerPara i : PlayerPara.values()) {
+            playerParaMap.put(i, ID_NOT_DEFINED);
+        }
+        setPlayerParam(PlayerPara.CURRENT_LEVEL, initLevel);
+        keyCodeMap = new HashMap<>();
     }
 
     public PlayerStatus(int gameID, int playerID) {
         this(playerID);
-        this.gameID = gameID;
+        setPlayerParam(PlayerPara.Game, gameID);
     }
 
-    public int getScore() {
-        return score;
+    public int getPlayerParam(PlayerPara playerPara) {
+        return playerParaMap.get(playerPara);
+    }
+    public void setPlayerParam(PlayerPara playerParam, int paramValue) {
+        playerParaMap.replace(playerParam, paramValue);
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
 
     public int getPlayerID() {
         return playerID;
@@ -43,21 +46,6 @@ public class PlayerStatus {
         this.playerID = playerID;
     }
 
-    public int getGameID() {
-        return gameID;
-    }
-
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 
     public void setKeyCodeMap(Map<KeyCode, String> keyCodeMap) {
         this.keyCodeMap = keyCodeMap;
@@ -67,35 +55,11 @@ public class PlayerStatus {
         return keyCodeMap;
     }
 
-    public int getLife() {
-        return life;
+    public Map<PlayerPara, Integer> getPlayerParaMap() {
+        return playerParaMap;
     }
 
-    public void setLife(int life) {
-        this.life = life;
-    }
-
-    public int getLoudness() {
-        return loudness;
-    }
-
-    public void setLoudness(int loudness) {
-        this.loudness = loudness;
-    }
-
-    public int getGoal() {
-        return goal;
-    }
-
-    public void setGoal(int goal) {
-        this.goal = goal;
-    }
-
-    public int getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
+    public void setPlayerParaMap(Map<PlayerPara, Integer> playerParaMap) {
+        this.playerParaMap = playerParaMap;
     }
 }

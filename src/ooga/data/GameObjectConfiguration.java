@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
+import ooga.model.enums.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.io.File;
@@ -286,7 +287,7 @@ public class GameObjectConfiguration {
     public void setCurrentGameID(int currentGameID) {
         this.currentGameID = currentGameID;
         PlayerStatus tempPlayer = getPlayerWithID(currentGameID);
-        tempPlayer.setGameID(currentGameID);
+        tempPlayer.setPlayerParam(PlayerPara.Game, currentGameID);
         setPlayerWithID(currentGameID, tempPlayer);
     }
 
