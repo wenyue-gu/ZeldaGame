@@ -38,6 +38,8 @@ public class GameObjectConfiguration {
     private Map<String, Map<String, String>> textMap;
     private com.google.gson.Gson gsonLoad;
     private com.google.gson.Gson gsonStore;
+    private int currentPlayer;
+    private int currentGameID;
 
     private static GameObjectConfiguration gameObjectConfiguration;
 
@@ -267,5 +269,48 @@ public class GameObjectConfiguration {
             imageMap.put(newKey, newImageMap);
         }
 
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public int getCurrentGameID() {
+        return currentGameID;
+    }
+
+    public void setCurrentGameID(int currentGameID) {
+        this.currentGameID = currentGameID;
+        PlayerStatus tempPlayer = getPlayerWithID(currentGameID);
+        tempPlayer.setGameID(currentGameID);
+        setPlayerWithID(currentGameID, tempPlayer);
+    }
+
+    /**
+     * retrieve player with specific ID. If Player doesn't exist, returns null.
+     * @param playerID
+     * @return
+     */
+    public PlayerStatus getPlayerWithID(int playerID) {
+        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+            if (i.getPlayerID() == playerID) {
+                return i;
+            }
+        }
+        return null;
+    }
+    public void setPlayerWithID(int playerID, PlayerStatus player) {
+        List<PlayerStatus> tempList = new ArrayList<>();
+        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+            if (i.getPlayerID() != playerID) {
+                tempList.add(i);
+            }
+        }
+        tempList.add(player);
+        playerList = tempList;
     }
 }

@@ -18,7 +18,7 @@ public interface DataLoaderAPI {
 
     List<Direction> loadAvailableDirection(GamePara para);
 
-    void setGame(int GameID);
+    void setGameAndPlayer(int GameID, int PlayerID);
 
     int getGameType();
 

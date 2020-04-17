@@ -104,24 +104,31 @@ public class DataStorer implements DataStorerAPI {
 
     @Override
     public void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID) {
-        boolean playerExist = false;
-        List<PlayerStatus> tempList = new ArrayList<>();
-        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
-            if (i.getPlayerID() != playerID) {
-                tempList.add(i);
-            } else {
-                playerExist = true;
-                i.setKeyCodeMap(keyCodeMap);
-                tempList.add(i);
-            }
-
-        }
-        if (!playerExist) {
-            PlayerStatus tempPlayer = new PlayerStatus(playerID);
+//        boolean playerExist = false;
+//        List<PlayerStatus> tempList = new ArrayList<>();
+//        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+//            if (i.getPlayerID() != playerID) {
+//                tempList.add(i);
+//            } else {
+//                playerExist = true;
+//                i.setKeyCodeMap(keyCodeMap);
+//                tempList.add(i);
+//            }
+//
+//        }
+//        if (!playerExist) {
+//            PlayerStatus tempPlayer = new PlayerStatus(playerID);
+//            tempPlayer.setKeyCodeMap(keyCodeMap);
+//            tempList.add(tempPlayer);
+//        }
+//        gameObjectConfiguration.setPlayerList(tempList);
+        PlayerStatus tempPlayer = gameObjectConfiguration.getPlayerWithID(playerID);
+        if (tempPlayer != null) {
             tempPlayer.setKeyCodeMap(keyCodeMap);
-            tempList.add(tempPlayer);
+        } else {
+            tempPlayer = new PlayerStatus(playerID);
         }
-        gameObjectConfiguration.setPlayerList(tempList);
+        gameObjectConfiguration.setPlayerWithID(playerID, tempPlayer);
     }
 
     private boolean fileExist(String filePath) {
@@ -197,6 +204,7 @@ public class DataStorer implements DataStorerAPI {
         } else  {
             currentGameMapList.put(subMapFileName, mapGraph);
         }
+        gameObjectConfiguration.setGameMapList(currentGameMapList);
 //         writeObjectTOJson(mapGraph, gameMapAddressPrefix + subMapFileName);
 
     }

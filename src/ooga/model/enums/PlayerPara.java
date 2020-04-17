@@ -1,11 +1,13 @@
 package ooga.model.enums;
 
+/**
+ * all these fields should correspond to Int Value only.
+ */
 public enum PlayerPara {
     COLOR,
     IMAGE,
     LOUDNESS,
     DIFFICULTY,
-    KEY_CODE,
     LIFE,
     SCORE_GOAL,
     CURRENT_LEVEL,

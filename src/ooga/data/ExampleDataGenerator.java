@@ -78,7 +78,7 @@ public class ExampleDataGenerator {
         System.out.println(cellList.size());
         b.storeSubMap(cellList, 1, 0);
         DataLoader c = new DataLoader();
-        GameObjectConfiguration d = c.getGameObjectConfiguration();
+//        GameObjectConfiguration d = c.getGameObjectConfiguration();
         c.getGameObjectConfiguration().storeGameEverything();
     }
 ////        Gson gson = new Gson();
