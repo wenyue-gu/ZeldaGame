@@ -20,6 +20,7 @@ import java.util.Map;
 import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 public class DataLoader implements ooga.data.DataLoaderAPI {
+  public static final int SubMapPerMap = 4;
   private int gameID = 1;//the belonging of Game ID is a problem. Where should it get from?
   private int currentLevel;
   private static  GameObjectConfiguration gameObjectConfiguration;
@@ -63,7 +64,6 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return ID_NOT_DEFINED;
   }
   private GameInfo loadGameParamPrep() {
-    GameInfo gameInfo = loadGameParamPrep();
     PlayerStatus currentPlayerStatus = loadJson("data/Player/player1.json", PlayerStatus.class);
     int level = currentPlayerStatus.getLevel();
     return loadGameInfo(level,gameID);

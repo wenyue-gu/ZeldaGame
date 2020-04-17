@@ -36,6 +36,8 @@ public interface DataStorerAPI {
 
     void updateParamSetting(Map<String, Integer> playerPreference, int category);
 
+    void storeSubMap(Collection<Cell> map, int level);
+
     /**
      *
      * @param map cells in the collection will first fill in the 1st row, then the 2nd row of the screen and so on...

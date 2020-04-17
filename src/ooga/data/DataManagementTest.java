@@ -46,6 +46,7 @@ public class DataManagementTest {
 //        }
 //
 //        b.storeSubMap(cellLinkedList, 1, 1);
+        ExampleDataGenerator.generateTheMapForFirstSprint();
         Cell testCell = loader.loadCell(6, 2, 0, 1);
         Assert.assertTrue(testCell.isMapCellWalkable());
         Assert.assertEquals(testCell.getImage(), 82);

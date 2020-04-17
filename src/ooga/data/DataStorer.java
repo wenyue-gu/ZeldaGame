@@ -14,9 +14,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import static ooga.data.DataLoader.SubMapPerMap;
+
 //import ooga.model.gameElements.Weapon;
 
 public class DataStorer implements DataStorerAPI {
+    public static final int GameID = 1;
     public static final int numFilesPerLevel = 1;
     public static final int subMapRowNum = 22;//from frontend
     public static final int subMapColNum = 34;//from frontend
@@ -162,17 +165,22 @@ public class DataStorer implements DataStorerAPI {
     public void updateParamSetting(Map<String, Integer> playerPreference, int category) {
 
     }
-
+    @Override
+    //todo: testing is not done.
+    public void storeSubMap(Collection<Cell> map, int level) {
+        int subMapID = nextAvailableID(level);
+        storeSubMap(map, level, subMapID);
+    }
     @Override
     public void storeSubMap(Collection<Cell> map, int level, int subMapID) {
         if (map.size() != subMapRowNum * subMapColNum) {
             System.out.println("map stored didn't fit in dimension");
             //throw an exception
         }
-        GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum);
+
+        GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum, GameID);
         int i = 0;
         for (Cell cell: map) {
-
             mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell);
             i++;
         }
@@ -181,8 +189,8 @@ public class DataStorer implements DataStorerAPI {
          * Storer and loader are therefore not independent.
          *
          */
-        GameInfo currentGameInfo = dataLoader.loadGameInfo(level, 1);
-         String subMapFileName = currentGameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
+        GameInfo currentGameInfo = dataLoader.loadGameInfo(level, GameID);
+        String subMapFileName = currentGameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
         Map<String, GameMapGraph> currentGameMapList =  gameObjectConfiguration.getGameMapList();
         if (currentGameMapList.keySet().contains(subMapFileName)) {
             currentGameMapList.replace(subMapFileName, mapGraph);
@@ -190,6 +198,32 @@ public class DataStorer implements DataStorerAPI {
             currentGameMapList.put(subMapFileName, mapGraph);
         }
 //         writeObjectTOJson(mapGraph, gameMapAddressPrefix + subMapFileName);
+
+    }
+
+    private int nextAvailableID(int level) {
+        Map<String, GameMapGraph> currentGameMapList =  gameObjectConfiguration.getGameMapList();
+        int i = 0;
+        boolean flag = false;
+        while (i < SubMapPerMap) {
+            for (GameMapGraph j :currentGameMapList.values()) {
+                if (j.getSubMapID() == i) {
+                    flag = true;
+                }
+            }
+            if (flag) {
+                i++;
+                flag = false;
+            } else {
+                break;
+            }
+        }
+        if (i >= SubMapPerMap) {
+            System.out.println("not more empty submap to add to! Please use storeSubMap(Collection<Cell> map, int level, int subMapID) method");
+            //todo: throw errors.
+        }
+
+        return i;
 
     }
 
