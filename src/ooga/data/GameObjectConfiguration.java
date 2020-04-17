@@ -276,23 +276,25 @@ public class GameObjectConfiguration {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
 
     public int getCurrentGameID() {
         return currentGameID;
     }
 
-    public void setCurrentGameID(int currentGameID) {
+    public void setCurrentPlayerAndGameID(int currentGameID, int currentPlayerID) {
+        this.currentPlayer = currentPlayerID;
         this.currentGameID = currentGameID;
         PlayerStatus tempPlayer = getPlayerWithID(currentGameID);
+        if (tempPlayer == null) {
+            tempPlayer = new PlayerStatus(currentGameID, currentPlayerID);
+        }
         tempPlayer.setPlayerParam(PlayerPara.Game, currentGameID);
         setPlayerWithID(currentGameID, tempPlayer);
     }
 
     /**
      * retrieve player with specific ID. If Player doesn't exist, returns null.
+     * Please handle all the situations where player doesn't exist by the caller.
      * @param playerID
      * @return
      */
@@ -304,6 +306,12 @@ public class GameObjectConfiguration {
         }
         return null;
     }
+
+    /**
+     * this method handles adding players.
+     * @param playerID
+     * @param player
+     */
     public void setPlayerWithID(int playerID, PlayerStatus player) {
         List<PlayerStatus> tempList = new ArrayList<>();
         for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {

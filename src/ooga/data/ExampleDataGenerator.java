@@ -76,7 +76,7 @@ public class ExampleDataGenerator {
         //store data
         DataStorer b = new DataStorer();
         System.out.println(cellList.size());
-        b.storeSubMap(cellList, 1, 0);
+        b.storeSubMap(cellList, 1, 0, 1);
         DataLoader c = new DataLoader();
 //        GameObjectConfiguration d = c.getGameObjectConfiguration();
         c.getGameObjectConfiguration().storeGameEverything();

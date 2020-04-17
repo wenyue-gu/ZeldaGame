@@ -45,7 +45,12 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   @Override
   public int loadPlayerPara(PlayerPara playerPara, int playerID) {
     PlayerStatus playerStatus = gameObjectConfiguration.getPlayerWithID(playerID);
-    return playerStatus.getPlayerParam(playerPara);
+    if (playerStatus != null) {
+        return playerStatus.getPlayerParam(playerPara);
+    }
+    System.out.println("player not existing");
+    //todo: throw errors.
+    return ID_NOT_DEFINED;
   }
   @Override
   public int loadGameParam(GamePara para) {
@@ -70,9 +75,8 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return ID_NOT_DEFINED;
   }
   private GameInfo loadGameParamPrep() {
-    PlayerStatus currentPlayerStatus = getGameObjectConfiguration().getPlayerWithID(getGameObjectConfiguration().getCurrentPlayer());
-    int level = currentPlayerStatus.getPlayerParam(PlayerPara.CURRENT_LEVEL);
-    return loadGameInfo(level,gameObjectConfiguration.getCurrentGameID());
+    int level = loadPlayerPara(PlayerPara.CURRENT_LEVEL, gameObjectConfiguration.getCurrentPlayer());
+    return loadGameInfo(level, gameObjectConfiguration.getCurrentGameID());
   }
   @Override
   public List<Direction> loadAvailableDirection(GamePara para) {
@@ -87,8 +91,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
    */
   @Override
   public void setGameAndPlayer(int GameID, int PlayerID) {
-    gameObjectConfiguration.setCurrentPlayer(PlayerID);
-    gameObjectConfiguration.setCurrentGameID(GameID);
+    gameObjectConfiguration.setCurrentPlayerAndGameID(GameID, PlayerID);
   }
 
   @Override

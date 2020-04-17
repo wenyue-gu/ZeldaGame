@@ -5,14 +5,13 @@ import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
 import ooga.model.enums.ImageCategory;
+import ooga.model.enums.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static ooga.model.enums.GamePara.NPC_NUM;
 
 /**
  * Testing for DataManagement.
@@ -36,18 +35,9 @@ public class DataManagementTest {
      */
     @Test
     public void gameMapLoadingTest() {
-
-//        LinkedList<Cell> cellLinkedList = new LinkedList<>();
-//        for (int i = 0; i < 20; i++) {
-//            Cell newCell = new GameCell(1);
-//            newCell.setState(1);
-//            newCell.setImage(10);
-//            cellLinkedList.add(newCell);
-//        }
-//
-//        b.storeSubMap(cellLinkedList, 1, 1);
-        ExampleDataGenerator.generateTheMapForFirstSprint();
         loader.setGameAndPlayer(1,1);
+        ExampleDataGenerator.generateTheMapForFirstSprint();
+
         Cell testCell = loader.loadCell(6, 2, 0, 1);
         Assert.assertTrue(testCell.isMapCellWalkable());
         Assert.assertEquals(testCell.getImage(), 82);
@@ -69,21 +59,16 @@ public class DataManagementTest {
         loader.getGameObjectConfiguration().storeGameEverything();
     }
 
-    /**
-     * test player info loading and storing
-     */
-    public void playerLoadingAndStoring() {
-        storer.initializePlayerStatus(1);
-        System.out.println(loader.loadGameParam(NPC_NUM));
-    }
     @Test
     public void KeyCodeTest() {
         Map<KeyCode, String> keyCodeMap = new HashMap<>();
         keyCodeMap.put(KeyCode.UP, "hello");
+        storer.addPlayer(3);
+        storer.addPlayer(2);
         storer.storeKeyCode(keyCodeMap, 3);
         storer.storeKeyCode(keyCodeMap, 2);
-        Map<KeyCode, String> keyCodeMap2 = loader.loadKeyCode(1);
-        Assert.assertEquals("hello", loader.loadKeyCode(1).get(KeyCode.UP));
+        Map<KeyCode, String> keyCodeMap2 = loader.loadKeyCode(3);
+        Assert.assertEquals("hello", loader.loadKeyCode(3).get(KeyCode.UP));
         loader.getGameObjectConfiguration().storeGameEverything();
     }
     @Test
@@ -92,6 +77,16 @@ public class DataManagementTest {
         storer.storeImage("123", 2, ImageCategory.RESOURCE);
         String imagePath = loader.loadImagePath(2, ImageCategory.RESOURCE);
         Assert.assertEquals("123", imagePath);
+    }
+
+    /**
+     * todo: interger 99 != String 99
+     */
+    @Test
+    public void loadAndStoreParam() {
+        storer.addPlayer(3);
+        storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
+        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));
     }
 
 
