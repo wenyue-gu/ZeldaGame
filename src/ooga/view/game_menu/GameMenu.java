@@ -15,6 +15,7 @@ public interface GameMenu extends MenuView{ // will be extending Scene
 
   Button getLoadButton();
 
+  Button getUserButton();
 
   ComboBox getLanguagePicker();
 }

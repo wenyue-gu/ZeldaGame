@@ -26,6 +26,7 @@ public class GameController {
   private PauseControl myPauseControl;
   private DataLoaderAPI myDataLoader;
   private boolean dark;
+  private String language;
   private GameState2DView myGameView;
   private AnimationTimer myTimer;
 
@@ -87,6 +88,12 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
 
   public void setMode(boolean dark){
     this.dark = dark;
+    myPauseControl.setMode(dark);
+  }
+
+  public void setLanguage(String language){
+    this.language = language;
+    myPauseControl.setLanguage(language);
   }
 
   public void setView(GameState2DView view){

@@ -3,7 +3,7 @@ package ooga.data;
 import com.google.gson.Gson;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.model.map.GameCell;
-import ooga.view.engine.utils.TextMapReader;
+import ooga.view.engine.utils.cyberpunk2d.Text2DMapReader;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class ExampleDataGenerator {
     }
     protected static void generateTheMapForFirstSprint() {
         String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
-        TextMapReader textMapReader = new TextMapReader(mapPath);
+        Text2DMapReader textMapReader = new Text2DMapReader(mapPath);
         int subMapHeight = textMapReader.getMapHeight();
         int subMapWidth = textMapReader.getMapWidth();
         List<Cell> cellList = new ArrayList<>();
