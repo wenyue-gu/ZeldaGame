@@ -59,6 +59,8 @@ public class WindowControl {
     myStage.setScene(myMenuView.getMenuView());
   }
 
+  public void showWindowMenu(){myStage.show();}
+
 
   private void initializeButtons(){
     myStartButton = myMenuView.getNewGameButton();
@@ -102,17 +104,11 @@ public class WindowControl {
       myGameView = new GameState2DView(myModel.getPlayers().size());
       System.out.println(myModel.getPlayers().size());
       myGameController.setView(myGameView);
+      myGameController.setWindowControl(this);
       myGameView.createWindow();
-      AnimationTimer timer = new AnimationTimer() {
-      @Override
-      public void handle(long now) {
-        myGameController.update();
-      }
-    };
-    timer.start();
-
-    secondStage.close();
-    //myStage.close();
+      myGameController.startTimer();
+      secondStage.close();
+      //myStage.hide();
     }
     catch(Exception e){
       System.out.println("GameState2DViewError");

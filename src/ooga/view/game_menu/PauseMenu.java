@@ -33,6 +33,12 @@ public class PauseMenu implements MenuView {
         myScene = new Scene(vBox, 800, 800);
     }
 
+    public Button getResumeButton(){return ResumeButton;}
+
+    public Button getBackToMenuButton(){return BackToMenuButton;}
+
+    public Button getSaveGameButton(){return SaveGameButton;}
+
     @Override
     public Scene getMenuView() {
         return myScene;
