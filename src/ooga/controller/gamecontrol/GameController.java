@@ -57,6 +57,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     for(MainPlayerControl mpc:myMainPlayerController){
       mpc.setID();
       //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
+      mpc.setNewKeyMap(myDataLoader.loadKey(mpc.getID()));
     }
   }
 

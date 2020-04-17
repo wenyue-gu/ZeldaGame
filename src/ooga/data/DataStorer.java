@@ -101,6 +101,19 @@ public class  DataStorer implements DataStorerAPI {
         writeObjectTOJson(player, FilePath);
     }
 
+    @Override
+    public void storeKey(Map<Integer, String> keyMap, int playerID) {
+        PlayerStatus player;
+        String FilePath = "data/Player/player" + playerID + ".json";
+        if (fileExist(FilePath)) {
+            player = dataLoader.loadJson(FilePath, PlayerStatus.class);
+        } else {
+            player = new PlayerStatus(playerID);
+        }
+        player.setKeyMap(keyMap);
+        writeObjectTOJson(player, FilePath);
+    }
+
     private boolean fileExist(String filePath) {
         File tmpDir = new File(filePath);
         return tmpDir.exists();

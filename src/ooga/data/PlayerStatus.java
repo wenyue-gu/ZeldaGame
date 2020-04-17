@@ -15,6 +15,7 @@ public class  PlayerStatus {
     private int goal;
     private int difficulty;
     private Map<KeyCode, String> keyCodeMap;
+    private Map<Integer, String> keyMap;
 
 
     public PlayerStatus(int playerID) {
@@ -97,5 +98,14 @@ public class  PlayerStatus {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public Map<Integer, String> getKeyMap() {
+
+        return keyMap;
+    }
+
+    public void setKeyMap(Map<Integer, String> keyMap){
+        this.keyMap = keyMap;
     }
 }

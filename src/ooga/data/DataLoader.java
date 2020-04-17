@@ -171,6 +171,14 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return player.getKeyCodeMap();
   }
 
+  @Override
+  public Map<Integer, String> loadKey(int playerID) {
+    String filePath = "data/Player/player" + playerID + ".json";
+    Map<KeyCode, String> tempMap = new HashMap<>();
+    PlayerStatus player =  loadJson(filePath, PlayerStatus.class);
+    return player.getKeyMap();
+  }
+
   /**
    * in Json, <int, String> always returns <Stirng, String>
    * @param imageID
