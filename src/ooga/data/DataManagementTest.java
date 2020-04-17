@@ -87,6 +87,7 @@ public class DataManagementTest {
         storer.addPlayer(3);
         storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
         Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));
+        System.out.println("谢谢cady同学帮忙refactor！！");
     }
 
 
