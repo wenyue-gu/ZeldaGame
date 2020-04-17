@@ -3,6 +3,7 @@ package ooga.data;
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.UnchangableCharacter;
 import ooga.model.enums.ImageCategory;
+import ooga.model.enums.TextCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
@@ -17,7 +18,8 @@ public interface  DataStorerAPI {
      * store text files to the database.
      * @return
      */
-    void StoreText(String text, String keyword, String category);
+
+    void StoreText(String text, String keyword, TextCategory category);
 
     void storeCharacter(int ID, UnchangableCharacter character);
 
@@ -33,6 +35,8 @@ public interface  DataStorerAPI {
     void storeInteger(String keyword, String category, int value);
 
     void updateParamSetting(Map<String, Integer> playerPreference, int category);
+
+    void storeSubMap(Collection<Cell> map, int level);
 
     /**
      *
