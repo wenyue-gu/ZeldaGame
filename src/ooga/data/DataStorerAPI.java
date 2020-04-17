@@ -39,10 +39,6 @@ public interface DataStorerAPI {
 
     void storeImage(String image, int ImageID, ImageCategory imageCategory);
 
-    void storeInteger(String keyword, String category, int value);
-
-    void updateParamSetting(Map<String, Integer> playerPreference, int category);
-
     void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level);
 
 

@@ -5,6 +5,7 @@ import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
+import ooga.model.enums.TextCategory;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.io.File;
@@ -36,7 +37,7 @@ public class GameObjectConfiguration {
     private List<MarioCharacter> marioCharacterList;
     private List<PlayerStatus> playerList;
     private List<ZeldaCharacter> zeldaCharacterList;
-    private Map<String, Map<String, String>> textMap;
+    private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
     private com.google.gson.Gson gsonLoad;
     private com.google.gson.Gson gsonStore;
     private int currentPlayer;
@@ -321,5 +322,17 @@ public class GameObjectConfiguration {
         }
         tempList.add(player);
         playerList = tempList;
+    }
+
+    public void setTextMap(String text, String keyword, TextCategory category) {
+        Map<String, String> tempTextMap = textMap.get(category);
+        if (tempTextMap == null) {
+            System.out.println("category not found (330 config)");
+        }
+        if (tempTextMap.keySet().contains(keyword)) {
+            tempTextMap.replace(keyword, text);
+        } else {
+            tempTextMap.put(keyword, text);
+        }
     }
 }

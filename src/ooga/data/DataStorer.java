@@ -53,20 +53,11 @@ public class DataStorer implements DataStorerAPI {
     public void setGame(int GameID) {
 
     }
-    public void initializePlayerStatus(int playerID) {
-        PlayerStatus playerStatus = new PlayerStatus(playerID);
-        String filePath = "data/Player/player" + playerID +".json";
-        if (fileExist(filePath)) {
-            //todo: throw an error.
-            System.out.println("player has already been initialized");
-        } else {
-            writeObjectTOJson(playerStatus, filePath);
-        }
-    }
 
+    //todo: test not done
     @Override
     public void StoreText(String text, String keyword, TextCategory category) {
-
+        gameObjectConfiguration.setTextMap(text, keyword, category);
     }
 
     @Override
@@ -181,16 +172,6 @@ public class DataStorer implements DataStorerAPI {
         gameObjectConfiguration.setImageMap(imageMap, imageCategory);
 
 //        writeObjectTOJson(imageMap, filePath);
-    }
-
-    @Override
-    public void storeInteger(String keyword, String category, int value) {
-
-    }
-
-    @Override
-    public void updateParamSetting(Map<String, Integer> playerPreference, int category) {
-
     }
 
     /**
