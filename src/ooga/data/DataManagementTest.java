@@ -12,7 +12,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static ooga.data.GamePara.NPC_NUM;
+import static ooga.model.enums.GamePara.NPC_NUM;
 
 /**
  * Testing for DataManagement.
@@ -36,7 +36,7 @@ public class  DataManagementTest {
      */
     @Test
     public void gameMapLoadingTest() {
-        new GameObjectConfiguration();
+
 //        LinkedList<Cell> cellLinkedList = new LinkedList<>();
 //        for (int i = 0; i < 20; i++) {
 //            Cell newCell = new GameCell(1);
@@ -46,8 +46,10 @@ public class  DataManagementTest {
 //        }
 //
 //        b.storeSubMap(cellLinkedList, 1, 1);
-        Cell testCell = loader.loadCell(0, 0, 0, 1);
+        ExampleDataGenerator.generateTheMapForFirstSprint();
+        Cell testCell = loader.loadCell(6, 2, 0, 1);
         Assert.assertTrue(testCell.isMapCellWalkable());
+        Assert.assertEquals(testCell.getImage(), 82);
         System.out.println(testCell.getState());
 
     }
@@ -60,9 +62,10 @@ public class  DataManagementTest {
 
         ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4);
         ZC.setFiringDirection(Direction.E);
-        storer.storeCharacter(2, ZC);
-        Assert.assertEquals(loader.loadCharacter(2, CharacterProperty.HP), 9);
+        storer.storeCharacter(4, ZC);
+        Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);
 //        a.loadCharacter(2, CharacterProperty.SCORE);
+        loader.getGameObjectConfiguration().storeGameEverything();
     }
 
     /**
@@ -76,10 +79,11 @@ public class  DataManagementTest {
     public void KeyCodeTest() {
         Map<KeyCode, String> keyCodeMap = new HashMap<>();
         keyCodeMap.put(KeyCode.UP, "hello");
-        storer.storeKeyCode(keyCodeMap, 1);
+        storer.storeKeyCode(keyCodeMap, 3);
         storer.storeKeyCode(keyCodeMap, 2);
         Map<KeyCode, String> keyCodeMap2 = loader.loadKeyCode(1);
         Assert.assertEquals("hello", loader.loadKeyCode(1).get(KeyCode.UP));
+        loader.getGameObjectConfiguration().storeGameEverything();
     }
     @Test
     public void imageLoadingStoringTest() {

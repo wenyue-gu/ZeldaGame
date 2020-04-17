@@ -39,12 +39,17 @@ public class WindowControl {
 
   public WindowControl(Stage currentStage){
     myStage = currentStage;
-
     myMenuView = new GameMenuView();
     mySelectView = new SelectMenuView();
 
     setMenuScene();
     initializeButtons();
+  }
+
+  public WindowControl(Stage currentStage, Model model, DataLoaderAPI dataloader) {
+    this(currentStage);
+    setModel(model);
+    setDataLoader(dataloader);
   }
 
   public void setModel(Model model){
@@ -121,6 +126,14 @@ public class WindowControl {
 
   private void startGame3(){
     secondStage.close();
+  }
+
+  public void showWindow(String title, int height, int width, boolean isResizable) {
+    myStage.setTitle(title);
+    myStage.setWidth(width);
+    myStage.setHeight(height);
+    myStage.setResizable(isResizable);
+    myStage.show();
   }
 
 
