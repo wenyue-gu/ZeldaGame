@@ -4,6 +4,8 @@ import com.google.gson.GsonBuilder;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
+import ooga.model.enums.PlayerPara;
+import ooga.model.enums.TextCategory;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.io.File;
@@ -35,9 +37,11 @@ public class  GameObjectConfiguration {
     private List<MarioCharacter> marioCharacterList;
     private List<PlayerStatus> playerList;
     private List<ZeldaCharacter> zeldaCharacterList;
-    private Map<String, Map<String, String>> textMap;
+    private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
     private com.google.gson.Gson gsonLoad;
     private com.google.gson.Gson gsonStore;
+    private int currentPlayer;
+    private int currentGameID;
 
     private static GameObjectConfiguration gameObjectConfiguration;
 
@@ -267,5 +271,68 @@ public class  GameObjectConfiguration {
             imageMap.put(newKey, newImageMap);
         }
 
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+
+    public int getCurrentGameID() {
+        return currentGameID;
+    }
+
+    public void setCurrentPlayerAndGameID(int currentGameID, int currentPlayerID) {
+        this.currentPlayer = currentPlayerID;
+        this.currentGameID = currentGameID;
+        PlayerStatus tempPlayer = getPlayerWithID(currentGameID);
+        if (tempPlayer == null) {
+            tempPlayer = new PlayerStatus(currentGameID, currentPlayerID);
+        }
+        tempPlayer.setPlayerParam(PlayerPara.Game, currentGameID);
+        setPlayerWithID(currentGameID, tempPlayer);
+    }
+
+    /**
+     * retrieve player with specific ID. If Player doesn't exist, returns null.
+     * Please handle all the situations where player doesn't exist by the caller.
+     * @param playerID
+     * @return
+     */
+    public PlayerStatus getPlayerWithID(int playerID) {
+        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+            if (i.getPlayerID() == playerID) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * this method handles adding players.
+     * @param playerID
+     * @param player
+     */
+    public void setPlayerWithID(int playerID, PlayerStatus player) {
+        List<PlayerStatus> tempList = new ArrayList<>();
+        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+            if (i.getPlayerID() != playerID) {
+                tempList.add(i);
+            }
+        }
+        tempList.add(player);
+        playerList = tempList;
+    }
+
+    public void setTextMap(String text, String keyword, TextCategory category) {
+        Map<String, String> tempTextMap = textMap.get(category);
+        if (tempTextMap == null) {
+            System.out.println("category not found (330 config)");
+        }
+        if (tempTextMap.keySet().contains(keyword)) {
+            tempTextMap.replace(keyword, text);
+        } else {
+            tempTextMap.put(keyword, text);
+        }
     }
 }

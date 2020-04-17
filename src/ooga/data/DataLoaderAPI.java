@@ -1,10 +1,7 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
-import ooga.model.enums.CharacterProperty;
-import ooga.model.enums.Direction;
-import ooga.model.enums.GamePara;
-import ooga.model.enums.ImageCategory;
+import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.util.List;
@@ -13,12 +10,16 @@ import java.util.Map;
 /**
  * The interface for game loader
  */
-public interface  DataLoaderAPI {
+public interface DataLoaderAPI {
+    int loadCurrentPlayerPara(PlayerPara playerPara);
+
+    int loadPlayerPara(PlayerPara playerPara, int playerID);
+
     int loadGameParam(GamePara para);
 
     List<Direction> loadAvailableDirection(GamePara para);
 
-    void setGame(int GameID);
+    void setGameAndPlayer(int GameID, int PlayerID);
 
     int getGameType();
 
