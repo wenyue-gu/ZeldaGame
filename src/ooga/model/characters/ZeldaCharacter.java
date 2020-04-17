@@ -9,7 +9,6 @@ import ooga.model.interfaces.Alive;
 import ooga.model.interfaces.Attacker;
 import ooga.model.interfaces.Notifier;
 import ooga.model.move.MovingObject2D;
-import ooga.model.test.listener.ExampleController;
 
 import java.beans.PropertyChangeListener;
 
