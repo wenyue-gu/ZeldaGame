@@ -31,7 +31,7 @@ public class DataStorer implements DataStorerAPI {
     private DataLoader dataLoader; //for just tentative measure.
     private GameObjectConfiguration gameObjectConfiguration;
 
-    public DataStorer() {
+    public DataStorer() throws DataLoadingException {
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
         gson = gsonBuilder.create();
@@ -207,7 +207,7 @@ public class DataStorer implements DataStorerAPI {
          * Storer and loader are therefore not independent.
          *
          */
-        GameInfo currentGameInfo = dataLoader.loadGameInfo(level, gameObjectConfiguration.getCurrentGameID());
+        GameInfo currentGameInfo = gameObjectConfiguration.getGameInfo(level, gameObjectConfiguration.getCurrentGameID());
         String subMapFileName = currentGameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
         Map<String, GameMapGraph> currentGameMapList =  gameObjectConfiguration.getGameMapList();
         if (currentGameMapList.keySet().contains(subMapFileName)) {

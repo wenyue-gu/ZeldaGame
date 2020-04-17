@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import ooga.controller.WindowControl;
 import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
+import ooga.data.DataLoadingException;
 import ooga.model.Model;
 
 
@@ -21,7 +22,7 @@ public class Main extends Application {
   }
 
   @Override
-  public void start(Stage currentStage) {
+  public void start(Stage currentStage) throws DataLoadingException {
     myDataLoader = new DataLoader();
     myModel = new Model(myDataLoader,"Zelda");
     myWindowControl = new WindowControl(currentStage);

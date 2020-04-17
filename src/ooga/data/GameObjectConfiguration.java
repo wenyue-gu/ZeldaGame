@@ -104,10 +104,10 @@ public class GameObjectConfiguration {
     File dir = new File(myDirectoryPath);
     File[] directoryListing = dir.listFiles();
     if (directoryListing != null) {
-      String[] realFileName = myDirectoryPath.split("/");
       for (File child : directoryListing) {
         // Do something with child
         //TODO: possibly with a Reflection
+        String[] realFileName = myDirectoryPath.split("/");
         switch (realFileName[1]) {
           case "GameInfo":
             gameInfoList.add(loadJson(myDirectoryPath + child.getName(), classType));
@@ -361,8 +361,12 @@ public class GameObjectConfiguration {
   }
 
   public GameInfo getCurrentGameInfo() {
+    return getGameInfo(currentGameID, getCurrentPlayer().getPlayerParam(PlayerPara.CURRENT_LEVEL));
+  }
+
+  public GameInfo getGameInfo(int level, int id) {
     for (GameInfo i : gameInfoList) {
-      if (i.getGameType() == currentGameID && i.getLevelNum() == getCurrentPlayer().getPlayerParam(PlayerPara.CURRENT_LEVEL)) {
+      if (i.getGameType() == id && i.getLevelNum() == level) {
         return i;
       }
     }
