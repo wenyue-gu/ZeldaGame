@@ -96,16 +96,16 @@ public class  DataManagementTest {
         Assert.assertEquals("123", imagePath);
     }
 
-//    /**
-//     * todo: interger 99 != String 99
-//     */
-//    @Test
-//    public void loadAndStoreParam() {
-//        storer.addPlayer(3);
-//        storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
-//        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));
-//        System.out.println("谢谢cady同学帮忙refactor！！");
-//    }
+    /**
+     * todo: interger 99 != String 99
+     */
+    @Test
+    public void loadAndStoreParam() {
+        storer.addPlayer(3);
+        storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
+        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));
+        System.out.println("谢谢cady同学帮忙refactor！！");
+    }
 
 
 
