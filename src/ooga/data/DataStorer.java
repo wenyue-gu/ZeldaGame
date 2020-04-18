@@ -1,7 +1,6 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
-import ooga.model.characters.UnchangableCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
@@ -60,10 +59,10 @@ public class DataStorer implements DataStorerAPI {
         gameObjectConfiguration.setTextMap(text, keyword, category);
     }
 
-    @Override
-    public void storeCharacter(int ID, UnchangableCharacter character) {
-
-    }
+//    @Override
+//    public void storeCharacter(int ID, UnchangableCharacter character) {
+//
+//    }
 
     @Override
     public void storeWeapons(int ID, WeaponBase weapon) {

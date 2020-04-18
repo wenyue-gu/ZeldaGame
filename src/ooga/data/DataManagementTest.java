@@ -100,7 +100,7 @@ public class  DataManagementTest {
      * todo: interger 99 != String 99
      */
     @Test
-    public void loadAndStoreParam() {
+    public void loadAndStoreParam() throws DataLoadingException {
         storer.addPlayer(3);
         storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
         Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));

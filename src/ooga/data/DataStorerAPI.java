@@ -1,7 +1,6 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
-import ooga.model.characters.UnchangableCharacter;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
@@ -22,7 +21,7 @@ public interface  DataStorerAPI {
 
     void StoreText(String text, String keyword, TextCategory category);
 
-    void storeCharacter(int ID, UnchangableCharacter character);
+//    void storeCharacter(int ID, UnchangableCharacter character);
 
     void storeWeapons(int ID, WeaponBase weapon);
 

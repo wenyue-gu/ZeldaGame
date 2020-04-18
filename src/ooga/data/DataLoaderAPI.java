@@ -1,6 +1,7 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
+import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
 
@@ -47,4 +48,8 @@ public interface DataLoaderAPI {
 
     Integer loadInteger(String keyword, String category);
 
+
+    List<ZeldaCharacter> getZeldaCharacters();
+
+    List<PlayerStatus> getPlayerStatus();
 }
