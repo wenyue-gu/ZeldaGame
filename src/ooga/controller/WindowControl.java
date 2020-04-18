@@ -101,6 +101,7 @@ public class WindowControl {
     myGameButton2.setOnAction(e->startGame2());
     myGameButton3 = mySelectView.getGame3();
     myGameButton3.setOnAction(e->startGame3());
+
     myLanguagePicker = myMenuView.getLanguagePicker();
     myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
 
@@ -122,6 +123,7 @@ public class WindowControl {
     this.language = language;
     myMenuView.setLanguage(language);
     mySelectView.setLanguage(language);
+    myLogIn.setLanguage(language);
   }
 
   private void startGame1(){
@@ -166,6 +168,7 @@ public class WindowControl {
     dark = !dark;
     myMenuView.switchMode(dark);
     mySelectView.switchMode(dark);
+    myLogIn.switchMode(dark);
   }
 
   private void loadlist(){

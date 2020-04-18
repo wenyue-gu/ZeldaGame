@@ -1,39 +1,59 @@
 package ooga.view.game_menu;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-public class LogInView {
+
+public class LogInView implements MenuView{
 
     private Scene myScene;
     private VBox vBox;
     private TextField nameInput;
-    private TextField passwordInput;
+    private PasswordField passwordInput;
     private Label userName;
     private Label userPassWord;
     private PrettyButtons LogInButton;
     private PrettyButtons SignUpButton;
+    private List<PrettyButtons> myButtonList;
     private Label Message;
 
     private String myLanguage = "English";
+    private boolean dark = false;
+
+    private Background darkMode = new Background(new BackgroundFill(new Color(0.15,0.15,0.15,1), CornerRadii.EMPTY, Insets.EMPTY));
+    private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
+
 
     public LogInView(){
         setUpLabel();
         setUpField();
         setUpButton();
         setUpVBox();
+        switchMode(dark);
         myScene = new Scene(vBox, 600,600);
     }
 
     private void setUpButton() {
         LogInButton = new PrettyButtons("LogIn", myLanguage);
         SignUpButton = new PrettyButtons("Signup", myLanguage);
+
+        myButtonList = List.of(LogInButton, SignUpButton);
     }
 
     public String getNameInput(){
@@ -52,22 +72,41 @@ public class LogInView {
         return SignUpButton;
     }
 
+    @Override
+    public Scene getMenuView() {
+        return myScene;
+    }
+
+    @Override
+    public void switchMode(boolean dark) {
+        this.dark = dark;
+        vBox.setBackground(dark?darkMode:lightMode);
+        for(PrettyButtons button:myButtonList) button.switchMode(dark);
+        userName.setTextFill(dark?Color.WHITE:Color.BLACK);
+        userPassWord.setTextFill(dark?Color.WHITE:Color.BLACK);
+    }
+
     public void setLanguage(String language){
         myLanguage = language;
         LogInButton.changeLanguage(myLanguage);
         SignUpButton.changeLanguage(myLanguage);
+        changeLableText();
     }
 
+
     public void UserDNE(){
-        Message.setText("User does not exist.");
+        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        Message.setText(resource.getString("UserDNE"));
     }
 
     public void logInFail(){
-        Message.setText("Wrong password or user name.");
+        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        Message.setText(resource.getString("LogInFail"));
     }
 
     public void signUpFail(){
-        Message.setText("User already exists.");
+        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        Message.setText(resource.getString("SignUpFail"));
     }
 
     private void setUpVBox() {
@@ -80,21 +119,26 @@ public class LogInView {
     private void setUpField() {
         nameInput = new TextField();
         nameInput.setMaxWidth(300);
-        passwordInput = new TextField();
+        passwordInput = new PasswordField();
         passwordInput.setMaxWidth(300);
     }
 
     private void setUpLabel() {
-        userName = new Label("User Name: ");
+        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        userName = new Label(resource.getString("UserName"));
+
         userName.setFont(Font.font("Ariel", 18));
-        userPassWord = new Label("User Password: ");
+        userPassWord = new Label(resource.getString("PassWord"));
         userPassWord.setFont(Font.font("Ariel", 18));
         Message = new Label("");
         Message.setFont(Font.font("Ariel", 18));
     }
 
-
-    public Scene getView() {
-        return myScene;
+    private void changeLableText(){
+        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        userName.setText(resource.getString("UserName"));
+        userPassWord.setText(resource.getString("PassWord"));
+        Message.setText("");
     }
+
 }

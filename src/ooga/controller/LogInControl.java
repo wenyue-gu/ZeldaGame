@@ -23,7 +23,7 @@ public class LogInControl {
         myStage = new Stage();
         myView = new LogInView();
         myControl = windowControl;
-        myStage.setScene(myView.getView());
+        myStage.setScene(myView.getMenuView());
         setUpButtons();
     }
 
@@ -82,5 +82,13 @@ public class LogInControl {
 
     public void showLogIn(){
         myStage.show();
+    }
+
+    public void switchMode(boolean dark) {
+        myView.switchMode(dark);
+    }
+
+    public void setLanguage(String language) {
+        myView.setLanguage(language);
     }
 }
