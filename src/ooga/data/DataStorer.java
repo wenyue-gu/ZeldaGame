@@ -207,7 +207,7 @@ public class DataStorer implements DataStorerAPI {
          * Storer and loader are therefore not independent.
          *
          */
-        GameInfo currentGameInfo = dataLoader.loadGameInfo(level, gameObjectConfiguration.getCurrentGameID());
+        GameInfo currentGameInfo = gameObjectConfiguration.getGameInfo(level, gameObjectConfiguration.getCurrentGameID());
         String subMapFileName = currentGameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
         Map<String, GameMapGraph> currentGameMapList =  gameObjectConfiguration.getGameMapList();
         if (currentGameMapList.keySet().contains(subMapFileName)) {
