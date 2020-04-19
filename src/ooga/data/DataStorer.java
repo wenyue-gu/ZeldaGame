@@ -141,6 +141,26 @@ public class DataStorer implements DataStorerAPI {
 
     }
 
+    @Override
+    public void storeKey(Map<Integer, String> keyMap, int playerID) {
+
+        boolean playerExist = false;
+        List<PlayerStatus> tempList = new ArrayList<>();
+        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+            if (i.getPlayerID() == playerID) {
+                playerExist = true;
+                i.setKeyMap(keyMap);
+            }
+            tempList.add(i);
+        }
+        if (!playerExist) {
+            PlayerStatus tempPlayer = new PlayerStatus(playerID);
+            tempPlayer.setKeyMap(keyMap);
+            tempList.add(tempPlayer);
+        }
+        gameObjectConfiguration.setPlayerList(tempList);
+    }
+
     private boolean fileExist(String filePath) {
         File tmpDir = new File(filePath);
         return tmpDir.exists();

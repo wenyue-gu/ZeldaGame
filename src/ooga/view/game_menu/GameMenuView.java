@@ -15,6 +15,7 @@ public class GameMenuView implements GameMenu {
     private PrettyButtons myExitButton;
     private PrettyButtons myMode;
     private PrettyButtons myLoad;
+    private PrettyButtons myUser;
     private List<PrettyButtons> myButtonList;
     private VBox vBox;
     private HBox hBox;
@@ -62,6 +63,11 @@ public class GameMenuView implements GameMenu {
     }
 
     @Override
+    public Button getUserButton() {
+        return myUser;
+    }
+
+    @Override
     public ComboBox getLanguagePicker() {
         return myLanguagePicker;
     }
@@ -89,7 +95,8 @@ public class GameMenuView implements GameMenu {
         myExitButton = new PrettyButtons("Exit", myLanguage);
         myMode = new PrettyButtons("Background", myLanguage) ;
         myLoad = new PrettyButtons("Load", myLanguage);
-        myButtonList = List.of(myNewButton, myExitButton, myMode, myLoad);
+        myUser = new PrettyButtons("User", myLanguage);
+        myButtonList = List.of(myNewButton, myExitButton, myMode, myLoad, myUser);
     }
 
     private void setUpVBox(){

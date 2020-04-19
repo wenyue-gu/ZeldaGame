@@ -68,7 +68,7 @@ public class  DataManagementTest {
     @Test
     public void characterLoadingStoringTest() {
 
-        ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4);
+        ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4,0,0);
         ZC.setFiringDirection(Direction.E);
         storer.storeCharacter(4, ZC);
         Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);

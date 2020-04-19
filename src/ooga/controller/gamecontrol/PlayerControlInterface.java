@@ -16,4 +16,6 @@ public interface PlayerControlInterface{
   void keyReleased();
   void updateKey();
   void setView(GameState2DView view);
+
+    void setNewKeyMap(Map<Integer, String> map);
 }

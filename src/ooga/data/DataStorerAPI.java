@@ -35,7 +35,7 @@ public interface  DataStorerAPI {
 
     void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID);
 
-
+    void storeKey(Map<Integer, String> keyMap, int playerID);
     void storeImage(String image, int ImageID, ImageCategory imageCategory);
 
     void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level);

@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -187,6 +188,14 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     }
 
     return player.getKeyCodeMap();
+  }
+
+  @Override
+  public Map<Integer, String> loadKey(int playerID) {
+    String filePath = "data/Player/player" + playerID + ".json";
+    Map<KeyCode, String> tempMap = new HashMap<>();
+    PlayerStatus player =  loadJson(filePath, PlayerStatus.class);
+    return player.getKeyMap();
   }
 
   /**

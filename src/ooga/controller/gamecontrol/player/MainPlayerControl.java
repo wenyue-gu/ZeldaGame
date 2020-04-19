@@ -36,6 +36,11 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
+  public void setNewKeyMap(Map<Integer, String> map){
+    myPlayerControl.setNewKeyMap(map);
+  }
+
+  @Override
   public void setID() {
     myPlayerControl.setID();
   }

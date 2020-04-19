@@ -13,6 +13,7 @@ public class PlayerStatus {
     private int playerID;
     private Map<PlayerPara, Integer> playerParaMap;
     private Map<KeyCode, String> keyCodeMap;
+    private Map<Integer, String> keyMap;
 
 
     public PlayerStatus(int playerID) {
@@ -61,5 +62,14 @@ public class PlayerStatus {
 
     public void setPlayerParaMap(Map<PlayerPara, Integer> playerParaMap) {
         this.playerParaMap = playerParaMap;
+    }
+
+    public Map<Integer, String> getKeyMap() {
+
+        return keyMap;
+    }
+
+    public void setKeyMap(Map<Integer, String> keyMap){
+        this.keyMap = keyMap;
     }
 }

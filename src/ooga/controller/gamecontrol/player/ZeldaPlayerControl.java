@@ -157,6 +157,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     try {
       for (int i : myGLFWMap.keySet()) {
         if (myView.isKeyDown(i)){
+          System.out.println(i);
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
           System.out.println(i);
         }
@@ -170,5 +171,10 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void setView(GameState2DView view) {
     myView = view;
+  }
+
+  @Override
+  public void setNewKeyMap(Map<Integer, String> map) {
+    myGLFWMap = map;
   }
 }
