@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.*;
 
 import static ooga.data.DataLoader.SubMapPerMap;
+import static ooga.data.PlayerStatus.*;
 
 //import ooga.model.gameElements.Weapon;
 
@@ -154,7 +155,7 @@ public class DataStorer implements DataStorerAPI {
     public void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) {
         if (map.size() != GameMapGraph.SUBMAP_ROW_NUM * GameMapGraph.SUBMAP_COL_NUM) {
             System.out.println("map stored didn't fit in dimension");
-            //throw an exception
+            //todo: throw an exception
         }
 
         GameMapGraph mapGraph = new GameMapGraph(level, subMapID, GameMapGraph.SUBMAP_ROW_NUM, GameMapGraph.SUBMAP_COL_NUM, gameID);
@@ -179,6 +180,18 @@ public class DataStorer implements DataStorerAPI {
         gameObjectConfiguration.setGameMapList(currentGameMapList);
 //         writeObjectTOJson(mapGraph, gameMapAddressPrefix + subMapFileName);
 
+    }
+
+    /**
+     * method is called when the player restarts the game.
+     * resets life, level, and score
+     */
+    @Override
+    public void resetPlayerInfo() {
+        int currentPlayerID = gameObjectConfiguration.getCurrentPlayer().getPlayerID();
+        setPlayerParam(PlayerPara.CURRENT_LEVEL, initLevel, currentPlayerID);
+        setPlayerParam(PlayerPara.LIFE, initLife, currentPlayerID);
+        setPlayerParam(PlayerPara.CURRENT_SCORE, initScore, currentPlayerID);
     }
 
     private int nextAvailableID(int level) {
