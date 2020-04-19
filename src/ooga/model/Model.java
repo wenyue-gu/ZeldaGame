@@ -24,7 +24,7 @@ public class  Model implements ModelInterface {
   }
 
   private void intialize() {
-    gameMap = new GameMapInstance(dataLoader);
+    //gameMap = new GameMapInstance(dataLoader);
     players = new ArrayList<ZeldaPlayer>();
     npcs = new ArrayList<>();
     // TODO: change this after data is implemented

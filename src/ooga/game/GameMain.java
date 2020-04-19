@@ -29,6 +29,6 @@ public class GameMain extends Application {
     myModel = new Model(myDataLoader,"Zelda");
     myWindowControl = new WindowControl(currentStage, myModel, myDataLoader);
     myWindowControl.showWindow(TITLE, HEIGHT, WIDTH, RESIZABLE);
-    new GameZelda2D().start();
+    //new GameZelda2D().start();
   }
 }
