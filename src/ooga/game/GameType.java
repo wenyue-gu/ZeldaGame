@@ -1,4 +1,4 @@
-package ooga;
+package ooga.game;
 
 public enum  GameType {
   MARIO(0),

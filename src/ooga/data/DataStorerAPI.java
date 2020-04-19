@@ -1,8 +1,8 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
-import ooga.model.characters.UnchangableCharacter;
 import ooga.model.enums.ImageCategory;
+import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
@@ -21,29 +21,31 @@ public interface  DataStorerAPI {
 
     void StoreText(String text, String keyword, TextCategory category);
 
-    void storeCharacter(int ID, UnchangableCharacter character);
+//    void storeCharacter(int ID, UnchangableCharacter character);
 
     void storeWeapons(int ID, WeaponBase weapon);
 
     void StoreInventory(Inventory inventory);
+
+    void storePlayerParamToCurrentPlayer(PlayerPara para, int value);
+
+    void setPlayerParam(PlayerPara para, int value, int playerID);
+
+    void addPlayer(int playerID);
 
     void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID);
 
     void storeKey(Map<Integer, String> keyMap, int playerID);
     void storeImage(String image, int ImageID, ImageCategory imageCategory);
 
-    void storeInteger(String keyword, String category, int value);
+    void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level);
 
-    void updateParamSetting(Map<String, Integer> playerPreference, int category);
 
-    void storeSubMap(Collection<Cell> map, int level);
 
-    /**
-     *
-     * @param map cells in the collection will first fill in the 1st row, then the 2nd row of the screen and so on...
-     * @param level the level the game displays.
-     */
-    void storeSubMap(Collection<Cell> map, int level, int subMapID);
+    void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID);
+
+    void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID);
+
     void addLevel(int levelNumber);
 
 }

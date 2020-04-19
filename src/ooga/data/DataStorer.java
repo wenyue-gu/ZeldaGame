@@ -1,9 +1,9 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
-import ooga.model.characters.UnchangableCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
+import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
@@ -19,7 +19,6 @@ import static ooga.data.DataLoader.SubMapPerMap;
 //import ooga.model.gameElements.Weapon;
 
 public class DataStorer implements DataStorerAPI {
-    public static final int GameID = 1;
     public static final int numFilesPerLevel = 1;
     public static final int subMapRowNum = 22;//from frontend
     public static final int subMapColNum = 34;//from frontend
@@ -31,7 +30,7 @@ public class DataStorer implements DataStorerAPI {
     private DataLoader dataLoader; //for just tentative measure.
     private GameObjectConfiguration gameObjectConfiguration;
 
-    public DataStorer() {
+    public DataStorer() throws DataLoadingException {
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
         gsonBuilder.serializeNulls(); //ensure gson storing null values.
         gson = gsonBuilder.create();
@@ -53,26 +52,17 @@ public class DataStorer implements DataStorerAPI {
     public void setGame(int GameID) {
 
     }
-    public void initializePlayerStatus(int playerID) {
-        PlayerStatus playerStatus = new PlayerStatus(playerID);
-        String filePath = "data/Player/player" + playerID +".json";
-        if (fileExist(filePath)) {
-            //todo: throw an error.
-            System.out.println("player has already been initialized");
-        } else {
-            writeObjectTOJson(playerStatus, filePath);
-        }
-    }
 
+    //todo: test not done
     @Override
     public void StoreText(String text, String keyword, TextCategory category) {
-
+        gameObjectConfiguration.setTextMap(text, keyword, category);
     }
 
-    @Override
-    public void storeCharacter(int ID, UnchangableCharacter character) {
-
-    }
+//    @Override
+//    public void storeCharacter(int ID, UnchangableCharacter character) {
+//
+//    }
 
     @Override
     public void storeWeapons(int ID, WeaponBase weapon) {
@@ -101,27 +91,54 @@ public class DataStorer implements DataStorerAPI {
     public void StoreInventory(Inventory inventory) {
 
     }
-
+    @Override
+    public void storePlayerParamToCurrentPlayer(PlayerPara para, int value) {
+        int playerID = gameObjectConfiguration.getCurrentPlayerID();
+        setPlayerParam(para, value, playerID);
+    }
+    @Override
+    public void setPlayerParam(PlayerPara para, int value, int playerID) {
+        PlayerStatus tempPlayer = gameObjectConfiguration.getPlayerWithID(playerID);
+        if (tempPlayer == null) {
+            System.out.println("Player not created(storer 114)");
+            //todo: throw errors.
+        }
+        tempPlayer.setPlayerParam(para, value);
+    }
+    @Override
+    public void addPlayer(int playerID) {
+        gameObjectConfiguration.setPlayerWithID(playerID, new PlayerStatus(playerID));
+    }
     @Override
     public void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID) {
-        boolean playerExist = false;
-        List<PlayerStatus> tempList = new ArrayList<>();
-        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
-            if (i.getPlayerID() != playerID) {
-                tempList.add(i);
-            } else {
-                playerExist = true;
-                i.setKeyCodeMap(keyCodeMap);
-                tempList.add(i);
-            }
+//        boolean playerExist = false;
+//        List<PlayerStatus> tempList = new ArrayList<>();
+//        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+//            if (i.getPlayerID() != playerID) {
+//                tempList.add(i);
+//            } else {
+//                playerExist = true;
+//                i.setKeyCodeMap(keyCodeMap);
+//                tempList.add(i);
+//            }
+//
+//        }
+//        if (!playerExist) {
+//            PlayerStatus tempPlayer = new PlayerStatus(playerID);
+//            tempPlayer.setKeyCodeMap(keyCodeMap);
+//            tempList.add(tempPlayer);
+//        }
+//        gameObjectConfiguration.setPlayerList(tempList);
+        PlayerStatus tempPlayer = gameObjectConfiguration.getPlayerWithID(playerID);
+        if (tempPlayer != null) {
+            tempPlayer.setKeyCodeMap(keyCodeMap);
+            gameObjectConfiguration.setPlayerWithID(playerID, tempPlayer);
+        } else {
+            System.out.println("player not found in Storer 144");
+            //todo: throw playerNotFound error
 
         }
-        if (!playerExist) {
-            PlayerStatus tempPlayer = new PlayerStatus(playerID);
-            tempPlayer.setKeyCodeMap(keyCodeMap);
-            tempList.add(tempPlayer);
-        }
-        gameObjectConfiguration.setPlayerList(tempList);
+
     }
 
     @Override
@@ -162,7 +179,7 @@ public class DataStorer implements DataStorerAPI {
         Map<String, String> imageMap = gameObjectConfiguration.getImageMap().get(imageCategory);
 
         if (imageMap != null) {
-            if (!imageMap.containsKey(imageIDString)) {
+            if (!imageMap.containsKey(imageIDString + ".json")) {
                 imageMap.put(imageIDString, imagePath);
             } else {
                 imageMap.replace(imageIDString, imagePath);
@@ -176,29 +193,29 @@ public class DataStorer implements DataStorerAPI {
 //        writeObjectTOJson(imageMap, filePath);
     }
 
-    @Override
-    public void storeInteger(String keyword, String category, int value) {
-
-    }
-
-    @Override
-    public void updateParamSetting(Map<String, Integer> playerPreference, int category) {
-
-    }
+    /**
+     * level = current level; subMapID = next available ID;
+     * @param map
+     * @param level
+     */
     @Override
     //todo: testing is not done.
-    public void storeSubMap(Collection<Cell> map, int level) {
+    public void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level) {
         int subMapID = nextAvailableID(level);
-        storeSubMap(map, level, subMapID);
+        storeSubMapForCurrentGame(map, level, subMapID);
     }
     @Override
-    public void storeSubMap(Collection<Cell> map, int level, int subMapID) {
+    public void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID) {
+        storeSubMap( map, level, subMapID, gameObjectConfiguration.getCurrentGameID());
+    }
+    @Override
+    public void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) {
         if (map.size() != subMapRowNum * subMapColNum) {
             System.out.println("map stored didn't fit in dimension");
             //throw an exception
         }
 
-        GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum, GameID);
+        GameMapGraph mapGraph = new GameMapGraph(level, subMapID, subMapRowNum, subMapColNum, gameID);
         int i = 0;
         for (Cell cell: map) {
             mapGraph.setElement(i/ subMapColNum, i%subMapRowNum, cell);
@@ -209,7 +226,7 @@ public class DataStorer implements DataStorerAPI {
          * Storer and loader are therefore not independent.
          *
          */
-        GameInfo currentGameInfo = dataLoader.loadGameInfo(level, GameID);
+        GameInfo currentGameInfo = gameObjectConfiguration.getGameInfo(level, gameObjectConfiguration.getCurrentGameID());
         String subMapFileName = currentGameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
         Map<String, GameMapGraph> currentGameMapList =  gameObjectConfiguration.getGameMapList();
         if (currentGameMapList.keySet().contains(subMapFileName)) {
@@ -217,6 +234,7 @@ public class DataStorer implements DataStorerAPI {
         } else  {
             currentGameMapList.put(subMapFileName, mapGraph);
         }
+        gameObjectConfiguration.setGameMapList(currentGameMapList);
 //         writeObjectTOJson(mapGraph, gameMapAddressPrefix + subMapFileName);
 
     }

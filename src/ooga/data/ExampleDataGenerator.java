@@ -17,7 +17,7 @@ import static ooga.data.DataLoader.SubMapPerMap;
 public class ExampleDataGenerator {
 
     static Gson gson;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DataLoadingException {
         DataLoader a = new DataLoader();
         DataStorer b = new DataStorer();
         com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
@@ -56,7 +56,7 @@ public class ExampleDataGenerator {
         }
 
     }
-    protected static void generateTheMapForFirstSprint() {
+    protected static void generateTheMapForFirstSprint() throws DataLoadingException {
         String mapPath = "/view/textures/2d/cyberpunk/map/map.txt";
         Text2DMapReader textMapReader = new Text2DMapReader(mapPath);
         int subMapHeight = textMapReader.getMapHeight();
@@ -76,9 +76,9 @@ public class ExampleDataGenerator {
         //store data
         DataStorer b = new DataStorer();
         System.out.println(cellList.size());
-        b.storeSubMap(cellList, 1, 0);
+        b.storeSubMap(cellList, 1, 0, 1);
         DataLoader c = new DataLoader();
-        GameObjectConfiguration d = c.getGameObjectConfiguration();
+//        GameObjectConfiguration d = c.getGameObjectConfiguration();
         c.getGameObjectConfiguration().storeGameEverything();
     }
 ////        Gson gson = new Gson();

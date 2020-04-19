@@ -1,10 +1,8 @@
 package ooga.data;
 
 import javafx.scene.input.KeyCode;
-import ooga.model.enums.CharacterProperty;
-import ooga.model.enums.Direction;
-import ooga.model.enums.GamePara;
-import ooga.model.enums.ImageCategory;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
 
 import java.util.List;
@@ -13,12 +11,16 @@ import java.util.Map;
 /**
  * The interface for game loader
  */
-public interface  DataLoaderAPI {
+public interface DataLoaderAPI {
+    int loadCurrentPlayerPara(PlayerPara playerPara) throws DataLoadingException;
+
+    int loadPlayerPara(PlayerPara playerPara, int playerID) throws DataLoadingException;
+
     int loadGameParam(GamePara para);
 
     List<Direction> loadAvailableDirection(GamePara para);
 
-    void setGame(int GameID);
+    void setGameAndPlayer(int GameID, int PlayerID);
 
     int getGameType();
 
@@ -40,7 +42,7 @@ public interface  DataLoaderAPI {
 
     Map<String, Integer> loadInternalStorage(String category);
 
-    Map<KeyCode, String> loadKeyCode(int playerID);
+    Map<KeyCode, String> loadKeyCode(int playerID) throws DataLoadingException;
 
     Map<Integer, String> loadKey(int playerID);
 
@@ -48,4 +50,8 @@ public interface  DataLoaderAPI {
 
     Integer loadInteger(String keyword, String category);
 
+
+    List<ZeldaCharacter> getZeldaCharacters();
+
+    List<PlayerStatus> getPlayerStatus();
 }
