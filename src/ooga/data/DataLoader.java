@@ -193,8 +193,12 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
-  public Map<Integer, String> loadKey(int playerID) {
-    return null;
+  public Map<Integer, String> loadKey(int playerID) throws DataLoadingException {
+    PlayerStatus player = gameObjectConfiguration.getPlayerWithID(playerID);
+    if (player == null) {
+      throw new DataLoadingException("Player with" + playerID + "is not found while loading key");
+    }
+    return player.getKeyMap();
   }
 
   /**

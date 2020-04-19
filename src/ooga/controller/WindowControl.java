@@ -18,6 +18,7 @@ import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -96,12 +97,18 @@ public class WindowControl {
     myUserButton.setOnAction(e->showProfile());
 
     myGameButton1 = mySelectView.getGame1();
-    myGameButton1.setOnAction(e->startGame1());
+    myGameButton1.setOnAction(e-> {
+      try {
+        startGame1();
+      } catch (DataLoadingException ex) {
+        ex.printStackTrace();
+      }
+    });
     myGameButton2 = mySelectView.getGame2();
     myGameButton2.setOnAction(e-> {
       try {
         startGame2();
-      } catch (DataLoadingException ex) {
+      } catch (Exception ex) {
         ex.printStackTrace();
       }
     });
@@ -138,40 +145,41 @@ public class WindowControl {
     myLogIn.setLanguage(language);
   }
 
-  private void startGame1(){
-    System.out.println("111");
-    //TODO: set up data and stuff for game one, then call startGame?
-    myGameController = new GameController(myDataLoader);
-    myGameController.setMode(dark);
-    try {
-
-      myGameView = new GameState2DView(myGameController.getPlayerSize());
-      myGameController.setView(myGameView);
-      myGameView.createWindow();
-      AnimationTimer timer = new AnimationTimer() {
-      @Override
-      public void handle(long now) {
-        myGameController.update();
-      }
-    };
-    timer.start();
-
-    secondStage.close();
-    //myStage.close();
-    }
-    catch(Exception e){
-      System.out.println("GameState2DViewError");
-    }
+  private void startGame1() throws DataLoadingException {
+//    System.out.println("111");
+//    //TODO: set up data and stuff for game one, then call startGame?
+//    myGameController = new GameController(myDataLoader);
+//    myGameController.setMode(dark);
+//    try {
+//
+//      myGameView = new GameState2DView(myGameController.getPlayerSize());
+//      myGameController.setView(myGameView);
+//      myGameView.createWindow();
+//      AnimationTimer timer = new AnimationTimer() {
+//      @Override
+//      public void handle(long now) {
+//        myGameController.update();
+//      }
+//    };
+//    timer.start();
+//
+//    secondStage.close();
+//    //myStage.close();
+//    }
+//    catch(Exception e){
+//      System.out.println("GameState2DViewError");
+//    }
   }
 
-  private void startGame2() throws DataLoadingException {
+  private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), CURRENT_PLAYER_ID);
-    GameZelda2D zelda2D = new GameZelda2D();
+    myGameView = new GameState2DView(1);
+    GameZelda2D zelda2D = new GameZelda2D(myGameView);
     setUpController();
-    myGameController.setView(zelda2D.getView());
     zelda2D.start();
+    myGameController.setView(zelda2D.getView());
     myGameController.startTimer();
-    myStage.close();
+    //myStage.close();
     secondStage.close();
   }
 

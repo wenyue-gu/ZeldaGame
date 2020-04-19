@@ -46,7 +46,7 @@ public interface DataLoaderAPI {
 
     Map<KeyCode, String> loadKeyCode(int playerID) throws DataLoadingException;
 
-    Map<Integer, String> loadKey(int playerID);
+    Map<Integer, String> loadKey(int playerID) throws DataLoadingException;
 
     String loadImagePath(int imageID, ImageCategory category);
 

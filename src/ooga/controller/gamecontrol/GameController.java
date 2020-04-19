@@ -61,7 +61,12 @@ public class GameController {
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setID();
       //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
-      mpc.setNewKeyMap(myDataLoader.loadKey(mpc.getID()));
+        try {
+            mpc.setNewKeyMap(myDataLoader.loadKey(mpc.getID()));
+        }
+        catch(Exception e){
+            System.out.println("load key error");
+        }
     }
   }
 

@@ -50,7 +50,6 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     myGLFWMap.put(GLFW.GLFW_KEY_Q, "attack0");
     myGLFWMap.put(GLFW.GLFW_KEY_W, "attack1");
 
-
   }
 
 //  public void setPlayerView(Player2DView playerView) {
@@ -154,10 +153,10 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void updateKey() {
+//    System.out.println("view"+myView);
     try {
+//      System.out.println(myGLFWMap.keySet());
       for (int i : myGLFWMap.keySet()) {
-        System.out.println(i);
-
         if (myView.isKeyDown(i)){
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
           System.out.println(i);
@@ -166,7 +165,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("map fault");
+      System.out.println("key map fault");
     }
   }
 
@@ -177,6 +176,14 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void setNewKeyMap(Map<Integer, String> map) {
-    myGLFWMap = map;
+    if(map!=null) myGLFWMap = map;
+  }
+
+  public Map<KeyCode, String> getKeyCodeMap() {
+    return myKeyCodeMap;
+  }
+
+  public Map<Integer, String> getKeyMap() {
+    return myGLFWMap;
   }
 }
