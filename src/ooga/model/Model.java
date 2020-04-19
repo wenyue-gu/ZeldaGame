@@ -4,32 +4,52 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import ooga.data.DataLoaderAPI;
+import ooga.data.DataLoadingException;
+import ooga.data.PlayerStatus;
+import ooga.game.GameType;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.GamePara;
+import ooga.model.enums.PlayerPara;
 import ooga.model.gameElements.Element;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.gameMap.GameMap;
 import ooga.model.map.GameMapInstance;
 
-public class  Model implements ModelInterface {
+@SuppressWarnings("unchecked")
+public class Model implements ModelInterface {
+
   private DataLoaderAPI dataLoader;
   private GameMap gameMap;
-  private List<ZeldaPlayer> players;
-  private List<ZeldaCharacter> npcs;
+  private List players;
+  private List npcs;
 
-  // TODO: use reflection API to create players dynamically once the data figures out
-  public Model(DataLoaderAPI dataLoader, String gameType) {
+  public Model(DataLoaderAPI dataLoader) throws DataLoadingException {
     this.dataLoader = dataLoader;
-    intialize();
+    gameMap = new GameMapInstance(dataLoader);
+    switch (GameType.byIndex(dataLoader.getGameType())) {
+      case MARIO:
+        initializeMario();
+        break;
+      case ZELDA:
+        initializeZelda();
+        break;
+      default:
+        throw new DataLoadingException("Game type is not supported in the backend");
+    }
   }
 
-  private void intialize() {
-    gameMap = new GameMapInstance(dataLoader);
+  private void initializeMario() {
+    //TODO: implement this
+  }
+
+  private void initializeZelda() {
     players = new ArrayList<ZeldaPlayer>();
-    npcs = new ArrayList<>();
-    // TODO: change this after data is implemented
-    players.add(new ZeldaPlayer(100, 0));
-    npcs.add(new ZeldaCharacter(100,0));
+    npcs = dataLoader.getZeldaCharacters();
+    List<PlayerStatus> playerStatuses = dataLoader.getPlayerStatus();
+    for (PlayerStatus p: playerStatuses) {
+      players.add(new ZeldaPlayer(p.getPlayerParam(PlayerPara.LIFE), p.getPlayerID()));
+    }
   }
 
   @Override

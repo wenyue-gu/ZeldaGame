@@ -15,8 +15,8 @@ public class  ZeldaPlayer extends ZeldaCharacter implements Scorable {
     super(initialHp, weapon, id);
   }
 
-  public ZeldaPlayer(int initialHp, int weapon, int attack, int id) {
-    super(initialHp, weapon, attack, id);
+  public ZeldaPlayer(int initialHp, int weapon, int attack, int id, int x, int y) {
+    super(initialHp, weapon, attack, id, x, y);
     scorer = new Scorer();
   }
 
