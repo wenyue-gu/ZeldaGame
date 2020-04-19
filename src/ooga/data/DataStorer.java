@@ -126,15 +126,22 @@ public class DataStorer implements DataStorerAPI {
 
     @Override
     public void storeKey(Map<Integer, String> keyMap, int playerID) {
-        PlayerStatus player;
-        String FilePath = "data/Player/player" + playerID + ".json";
-        if (fileExist(FilePath)) {
-            player = dataLoader.loadJson(FilePath, PlayerStatus.class);
-        } else {
-            player = new PlayerStatus(playerID);
+
+        boolean playerExist = false;
+        List<PlayerStatus> tempList = new ArrayList<>();
+        for (PlayerStatus i : gameObjectConfiguration.getPlayerList()) {
+            if (i.getPlayerID() == playerID) {
+                playerExist = true;
+                i.setKeyMap(keyMap);
+            }
+            tempList.add(i);
         }
-        player.setKeyMap(keyMap);
-        writeObjectTOJson(player, FilePath);
+        if (!playerExist) {
+            PlayerStatus tempPlayer = new PlayerStatus(playerID);
+            tempPlayer.setKeyMap(keyMap);
+            tempList.add(tempPlayer);
+        }
+        gameObjectConfiguration.setPlayerList(tempList);
     }
 
     private boolean fileExist(String filePath) {
