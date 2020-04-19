@@ -58,6 +58,7 @@ public class  DataManagementTest {
         ExampleDataGenerator.generateTheMapForFirstSprint();
 
         Cell testCell = loader.loadCell(6, 2, 0, 1);
+        Assert.assertNotNull(testCell.getBufferedImage());
         Assert.assertTrue(testCell.isMapCellWalkable());
         Assert.assertEquals(testCell.getImage(), 82);
         System.out.println(testCell.getState());

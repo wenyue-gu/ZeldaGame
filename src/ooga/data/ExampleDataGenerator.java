@@ -8,7 +8,7 @@ import ooga.view.engine.utils.cyberpunk2d.Text2DMapReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ooga.data.DataStorer.PIXIEL_PALETTE_WIDTH;
+import static ooga.data.GameMapGraph.PIXEL_PALETTE_WIDTH;
 import static ooga.model.enums.ImageCategory.MAP2D;
 
 /**
@@ -67,9 +67,6 @@ public class ExampleDataGenerator {
             for (int j = 0; j < subMapWidth; j++) {
                 Cell tempCell = new GameCell();
                 int imageID = textMapReader.getMapCell(i, j);
-                if (imageID != 0) {
-                    System.out.println(1);
-                }
                 tempCell.setImage(imageID);
                 tempCell.setWalkable(textMapReader.isMapCellWalkable(i, j));
                 cellList.add(tempCell);
@@ -78,8 +75,8 @@ public class ExampleDataGenerator {
                 if (!availableImageID.contains(imageID)) {
                     availableImageID.add(imageID);
                     DataStorer storer = new DataStorer();
-                    int palette_x = imageID % PIXIEL_PALETTE_WIDTH;
-                    int palette_y = imageID / PIXIEL_PALETTE_WIDTH;
+                    int palette_x = imageID % PIXEL_PALETTE_WIDTH;
+                    int palette_y = imageID / PIXEL_PALETTE_WIDTH;
                     storer.storeImage(String.format("data/2DMAP_PNG/%s_%s.png", palette_x, palette_y), imageID, MAP2D);
                 }
 

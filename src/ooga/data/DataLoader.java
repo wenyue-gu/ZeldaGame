@@ -2,16 +2,15 @@ package ooga.data;
 
 import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
-import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +65,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     throw new DataLoadingException("Player " + playerID + " does not exist");
   }
 
+
   @Override
   public int loadCurrentPlayerPara(PlayerPara playerPara) throws DataLoadingException {
     return loadPlayerPara(playerPara, gameObjectConfiguration.getCurrentPlayerID());
@@ -103,8 +103,8 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return ID_NOT_DEFINED;
   }
 
-  //todo: upgrade it from whole map to submap.
-  private GameMapGraph loadMap(int level, int subMapID) {
+  @Override
+  public GameMapGraph loadMap(int level, int subMapID) {
 
     GameMapGraph map = new GameMapGraph();
     GameInfo gameInfo = gameObjectConfiguration.getCurrentGameInfo();
@@ -113,6 +113,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
       Map<String, GameMapGraph> tempMap = gameObjectConfiguration.getGameMapList();
       if (tempMap.containsKey(keyOfSubmap)) {
         map = tempMap.get(keyOfSubmap);
+        map.addBufferImage2D(this);//only works for 2D
       } else {
         //todo: throw errors for file not found.
       }
@@ -123,8 +124,17 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     }
     return map;
   }
-
-
+  @Override
+  public BufferedImage loadBufferImage(int ImageID, ImageCategory category) {
+    String imagePath = loadImagePath(ImageID, category);
+    try {
+      return ImageIO.read(new File(imagePath));
+    } catch (IOException e) {
+      // If the image cannot be loaded, the window closes
+      System.err.println(imagePath + " was not loaded.");
+    }
+    return null;
+  }
   @Override
   public String loadText(String keyword, String category) {
     Map<String, String> textMap = gameObjectConfiguration.getTextMap().get(category);
@@ -155,22 +165,13 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
 
   @Override
   public int loadWeapon(int ID, int property) {
+    System.out.println("load weapon is not supported");
     return 0;
   }
 
   @Override
   public int currentLevel() {
-    return 0;
-  }
-
-  @Override
-  public Object loadInventoryElement(int ID) {
-    return null;
-  }
-
-  @Override
-  public Map<String, Integer> loadInternalStorage(String category) {
-    return null;
+    return loadGameParam(GamePara.LEVEL_NUM);
   }
 
   /**
@@ -215,26 +216,6 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
       return map.get(key);
     }
     //todo: throw errors for file not found. Throw errors when imageID is not found in the file.
-    return null;
-  }
-
-  public <clazz> clazz loadJson(String fileName, Class clazz) {
-    try {
-      Reader reader = Files.newBufferedReader(Paths.get(fileName));
-      return (clazz) gson.fromJson(reader, clazz);
-    } catch (IOException e) {
-      System.out.println("file at " + fileName + "hasn't been created.");
-    }
-    return null;
-  }
-
-  //todo: finish the method
-  public String loadSetting(int property) {
-    return "";
-  }
-
-  @Override
-  public Integer loadInteger(String keyword, String category) {
     return null;
   }
 

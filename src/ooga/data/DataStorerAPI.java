@@ -12,8 +12,7 @@ import java.util.Collection;
 import java.util.Map;
 
 public interface  DataStorerAPI {
-    int getGameType();
-    void setGame(int GameID);
+
     /**
      * store text files to the database.
      * @return
@@ -45,7 +44,5 @@ public interface  DataStorerAPI {
     void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID);
 
     void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID);
-
-    void addLevel(int levelNumber);
 
 }
