@@ -5,6 +5,7 @@ import ooga.controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import ooga.data.DataLoaderAPI;
+import ooga.model.Model;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.ModelInterface;
@@ -27,8 +28,8 @@ public class GameController {
   private boolean dark;
   private GameState2DView myGameView;
 
-public GameController(ModelInterface model, DataLoaderAPI loader){
-    myModel = model;
+  public GameController(DataLoaderAPI loader) {
+    myModel = new Model(loader);
     myDataLoader = loader;
     //myGameStateController = new AbstractGameStateController();
     setUpPlayerandNPC();
@@ -38,35 +39,39 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
 //     for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
 //  }
 
-  private void setUpPlayerandNPC(){
+  private void setUpPlayerandNPC() {
     //setGameType(myDataLoader.getGameType());
-    setGameType(1);
-    for(MainPlayerControl mpc:myMainPlayerController){
+    setGameType(myDataLoader.getGameType());
+    for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setID();
       //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
     }
   }
 
-  private void setGameType(int gameType){
-    for(Object player:myModel.getPlayers()) {
+  private void setGameType(int gameType) {
+    for (Object player : myModel.getPlayers()) {
       MainPlayerControl curControl = new MainPlayerControl();
       curControl.setControl(gameType);
-      curControl.setMyPlayer((Movable1D)player);
+      curControl.setMyPlayer((Movable1D) player);
       myMainPlayerController.add(curControl);
     }
 
-    for(Object NPC:myModel.getNPCs()){
+    for (Object NPC : myModel.getNPCs()) {
       MainNPCControl npcControl = new MainNPCControl();
       npcControl.setControl(gameType);
-      npcControl.setMyNPC((Movable1D)NPC);
+      npcControl.setMyNPC((Movable1D) NPC);
       myNPCControl.add(npcControl);
     }
   }
 
-  public void update(){
+  public void update() {
     //TODO: check this
-    for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end
-    for(MainPlayerControl mpc: myMainPlayerController) mpc.updateKey();
+    for (MainNPCControl npc : myNPCControl) {
+      npc.update(); // update back-end
+    }
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      mpc.updateKey();
+    }
     //myGameStateController.update(); // update front-end
     myGameView.updateWindow();
   }
@@ -76,16 +81,20 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
 //    //return myView.getGameView();
 //  }
 
-  public void setMode(boolean dark){
+  public void setMode(boolean dark) {
     this.dark = dark;
   }
 
-  public void setView(GameState2DView view){
+  public void setView(GameState2DView view) {
     myGameView = view;
-    for(MainPlayerControl mpc:myMainPlayerController) mpc.setView(view);
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      mpc.setView(view);
+    }
   }
 
   public void keyReleased() {
-    for(MainPlayerControl mpc:myMainPlayerController) mpc.keyReleased();
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      mpc.keyReleased();
+    }
   }
 }
