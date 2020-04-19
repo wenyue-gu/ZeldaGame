@@ -27,8 +27,8 @@ public class Model implements ModelInterface {
   public Model(DataLoaderAPI dataLoader) throws DataLoadingException {
     this.dataLoader = dataLoader;
 //    gameMap = new GameMapInstance(dataLoader);
-    System.out.println(dataLoader.getGameType());
     switch (GameType.byIndex(dataLoader.getGameType())) {
+//    switch (GameType.ZELDA) {
       case MARIO:
         initializeMario();
         break;

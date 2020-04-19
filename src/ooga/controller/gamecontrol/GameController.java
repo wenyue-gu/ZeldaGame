@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
+import ooga.game.GameZelda2D;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.MovingState;
@@ -90,8 +91,6 @@ public class GameController {
       mpc.updateKey();
     }
     //myGameStateController.update(); // update front-end
-    for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end
-    for(MainPlayerControl mpc: myMainPlayerController) mpc.updateKey();
     if(myGameView.isKeyDown(GLFW.GLFW_KEY_P)) myPauseControl.showMenu();
     myGameView.updateWindow();
   }

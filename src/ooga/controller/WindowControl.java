@@ -56,9 +56,6 @@ public class WindowControl {
     myMenuView = new GameMenuView();
     mySelectView = new SelectMenuView();
     myLogIn = new LogInControl(this);
-    myGameController = new GameController(myDataLoader);
-    myGameController.setMode(dark);
-    myGameController.setLanguage(language);
 
     setMenuScene();
     initializeButtons();
@@ -99,7 +96,13 @@ public class WindowControl {
     myGameButton1 = mySelectView.getGame1();
     myGameButton1.setOnAction(e->startGame1());
     myGameButton2 = mySelectView.getGame2();
-    myGameButton2.setOnAction(e->startGame2());
+    myGameButton2.setOnAction(e-> {
+      try {
+        startGame2();
+      } catch (DataLoadingException ex) {
+        ex.printStackTrace();
+      }
+    });
     myGameButton3 = mySelectView.getGame3();
     myGameButton3.setOnAction(e->startGame3());
 
@@ -134,7 +137,6 @@ public class WindowControl {
 //    try {
 //      myGameView = new GameState2DView(myModel.getPlayers().size());
 //      System.out.println(myModel.getPlayers().size());
-//      myGameController.setView(myGameView);
 //      myGameController.setWindowControl(this);
 //      myGameView.createWindow();
 //      myGameController.startTimer();
@@ -146,11 +148,22 @@ public class WindowControl {
 //    }
   }
 
-  private void startGame2(){
+  private void startGame2() throws DataLoadingException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), CURRENT_PLAYER_ID);
-
+    GameZelda2D zelda2D = new GameZelda2D();
+    setUpController();
+    myGameController.setView(zelda2D.getView());
+    zelda2D.start();
+    myGameController.startTimer();
     myStage.close();
     secondStage.close();
+  }
+
+  private void setUpController() throws DataLoadingException {
+    myGameController = new GameController(myDataLoader);
+    myGameController.setMode(dark);
+    myGameController.setLanguage(language);
+    myGameController.setWindowControl(this);
   }
 
 

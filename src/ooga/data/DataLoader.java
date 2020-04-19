@@ -192,6 +192,11 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     return player.getKeyCodeMap();
   }
 
+  @Override
+  public Map<Integer, String> loadKey(int playerID) {
+    return null;
+  }
+
   /**
    * in Json, <int, String> always returns <Stirng, String>
    *

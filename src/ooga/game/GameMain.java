@@ -6,6 +6,8 @@ import ooga.controller.WindowControl;
 import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
+import ooga.data.DataStorer;
+import ooga.data.DataStorerAPI;
 import ooga.model.Model;
 
 public class GameMain extends Application {
@@ -17,6 +19,7 @@ public class GameMain extends Application {
 
   private WindowControl myWindowControl;
   private DataLoaderAPI myDataLoader;
+  private DataStorerAPI myDataStorer;
 
   public static void main(String[] args) {
     launch(args);
@@ -25,6 +28,7 @@ public class GameMain extends Application {
   @Override
   public void start(Stage currentStage) throws DataLoadingException {
     myDataLoader = new DataLoader();
+    myDataStorer = new DataStorer();
     myWindowControl = new WindowControl(currentStage, myDataLoader);
     myWindowControl.showWindow(TITLE, HEIGHT, WIDTH, RESIZABLE);
   }

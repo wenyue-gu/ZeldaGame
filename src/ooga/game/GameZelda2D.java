@@ -48,4 +48,8 @@ public class GameZelda2D implements Runnable {
   private void close() {
     view.closeWindow();
   }
+
+  public GameState2DView getView() {
+    return view;
+  }
 }
