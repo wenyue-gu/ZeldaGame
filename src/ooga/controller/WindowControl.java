@@ -27,6 +27,7 @@ public class WindowControl {
   private Button myGameButton1;
   private Button myGameButton2;
   private Button myGameButton3;
+  private Button mySettingButton;
   private Button myUserButton;
 
   private String myUserName = "";
@@ -101,9 +102,15 @@ public class WindowControl {
     myGameButton2.setOnAction(e->startGame2());
     myGameButton3 = mySelectView.getGame3();
     myGameButton3.setOnAction(e->startGame3());
+    mySettingButton = mySelectView.getSetting();
+    mySettingButton.setOnAction(e->changeSettings());
 
     myLanguagePicker = myMenuView.getLanguagePicker();
     myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
+
+  }
+
+  private void changeSettings() {
 
   }
 

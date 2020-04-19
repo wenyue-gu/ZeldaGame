@@ -9,4 +9,6 @@ public interface SelectMenu extends MenuView {
 
     Button getGame3();
 
+    Button getSetting();
+
 }
