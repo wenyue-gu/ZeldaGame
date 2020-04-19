@@ -1,5 +1,7 @@
 package ooga.model.interfaces.gameMap;
 
+import java.awt.image.BufferedImage;
+
 /**
  * This interface stores the information of a single cell.
  *
@@ -45,4 +47,7 @@ public interface  Cell {
   void setWalkable(boolean walkable);
 
 
+    BufferedImage getBufferedImage();
+
+  void setBufferedImage(BufferedImage bufferedImage);
 }

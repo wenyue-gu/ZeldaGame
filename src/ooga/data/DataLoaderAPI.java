@@ -5,6 +5,7 @@ import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,11 @@ public interface DataLoaderAPI {
     Cell loadCell(int row, int col, int subMapID, int level);
 
     int getNextSubMapID(Direction direction, int current);
+
+    GameMapGraph loadMap(int level, int subMapID);
+
+    BufferedImage loadBufferImage(int ImageID, ImageCategory category);
+
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
      */
@@ -38,17 +44,11 @@ public interface DataLoaderAPI {
 
     int currentLevel();
 
-    Object loadInventoryElement(int ID);
-
-    Map<String, Integer> loadInternalStorage(String category);
-
     Map<KeyCode, String> loadKeyCode(int playerID) throws DataLoadingException;
 
     Map<Integer, String> loadKey(int playerID);
 
     String loadImagePath(int imageID, ImageCategory category);
-
-    Integer loadInteger(String keyword, String category);
 
 
     List<ZeldaCharacter> getZeldaCharacters();

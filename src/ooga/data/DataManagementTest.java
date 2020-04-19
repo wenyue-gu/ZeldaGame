@@ -29,6 +29,7 @@ public class  DataManagementTest {
         }
     }
 
+
     private static DataStorer storer;
 
     static {
@@ -38,6 +39,7 @@ public class  DataManagementTest {
             e.printStackTrace();
         }
     }
+
 
     public static void main(String[] args) {
 //        gameMapLoadingTest();
@@ -56,6 +58,7 @@ public class  DataManagementTest {
         ExampleDataGenerator.generateTheMapForFirstSprint();
 
         Cell testCell = loader.loadCell(6, 2, 0, 1);
+        Assert.assertNotNull(testCell.getBufferedImage());
         Assert.assertTrue(testCell.isMapCellWalkable());
         Assert.assertEquals(testCell.getImage(), 82);
         System.out.println(testCell.getState());
@@ -101,10 +104,12 @@ public class  DataManagementTest {
      */
     @Test
     public void loadAndStoreParam() throws DataLoadingException {
+        int a = loader.loadPlayerPara(PlayerPara.CURRENT_SCORE, 3);
         storer.addPlayer(3);
-        storer.setPlayerParam(PlayerPara.COLOR, 99, 3);
-        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.COLOR, 3));
-        System.out.println("谢谢cady同学帮忙refactor！！");
+        storer.setPlayerParam(PlayerPara.CURRENT_SCORE, 99, 3);
+
+        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.CURRENT_SCORE, 3));
+        loader.getGameObjectConfiguration().storeGameEverything();
     }
 
 
