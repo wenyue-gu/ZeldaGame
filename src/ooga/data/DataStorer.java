@@ -21,7 +21,9 @@ import static ooga.data.DataLoader.SubMapPerMap;
 public class DataStorer implements DataStorerAPI {
     public static final int numFilesPerLevel = 1;
     public static final int subMapRowNum = 22;//from frontend
-    public static final int subMapColNum = 34;//from frontend
+    public static final int subMapColNum = 32;//from frontend
+    public static final int PIXIEL_PALETTE_HEIGHT = 15;
+    public static final int PIXIEL_PALETTE_WIDTH = 8;
     public static final String mapKeyword =  "MapOfLevel";
     public static final String characterKeyword =  "CharacterData";
     public static final String gameMapAddressPrefix = "data/GameMap/";
@@ -97,13 +99,13 @@ public class DataStorer implements DataStorerAPI {
         setPlayerParam(para, value, playerID);
     }
     @Override
-    public void setPlayerParam(PlayerPara para, int value, int playerID) {
+    public void setPlayerParam(PlayerPara param, int value, int playerID) {
         PlayerStatus tempPlayer = gameObjectConfiguration.getPlayerWithID(playerID);
         if (tempPlayer == null) {
             System.out.println("Player not created(storer 114)");
             //todo: throw errors.
         }
-        tempPlayer.setPlayerParam(para, value);
+        tempPlayer.setPlayerParam(param, value);
     }
     @Override
     public void addPlayer(int playerID) {
@@ -156,7 +158,7 @@ public class DataStorer implements DataStorerAPI {
     //todo: finish testing
     public void storeImage(String imagePath, int ImageID, ImageCategory imageCategory) {
         String imageIDString = String.valueOf(ImageID);
-        Map<String, String> imageMap = gameObjectConfiguration.getImageMap().get(imageCategory);
+        Map<String, String> imageMap = gameObjectConfiguration.getImageMap().get(imageCategory.toString());
 
         if (imageMap != null) {
             if (!imageMap.containsKey(imageIDString + ".json")) {
