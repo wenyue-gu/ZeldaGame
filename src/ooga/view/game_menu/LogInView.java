@@ -82,8 +82,8 @@ public class LogInView implements MenuView{
         this.dark = dark;
         vBox.setBackground(dark?darkMode:lightMode);
         for(PrettyButtons button:myButtonList) button.switchMode(dark);
-        userName.setTextFill(dark?Color.WHITE:Color.BLACK);
-        userPassWord.setTextFill(dark?Color.WHITE:Color.BLACK);
+        userName.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
+        userPassWord.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
     }
 
     public void setLanguage(String language){
@@ -141,4 +141,8 @@ public class LogInView implements MenuView{
         Message.setText("");
     }
 
+    public void clearInput() {
+        nameInput.clear();
+        passwordInput.clear();
+    }
 }

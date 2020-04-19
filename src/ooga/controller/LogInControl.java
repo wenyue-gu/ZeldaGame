@@ -81,6 +81,7 @@ public class LogInControl {
     }
 
     public void showLogIn(){
+        myView.clearInput();
         myStage.show();
     }
 

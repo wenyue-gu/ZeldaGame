@@ -26,7 +26,6 @@ public class GameController {
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
-  //private GameStateController myGameStateController; //frontend
   private PauseControl myPauseControl;
   private DataLoaderAPI myDataLoader;
   private boolean dark;
@@ -114,6 +113,9 @@ public class GameController {
     }
   }
 
+  public int getPlayerSize() {
+      return myMainPlayerController.size();
+  }
   public void setWindowControl(WindowControl windowControl) {
     myPauseControl.setWindowControl(windowControl);
   }

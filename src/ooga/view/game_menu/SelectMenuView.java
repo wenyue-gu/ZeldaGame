@@ -16,6 +16,7 @@ public class SelectMenuView implements SelectMenu {
     private PrettyButtons myGameButton1;
     private PrettyButtons myGameButton2;
     private PrettyButtons myGameButton3;
+    private PrettyButtons mySettingButton;
 
     private HBox description1;
     private HBox description2;
@@ -59,6 +60,11 @@ public class SelectMenuView implements SelectMenu {
     }
 
     @Override
+    public Button getSetting() {
+        return mySettingButton;
+    }
+
+    @Override
     public Scene getMenuView() {
         return myScene;
     }
@@ -85,13 +91,14 @@ public class SelectMenuView implements SelectMenu {
         myGameButton1 = new PrettyButtons("Type1", myLanguage);
         myGameButton2 = new PrettyButtons("Type2", myLanguage);
         myGameButton3 = new PrettyButtons("Type3", myLanguage) ;
+        mySettingButton = new PrettyButtons("Setting", myLanguage);
 
-        myButtonList = List.of(myGameButton1, myGameButton2, myGameButton3);
+        myButtonList = List.of(myGameButton1, myGameButton2, myGameButton3, mySettingButton);
     }
 
     private void setUpVBox(){
         vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(myGameButton1, myGameButton2, myGameButton3);
+        vBox.getChildren().addAll(myButtonList);
     }
 }
