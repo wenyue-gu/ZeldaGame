@@ -182,20 +182,20 @@ public class WindowControl {
 //    box.getChildren().add(listView);
 //    newstage.setScene(new Scene(box, 200, 250));
 //    newstage.show();
-    try {
-      Properties prop = new Properties();
-      InputStream in = new FileInputStream("resources/xyzz.properties");//getClass().getResourceAsStream("/resources/xyzz.properties");
-      prop.load(in);
-      prop.setProperty("newkey", "newvalue2");
-      FileOutputStream fos = new FileOutputStream("resources/xyzz.properties");
-      prop.store(fos, "test");
-      fos.flush();
-      fos.close();
-      System.out.println(">");
-    }
-    catch(Exception e){
-      e.printStackTrace();
-    }
+//    try {
+//      Properties prop = new Properties();
+//      InputStream in = new FileInputStream("resources/xyzz.properties");//getClass().getResourceAsStream("/resources/xyzz.properties");
+//      prop.load(in);
+//      prop.setProperty("newkey", "newvalue2");
+//      FileOutputStream fos = new FileOutputStream("resources/xyzz.properties");
+//      prop.store(fos, "test");
+//      fos.flush();
+//      fos.close();
+//      System.out.println(">");
+//    }
+//    catch(Exception e){
+//      e.printStackTrace();
+//    }
 
   }
 }
