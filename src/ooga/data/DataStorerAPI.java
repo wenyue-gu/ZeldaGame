@@ -46,4 +46,6 @@ public interface  DataStorerAPI {
     void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID);
 
     void resetPlayerInfo();
+
+    void writeAllDataIntoDisk();
 }

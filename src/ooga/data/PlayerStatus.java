@@ -11,7 +11,7 @@ import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 public class PlayerStatus {
     public static int initLevel = 1;
     public static int initLife = 5;
-    public static int initScore = 0;
+    public static int initScoreGoal = 0;
 
 
     private int playerID;

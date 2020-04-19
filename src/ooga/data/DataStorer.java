@@ -191,7 +191,8 @@ public class DataStorer implements DataStorerAPI {
         int currentPlayerID = gameObjectConfiguration.getCurrentPlayer().getPlayerID();
         setPlayerParam(PlayerPara.CURRENT_LEVEL, initLevel, currentPlayerID);
         setPlayerParam(PlayerPara.LIFE, initLife, currentPlayerID);
-        setPlayerParam(PlayerPara.CURRENT_SCORE, initScore, currentPlayerID);
+        setPlayerParam(PlayerPara.CURRENT_SCORE, 0, currentPlayerID);
+        setPlayerParam(PlayerPara.SCORE_GOAL, initScoreGoal, currentPlayerID);
     }
 
     private int nextAvailableID(int level) {
@@ -218,6 +219,14 @@ public class DataStorer implements DataStorerAPI {
 
         return i;
 
+    }
+
+    /**
+     * call this method before program ends and all data will not be stored into disk without calling this method.
+     */
+    @Override
+    public void writeAllDataIntoDisk() {
+        gameObjectConfiguration.storeGameEverything();
     }
 
 
