@@ -5,6 +5,8 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import ooga.controller.gamecontrol.GameController;
 import ooga.data.DataLoaderAPI;
+import ooga.game.GameType;
+import ooga.game.GameZelda2D;
 import ooga.model.Model;
 import ooga.model.interfaces.ModelInterface;
 import ooga.view.game_menu.GameMenuView;
@@ -19,6 +21,8 @@ import java.util.Properties;
 
 
 public class WindowControl {
+
+  public static final int CURRENT_PLAYER_ID = 1;
 
   private Button myStartButton;
   private Button myExitButton;
@@ -41,7 +45,6 @@ public class WindowControl {
   private Stage secondStage;
   private SelectMenuView mySelectView;
   private GameMenu myMenuView;
-  private ModelInterface myModel;
   private DataLoaderAPI myDataLoader;
   private boolean dark = false;
   private String language = "English";
@@ -59,14 +62,9 @@ public class WindowControl {
     initializeButtons();
   }
 
-  public WindowControl(Stage currentStage, Model model, DataLoaderAPI dataloader) {
+  public WindowControl(Stage currentStage, DataLoaderAPI dataloader) {
     this(currentStage);
-    setModel(model);
     setDataLoader(dataloader);
-  }
-
-  public void setModel(Model model){
-    myModel = model;
   }
 
   public void setDataLoader(DataLoaderAPI Loader){
@@ -135,26 +133,34 @@ public class WindowControl {
 
   private void startGame1(){
     System.out.println("111");
-    //TODO: set up data and stuff for game one, then call startGame?
-    myGameController = new GameController(myModel, myDataLoader);
-    myGameController.setMode(dark);
-    myGameController.setLanguage(language);
-    try {
-      myGameView = new GameState2DView(myModel.getPlayers().size());
-      System.out.println(myModel.getPlayers().size());
-      myGameController.setView(myGameView);
-      myGameController.setWindowControl(this);
-      myGameView.createWindow();
-      myGameController.startTimer();
-      secondStage.close();
-      //myStage.hide();
-    }
-    catch(Exception e){
-      System.out.println("GameState2DViewError");
-    }
+//    //TODO: set up data and stuff for game one, then call startGame?
+//    myGameController.setMode(dark);
+//    try {
+//
+//      myGameView = new GameState2DView(myModel.getPlayers().size());
+//      System.out.println(myModel.getPlayers().size());
+//      myGameController.setView(myGameView);
+//      myGameView.createWindow();
+//      AnimationTimer timer = new AnimationTimer() {
+//      @Override
+//      public void handle(long now) {
+//        myGameController.update();
+//      }
+//    };
+//    timer.start();
+//
+//    secondStage.close();
+//    //myStage.close();
+//    }
+//    catch(Exception e){
+//      System.out.println("GameState2DViewError");
+//    }
   }
 
   private void startGame2(){
+    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), CURRENT_PLAYER_ID);
+    GameController myGameController = new GameController(myDataLoader);
+    myStage.close();
     secondStage.close();
   }
 

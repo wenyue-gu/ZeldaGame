@@ -1,5 +1,8 @@
 package ooga.game;
 
+import ooga.model.characters.MarioPlayer;
+import ooga.model.characters.ZeldaPlayer;
+
 public enum  GameType {
   MARIO(0),
   ZELDA(1),

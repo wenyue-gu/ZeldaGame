@@ -16,7 +16,6 @@ public class GameMain extends Application {
   public static final boolean RESIZABLE = true;
 
   private WindowControl myWindowControl;
-  private Model myModel;
   private DataLoaderAPI myDataLoader;
 
   public static void main(String[] args) {
@@ -26,9 +25,7 @@ public class GameMain extends Application {
   @Override
   public void start(Stage currentStage) throws DataLoadingException {
     myDataLoader = new DataLoader();
-    myModel = new Model(myDataLoader,"Zelda");
-    myWindowControl = new WindowControl(currentStage, myModel, myDataLoader);
+    myWindowControl = new WindowControl(currentStage, myDataLoader);
     myWindowControl.showWindow(TITLE, HEIGHT, WIDTH, RESIZABLE);
-    //new GameZelda2D().start();
   }
 }

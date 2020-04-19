@@ -7,6 +7,7 @@ import ooga.controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import ooga.data.DataLoaderAPI;
+import ooga.model.Model;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.ModelInterface;
@@ -30,8 +31,8 @@ public class GameController {
   private GameState2DView myGameView;
   private AnimationTimer myTimer;
 
-public GameController(ModelInterface model, DataLoaderAPI loader){
-    myModel = model;
+  public GameController(DataLoaderAPI loader) {
+    myModel = new Model(loader);
     myDataLoader = loader;
     myPauseControl = new PauseControl();
     setUpPlayerandNPC();
@@ -54,31 +55,31 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
 
   private void setUpPlayerandNPC(){
     //setGameType(myDataLoader.getGameType());
-    setGameType(1);
-    for(MainPlayerControl mpc:myMainPlayerController){
+    setGameType(myDataLoader.getGameType());
+    for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setID();
       //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
       mpc.setNewKeyMap(myDataLoader.loadKey(mpc.getID()));
     }
   }
 
-  private void setGameType(int gameType){
-    for(Object player:myModel.getPlayers()) {
+  private void setGameType(int gameType) {
+    for (Object player : myModel.getPlayers()) {
       MainPlayerControl curControl = new MainPlayerControl();
       curControl.setControl(gameType);
-      curControl.setMyPlayer((Movable1D)player);
+      curControl.setMyPlayer((Movable1D) player);
       myMainPlayerController.add(curControl);
     }
 
-    for(Object NPC:myModel.getNPCs()){
+    for (Object NPC : myModel.getNPCs()) {
       MainNPCControl npcControl = new MainNPCControl();
       npcControl.setControl(gameType);
-      npcControl.setMyNPC((Movable1D)NPC);
+      npcControl.setMyNPC((Movable1D) NPC);
       myNPCControl.add(npcControl);
     }
   }
 
-  public void update(){
+  public void update() {
     //TODO: check this
     for(MainNPCControl npc: myNPCControl) npc.update(); // update back-end
     for(MainPlayerControl mpc: myMainPlayerController) mpc.updateKey();
@@ -96,7 +97,7 @@ public GameController(ModelInterface model, DataLoaderAPI loader){
     myPauseControl.setLanguage(language);
   }
 
-  public void setView(GameState2DView view){
+  public void setView(GameState2DView view) {
     myGameView = view;
     myPauseControl.setView(view);
     for(MainPlayerControl mpc:myMainPlayerController) mpc.setView(view);
