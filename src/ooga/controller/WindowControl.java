@@ -1,5 +1,6 @@
 package ooga.controller;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -133,33 +134,33 @@ public class WindowControl {
 
   private void startGame1(){
     System.out.println("111");
-//    //TODO: set up data and stuff for game one, then call startGame?
-//    myGameController.setMode(dark);
-//    try {
-//
-//      myGameView = new GameState2DView(myModel.getPlayers().size());
-//      System.out.println(myModel.getPlayers().size());
-//      myGameController.setView(myGameView);
-//      myGameView.createWindow();
-//      AnimationTimer timer = new AnimationTimer() {
-//      @Override
-//      public void handle(long now) {
-//        myGameController.update();
-//      }
-//    };
-//    timer.start();
-//
-//    secondStage.close();
-//    //myStage.close();
-//    }
-//    catch(Exception e){
-//      System.out.println("GameState2DViewError");
-//    }
+    //TODO: set up data and stuff for game one, then call startGame?
+    myGameController = new GameController(myDataLoader);
+    myGameController.setMode(dark);
+    try {
+
+      myGameView = new GameState2DView(myGameController.getPlayerSize());
+      myGameController.setView(myGameView);
+      myGameView.createWindow();
+      AnimationTimer timer = new AnimationTimer() {
+      @Override
+      public void handle(long now) {
+        myGameController.update();
+      }
+    };
+    timer.start();
+
+    secondStage.close();
+    //myStage.close();
+    }
+    catch(Exception e){
+      System.out.println("GameState2DViewError");
+    }
   }
 
   private void startGame2(){
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), CURRENT_PLAYER_ID);
-    GameController myGameController = new GameController(myDataLoader);
+    myGameController = new GameController(myDataLoader);
     myStage.close();
     secondStage.close();
   }

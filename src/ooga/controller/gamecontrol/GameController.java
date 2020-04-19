@@ -32,7 +32,12 @@ public class GameController {
   private AnimationTimer myTimer;
 
   public GameController(DataLoaderAPI loader) {
-    myModel = new Model(loader);
+    try {
+      myModel = new Model(loader);
+    }
+    catch(Exception e){
+      System.out.println("model error");
+    }
     myDataLoader = loader;
     myPauseControl = new PauseControl();
     setUpPlayerandNPC();
@@ -109,5 +114,9 @@ public class GameController {
 
   public void setWindowControl(WindowControl windowControl) {
     myPauseControl.setWindowControl(windowControl);
+  }
+
+  public int getPlayerSize() {
+    return myMainPlayerController.size();
   }
 }
