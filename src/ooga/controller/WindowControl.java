@@ -177,6 +177,10 @@ public class WindowControl {
     GameZelda2D zelda2D = new GameZelda2D();
     setUpController();
     zelda2D.start();
+    while (zelda2D.getView() == null){
+      System.out.println(zelda2D.getView());
+    }
+    System.out.println(zelda2D.getView());
     myGameController.setView(zelda2D.getView());
     myGameController.startTimer();
     //myStage.close();

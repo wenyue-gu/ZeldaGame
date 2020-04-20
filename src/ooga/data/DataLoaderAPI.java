@@ -1,6 +1,5 @@
 package ooga.data;
 
-import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
@@ -44,9 +43,7 @@ public interface DataLoaderAPI {
 
     int currentLevel();
 
-    Map<KeyCode, String> loadKeyCode(int playerID) throws DataLoadingException;
-
-    Map<Integer, String> loadKey(int playerID) throws DataLoadingException;
+    Map<Integer, String> loadKeyCode(int playerID) throws DataLoadingException;
 
     String loadImagePath(int imageID, ImageCategory category);
 

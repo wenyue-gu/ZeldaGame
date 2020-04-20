@@ -1,6 +1,5 @@
 package ooga.data;
 
-import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.Direction;
@@ -75,20 +74,20 @@ public class  DataManagementTest {
         ZC.setFiringDirection(Direction.E);
         storer.storeCharacter(4, ZC);
         Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);
-//        a.loadCharacter(2, CharacterProperty.SCORE);
+        Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.ATTACK), 3);
         loader.getGameObjectConfiguration().storeGameEverything();
     }
 
     @Test
     public void KeyCodeTest() throws DataLoadingException {
-        Map<KeyCode, String> keyCodeMap = new HashMap<>();
-        keyCodeMap.put(KeyCode.UP, "hello");
+        Map<Integer, String> keyCodeMap = new HashMap<>();
+        keyCodeMap.put(34, "hello");
         storer.addPlayer(3);
         storer.addPlayer(2);
         storer.storeKeyCode(keyCodeMap, 3);
         storer.storeKeyCode(keyCodeMap, 2);
-        Map<KeyCode, String> keyCodeMap2 = loader.loadKeyCode(3);
-        Assert.assertEquals("hello", loader.loadKeyCode(3).get(KeyCode.UP));
+        Map<Integer, String> keyCodeMap2 = loader.loadKeyCode(3);
+        Assert.assertEquals("hello", loader.loadKeyCode(3).get(34));
         loader.getGameObjectConfiguration().storeGameEverything();
     }
     @Test

@@ -62,7 +62,7 @@ public class GameController {
       mpc.setID();
       //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
         try {
-            mpc.setNewKeyMap(myDataLoader.loadKey(mpc.getID()));
+            mpc.setNewKeyMap(myDataLoader.loadKeyCode(mpc.getID()));
         }
         catch(Exception e){
             System.out.println("load key error");
@@ -96,7 +96,7 @@ public class GameController {
     }
     //myGameStateController.update(); // update front-end
     if(myGameView.isKeyDown(GLFW.GLFW_KEY_P)) myPauseControl.showMenu();
-    myGameView.updateWindow();
+//    myGameView.updateWindow();
   }
 
   public void setMode(boolean dark) {
