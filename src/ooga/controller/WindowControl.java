@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import ooga.controller.gamecontrol.GameController;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
+import ooga.data.DataStorerAPI;
 import ooga.game.GameType;
 import ooga.game.GameZelda2D;
 import ooga.model.Model;
@@ -49,6 +50,8 @@ public class WindowControl {
   private SelectMenuView mySelectView;
   private GameMenu myMenuView;
   private DataLoaderAPI myDataLoader;
+  private DataStorerAPI myDataStorer;
+
   private boolean dark = false;
   private String language = "English";
 
@@ -64,9 +67,9 @@ public class WindowControl {
     initializeButtons();
   }
 
-  public WindowControl(Stage currentStage, DataLoaderAPI dataloader) throws DataLoadingException {
+  public WindowControl(Stage currentStage, DataStorerAPI datastorer) throws DataLoadingException {
     this(currentStage);
-    setDataLoader(dataloader);
+    setDataLoader(datastorer.getDataLoader());
   }
 
   public void setDataLoader(DataLoaderAPI Loader){
@@ -188,7 +191,7 @@ public class WindowControl {
   }
 
   private void setUpController() throws DataLoadingException {
-    myGameController = new GameController(myDataLoader);
+    myGameController = new GameController(myDataStorer);
     myGameController.setMode(dark);
     myGameController.setLanguage(language);
     myGameController.setWindowControl(this);

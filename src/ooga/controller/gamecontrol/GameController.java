@@ -6,10 +6,10 @@ import ooga.controller.gamecontrol.NPC.MainNPCControl;
 import ooga.controller.gamecontrol.player.MainPlayerControl;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import ooga.data.DataLoaderAPI;
-import ooga.data.DataLoadingException;
+import ooga.data.*;
 import ooga.game.GameZelda2D;
 import ooga.model.Model;
+import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.ModelInterface;
@@ -28,15 +28,17 @@ public class GameController {
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
   private PauseControl myPauseControl;
   private DataLoaderAPI myDataLoader;
+  private DataStorerAPI myDataStorer;
   private boolean dark;
   private String language;
   private GameState2DView myGameView;
   private AnimationTimer myTimer;
 
-  public GameController(DataLoaderAPI loader) throws DataLoadingException {
-    myModel = new Model(loader);
-    myDataLoader = loader;
-    myPauseControl = new PauseControl();
+  public GameController(DataStorerAPI storer) throws DataLoadingException {
+    myModel = new Model(storer.getDataLoader());
+    myDataLoader = storer.getDataLoader();
+    myDataStorer = storer;
+    myPauseControl = new PauseControl(this);
     setUpPlayerandNPC();
   }
 
@@ -128,6 +130,12 @@ public class GameController {
   public void keyReleased() {
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.keyReleased();
+    }
+  }
+
+  public void save() {
+    for(MainPlayerControl mpc:myMainPlayerController){
+      ((DataStorer)myDataStorer).storeCharacter(mpc.getID(), (ZeldaCharacter)mpc.getPlayer());
     }
   }
 }

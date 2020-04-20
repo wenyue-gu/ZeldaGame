@@ -191,6 +191,11 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     if(map!=null) myGLFWMap = map;
   }
 
+  @Override
+  public Movable1D getPlayer() {
+    return myPlayer;
+  }
+
   public Map<KeyCode, String> getKeyCodeMap() {
     return myKeyCodeMap;
   }

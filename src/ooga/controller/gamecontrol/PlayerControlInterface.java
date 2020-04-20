@@ -18,4 +18,6 @@ public interface PlayerControlInterface{
   void setView(GameState2DView view);
 
     void setNewKeyMap(Map<Integer, String> map);
+
+  Movable1D getPlayer();
 }

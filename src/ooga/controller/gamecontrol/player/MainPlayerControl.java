@@ -41,6 +41,11 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
+  public Movable1D getPlayer() {
+    return myPlayerControl.getPlayer();
+  }
+
+  @Override
   public void setID() {
     myPlayerControl.setID();
   }

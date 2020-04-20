@@ -109,4 +109,9 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   public void setNewKeyMap(Map<Integer, String> map) {
 
   }
+
+  @Override
+  public Movable1D getPlayer() {
+    return myPlayer;
+  }
 }

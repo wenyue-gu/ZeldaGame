@@ -228,7 +228,9 @@ public class DataStorer implements DataStorerAPI {
         gameObjectConfiguration.storeGameEverything();
     }
 
-
-
+    @Override
+    public DataLoader getDataLoader(){
+        return dataLoader;
+    }
 
 }

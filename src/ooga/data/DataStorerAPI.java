@@ -46,4 +46,6 @@ public interface  DataStorerAPI {
     void resetPlayerInfo();
 
     void writeAllDataIntoDisk();
+
+    DataLoaderAPI getDataLoader();
 }

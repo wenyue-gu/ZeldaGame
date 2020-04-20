@@ -4,6 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import ooga.controller.WindowControl;
+import ooga.data.DataStorer;
+import ooga.data.DataStorerAPI;
 import ooga.view.game_menu.PauseMenu;
 import ooga.view.game_menu.PrettyButtons;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
@@ -24,9 +26,13 @@ public class PauseControl {
     private GameState2DView myView;
     private AnimationTimer myTimer;
 
-    public PauseControl(){
+    private DataStorerAPI myStorer;
+    private GameController myGameController;
+
+    public PauseControl(GameController gameController){
         myStage = new Stage();
         myPauseMenu = new PauseMenu();
+        myGameController = gameController;
         myStage.setScene(myPauseMenu.getMenuView());
         setUpButton();
     }
@@ -59,7 +65,7 @@ public class PauseControl {
     }
 
     private void save(){
-
+        myGameController.save();
     }
 
     public void setWindowControl(WindowControl windowControl) {
