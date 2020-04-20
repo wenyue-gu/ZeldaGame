@@ -179,7 +179,7 @@ public class GameObjectConfiguration {
           }
           break;
         case "MarioCharacter":
-          System.out.println("MarioCharacter storing is not supported");
+//          System.out.println("MarioCharacter storing is not supported");
 //                    marioCharacterList.add(loadJson(myDirectoryPath + child.getName(), classType));
           break;
         case "Player":

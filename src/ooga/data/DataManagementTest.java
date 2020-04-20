@@ -74,7 +74,7 @@ public class  DataManagementTest {
         ZC.setFiringDirection(Direction.E);
         storer.storeCharacter(4, ZC);
         Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);
-//        a.loadCharacter(2, CharacterProperty.SCORE);
+        Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.ATTACK), 3);
         loader.getGameObjectConfiguration().storeGameEverything();
     }
 

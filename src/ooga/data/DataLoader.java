@@ -8,8 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -149,16 +147,16 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
         zeldaCharacter = i;
       }
     }
-    try {
-      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod(
-          "get" + property.toString().substring(0, 1) + property.toString().substring(1));
-      int a = (int) methodcall.invoke(zeldaCharacter);
-      return (int) methodcall.invoke(zeldaCharacter);
-    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      Method methodcall = zeldaCharacter.getClass().getDeclaredMethod(
+//          "get" + property.toString().substring(0, 1) + property.toString().substring(1));
+//      int a = (int) methodcall.invoke(zeldaCharacter);
+//      return (int) methodcall.invoke(zeldaCharacter);
+//    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//      e.printStackTrace();
+//    }
 
-    return 0;
+    return property.getProperty(zeldaCharacter);
   }
 
   @Override
