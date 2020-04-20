@@ -98,25 +98,25 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void up() {
-    myPlayer.setState(MovingState.WALK);
+    myPlayer.setState(MovingState.SPRINT);
     myPlayer.setDirection(Direction.N);
   }
 
   @Override
   public void down() {
-    myPlayer.setState(MovingState.WALK);
+    myPlayer.setState(MovingState.SPRINT);
     myPlayer.setDirection(Direction.S);
   }
 
   @Override
   public void left() {
-    myPlayer.setState(MovingState.WALK);
+    myPlayer.setState(MovingState.SPRINT);
     myPlayer.setDirection(Direction.W);
   }
 
   @Override
   public void right() {
-    myPlayer.setState(MovingState.WALK);
+    myPlayer.setState(MovingState.SPRINT);
     myPlayer.setDirection(Direction.E);
   }
 
@@ -135,9 +135,15 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void attack2() {
-    myPlayer.setState(MovingState.ATTACK1);
+    myPlayer.setState(MovingState.ATTACK3);
     myPlayer.setAttack(2);
 
+  }
+  
+
+  public void sprintSE(){
+    myPlayer.setState(MovingState.SPRINT);
+    myPlayer.setDirection(Direction.SE);
   }
 
   @Override
