@@ -1,6 +1,5 @@
 package ooga.data;
 
-import javafx.scene.input.KeyCode;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
@@ -32,9 +31,8 @@ public interface  DataStorerAPI {
 
     void addPlayer(int playerID);
 
-    void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID);
+    void storeKeyCode(Map<Integer, String> keyCodeMap, int playerID);
 
-    void storeKey(Map<Integer, String> keyMap, int playerID);
     void storeImage(String image, int ImageID, ImageCategory imageCategory);
 
     void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level);
