@@ -139,11 +139,16 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     myPlayer.setAttack(2);
 
   }
-  
+
 
   public void sprintSE(){
     myPlayer.setState(MovingState.SPRINT);
     myPlayer.setDirection(Direction.SE);
+  }
+
+  public void death(){
+    myPlayer.setState(MovingState.DEATH);
+    myPlayer.setDirection(Direction.E);
   }
 
   @Override
