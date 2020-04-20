@@ -9,9 +9,9 @@ public class GameZelda2D implements Runnable {
   private Thread game;
   private GameState2DView view;
 
-  public GameZelda2D(GameState2DView view){
-    this.view = view;
-  }
+//  public GameZelda2D(GameState2DView view){
+//    this.view = view;
+//  }
 
   public void start() {
     game = new Thread(this, "game");
@@ -19,7 +19,7 @@ public class GameZelda2D implements Runnable {
   }
 
   public void init() throws IOException {
-    //view = new GameState2DView(1);
+    view = new GameState2DView(1);
     view.createWindow();
   }
 

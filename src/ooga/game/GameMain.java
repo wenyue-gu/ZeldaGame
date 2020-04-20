@@ -28,7 +28,7 @@ public class GameMain extends Application {
   @Override
   public void start(Stage currentStage) throws DataLoadingException {
     myDataLoader = new DataLoader();
-    myDataStorer = new DataStorer();
+//    myDataStorer = new DataStorer();
     myWindowControl = new WindowControl(currentStage, myDataLoader);
     myWindowControl.showWindow(TITLE, HEIGHT, WIDTH, RESIZABLE);
   }
