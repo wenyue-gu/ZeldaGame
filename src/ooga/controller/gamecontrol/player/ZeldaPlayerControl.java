@@ -159,6 +159,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
       for (int i : myGLFWMap.keySet()) {
         if (myView.isKeyDown(i)){
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
+          myView.updatePlayer(myID,myPlayer.getDirection().toString(), myPlayer.getState().toString());
           System.out.println(i);
         }
       }
