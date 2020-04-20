@@ -173,8 +173,8 @@ public class WindowControl {
 
   private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), CURRENT_PLAYER_ID);
-    myGameView = new GameState2DView(1);
-    GameZelda2D zelda2D = new GameZelda2D(myGameView);
+//    myGameView = new GameState2DView(1);
+    GameZelda2D zelda2D = new GameZelda2D();
     setUpController();
     zelda2D.start();
     myGameController.setView(zelda2D.getView());
