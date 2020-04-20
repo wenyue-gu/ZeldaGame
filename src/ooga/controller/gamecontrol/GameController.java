@@ -96,7 +96,7 @@ public class GameController {
     }
     //myGameStateController.update(); // update front-end
     if(myGameView.isKeyDown(GLFW.GLFW_KEY_P)) myPauseControl.showMenu();
-    myGameView.updateWindow();
+//    myGameView.updateWindow();
   }
 
   public void setMode(boolean dark) {
