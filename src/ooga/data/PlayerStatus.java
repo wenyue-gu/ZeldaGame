@@ -1,6 +1,5 @@
 package ooga.data;
 
-import javafx.scene.input.KeyCode;
 import ooga.model.enums.PlayerPara;
 
 import java.util.HashMap;
@@ -16,8 +15,8 @@ public class PlayerStatus {
 
     private int playerID;
     private Map<PlayerPara, Integer> playerParaMap;
-    private Map<KeyCode, String> keyCodeMap;
-    private Map<Integer, String> keyMap;
+    private Map<Integer, String> keyCodeMap;
+
 
 
     public PlayerStatus(int playerID) {
@@ -52,11 +51,11 @@ public class PlayerStatus {
     }
 
 
-    public void setKeyCodeMap(Map<KeyCode, String> keyCodeMap) {
+    public void setKeyCodeMap(Map<Integer, String> keyCodeMap) {
         this.keyCodeMap = keyCodeMap;
     }
 
-    public Map<KeyCode, String> getKeyCodeMap() {
+    public Map<Integer, String> getKeyCodeMap() {
         return keyCodeMap;
     }
 
@@ -66,14 +65,5 @@ public class PlayerStatus {
 
     public void setPlayerParaMap(Map<PlayerPara, Integer> playerParaMap) {
         this.playerParaMap = playerParaMap;
-    }
-
-    public Map<Integer, String> getKeyMap() {
-
-        return keyMap;
-    }
-
-    public void setKeyMap(Map<Integer, String> keyMap){
-        this.keyMap = keyMap;
     }
 }

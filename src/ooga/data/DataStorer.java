@@ -1,6 +1,5 @@
 package ooga.data;
 
-import javafx.scene.input.KeyCode;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
@@ -93,22 +92,10 @@ public class DataStorer implements DataStorerAPI {
         gameObjectConfiguration.setPlayerWithID(playerID, new PlayerStatus(playerID));
     }
     @Override
-    public void storeKeyCode(Map<KeyCode, String> keyCodeMap, int playerID) {
+    public void storeKeyCode(Map<Integer, String> keyCodeMap, int playerID) {
         PlayerStatus tempPlayer = gameObjectConfiguration.getPlayerWithID(playerID);
         if (tempPlayer != null) {
             tempPlayer.setKeyCodeMap(keyCodeMap);
-            gameObjectConfiguration.setPlayerWithID(playerID, tempPlayer);
-        } else {
-            System.out.println("player not found in Storer 144");
-            //todo: throw playerNotFound error
-        }
-    }
-
-    @Override
-    public void storeKey(Map<Integer, String> keyMap, int playerID) {
-        PlayerStatus tempPlayer = gameObjectConfiguration.getPlayerWithID(playerID);
-        if (tempPlayer != null) {
-            tempPlayer.setKeyMap(keyMap);
             gameObjectConfiguration.setPlayerWithID(playerID, tempPlayer);
         } else {
             System.out.println("player not found in Storer 144");
