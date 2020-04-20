@@ -1,1 +1,1 @@
-{"playerID":1,"playerParaMap":{"LIFE":666,"COLOR":666,"Game":1,"DIFFICULTY":666,"null":666,"CURRENT_SCORE":666,"CURRENT_LEVEL":1,"IMAGE":666,"SCORE_GOAL":666},"keyCodeMap":{"UP": "up"},"keyMap":{"263":"left","265": "up", "262": "right", "264": "down","81": "attack0"}}
+{"playerID":1,"playerParaMap":{"LIFE":666,"COLOR":666,"Game":1,"DIFFICULTY":666,"null":666,"CURRENT_SCORE":666,"CURRENT_LEVEL":1,"IMAGE":666,"SCORE_GOAL":666},"keyCodeMap":{},"keyMap":{"263":"left","265": "up", "262": "right", "264": "down","81": "attack0"}}
