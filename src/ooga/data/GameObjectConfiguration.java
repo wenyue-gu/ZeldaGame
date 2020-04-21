@@ -41,7 +41,7 @@ public class GameObjectConfiguration {
   private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
   private com.google.gson.Gson gsonLoad;
   private com.google.gson.Gson gsonStore;
-  private int currentPlayerID;
+  private int currentPlayerID = 1;
   private int currentGameID;
 
   private Map<Object, String> fieldToPathMap;

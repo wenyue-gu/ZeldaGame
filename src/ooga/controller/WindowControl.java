@@ -44,13 +44,17 @@ public class WindowControl {
   private ComboBox myLanguagePicker;
 
   private LogInControl myLogIn;
+  private SettingControl mySettingControl;
   private GameController myGameController;
+
   private Stage myStage;
   private Stage secondStage;
   private SelectMenuView mySelectView;
   private GameMenu myMenuView;
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
+
+  private int myPlayerHP;
 
   private boolean dark = false;
   private String language = "English";
@@ -62,6 +66,7 @@ public class WindowControl {
     myMenuView = new GameMenuView();
     mySelectView = new SelectMenuView();
     myLogIn = new LogInControl(this);
+    mySettingControl = new SettingControl(this);
 
     setMenuScene();
     initializeButtons();
@@ -70,6 +75,7 @@ public class WindowControl {
   public WindowControl(Stage currentStage, DataStorerAPI datastorer) throws DataLoadingException {
     this(currentStage);
     setDataLoader(datastorer.getDataLoader());
+    myDataStorer = datastorer;
   }
 
   public void setDataLoader(DataLoaderAPI Loader){
@@ -126,7 +132,7 @@ public class WindowControl {
   }
 
   private void changeSettings() {
-
+    mySettingControl.showSetting();
   }
 
   private void showProfile() {
@@ -136,6 +142,7 @@ public class WindowControl {
   }
 
   private void selectGameMenu(){
+    System.out.println(myDataStorer);
     myDataStorer.resetPlayerInfo();
     secondStage = new Stage();
     secondStage.setScene(mySelectView.getMenuView());
@@ -147,6 +154,7 @@ public class WindowControl {
     myMenuView.setLanguage(language);
     mySelectView.setLanguage(language);
     myLogIn.setLanguage(language);
+    mySettingControl.setLanguage(language);
   }
 
   private void startGame1() throws DataLoadingException {
@@ -196,6 +204,7 @@ public class WindowControl {
     myGameController.setMode(dark);
     myGameController.setLanguage(language);
     myGameController.setWindowControl(this);
+    if(myPlayerHP>0) myGameController.setInitLife(myPlayerHP);
   }
 
 
@@ -217,6 +226,7 @@ public class WindowControl {
     myMenuView.switchMode(dark);
     mySelectView.switchMode(dark);
     myLogIn.switchMode(dark);
+    mySettingControl.switchMode(dark);
   }
 
   private void loadlist(){
@@ -245,5 +255,9 @@ public class WindowControl {
 //      e.printStackTrace();
 //    }
 
+  }
+
+  public void setLife(int i) {
+    myPlayerHP = i;
   }
 }

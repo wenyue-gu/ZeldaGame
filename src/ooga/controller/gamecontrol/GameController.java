@@ -144,4 +144,10 @@ public class GameController {
     myDataStorer.writeAllDataIntoDisk();
     System.out.println("game controller - save method called");
   }
+
+  public void setInitLife(int i) {
+    for(MainPlayerControl mpc:myMainPlayerController){
+      ((ZeldaPlayer)mpc.getPlayer()).setHP(i);
+    }
+  }
 }
