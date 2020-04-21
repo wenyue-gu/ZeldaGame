@@ -196,6 +196,11 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     return myPlayer;
   }
 
+  @Override
+  public boolean checkScore(int score) {
+    return score<=myPlayer.getScore();
+  }
+
   public Map<KeyCode, String> getKeyCodeMap() {
     return myKeyCodeMap;
   }

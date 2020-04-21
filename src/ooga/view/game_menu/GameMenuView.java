@@ -96,7 +96,7 @@ public class GameMenuView implements GameMenu {
         myMode = new PrettyButtons("Background", myLanguage) ;
         myLoad = new PrettyButtons("Load", myLanguage);
         myUser = new PrettyButtons("User", myLanguage);
-        myButtonList = List.of(myNewButton, myExitButton, myMode, myLoad, myUser);
+        myButtonList = List.of(myNewButton,  myLoad,  myUser,myMode, myExitButton);
     }
 
     private void setUpVBox(){

@@ -34,6 +34,8 @@ public class GameController {
   private GameState2DView myGameView;
   private AnimationTimer myTimer;
 
+  private int score = 100;
+
   public GameController(DataStorerAPI storer) throws DataLoadingException {
     myModel = new Model(storer.getDataLoader());
     myDataLoader = storer.getDataLoader();
@@ -89,16 +91,18 @@ public class GameController {
   }
 
   public void update() {
-    //TODO: check this
     for (MainNPCControl npc : myNPCControl) {
-      npc.update(); // update back-end
+      npc.update();
     }
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.updateKey();
+      if(mpc.checkScore(score)) finishGame(mpc);
     }
-    //myGameStateController.update(); // update front-end
     if(myGameView.isKeyDown(GLFW.GLFW_KEY_P)) myPauseControl.showMenu();
-//    myGameView.updateWindow();
+  }
+
+  private void finishGame(MainPlayerControl mpc) {
+    //TODO: finish game and print id and score
   }
 
   public void setMode(boolean dark) {
@@ -137,5 +141,7 @@ public class GameController {
     for(MainPlayerControl mpc:myMainPlayerController){
       ((DataStorer)myDataStorer).storeCharacter(mpc.getID(), (ZeldaCharacter)mpc.getPlayer());
     }
+    myDataStorer.writeAllDataIntoDisk();
+    System.out.println("game controller - save method called");
   }
 }

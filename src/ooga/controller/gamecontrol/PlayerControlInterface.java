@@ -20,4 +20,6 @@ public interface PlayerControlInterface{
     void setNewKeyMap(Map<Integer, String> map);
 
   Movable1D getPlayer();
+
+  boolean checkScore(int score);
 }

@@ -114,4 +114,9 @@ public class MarioPlayerControl implements PlayerControlInterface, MovableContro
   public Movable1D getPlayer() {
     return myPlayer;
   }
+
+  @Override
+  public boolean checkScore(int score) {
+    return false;
+  }
 }

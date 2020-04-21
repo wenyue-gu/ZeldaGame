@@ -136,6 +136,7 @@ public class WindowControl {
   }
 
   private void selectGameMenu(){
+    myDataStorer.resetPlayerInfo();
     secondStage = new Stage();
     secondStage.setScene(mySelectView.getMenuView());
     secondStage.show();

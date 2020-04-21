@@ -46,6 +46,11 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
+  public boolean checkScore(int score) {
+    return myPlayerControl.checkScore(score);
+  }
+
+  @Override
   public void setID() {
     myPlayerControl.setID();
   }
