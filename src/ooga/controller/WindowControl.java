@@ -3,6 +3,7 @@ package ooga.controller;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.controller.gamecontrol.GameController;
 import ooga.data.DataLoaderAPI;
@@ -41,6 +42,9 @@ public class WindowControl {
   private String myUserName = "";
   private boolean isLogIn = false;
 
+  private boolean isColored = false;
+  private Color color = Color.WHITE;
+
   private ComboBox myLanguagePicker;
 
   private LogInControl myLogIn;
@@ -54,7 +58,7 @@ public class WindowControl {
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
 
-  private int myPlayerHP;
+  private int myPlayerHP=0;
 
   private boolean dark = false;
   private String language = "English";
@@ -101,7 +105,13 @@ public class WindowControl {
     myChangeBackgroundButton = myMenuView.getBackgroundButton();
     myChangeBackgroundButton.setOnAction(e->switchMode());
     myLoadButton = myMenuView.getLoadButton();
-    myLoadButton.setOnAction(e->loadlist());
+    myLoadButton.setOnAction(e-> {
+      try {
+        loadlist();
+      } catch (DataLoadingException ex) {
+        System.out.println("WINDOW CONTROL LOAD LAST PLAYED");
+      }
+    });
     myUserButton = myMenuView.getUserButton();
     myUserButton.setOnAction(e->showProfile());
 
@@ -110,7 +120,7 @@ public class WindowControl {
       try {
         startGame1();
       } catch (DataLoadingException ex) {
-        ex.printStackTrace();
+        System.out.println("WINDOW CONTROL STARTGAME1");
       }
     });
     myGameButton2 = mySelectView.getGame2();
@@ -118,7 +128,7 @@ public class WindowControl {
       try {
         startGame2();
       } catch (Exception ex) {
-        ex.printStackTrace();
+        System.out.println("WINDOW CONTROL STARTGAME2");
       }
     });
     myGameButton3 = mySelectView.getGame3();
@@ -142,7 +152,6 @@ public class WindowControl {
   }
 
   private void selectGameMenu(){
-    System.out.println(myDataStorer);
     myDataStorer.resetPlayerInfo();
     secondStage = new Stage();
     secondStage.setScene(mySelectView.getMenuView());
@@ -185,7 +194,6 @@ public class WindowControl {
 
   private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), CURRENT_PLAYER_ID);
-//    myGameView = new GameState2DView(1);
     GameZelda2D zelda2D = new GameZelda2D();
     setUpController();
     zelda2D.start();
@@ -229,31 +237,9 @@ public class WindowControl {
     mySettingControl.switchMode(dark);
   }
 
-  private void loadlist(){
-//    Stage newstage = new Stage();
-//    ObservableList<String> savedGame = FXCollections.observableArrayList();
-//    savedGame.add("Game 1");
-//    ListView listView = new ListView();
-//    listView.setItems( savedGame);
-//
-//    VBox box = new VBox();
-//    box.getChildren().add(listView);
-//    newstage.setScene(new Scene(box, 200, 250));
-//    newstage.show();
-//    try {
-//      Properties prop = new Properties();
-//      InputStream in = new FileInputStream("resources/xyzz.properties");//getClass().getResourceAsStream("/resources/xyzz.properties");
-//      prop.load(in);
-//      prop.setProperty("newkey", "newvalue2");
-//      FileOutputStream fos = new FileOutputStream("resources/xyzz.properties");
-//      prop.store(fos, "test");
-//      fos.flush();
-//      fos.close();
-//      System.out.println(">");
-//    }
-//    catch(Exception e){
-//      e.printStackTrace();
-//    }
+  private void loadlist() throws DataLoadingException {
+    setUpController();
+    myGameController.pause();
 
   }
 

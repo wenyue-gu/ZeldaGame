@@ -42,7 +42,7 @@ public class GameObjectConfiguration {
   private com.google.gson.Gson gsonLoad;
   private com.google.gson.Gson gsonStore;
   private int currentPlayerID = 1;
-  private int currentGameID;
+  private int currentGameID = 1;
 
   private Map<Object, String> fieldToPathMap;
   private static GameObjectConfiguration gameObjectConfiguration;

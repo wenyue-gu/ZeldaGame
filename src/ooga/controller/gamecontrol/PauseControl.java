@@ -11,6 +11,7 @@ import ooga.view.game_menu.PrettyButtons;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.util.List;
+import java.util.Map;
 
 public class PauseControl {
 
@@ -38,7 +39,7 @@ public class PauseControl {
     }
 
     public void showMenu(){
-        myTimer.stop();
+        //myTimer.stop();
         myStage.show();
     }
 
@@ -55,10 +56,11 @@ public class PauseControl {
 
     private void resumeGame(){
         myStage.close();
-        myTimer.start();
+        //myTimer.start();
     }
 
     private void backToMenu(){
+        myGameController.save();
         myStage.close();
         myView.closeWindow();
         myWindowControl.showWindowMenu();
@@ -86,5 +88,9 @@ public class PauseControl {
 
     public void setLanguage(String language){
         myPauseMenu.setLanguage(language);
+    }
+
+    public void updateScore(Map<Integer, Integer> sScoreList) {
+        myPauseMenu.updateScore(sScoreList);
     }
 }

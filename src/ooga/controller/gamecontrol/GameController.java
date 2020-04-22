@@ -19,7 +19,9 @@ import org.lwjgl.glfw.GLFW;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameController {
 
@@ -61,6 +63,7 @@ public class GameController {
 
   private void setUpPlayerandNPC(){
     //setGameType(myDataLoader.getGameType());
+    System.out.println(myDataLoader.getGameType());
     setGameType(myDataLoader.getGameType());
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setID();
@@ -98,7 +101,12 @@ public class GameController {
       mpc.updateKey();
       if(mpc.checkScore(score)) finishGame(mpc);
     }
-    if(myGameView.isKeyDown(GLFW.GLFW_KEY_P)) myPauseControl.showMenu();
+    if(myGameView.isKeyDown(GLFW.GLFW_KEY_P))pause();
+  }
+
+  public void pause(){
+    myPauseControl.updateScore(getSScoreList());
+    myPauseControl.showMenu();
   }
 
   private void finishGame(MainPlayerControl mpc) {
@@ -149,5 +157,15 @@ public class GameController {
     for(MainPlayerControl mpc:myMainPlayerController){
       ((ZeldaPlayer)mpc.getPlayer()).setHP(i);
     }
+  }
+
+  private Map<Integer, Integer> getSScoreList(){
+    Map<Integer,Integer> ret = new HashMap<>();
+    for(MainPlayerControl mpc:myMainPlayerController){
+      int id = mpc.getID();
+      int score = (int)((ZeldaPlayer)mpc.getPlayer()).getScore();
+      ret.put(id,score);
+    }
+    return ret;
   }
 }

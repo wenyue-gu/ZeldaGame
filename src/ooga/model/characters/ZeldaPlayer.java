@@ -5,19 +5,21 @@ import ooga.model.interfaces.Scorable;
 
 public class  ZeldaPlayer extends ZeldaCharacter implements Scorable {
 
-  Scorer scorer;
+  Scorer scorer;//= new Scorer();
 
   public ZeldaPlayer(int initialHp, int id) {
     super(initialHp, id);
+    scorer= new Scorer();
   }
 
   public ZeldaPlayer(int initialHp, int weapon, int id) {
     super(initialHp, weapon, id);
+    scorer= new Scorer();
   }
 
   public ZeldaPlayer(int initialHp, int weapon, int attack, int id, int x, int y) {
     super(initialHp, weapon, attack, id, x, y);
-    scorer = new Scorer();
+    scorer= new Scorer();
   }
 
   @Override
