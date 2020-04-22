@@ -82,6 +82,11 @@ public class SettingView implements MenuView{
         changeLableText();
     }
 
+    @Override
+    public void changColor(Color color) {
+        vBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
     public void setHP(int i){
         HPvalue = i;
         var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));

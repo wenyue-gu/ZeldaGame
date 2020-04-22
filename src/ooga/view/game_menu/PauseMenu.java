@@ -68,6 +68,11 @@ public class PauseMenu implements MenuView {
     }
 
     @Override
+    public void changColor(Color color) {
+        vBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    @Override
     public void switchMode(boolean dark){
         this.dark = dark;
         setColor();

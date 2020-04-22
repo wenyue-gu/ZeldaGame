@@ -2,6 +2,7 @@ package ooga.controller;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -39,6 +40,8 @@ public class WindowControl {
   private Button mySettingButton;
   private Button myUserButton;
 
+  private ColorPicker myColorPicker;
+
   private String myUserName = "";
   private boolean isLogIn = false;
 
@@ -74,6 +77,15 @@ public class WindowControl {
 
     setMenuScene();
     initializeButtons();
+  }
+
+  public void setColor(Color color){
+    isColored = true;
+    this.color = color;
+    myMenuView.changColor(color);
+    mySelectView.changColor(color);
+    myLogIn.changColor(color);
+    mySettingControl.changColor(color);
   }
 
   public WindowControl(Stage currentStage, DataStorerAPI datastorer) throws DataLoadingException {
@@ -138,6 +150,10 @@ public class WindowControl {
 
     myLanguagePicker = myMenuView.getLanguagePicker();
     myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
+
+    myColorPicker = myMenuView.getMyColorPicker();
+    System.out.println(myColorPicker);
+    myColorPicker.setOnAction(e->setColor(myColorPicker.getValue()));
 
   }
 
@@ -209,7 +225,8 @@ public class WindowControl {
 
   private void setUpController() throws DataLoadingException {
     myGameController = new GameController(myDataStorer);
-    myGameController.setMode(dark);
+    if(!isColored)myGameController.setMode(dark);
+    else myGameController.setColor(color);
     myGameController.setLanguage(language);
     myGameController.setWindowControl(this);
     if(myPlayerHP>0) myGameController.setInitLife(myPlayerHP);
@@ -231,6 +248,7 @@ public class WindowControl {
 
   private void switchMode(){
     dark = !dark;
+    isColored = false;
     myMenuView.switchMode(dark);
     mySelectView.switchMode(dark);
     myLogIn.switchMode(dark);

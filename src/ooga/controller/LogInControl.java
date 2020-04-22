@@ -1,6 +1,7 @@
 package ooga.controller;
 
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.view.game_menu.LogInView;
 
@@ -91,5 +92,9 @@ public class LogInControl {
 
     public void setLanguage(String language) {
         myView.setLanguage(language);
+    }
+
+    public void changColor(Color color) {
+        myView.changColor(color);
     }
 }

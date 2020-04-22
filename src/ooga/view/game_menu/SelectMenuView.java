@@ -81,6 +81,12 @@ public class SelectMenuView implements SelectMenu {
         for(PrettyButtons button:myButtonList) button.changeLanguage(myLanguage);
     }
 
+    @Override
+    public void changColor(Color color) {
+        vBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+
+    }
+
     private void setColor(){
         if(dark) vBox.setBackground(darkMode);
         else vBox.setBackground(lightMode);

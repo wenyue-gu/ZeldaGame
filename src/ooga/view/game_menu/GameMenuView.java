@@ -6,9 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameMenuView implements GameMenu {
     private PrettyButtons myNewButton;
@@ -21,14 +21,19 @@ public class GameMenuView implements GameMenu {
     private HBox hBox;
     private Scene myScene;
     private boolean dark;
+    private boolean isColor;
     private String myLanguage;
     private PrettyBox myLanguagePicker;
+    private PrettyColorPicker myColorPicker;
+    private Label myColorLable;
+    private VBox myColorBox;
 
     private Background darkMode = new Background(new BackgroundFill(new Color(0.15,0.15,0.15,1), CornerRadii.EMPTY, Insets.EMPTY));
     private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
 
     public GameMenuView(){
         myLanguage = "English";
+        setUpColorPicker();
         setUpButton();
         setUpHBox();
         setUpVBox();
@@ -36,11 +41,24 @@ public class GameMenuView implements GameMenu {
         myScene = new Scene(vBox);
     }
 
+    private void setUpColorPicker() {
+        var resource = ResourceBundle.getBundle("menu",new Locale(myLanguage));
+        myColorLable = new Label(resource.getString("Color"));
+        myColorLable.setFont(Font.font("Ariel", 14));
+        myColorPicker = new PrettyColorPicker();
+        myColorPicker.setSize(200, 30);
+        myColorBox = new VBox(10);
+        myColorBox.getChildren().addAll(myColorLable, myColorPicker);
+    }
+
     @Override
     public Scene getMenuView() {
 
         return myScene;
     }
+
+    @Override
+    public ColorPicker getMyColorPicker(){return myColorPicker;}
 
     @Override
     public Button getNewGameButton() {
@@ -75,6 +93,7 @@ public class GameMenuView implements GameMenu {
     @Override
     public void switchMode(boolean dark){
         this.dark = dark;
+        this.isColor = false;
         setColor();
     }
 
@@ -82,12 +101,22 @@ public class GameMenuView implements GameMenu {
     public void setLanguage(String language) {
         myLanguage = language;
         for (PrettyButtons button : myButtonList) button.changeLanguage(myLanguage);
+
+        var resource = ResourceBundle.getBundle("menu",new Locale(myLanguage));
+        myColorLable.setText(resource.getString("Color"));
+    }
+
+    @Override
+    public void changColor(Color color) {
+        isColor = true;
+        vBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     private void setColor(){
         vBox.setBackground(dark?darkMode:lightMode);
         for(PrettyButtons button:myButtonList) button.switchMode(dark);
         myLanguagePicker.switchMode(dark);
+        myColorPicker.switchMode(dark);
     }
 
     private void setUpButton(){
@@ -102,17 +131,18 @@ public class GameMenuView implements GameMenu {
     private void setUpVBox(){
         vBox = new VBox(10);
         vBox.setAlignment(Pos.BASELINE_CENTER);
+        vBox.getChildren().add(new Label("\n"));
         vBox.getChildren().add(hBox);
+        vBox.getChildren().add(new Label("\n"));
         vBox.getChildren().addAll(myButtonList);
     }
 
     private void setUpHBox(){
         setUpLanguageMenu();
-        hBox = new HBox(10);
-        hBox.getChildren().addAll(myLanguagePicker);
-        //hBox.setAlignment(Pos.BASELINE_RIGHT);
-        hBox.setTranslateX(850);
-        hBox.setTranslateY(20);
+        hBox = new HBox(500);
+        hBox.getChildren().addAll(myColorPicker, myLanguagePicker);
+        hBox.setPrefHeight(60);
+        hBox.setAlignment(Pos.BASELINE_CENTER);
     }
 
     private void setUpLanguageMenu(){

@@ -1,6 +1,7 @@
 package ooga.controller.gamecontrol;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.paint.Color;
 import ooga.controller.WindowControl;
 import ooga.controller.gamecontrol.NPC.MainNPCControl;
 import ooga.controller.gamecontrol.player.MainPlayerControl;
@@ -167,5 +168,9 @@ public class GameController {
       ret.put(id,score);
     }
     return ret;
+  }
+
+  public void setColor(Color color) {
+    myPauseControl.setColor(color);
   }
 }

@@ -1,6 +1,7 @@
 package ooga.controller;
 
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.view.game_menu.LogInView;
 import ooga.view.game_menu.SettingView;
@@ -63,5 +64,9 @@ public class SettingControl {
     public void showSetting() {
         myView.clearInput();
         myStage.show();
+    }
+
+    public void changColor(Color color) {
+        myView.changColor(color);
     }
 }

@@ -2,6 +2,7 @@ package ooga.controller.gamecontrol;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.controller.WindowControl;
 import ooga.data.DataStorer;
@@ -92,5 +93,9 @@ public class PauseControl {
 
     public void updateScore(Map<Integer, Integer> sScoreList) {
         myPauseMenu.updateScore(sScoreList);
+    }
+
+    public void setColor(Color color) {
+        myPauseMenu.changColor(color);
     }
 }
