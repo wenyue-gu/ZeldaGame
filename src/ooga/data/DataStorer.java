@@ -67,17 +67,17 @@ public class DataStorer implements DataStorerAPI {
 //        writeObjectTOJson(character, "data/ZeldaCharacter/" + characterKeyword + characterID + ".json");
     }
 
-
-
     @Override
     public void StoreInventory(Inventory inventory) {
         System.out.println("store Inventory is not implemented");
     }
-    @Override
-    public void storePlayerParamToCurrentPlayer(PlayerPara para, int value) {
-        int playerID = gameObjectConfiguration.getCurrentPlayerID();
-        setPlayerParam(para, value, playerID);
-    }
+    
+//    @Override
+//    public void storePlayerParamToCurrentPlayer(PlayerPara para, int value) {
+//        int playerID = gameObjectConfiguration.getCurrentPlayersID();
+//        setPlayerParam(para, value, playerID);
+//    }
+
     @Override
     public void setPlayerParam(PlayerPara param, int value, int playerID) {
         PlayerStatus tempPlayer = gameObjectConfiguration.getPlayerWithID(playerID);

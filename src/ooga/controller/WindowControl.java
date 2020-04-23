@@ -1,5 +1,6 @@
 package ooga.controller;
 
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -219,7 +220,8 @@ public class WindowControl {
   }
 
   private void startGame2() throws DataLoadingException, IOException {
-    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), CURRENT_PLAYER_ID);
+    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
+//    myGameView = new GameState2DView(1);
     GameZelda2D zelda2D = new GameZelda2D();
     setUpController();
     zelda2D.start();

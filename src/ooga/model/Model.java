@@ -7,14 +7,11 @@ import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
 import ooga.data.PlayerStatus;
 import ooga.game.GameType;
-import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.GamePara;
 import ooga.model.enums.PlayerPara;
 import ooga.model.gameElements.Element;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.gameMap.GameMap;
-import ooga.model.map.GameMapInstance;
 
 @SuppressWarnings("unchecked")
 public class Model implements ModelInterface {
@@ -47,7 +44,7 @@ public class Model implements ModelInterface {
   private void initializeZelda() {
     players = new ArrayList<ZeldaPlayer>();
     npcs = dataLoader.getZeldaCharacters();
-    List<PlayerStatus> playerStatuses = dataLoader.getPlayerStatus();
+    List<PlayerStatus> playerStatuses = dataLoader.getCurrentPlayers();
     for (PlayerStatus p: playerStatuses) {
       players.add(new ZeldaPlayer(p.getPlayerParam(PlayerPara.LIFE), p.getPlayerID()));
     }

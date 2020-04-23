@@ -20,7 +20,7 @@ public interface DataLoaderAPI {
 
     List<Direction> loadAvailableDirection(GamePara para);
 
-    void setGameAndPlayer(int GameID, int PlayerID);
+    void setGameAndPlayer(int GameID, List<Integer> PlayersID);
 
     int getGameType();
 
@@ -50,5 +50,5 @@ public interface DataLoaderAPI {
 
     List<ZeldaCharacter> getZeldaCharacters();
 
-    List<PlayerStatus> getPlayerStatus();
+    List<PlayerStatus> getCurrentPlayers();
 }

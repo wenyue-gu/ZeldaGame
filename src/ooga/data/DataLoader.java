@@ -1,19 +1,22 @@
 package ooga.data;
 
-import ooga.model.characters.ZeldaCharacter;
-import ooga.model.enums.*;
-import ooga.model.interfaces.gameMap.Cell;
+import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import javax.imageio.ImageIO;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.CharacterProperty;
+import ooga.model.enums.Direction;
+import ooga.model.enums.GamePara;
+import ooga.model.enums.ImageCategory;
+import ooga.model.enums.PlayerPara;
+import ooga.model.interfaces.gameMap.Cell;
 
-import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
-
-public class DataLoader implements ooga.data.DataLoaderAPI {
+public class DataLoader implements DataLoaderAPI {
 
   public static final int SubMapPerMap = 4;
   //  private int currentGameID = 1;//the belonging of Game ID is a problem. Where should it get from?
@@ -44,7 +47,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
         return gameInfo.getGameType();
       case PLAYER_NUM:
         return gameInfo.getPlayer_ID().size();
-        //TODO: move XY to player
+      //TODO: move XY to player
       case INIT_POS_X:
         return gameInfo.getInitialPosition()[0];
       case INIT_POS_Y:
@@ -77,11 +80,11 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
    * ***this method has to be called before using any of the loader/storer.
    *
    * @param GameID
-   * @param PlayerID
+   * @param playersID
    */
   @Override
-  public void setGameAndPlayer(int GameID, int PlayerID) {
-    gameObjectConfiguration.setCurrentPlayerAndGameID(GameID, PlayerID);
+  public void setGameAndPlayer(int GameID, List<Integer> playersID) {
+    gameObjectConfiguration.setCurrentPlayerAndGameID(GameID, playersID);
   }
 
   @Override
@@ -120,6 +123,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     }
     return map;
   }
+
   @Override
   public BufferedImage loadBufferImage(int ImageID, ImageCategory category) {
     String imagePath = loadImagePath(ImageID, category);
@@ -131,6 +135,7 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     }
     return null;
   }
+
   @Override
   public String loadText(String keyword, String category) {
     Map<String, String> textMap = gameObjectConfiguration.getTextMap().get(category);
@@ -180,7 +185,8 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   public Map<Integer, String> loadKeyCode(int playerID) throws DataLoadingException {
     PlayerStatus player = gameObjectConfiguration.getPlayerWithID(playerID);
     if (player == null) {
-      throw new DataLoadingException("Player with" + playerID + "is not found while loading key code");
+      throw new DataLoadingException(
+          "Player with" + playerID + "is not found while loading key code");
     }
 
     return player.getKeyCodeMap();
@@ -229,7 +235,9 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   }
 
   @Override
-  public List<PlayerStatus> getPlayerStatus() {
-    return gameObjectConfiguration.getPlayerList();
+  public List<PlayerStatus> getCurrentPlayers() {
+    return gameObjectConfiguration.getCurrentPlayers();
   }
+
+
 }

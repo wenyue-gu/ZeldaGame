@@ -1,5 +1,7 @@
 package ooga.model.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
@@ -10,9 +12,7 @@ import ooga.game.GameType;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.GamePara;
-import ooga.model.enums.PlayerPara;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ModelDataLoadingTest {
   DataLoaderAPI loader;
@@ -22,9 +22,8 @@ public class ModelDataLoadingTest {
   public ModelDataLoadingTest() throws DataLoadingException {
     loader = new DataLoader();
     storer = new DataStorer();
-    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), 1);
-    storer.setPlayerParam(PlayerPara.CURRENT_LEVEL, 1, 1);
-    model = new Model(loader);
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(1));
+//    storer.setPlayerParam(PlayerPara.CURRENT_LEVEL, 1, 1);
 
     System.out.println("--------------Basic game info in the test---------------");
     System.out.println("Game Type: " + GameType.byIndex(loader.getGameType()));
@@ -33,13 +32,17 @@ public class ModelDataLoadingTest {
   }
 
   @Test
-  public void playerLoading() {
+  public void playersLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0, 2));
+    model = new Model(loader);
+
     List<ZeldaPlayer> players = (List<ZeldaPlayer>) model.getPlayers();
-
-    assertEquals(loader.loadGameParam(GamePara.PLAYER_NUM), players.size());
+    System.out.println("--------------Loading Players---------------");
     for (ZeldaPlayer p: players) {
-      
+      System.out.println("Player id: " + p.getId());
     }
-
+    assertEquals(2, players.size());
+    assertEquals(0, players.get(0).getId());
+    assertEquals(2, players.get(1).getId());
   }
 }
