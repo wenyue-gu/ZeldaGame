@@ -221,7 +221,6 @@ public class WindowControl {
 
   private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
-//    myGameView = new GameState2DView(1);
     GameZelda2D zelda2D = new GameZelda2D();
     setUpController();
     zelda2D.start();
@@ -236,6 +235,7 @@ public class WindowControl {
   }
 
   private void setUpController() throws DataLoadingException {
+    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
     myGameController = new GameController(myDataStorer);
     if(!isColored)myGameController.setMode(dark);
     else myGameController.setColor(color);
@@ -276,5 +276,12 @@ public class WindowControl {
 
   public void setLife(int i) {
     myPlayerHP = i;
+  }
+
+  public void saveUser(int score){
+    if(isLogIn){
+      myUserProfileControl.writeScore(score);
+      System.out.println("saved?");
+    }
   }
 }

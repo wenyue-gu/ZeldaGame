@@ -30,6 +30,7 @@ public class GameController {
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
   private PauseControl myPauseControl;
+  private WindowControl myWindowControl;
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
   private boolean dark;
@@ -137,6 +138,7 @@ public class GameController {
       return myMainPlayerController.size();
   }
   public void setWindowControl(WindowControl windowControl) {
+    myWindowControl = windowControl;
     myPauseControl.setWindowControl(windowControl);
   }
 
@@ -151,6 +153,7 @@ public class GameController {
       ((DataStorer)myDataStorer).storeCharacter(mpc.getID(), (ZeldaCharacter)mpc.getPlayer());
     }
     myDataStorer.writeAllDataIntoDisk();
+    myWindowControl.saveUser((int)((ZeldaPlayer)myMainPlayerController.get(0).getPlayer()).getScore());
     System.out.println("game controller - save method called");
   }
 

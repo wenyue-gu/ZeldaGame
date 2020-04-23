@@ -25,6 +25,7 @@ public class UserProfileControl {
     private boolean dark = false;
     private String language = "English";
     private boolean isColor = false;
+    private String userName;
 
     public UserProfileControl(WindowControl windowControl){
         myStage = new Stage();
@@ -34,6 +35,7 @@ public class UserProfileControl {
 
 
     public void setUserNameAndShow(String s){
+        userName = s;
         myView = new UserProfileView(s);
         myView.switchMode(dark);
         if(isColor) myView.changColor(mycolor);
@@ -54,5 +56,34 @@ public class UserProfileControl {
     public void changColor(Color color) {
         mycolor = color;
         isColor = true;
+    }
+
+    public void writeScore(int score){
+        Properties prop = new Properties();
+        try {
+            InputStream in = new FileInputStream("resources/user_"+userName+".properties");//getClass().getResourceAsStream("/resources/xyzz.properties");
+            prop.load(in);
+        }
+        catch(Exception e){
+            System.out.println("user profile load error in profile control");
+        }
+
+        if(score>myView.getHighest()){
+            myView.setHighest(score);
+            prop.setProperty("High", score+"");
+        }
+        myView.setLast(score);
+        prop.setProperty("Last", score+"");
+
+        try {
+            FileOutputStream fos = new FileOutputStream("resources/user_"+userName+".properties");
+            prop.store(fos, "");
+            fos.flush();
+            fos.close();
+        }
+        catch(Exception ex){
+            System.out.println("save score error in profile control");
+        }
+
     }
 }

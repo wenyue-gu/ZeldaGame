@@ -85,30 +85,18 @@ public class UserProfileView implements MenuView{
 
 
     private void setUpLabel() {
-        var resource1 = ResourceBundle.getBundle("menu", new Locale(myLanguage));
         try {
             var resource2 = ResourceBundle.getBundle("user", new Locale(userName));
-            Name = new Label(resource1.getString("Name") + resource2.getString("Name"));
-            Name.setFont(Font.font("Ariel", 18));
-            HighestScore = new Label(resource1.getString("HighScore") + resource2.getString("High"));
-            HighestScore.setFont(Font.font("Ariel", 18));
-            LastPlayed = new Label(resource1.getString("Last") + resource2.getString("Last"));
-            LastPlayed.setFont(Font.font("Ariel", 18));
+            userName = resource2.getString("Name");
+            tempHighest = Integer.parseInt(resource2.getString("High"));
+            tempLast = Integer.parseInt(resource2.getString("Last"));
         }
         catch(Exception e){
             newUser = true;
             Properties prop = new Properties();
             prop.setProperty("Name", userName);
-            prop.setProperty("High", "0");
-            prop.setProperty("Last", "0");
-
-            Name = new Label(resource1.getString("Name") + userName);
-            Name.setFont(Font.font("Ariel", 18));
-            HighestScore = new Label(resource1.getString("HighScore") + "0");
-            HighestScore.setFont(Font.font("Ariel", 18));
-            LastPlayed = new Label(resource1.getString("Last") + "0");
-            LastPlayed.setFont(Font.font("Ariel", 18));
-
+            prop.setProperty("High", tempHighest+"");
+            prop.setProperty("Last", tempLast+"");
             try {
                 FileOutputStream fos = new FileOutputStream("resources/user_"+userName+".properties");
                 prop.store(fos, "test");
@@ -116,26 +104,36 @@ public class UserProfileView implements MenuView{
                 fos.close();
                 System.out.println(">");
             }
-
             catch(Exception ex){
                 System.out.println("userProfileCreationFail");
             }
         }
+
+        var resource1 = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        Name = new Label(resource1.getString("Name") + userName);
+        Name.setFont(Font.font("Ariel", 18));
+        HighestScore = new Label(resource1.getString("HighScore") + tempHighest);
+        HighestScore.setFont(Font.font("Ariel", 18));
+        LastPlayed = new Label(resource1.getString("Last") + tempLast);
+        LastPlayed.setFont(Font.font("Ariel", 18));
     }
 
-    private void changeLableText(){
+    public void changeLableText(){
         var resource1 = ResourceBundle.getBundle("menu", new Locale(myLanguage));
-        var resource2 = ResourceBundle.getBundle("user", new Locale(userName));
-        if(!newUser) {
-            Name.setText(resource1.getString("Name") + resource2.getString("Name"));
-            HighestScore.setText(resource1.getString("HighScore") + resource2.getString("High"));
-            LastPlayed.setText(resource1.getString("Last") + resource2.getString("Last"));
-        }
-        else{
-            Name.setText(resource1.getString("Name") + userName);
-            HighestScore.setText(resource1.getString("HighScore") + tempHighest);
-            LastPlayed.setText(resource1.getString("Last") + tempLast);
-        }
+        Name.setText(resource1.getString("Name") + userName);
+        HighestScore.setText(resource1.getString("HighScore") + tempHighest);
+        LastPlayed.setText(resource1.getString("Last") + tempLast);
+    }
 
+    public int getHighest(){
+        return tempHighest;
+    }
+
+    public void setHighest(int h){
+        tempHighest = h;
+    }
+
+    public void setLast(int h){
+        tempLast = h;
     }
 }
