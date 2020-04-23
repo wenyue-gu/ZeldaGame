@@ -1,7 +1,6 @@
 package ooga.data;
 
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
@@ -68,7 +67,7 @@ public class GameObjectConfiguration {
     gsonBuilder.serializeNulls(); //ensure gson storing null values.
     gsonStore = gsonBuilder.create();
     gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter("ooga.model.map.GameCell"));
-    gsonBuilder.registerTypeAdapter(LinkedTreeMap.class, new InterfaceAdapter(Animation2D.class.getName()));
+//    gsonBuilder.registerTypeAdapter(Animation2D.class, new InterfaceAdapter(Animation2D.class.getName()));
     gsonLoad = gsonBuilder.create();//3 lines above are the same as DataStorer
 
     gameInfoList = new ArrayList<>();
@@ -148,6 +147,7 @@ public class GameObjectConfiguration {
           case "Animation2D":
             Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
             meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
+            createTextureToAnimation(meleeRobotAnimations);
             break;
           default:
             throw new DataLoadingException(
@@ -161,6 +161,14 @@ public class GameObjectConfiguration {
       // Checking dir.isDirectory() above would not be sufficient
       // to avoid race conditions with another process that deletes
       // directories.
+    }
+  }
+
+  private void createTextureToAnimation(Map<String, Animation2D> meleeRobotAnimations) {
+    for (Animation2D i : meleeRobotAnimations.values()) {
+      for (int j = 0; j < i.getFrameAmount(); j++) {
+        i.getAnimatedFrames(j).createTexture();
+      }
     }
   }
 
