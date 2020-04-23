@@ -25,7 +25,7 @@ public interface  DataStorerAPI {
 
     void StoreInventory(Inventory inventory);
 
-    void storePlayerParamToCurrentPlayer(PlayerPara para, int value);
+//    void storePlayerParamToCurrentPlayer(PlayerPara para, int value);
 
     void setPlayerParam(PlayerPara para, int value, int playerID);
 

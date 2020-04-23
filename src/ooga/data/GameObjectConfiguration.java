@@ -41,7 +41,7 @@ public class GameObjectConfiguration {
   private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
   private com.google.gson.Gson gsonLoad;
   private com.google.gson.Gson gsonStore;
-  private int currentPlayerID;
+  private List<Integer> currentPlayersID;
   private int currentGameID;
 
   private Map<Object, String> fieldToPathMap;
@@ -291,24 +291,24 @@ public class GameObjectConfiguration {
 
   }
 
-  public int getCurrentPlayerID() {
-    return currentPlayerID;
+  public List<Integer> getCurrentPlayersID() {
+    return currentPlayersID;
   }
+
+  public int getCurrentPlayerID() {
+    return currentPlayersID.get(0);
+  }
+
 
 
   public int getCurrentGameID() {
     return currentGameID;
   }
 
-  public void setCurrentPlayerAndGameID(int currentGameID, int currentPlayerID) {
-    this.currentPlayerID = currentPlayerID;
+  public void setCurrentPlayerAndGameID(int currentGameID, List<Integer> currentPlayersID) {
+    this.currentPlayersID = currentPlayersID;
     this.currentGameID = currentGameID;
-    PlayerStatus tempPlayer = getPlayerWithID(currentGameID);
-    if (tempPlayer == null) {
-      tempPlayer = new PlayerStatus(currentGameID, currentPlayerID);
-    }
-    tempPlayer.setPlayerParam(PlayerPara.Game, currentGameID);
-    setPlayerWithID(currentGameID, tempPlayer);
+    List<PlayerStatus> tempPlayers = getPlayersWithID(currentPlayersID);
   }
 
   /**
@@ -318,18 +318,45 @@ public class GameObjectConfiguration {
    * @param playerID
    * @return
    */
+  public List<PlayerStatus> getPlayersWithID(List<Integer> playerID) {
+    List<PlayerStatus> playerStatuses = new ArrayList<>();
+    for (Integer id: playerID) {
+      boolean contains = false;
+      for (PlayerStatus i : playerList) {
+        if (i.getPlayerID() == id) {
+          playerStatuses.add(i);
+          contains = true;
+        }
+      }
+
+      if (!contains) {
+        PlayerStatus temp = new PlayerStatus(currentGameID, id);
+        temp.setPlayerParam(PlayerPara.Game, currentGameID);
+        playerStatuses.add(temp);
+        setPlayerWithID(id, temp);
+      }
+    }
+    return playerStatuses;
+  }
+
   public PlayerStatus getPlayerWithID(int playerID) {
     for (PlayerStatus i : playerList) {
       if (i.getPlayerID() == playerID) {
         return i;
       }
     }
-    return null;
+
+      return null;
+  }
+
+  public List<PlayerStatus> getCurrentPlayers() {
+      return getPlayersWithID(currentPlayersID);
   }
 
   public PlayerStatus getCurrentPlayer() {
-      return getPlayerWithID(currentPlayerID);
+    return getCurrentPlayers().get(0);
   }
+
 
   /**
    * this method handles adding players.
