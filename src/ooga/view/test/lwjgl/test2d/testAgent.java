@@ -1,13 +1,14 @@
 package ooga.view.test.lwjgl.test2d;
 
 
-import java.io.IOException;
-import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.graphics.Shader;
+import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
 import ooga.view.game_view.agent.agent2d.Agent2DView;
 import org.lwjgl.glfw.GLFW;
+
+import java.io.IOException;
 
 public class testAgent implements Runnable {
 

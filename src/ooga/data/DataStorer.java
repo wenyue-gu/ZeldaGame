@@ -7,6 +7,7 @@ import ooga.model.enums.TextCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 import java.io.File;
 import java.util.*;
@@ -228,7 +229,10 @@ public class DataStorer implements DataStorerAPI {
         gameObjectConfiguration.storeGameEverything();
     }
 
-
+    @Override
+    public void storeMeleeRobotAnimations(Map<String, Animation2D> animations) {
+        gameObjectConfiguration.setMeleeRobotAnimations(animations);
+    }
 
 
 }

@@ -7,6 +7,7 @@ import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -31,6 +32,7 @@ public class GameObjectConfiguration {
   public static String playerPath = "data/Player/";
   public static String zeldaCharacterPath = "data/ZeldaCharacter/";
   public static String textPath = "data/Text/";
+  public static String animationPath = "data/Animation2D/";
 
   private List<GameInfo> gameInfoList;
   private Map<String, GameMapGraph> gameMapList;
@@ -43,6 +45,7 @@ public class GameObjectConfiguration {
   private com.google.gson.Gson gsonStore;
   private int currentPlayerID;
   private int currentGameID;
+  private Map<String, Animation2D> meleeRobotAnimations;
 
   private Map<Object, String> fieldToPathMap;
   private static GameObjectConfiguration gameObjectConfiguration;
@@ -71,6 +74,7 @@ public class GameObjectConfiguration {
     playerList = new ArrayList<>();
     zeldaCharacterList = new ArrayList<>();
     textMap = new HashMap<>();
+    meleeRobotAnimations = new HashMap<>();
 
     fieldToPathMap = new HashMap<>();
 
@@ -86,7 +90,7 @@ public class GameObjectConfiguration {
     fieldToPathMap.put(playerList, playerPath);
     fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
     fieldToPathMap.put(textMap, textPath);
-
+    fieldToPathMap.put(meleeRobotAnimations, animationPath);
   }
 
   private void loadGameEverything() throws DataLoadingException {
@@ -97,6 +101,7 @@ public class GameObjectConfiguration {
     loadFilesUnderDirectory(playerPath, PlayerStatus.class);
     loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
     loadFilesUnderDirectory(textPath, textMap.getClass());
+    loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
   }
 
   private void loadFilesUnderDirectory(String myDirectoryPath, Class<?> classType)
@@ -136,6 +141,8 @@ public class GameObjectConfiguration {
             textMap.put(child.getName(),
                 loadJson(myDirectoryPath + child.getName(), classType));
             break;
+          case "Animation2D":
+            meleeRobotAnimations = loadJson(animationPath + child.getName(), classType);
           default:
             throw new DataLoadingException(
                 "Cannot recognize configuration file name " + child.getPath()
@@ -197,6 +204,8 @@ public class GameObjectConfiguration {
             writeObjectTOJson(textMap.get(j), path + j);
           }
           break;
+        case "Animation2D":
+          writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
       }
     }
   }
@@ -250,6 +259,7 @@ public class GameObjectConfiguration {
     this.zeldaCharacterList = zeldaCharacterList;
   }
 
+
   public Map<String, Map<String, String>> getTextMap() {
     return textMap;
   }
@@ -294,7 +304,6 @@ public class GameObjectConfiguration {
   public int getCurrentPlayerID() {
     return currentPlayerID;
   }
-
 
   public int getCurrentGameID() {
     return currentGameID;
@@ -371,5 +380,13 @@ public class GameObjectConfiguration {
       }
     }
     return null;
+  }
+
+  public Map<String, Animation2D> getMeleeRobotAnimations() {
+    return meleeRobotAnimations;
+  }
+
+  public void setMeleeRobotAnimations(Map<String, Animation2D> meleeRobot) {
+    meleeRobotAnimations = meleeRobot;
   }
 }

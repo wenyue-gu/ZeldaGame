@@ -3,6 +3,7 @@ package ooga.data;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -47,6 +48,8 @@ public interface DataLoaderAPI {
 
     String loadImagePath(int imageID, ImageCategory category);
 
+
+    Map<String, Animation2D> loadMeleeRobotAnimations();
 
     List<ZeldaCharacter> getZeldaCharacters();
 

@@ -3,6 +3,7 @@ package ooga.data;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -198,6 +199,11 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
     Map<String, String> imageMap = gameObjectConfiguration.getImageMap().get(category.toString());
     String key = String.valueOf(imageID);
     return loadValueOfMap(imageMap, key);
+  }
+
+  @Override
+  public Map<String, Animation2D> loadMeleeRobotAnimations() {
+    return gameObjectConfiguration.getMeleeRobotAnimations();
   }
 
   /**
