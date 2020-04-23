@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import ooga.controller.gamecontrol.GameController;
+import ooga.view.game_menu.pretty.PrettyButtons;
 
 import java.util.*;
 

@@ -12,8 +12,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import ooga.view.game_menu.pretty.PrettyButtons;
 
 import java.util.List;
 import java.util.Locale;

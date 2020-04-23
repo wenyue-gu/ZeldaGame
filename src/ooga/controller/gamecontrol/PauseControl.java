@@ -5,10 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.controller.WindowControl;
-import ooga.data.DataStorer;
 import ooga.data.DataStorerAPI;
 import ooga.view.game_menu.PauseMenu;
-import ooga.view.game_menu.PrettyButtons;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.util.List;

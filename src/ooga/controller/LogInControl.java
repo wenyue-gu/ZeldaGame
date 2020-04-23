@@ -60,6 +60,8 @@ public class LogInControl {
         }
 
         //TODO: create user profile properties
+        myControl.setUser(UserInput);
+        myStage.close();
 
     }
 
@@ -78,6 +80,7 @@ public class LogInControl {
         myControl.setUser(UserInput);
         //TODO: OPEN USER PROFILE AND NOTIFY WINDOW CONTROL OF USER
         //TODO: myControl.findUserProfile();
+        myControl.setUser(UserInput);
         myStage.close();
     }
 

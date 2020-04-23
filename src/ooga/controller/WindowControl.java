@@ -53,6 +53,7 @@ public class WindowControl {
   private LogInControl myLogIn;
   private SettingControl mySettingControl;
   private GameController myGameController;
+  private UserProfileControl myUserProfileControl;
 
   private Stage myStage;
   private Stage secondStage;
@@ -74,6 +75,7 @@ public class WindowControl {
     mySelectView = new SelectMenuView();
     myLogIn = new LogInControl(this);
     mySettingControl = new SettingControl(this);
+    myUserProfileControl = new UserProfileControl(this);
 
     setMenuScene();
     initializeButtons();
@@ -86,6 +88,7 @@ public class WindowControl {
     mySelectView.changColor(color);
     myLogIn.changColor(color);
     mySettingControl.changColor(color);
+    myUserProfileControl.changColor(color);
   }
 
   public WindowControl(Stage currentStage, DataStorerAPI datastorer) throws DataLoadingException {
@@ -104,9 +107,6 @@ public class WindowControl {
 
   public void showWindowMenu(){myStage.show();}
 
-  public void setUser(String userName){
-    myUserName = userName;
-  }
 
   private void initializeButtons(){
     myStartButton = myMenuView.getNewGameButton();
@@ -165,6 +165,15 @@ public class WindowControl {
     if(!isLogIn){
       myLogIn.showLogIn();
     }
+    else{
+      setUser(myUserName);
+    }
+  }
+
+  public void setUser(String s){
+    isLogIn = true;
+    myUserName = s;
+    myUserProfileControl.setUserNameAndShow(s);
   }
 
   private void selectGameMenu(){
@@ -180,6 +189,7 @@ public class WindowControl {
     mySelectView.setLanguage(language);
     myLogIn.setLanguage(language);
     mySettingControl.setLanguage(language);
+    myUserProfileControl.setLanguage(language);
   }
 
   private void startGame1() throws DataLoadingException {
@@ -253,6 +263,7 @@ public class WindowControl {
     mySelectView.switchMode(dark);
     myLogIn.switchMode(dark);
     mySettingControl.switchMode(dark);
+    myUserProfileControl.switchMode(dark);
   }
 
   private void loadlist() throws DataLoadingException {
