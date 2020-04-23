@@ -95,6 +95,7 @@ public class GameObjectConfiguration {
     fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
     fieldToPathMap.put(textMap, textPath);
     fieldToPathMap.put(meleeRobotAnimations, animationPath);
+//    fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
   }
 
   private void loadGameEverything() throws DataLoadingException {
@@ -106,6 +107,7 @@ public class GameObjectConfiguration {
     loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
     loadFilesUnderDirectory(textPath, textMap.getClass());
     loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
+//    loadFilesUnderDirectory(animationPath, animationMap.getClass()); //multiple agents draft (2,4)
   }
 
   private void loadFilesUnderDirectory(String myDirectoryPath, Class<?> classType)
@@ -151,9 +153,9 @@ public class GameObjectConfiguration {
             meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
             createTextureToAnimation(meleeRobotAnimations);
 
-            //change to support multiple agents
-            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
-            animationMap.put(child.getName(), tempAgent);
+//            //change to support multiple agents (3,4)
+//            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
+//            animationMap.put(child.getName(), tempAgent);
             break;
           default:
             throw new DataLoadingException(
@@ -228,10 +230,10 @@ public class GameObjectConfiguration {
           //delete after multiple agents
           writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
 
-          //use after using mulitple agents
-          for (String j : animationMap.keySet()) {
-            writeObjectTOJson(animationMap.get(j), path + j);
-          }
+//          //use after using mulitple agents (4,4)
+//          for (String j : animationMap.keySet()) {
+//            writeObjectTOJson(animationMap.get(j), path + j);
+//          }
       }
     }
   }
