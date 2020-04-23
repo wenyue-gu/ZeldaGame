@@ -48,6 +48,7 @@ public class GameObjectConfiguration {
   private int currentPlayerID;
   private int currentGameID;
   private Map<String, Animation2D> meleeRobotAnimations;
+  private Map<String, Map<String, Animation2D>> animationMap;
 
   private Map<Object, String> fieldToPathMap;
   private static GameObjectConfiguration gameObjectConfiguration;
@@ -77,7 +78,7 @@ public class GameObjectConfiguration {
     playerList = new ArrayList<>();
     zeldaCharacterList = new ArrayList<>();
     textMap = new HashMap<>();
-    meleeRobotAnimations = new HashMap<>();
+    meleeRobotAnimations = new HashMap<>(); //delete after multiple agents occur
 
     fieldToPathMap = new HashMap<>();
 
@@ -146,8 +147,13 @@ public class GameObjectConfiguration {
             break;
           case "Animation2D":
             Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
+            //delete after multiple agents occur
             meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
             createTextureToAnimation(meleeRobotAnimations);
+
+            //change to support multiple agents
+            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
+            animationMap.put(child.getName(), tempAgent);
             break;
           default:
             throw new DataLoadingException(
@@ -219,7 +225,13 @@ public class GameObjectConfiguration {
           }
           break;
         case "Animation2D":
+          //delete after multiple agents
           writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
+
+          //use after using mulitple agents
+          for (String j : animationMap.keySet()) {
+            writeObjectTOJson(animationMap.get(j), path + j);
+          }
       }
     }
   }
@@ -411,5 +423,17 @@ public class GameObjectConfiguration {
 
   public void setMeleeRobotAnimations(Map<String, Animation2D> meleeRobot) {
     meleeRobotAnimations = meleeRobot;
+  }
+
+  public void setAnimationMap(String agent, Map<String, Animation2D> agentAnimation) {
+    if (animationMap.containsKey(agent)) {
+      animationMap.replace(agent, agentAnimation);
+    } else {
+      animationMap.put(agent, agentAnimation);
+    }
+  }
+
+  public Map<String, Animation2D> getSpecificAgentAnimation(String agent) {
+    return animationMap.get(agent);
   }
 }
