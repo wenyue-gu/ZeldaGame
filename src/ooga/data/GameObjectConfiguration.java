@@ -1,6 +1,8 @@
 package ooga.data;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -64,7 +67,8 @@ public class GameObjectConfiguration {
     GsonBuilder gsonBuilder = new GsonBuilder();
     gsonBuilder.serializeNulls(); //ensure gson storing null values.
     gsonStore = gsonBuilder.create();
-    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
+    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter("ooga.model.map.GameCell"));
+    gsonBuilder.registerTypeAdapter(LinkedTreeMap.class, new InterfaceAdapter(Animation2D.class.getName()));
     gsonLoad = gsonBuilder.create();//3 lines above are the same as DataStorer
 
     gameInfoList = new ArrayList<>();
@@ -142,7 +146,9 @@ public class GameObjectConfiguration {
                 loadJson(myDirectoryPath + child.getName(), classType));
             break;
           case "Animation2D":
-            meleeRobotAnimations = loadJson(animationPath + child.getName(), classType);
+            Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
+            meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
+            break;
           default:
             throw new DataLoadingException(
                 "Cannot recognize configuration file name " + child.getPath()
@@ -269,6 +275,15 @@ public class GameObjectConfiguration {
   }
 
   public <clazz> clazz loadJson(String fileName, Class clazz) {
+    try {
+      Reader reader = Files.newBufferedReader(Paths.get(fileName));
+      return (clazz) gsonLoad.fromJson(reader, clazz);
+    } catch (IOException e) {
+      System.out.println("file at " + fileName + "hasn't been created.");
+    }
+    return null;
+  }
+  public <clazz> clazz loadJson(String fileName, Type clazz) {
     try {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
       return (clazz) gsonLoad.fromJson(reader, clazz);

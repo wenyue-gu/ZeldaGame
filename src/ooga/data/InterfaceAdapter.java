@@ -14,16 +14,19 @@ import java.lang.reflect.Type;
 
 public class InterfaceAdapter implements  JsonDeserializer{
 
-    private static final String CLASSNAME = "CLASSNAME";
+    private String className;
     private static final String DATA = "DATA";
 
+    public InterfaceAdapter(String className) {
+        this.className = className;
+    }
     public Object deserialize(JsonElement jsonElement, Type type,
                          JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         //JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
 //        String className = prim.getAsString();
-        String className = "ooga.model.map.GameCell";
+//        String className = "ooga.model.map.GameCell";
         Class klass = getObjectClass(className);
         GameCell a = jsonDeserializationContext.deserialize(jsonObject, klass);
         return a;

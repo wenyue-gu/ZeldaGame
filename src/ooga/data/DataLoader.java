@@ -23,10 +23,10 @@ public class DataLoader implements ooga.data.DataLoaderAPI {
   private com.google.gson.Gson gson;
 
   public DataLoader() throws DataLoadingException {
-    com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
-    gsonBuilder.serializeNulls(); //ensure gson storing null values.
-    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
-    gson = gsonBuilder.create();//3 lines above are the same as DataStorer
+//    com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
+//    gsonBuilder.serializeNulls(); //ensure gson storing null values.
+//    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
+//    gson = gsonBuilder.create();//3 lines above are the same as DataStorer
     gameObjectConfiguration = GameObjectConfiguration.getInstance();
   }
 
