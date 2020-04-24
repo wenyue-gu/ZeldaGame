@@ -9,6 +9,7 @@ import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.view.engine.graphics.animation.Animation2D;
+import ooga.view.engine.io.Window;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,6 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static ooga.game.GameMain.HEIGHT;
+import static ooga.game.GameMain.WIDTH;
 
 /**
  * this is the man, the object storing EVERY piece of info!
@@ -148,6 +152,9 @@ public class GameObjectConfiguration {
                 loadJson(myDirectoryPath + child.getName(), classType));
             break;
           case "Animation2D":
+            Window window = new Window(WIDTH, HEIGHT, "Game");
+            window.create();
+
             Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
             //delete after multiple agents occur
             meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
@@ -156,6 +163,7 @@ public class GameObjectConfiguration {
 //            //change to support multiple agents (3,4)
 //            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
 //            animationMap.put(child.getName(), tempAgent);
+            window.destroy();
             break;
           default:
             throw new DataLoadingException(
