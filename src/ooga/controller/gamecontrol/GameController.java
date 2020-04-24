@@ -1,28 +1,25 @@
 package ooga.controller.gamecontrol;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import ooga.controller.WindowControl;
 import ooga.controller.gamecontrol.NPC.MainNPCControl;
 import ooga.controller.gamecontrol.player.MainPlayerControl;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import ooga.data.*;
-import ooga.game.GameZelda2D;
+import ooga.data.DataLoaderAPI;
+import ooga.data.DataLoadingException;
+import ooga.data.DataStorer;
+import ooga.data.DataStorerAPI;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.MovingState;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
 import org.lwjgl.glfw.GLFW;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class GameController {
 
@@ -80,14 +77,14 @@ public class GameController {
   }
 
   private void setGameType(int gameType) {
-    for (Object player : myModel.getPlayers()) {
+    for (Object player : myModel.getPlayers().values()) {
       MainPlayerControl curControl = new MainPlayerControl();
       curControl.setControl(gameType);
       curControl.setMyPlayer((Movable1D) player);
       myMainPlayerController.add(curControl);
     }
 
-    for (Object NPC : myModel.getNPCs()) {
+    for (Object NPC : myModel.getNPCs().values()) {
       MainNPCControl npcControl = new MainNPCControl();
       npcControl.setControl(gameType);
       npcControl.setMyNPC((Movable1D) NPC);

@@ -2,7 +2,9 @@ package ooga.model.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
@@ -36,14 +38,14 @@ public class ModelDataLoadingTest {
     loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0, 2));
     model = new Model(loader);
 
-    List<ZeldaPlayer> players = (List<ZeldaPlayer>) model.getPlayers();
+    Map<Integer, ZeldaPlayer> players = (HashMap<Integer, ZeldaPlayer>) model.getPlayers();
     System.out.println("--------------Loading Players---------------");
-    for (ZeldaPlayer p: players) {
+    for (ZeldaPlayer p: players.values()) {
       System.out.println("Player id: " + p.getId());
     }
     assertEquals(2, players.size());
     assertEquals(0, players.get(0).getId());
-    assertEquals(2, players.get(1).getId());
+    assertEquals(2, players.get(2).getId());
   }
 
   @Test
@@ -51,7 +53,7 @@ public class ModelDataLoadingTest {
     loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
     model = new Model(loader);
 
-    ZeldaPlayer player = ((List<ZeldaPlayer>) model.getPlayers()).get(0);
+    ZeldaPlayer player = ((HashMap<Integer, ZeldaPlayer>) model.getPlayers()).get(0);
     assertEquals(0, player.getScore());
     player.addScore(50);
     assertEquals(50, player.getScore());
@@ -62,9 +64,9 @@ public class ModelDataLoadingTest {
     loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0, 2));
     model = new Model(loader);
 
-    List<ZeldaPlayer> players = (List<ZeldaPlayer>) model.getPlayers();
+    Map<Integer, ZeldaPlayer> players = (HashMap<Integer, ZeldaPlayer>) model.getPlayers();
     assertEquals(100, players.get(0).getGoalScore());
-    assertEquals(666, players.get(1).getGoalScore());
+    assertEquals(666, players.get(2).getGoalScore());
   }
 
   @Test

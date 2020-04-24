@@ -9,9 +9,9 @@ public interface  ModelInterface {
 
   void saveGame(String directory);
 
-  List<?> getPlayers();
+  Map getPlayers();
 
-  List<?> getNPCs();
+  Map getNPCs();
 
   GameMap getMap();
 
