@@ -50,6 +50,9 @@ public class Agent2DController extends AgentController {
       } else {
         setCurrentAnimation(direction, DEFAULT_ACTION);
       }
+      System.out.println(action);
+      System.out.println(direction);
+      System.out.println(DEFAULT_ACTION);
       return animationDict.getAnimation().getCurrentFrame();
     } else {
       return frame;
