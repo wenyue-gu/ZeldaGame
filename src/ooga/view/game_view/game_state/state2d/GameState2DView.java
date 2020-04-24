@@ -197,7 +197,10 @@ public class GameState2DView extends GameStateView {
   @Override
   public void renderAgents() { // get rid of dead agents
     for (int id : agentMap.keySet()) {
-      agentMap.get(id).renderMesh(renderer);
+      if (!agentMap.get(id).renderMesh(renderer)){
+        //render didn't succeed
+        deleteAgent(id);
+      }
     }
   }
 

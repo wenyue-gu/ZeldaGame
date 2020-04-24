@@ -19,6 +19,7 @@ public class Agent2DController extends AgentController {
   private float speedScale;
   private Vector3f initialPos;
   private boolean isBullet;
+  private boolean shouldConsumed;
 
   public Agent2DController(Agent2DDataHolder data) {
     super();
@@ -32,6 +33,7 @@ public class Agent2DController extends AgentController {
     initialPos =   Vector3f.add(data.getPosition(), data.isBullet()?Asset2D.getBulletDelta():Vector3f.zeros());
     initialPos =   Vector3f.add(initialPos, data.isSummon()?Asset2D.getSummonDelta():Vector3f.zeros());
     //isBullet = data.isBullet();
+    shouldConsumed = data.shouldConsumed();
     this.setCurrentAnimation(direction, action);
   }
 
@@ -62,7 +64,7 @@ public class Agent2DController extends AgentController {
         setCurrentAnimation(direction, DEFAULT_ACTION);
       }
 
-      return animationDict.getAnimation().getCurrentFrame();
+      return shouldConsumed?null:animationDict.getAnimation().getCurrentFrame();
     } else {
       return frame;
     }

@@ -1,6 +1,7 @@
 package ooga.view.game_view.agent.agent2d;
 
 import java.io.IOException;
+import ooga.view.engine.graphics.Material;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.graphics.Vertex;
@@ -26,9 +27,14 @@ public class Agent2DView extends AgentView {
     controller.setObject(object);
   }
 
-  public void renderMesh(Renderer2D renderer) {
-    object.getMesh().setMaterial(controller.getCurrentAnimatedMaterial());
-    renderer.renderMesh(object);
+  public boolean renderMesh(Renderer2D renderer) {
+    Material newFrame = controller.getCurrentAnimatedMaterial();
+    if (newFrame!=null) {
+      object.getMesh().setMaterial(newFrame);
+      renderer.renderMesh(object);
+      return true;
+    }
+    return false;
   }
 
   public Vector2f getCenterPosition(){return object.getMesh().getCenter();}
