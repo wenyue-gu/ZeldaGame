@@ -95,24 +95,28 @@ public class GameState2DView extends GameStateView {
 
   public void updateAgent(int id, String direction, String state, boolean isAttack)
       throws IOException {
-    System.out.println("called");
+    //System.out.println("called");
     currentTimeUpdated = Timer.getTime();
     if (currentTimeUpdated - lasTimeUpdated < elapsedInterval) {
       lasTimeUpdated = currentTimeUpdated;
       return;
     }
     lasTimeUpdated = currentTimeUpdated;
-    System.out.println("run");
+    //System.out.println("run");
+
+    if(state.equals("DEATH")) agentMap.get(id).terminate();
     agentMap.get(id).update(direction, state);
+
     if (agentDataHolderMap.get(id).getSpawnerDict().containsKey(state)) // will spawn new agents
     {
-      System.out.println("spawning");
+      //System.out.println("spawning");
       Vector3f parentPosition = new Vector3f(agentMap.get(id).getCenterPosition(), 0f);
       String parentDirection = agentMap.get(id).getCurrentDirection();
       Agent2DDataHolder newAgentData = positionNewAgent(
           agentDataHolderMap.get(id).getSpawnerDict().get(state),
           parentPosition, parentDirection);
       GenerateAgentsData.loadAnimations(newAgentData);
+
       if (box.canMove(parentPosition, newAgentData.getPosition())) {
         //System.out.println(newAgentData.isBullet());
         if (newAgentData.isBullet()) {
@@ -138,11 +142,11 @@ public class GameState2DView extends GameStateView {
     for (int key : bulletMap.keySet()) {
       //check if hit the agent or wall
       Agent2DView bullet = bulletMap.get(key);
-      System.out.println(String.format("BEFORE:key is %d",key));
-      Test.printVector2f(bullet.getCenterPosition());
+      //System.out.println(String.format("BEFORE:key is %d",key));
+      //Test.printVector2f(bullet.getCenterPosition());
       bullet.update(bullet.getCurrentDirection(), "MOVE");
-      System.out.println(String.format("AFTER:key is %d",key));
-      Test.printVector2f(bullet.getCenterPosition());
+     // System.out.println(String.format("AFTER:key is %d",key));
+      //Test.printVector2f(bullet.getCenterPosition());
     }
   }
 
@@ -154,18 +158,18 @@ public class GameState2DView extends GameStateView {
       newAgentData.setInitialDirection(parentDirection);
     }
 
-    System.out.println("dead");
-    Test.printVector3f(parentPosition);
-    Test.printVector3f(Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA));
+    //System.out.println("dead");
+    //Test.printVector3f(parentPosition);
+    //Test.printVector3f(Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA));
 
     newAgentData.setPosition(Vector3f.add(parentPosition,
         Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA)));
 
-    Test.printVector3f(parentPosition);
-    Test.printVector3f(newAgentData.getPosition());
+    //Test.printVector3f(parentPosition);
+    //Test.printVector3f(newAgentData.getPosition());
 
     newAgentData.getPosition().setZ(zLayer); zLayer+=Z_INC;
-    System.out.println(newAgentData.isBullet());
+    //System.out.println(newAgentData.isBullet());
     //System.out.println("hah");
     return newAgentData;
   }

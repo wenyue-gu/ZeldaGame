@@ -15,6 +15,7 @@ public class Agent2DView extends AgentView {
   //TODO: should remove from hardcoded!
 
   protected Agent2DController controller;
+  private boolean shouldTerminated = false;
 
   public Agent2DView(int id, Agent2DDataHolder data) throws IOException {
     super(data.getMoveAction());
@@ -25,6 +26,10 @@ public class Agent2DView extends AgentView {
     mesh = new Mesh(vertices, indices, controller.getCurrentAnimatedMaterial());
     object = new GameObject(Vector3f.zeros(), data.getRotation(), data.getScale(), mesh);
     controller.setObject(object);
+  }
+
+  public void terminate(){
+    controller.setShouldTerminated(true);
   }
 
   public boolean renderMesh(Renderer2D renderer) {
