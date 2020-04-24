@@ -5,7 +5,7 @@ import ooga.view.engine.graphics.Mesh;
 
 abstract public class AgentController {
 
-  protected static final String DEFAULT_ACTION = "IDLE";
+  protected static String DEFAULT_ACTION;
   protected String direction;
   protected String action;
 
@@ -13,8 +13,8 @@ abstract public class AgentController {
 
   public abstract void setCurrentAnimation(String direction, String action);
 
-  public abstract Material getMaterial();
+  //public abstract Material getCurrentAnimatedMaterial();
 
-  public abstract void move(String direction, Mesh mesh);
+  //public abstract void move(String direction, Mesh mesh);
 
 }

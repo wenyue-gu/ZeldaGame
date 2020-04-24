@@ -3,7 +3,9 @@ package ooga.view.engine.graphics;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import ooga.view.engine.maths.Vector2f;
 import ooga.view.engine.maths.Vector3f;
+import ooga.view.engine.utils.Test;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
@@ -20,6 +22,29 @@ public class Mesh {
 		this.vertices = vertices;
 		this.indices = indices;
 		this.material = material;
+		Mesh.normalize(this);
+	}
+
+	public Mesh(Mesh mesh, Vector3f rotation){
+		this.vertices = verticesCopy(mesh.vertices);
+		this.indices = mesh.getIndices().clone();
+		this.material = mesh.getMaterial();
+		rotateVertices(rotation);
+		Mesh.normalize(this);
+	}
+
+	private Vertex[] verticesCopy(Vertex[] v) {
+		Vertex[] ret = new Vertex[v.length];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = new Vertex(v[i]);
+		}
+		return ret;
+	}
+
+	public void rotateVertices(Vector3f rotation){
+		for(int i=0; i<this.vertices.length; i++){
+			this.vertices[i].rotate(rotation);
+		}
 	}
 
 	public void create() {
@@ -132,6 +157,10 @@ public class Mesh {
 		return getMaxZ() - getMinZ();
 	}
 
+	public Vector2f getCenter(){
+		return new Vector2f(getMinX() + (getMaxX()-getMaxX())/2.0f, getMinY() + (getMaxY() - getMinY()));
+	}
+
 	private float getMaxX(){
 		float maxX = vertices[0].getPosition().getX();
 		for (Vertex v:vertices){
@@ -190,6 +219,38 @@ public class Mesh {
 		}
 		positionBuffer.put(positionData).flip();
 		return positionBuffer;
+	}
+
+	public static Mesh normalize(Mesh mesh){
+		float deltaX = mesh.getVertices()[0].getPosition().getX();
+		float deltaY = mesh.getVertices()[0].getPosition().getY();
+		float deltaZ = mesh.getVertices()[0].getPosition().getZ();
+
+		for (Vertex v:mesh.getVertices()){
+			if (deltaX>v.getPosition().getX() ){
+				deltaX = v.getPosition().getX();
+			}
+			if (deltaY>v.getPosition().getY() ){
+				deltaY = v.getPosition().getY();
+			}
+			if (deltaZ>v.getPosition().getZ() ){
+				deltaZ = v.getPosition().getZ();
+			}
+		}
+
+		for(Vertex v:mesh.getVertices()){
+			v.setPosition(new Vector3f(v.getPosition().getX() - deltaX, v.getPosition().getY() - deltaY, v.getPosition().getZ() - deltaZ));
+		}
+
+		return mesh;
+	}
+
+	public static Vector3f getAgentBackViewpoint(Mesh agentMesh){
+		return null;
+	}
+
+	public static Vector3f getAgentFront(Mesh agentMesh){
+		return null;
 	}
 
 }
