@@ -125,7 +125,6 @@ public class GameController {
   public void setView(GameState2DView view) {
     myGameView = view;
     myPauseControl.setView(view);
-    for(MainPlayerControl mpc:myMainPlayerController) mpc.setView(view);
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setView(view);
     }

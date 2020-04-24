@@ -1,12 +1,11 @@
 package ooga.controller.gamecontrol.player;
 
-import ooga.controller.gamecontrol.PlayerControlInterface;
-import javafx.scene.input.KeyCode;
-import ooga.model.interfaces.movables.Movable1D;
-import ooga.view.game_view.game_state.state2d.GameState2DView;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import javafx.scene.input.KeyCode;
+import ooga.controller.gamecontrol.PlayerControlInterface;
+import ooga.model.interfaces.movables.Movable1D;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 public class MainPlayerControl implements PlayerControlInterface {
   private PlayerControlInterface myPlayerControl;

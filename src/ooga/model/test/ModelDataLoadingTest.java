@@ -73,4 +73,18 @@ public class ModelDataLoadingTest {
   public void npcLoading() {
 
   }
+
+  @Test
+  public void keyCodeLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
+    model = new Model(loader);
+    Map<Integer, String> keyMap = loader.loadKeyCode(0);
+
+//    for (Entry<Integer, String> entry: keyMap.entrySet()) {
+//      System.out.printf("Key: %d, Value: %s\n", entry.getKey(), entry.getValue());
+//    }
+
+    assertEquals(8, keyMap.size());
+    assertEquals("left", keyMap.get(263));
+  }
 }

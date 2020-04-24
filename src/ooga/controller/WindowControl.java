@@ -12,7 +12,7 @@ import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
 import ooga.data.DataStorerAPI;
 import ooga.game.GameType;
-import ooga.game.GameZelda2D;
+import ooga.game.GameZelda2DSingle;
 import ooga.view.game_menu.GameMenu;
 import ooga.view.game_menu.GameMenuView;
 import ooga.view.game_menu.SelectMenuView;
@@ -21,7 +21,7 @@ import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 public class WindowControl {
 
-  public static final int CURRENT_PLAYER_ID = 1;
+  public static final int CURRENT_PLAYER_ID = 0;
 
   private Button myStartButton;
   private Button myExitButton;
@@ -213,7 +213,7 @@ public class WindowControl {
   private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
     myDataStorer.resetPlayerInfo();
-    GameZelda2D zelda2D = new GameZelda2D();
+    GameZelda2DSingle zelda2D = new GameZelda2DSingle();
     setUpController();
     zelda2D.start();
     while (zelda2D.getView() == null);
@@ -224,7 +224,7 @@ public class WindowControl {
   }
 
   private void setUpController() throws DataLoadingException {
-    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
+//    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
     myGameController = new GameController(myDataStorer);
     if(!isColored)myGameController.setMode(dark);
     else myGameController.setColor(color);
