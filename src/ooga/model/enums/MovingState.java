@@ -1,21 +1,65 @@
 package ooga.model.enums;
 
 public enum  MovingState {
-  IDLE(0),
-  WALK(1),
-  SPRINT(2),
-  JUMP(3),
-  DEATH(4),
-  ATTACK1(5),
-  ATTACK3(7),
-  ;
+  // Big Boy
+  ATTACK,
+  DEATH,
+  IDLE,
+  HURT,
+  WALK,
 
-  private final int index;
-  MovingState(int index) {
-    this.index = index;
-  }
+  // Engineer Bot
+//  ATTACK,
+//  DEATH,
+//  HURT,
+//  WALK,
+//  IDLE,
+  JUMP,
+  FALL,
+  SUMMON,
 
-  public int getIndex() {
-    return this.index;
-  }
+  // Load Soldier
+//  ATTACK,
+//  DEATH,
+//  HURT,
+//  FALL,
+//  JUMP,
+//  IDLE,
+//  WALK
+
+  // Player
+//  IDLE,
+//  WALK,
+  SPRINT,
+//  JUMP,
+//  DEATH,
+  ATTACK1,
+  ATTACK3,
+  
+  // Shield
+//  ATTACK,
+//  DEATH,
+//  HURT,
+//  FALL,
+  JUMPING,
+  SHIELD_HURT,
+//  IDLE,
+//  WALK
+
+  // Turret
+  ATTACK_1_SIDE,
+  ATTACK_2_SIDE,
+  ATTACK_BLASTS,
+//  HURT,
+//  IDLE
+
+  // Watcher Bot
+//  ATTACK,
+//  HURT,
+//  DEATH,
+  WARNING_WALK,
+  WARNING_IDLE,
+  WARNING,
+//  IDLE,
+//  WALK
 }
