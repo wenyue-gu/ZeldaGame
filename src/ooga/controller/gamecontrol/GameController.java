@@ -1,22 +1,13 @@
 package ooga.controller.gamecontrol;
 
-import ooga.controller.gamecontrol.NPC.MainNPCControl;
-import ooga.controller.gamecontrol.player.MainPlayerControl;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import ooga.data.DataLoaderAPI;
-import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.MovingState;
-import ooga.model.interfaces.ModelInterface;
-import ooga.model.interfaces.movables.Movable1D;
-import ooga.view.game_view.game_state.AbstractGameStateController;
-import ooga.view.game_view.game_state.GameStateController;
-import ooga.view.game_view.game_state.state2d.GameState2DView;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import ooga.controller.gamecontrol.NPC.MainNPCControl;
+import ooga.controller.gamecontrol.player.MainPlayerControl;
+import ooga.data.DataLoaderAPI;
+import ooga.model.interfaces.ModelInterface;
+import ooga.model.interfaces.movables.Movable1D;
+import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 public class GameController {
 

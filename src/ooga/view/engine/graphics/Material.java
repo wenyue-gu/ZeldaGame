@@ -19,7 +19,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 public class Material {
 	private static int BYTES_PER_PIXEL = 3; //4 for RGBA, 3 for RGB
 	private String path;
-	private Texture texture;
+	private transient Texture texture;
 	private float width, height;
 	private int textureID;
 	

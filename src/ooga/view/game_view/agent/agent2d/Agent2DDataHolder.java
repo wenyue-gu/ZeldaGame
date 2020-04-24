@@ -10,6 +10,7 @@ import ooga.view.game_view.animation.dict2d.Animation2DDict;
 
 public class Agent2DDataHolder {
 
+  private String type;
   private String initialDirection = "E";
   private String initialAction = "IDLE";
   private String defaultAction = "IDLE";
@@ -36,6 +37,7 @@ public class Agent2DDataHolder {
   }
 
   public Agent2DDataHolder(Agent2DDataHolder other) {
+    this.type = other.type;
     this.isBullet = other.isBullet;
     this.initialDirection = other.getInitialDirection();
     this.initialAction = other.getInitialAction();
@@ -46,12 +48,20 @@ public class Agent2DDataHolder {
     this.nextDict = Map.copyOf(other.getNextDict());
     this.prevDict = Map.copyOf(other.getPrevDict());
     this.spawnerDict = Map.copyOf(other.getSpawnerDict());
-    this.agentAnimationDict = new Animation2DDict(other.getAgentAnimationDict());
+   // this.agentAnimationDict = new Animation2DDict(other.getAgentAnimationDict());
     this.rotation = new Vector3f(other.getRotation());
     this.position = new Vector3f(other.getPosition());
     this.scale = new Vector3f(other.getScale());
     this.vertices = Asset2D.getAgentVertices();
     this.indices = Asset2D.getAgentIndices();
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public boolean isBullet() {

@@ -73,6 +73,7 @@ public class GameState2DView extends GameStateView {
     map = new Map2DView(mapPath);
 
     for (int id : agentDataHolderMap.keySet()) {
+      GenerateAgentsData.loadAnimations(agentDataHolderMap.get(id));
       agentMap.put(id, new Agent2DView(id, agentDataHolderMap.get(id)));
       agentMap.get(id).createMesh();
     }
@@ -94,6 +95,7 @@ public class GameState2DView extends GameStateView {
       Agent2DDataHolder newAgentData = positionNewAgent(
           agentDataHolderMap.get(id).getSpawnerDict().get(state),
           parentPosition, parentDirection);
+      GenerateAgentsData.loadAnimations(newAgentData);
       if (box.canMove(parentPosition, newAgentData.getPosition())) {
         if (newAgentData.isBullet()) {
           int newId = getNextBulletId();

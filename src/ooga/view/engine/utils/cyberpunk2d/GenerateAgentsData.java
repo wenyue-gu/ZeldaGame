@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.util.Pair;
-import ooga.view.engine.graphics.Vertex;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadBigBoyAnimations;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadBulletAnimation;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadEngineerBotAnimations;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadMeleeBotAnimations;
+import ooga.view.engine.utils.cyberpunk2d.animtions.LoadShieldAnimations;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadSoldierAnimations;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadSummonAnimations;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadTurretAnimations;
@@ -36,15 +36,11 @@ public class GenerateAgentsData {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
+    data.setType("BigBoy");
     data.setInitialAction("IDLE");
     data.setInitialDirection(initialDirection);
     data.setDefaultAction("IDLE");
     data.setMoveAction("WALK");
-
-    // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadBigBoyAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
 
     Vector3f position = new Vector3f(x,y,Z_POSITION);
     data.setPosition(position);
@@ -55,6 +51,58 @@ public class GenerateAgentsData {
     return data;
   }
 
+  public static void loadAnimations(Agent2DDataHolder data) throws IOException {
+    Animation2DDict animationDict;
+    if (data.getType().equals("BigBoy")){
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadBigBoyAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("Bullet")){
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadBulletAnimation.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("Turret")){
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadTurretAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("TurretBullet")){
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadTurretBulletAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("Watcher")){
+      // create animation dict
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadWatcherBotAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("Soldier")){
+      // create animation dict
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadSoldierAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("Engineer")){
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadEngineerBotAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("Shieldman")){
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadShieldAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("Summon")){
+      animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
+          LoadSummonAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else if (data.getType().equals("MeleeBot")){
+      animationDict = new Animation2DDict(data.getInitialDirection(),
+          data.getInitialAction(), LoadMeleeBotAnimations.loadAnimations(), data.getPrevDict());
+    }
+    else {
+      System.out.println("Wrong Agent2DDataHolder Type");
+      animationDict = new Animation2DDict(data.getInitialDirection(),
+          data.getInitialAction(), LoadMeleeBotAnimations.loadAnimations(), data.getPrevDict());
+    }
+    data.setAgentAnimationDict(animationDict);
+  }
+
   public static Agent2DDataHolder createBullet(float x, float y, String initialDirection)
       throws IOException {
     Agent2DDataHolder data = new Agent2DDataHolder();
@@ -62,15 +110,14 @@ public class GenerateAgentsData {
     data.setSpeedScale(5.0f);
 
     // create initial params
+    data.setType("Bullet");
     data.setInitialAction("MOVE");
     data.setInitialDirection(initialDirection);
     data.setDefaultAction("MOVE");
     data.setMoveAction("MOVE");
 
     // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadBulletAnimation.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
+
 
     Vector3f position = new Vector3f(x,y,Z_POSITION);
     data.setPosition(position);
@@ -85,15 +132,14 @@ public class GenerateAgentsData {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
+    data.setType("Turret");
     data.setInitialAction("IDLE");
     data.setInitialDirection("E");
     data.setDefaultAction("IDLE");
     data.setMoveAction("NA");
 
     // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadTurretAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
+
 
     // create empty triggered object dict
     Map<String, Agent2DDataHolder> spawnerDict = new HashMap<>();
@@ -116,15 +162,14 @@ public class GenerateAgentsData {
     data.setSpeedScale(5.0f);
 
     // create initial params
+    data.setType("TurretBullet");
     data.setInitialAction("MOVE");
     data.setInitialDirection(initialDirection);
     data.setDefaultAction("MOVE");
     data.setMoveAction("MOVE");
 
     // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadTurretBulletAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
+
 
     // create empty triggered object dict
     Map<String, Agent2DDataHolder> spawnerDict = new HashMap<>();
@@ -144,15 +189,11 @@ public class GenerateAgentsData {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
+    data.setType("Watcher");
     data.setInitialAction("IDLE");
     data.setInitialDirection(initialDirection);
     data.setDefaultAction("IDLE");
     data.setMoveAction("WALK");
-
-    // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadWatcherBotAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
 
     Vector3f position = new Vector3f(x,y,Z_POSITION);
     data.setPosition(position);
@@ -166,15 +207,11 @@ public class GenerateAgentsData {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
+    data.setType("Soldier");
     data.setInitialAction("IDLE");
     data.setInitialDirection("E");
     data.setDefaultAction("IDLE");
     data.setMoveAction("WALK");
-
-    // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadSoldierAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
 
     // create empty combo dict
     Map<String, String> comboDict = new HashMap<>();
@@ -200,15 +237,14 @@ public class GenerateAgentsData {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
+    data.setType("Engineer");
     data.setInitialAction("IDLE");
     data.setInitialDirection("E");
     data.setDefaultAction("IDLE");
     data.setMoveAction("WALK");
 
     // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadEngineerBotAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
+
 
     // create empty combo dict
     Map<String, String> comboDict = new HashMap<>();
@@ -239,15 +275,13 @@ public class GenerateAgentsData {
     data.setShouldConsumed(true);
 
     // create initial params
+    data.setType("Summon");
     data.setInitialAction(initialAction);
     data.setInitialDirection(initialDirection);
     data.setDefaultAction(initialAction);
     data.setMoveAction("NA");
 
-    // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadSummonAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
+
 
     // create empty triggered object dict
     Map<String, Agent2DDataHolder> spawnerDict = new HashMap<>();
@@ -275,9 +309,8 @@ public class GenerateAgentsData {
     data.setMoveAction("WALK");
 
     // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(), data.getInitialAction(),
-        LoadSummonAnimations.loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
+    data.setType("Shieldman");
+
 
     // create empty combo dict
     Map<String, String> comboDict = new HashMap<>();
@@ -298,6 +331,7 @@ public class GenerateAgentsData {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
+    data.setType("MeleeBot");
     data.setInitialAction("IDLE");
     data.setInitialDirection("E");
     data.setDefaultAction("IDLE");
@@ -309,10 +343,7 @@ public class GenerateAgentsData {
     data.setPrevDict(prevDict);
 
     // create animation dict
-    Animation2DDict animationDict = new Animation2DDict(data.getInitialDirection(),
-        data.getInitialAction(), LoadMeleeBotAnimations
-        .loadAnimations(), data.getPrevDict());
-    data.setAgentAnimationDict(animationDict);
+
 
     Vector3f position = new Vector3f(x, y, Z_POSITION);
     data.setPosition(position);

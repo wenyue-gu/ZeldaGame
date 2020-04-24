@@ -148,7 +148,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
         //playerView.update(myPlayer.getDirection().toString(), myPlayer.getState().toString());
-        myView.updatePlayer(myID,myPlayer.getDirection().toString(), myPlayer.getState().toString());
+        myView.updateAgent(myID,myPlayer.getDirection().toString(), myPlayer.getState().toString());
     }
   }
 

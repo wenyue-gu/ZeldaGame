@@ -1,5 +1,7 @@
 package ooga.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -8,9 +10,11 @@ import ooga.controller.gamecontrol.GameController;
 import ooga.data.DataLoaderAPI;
 import ooga.model.Model;
 import ooga.model.interfaces.ModelInterface;
+import ooga.view.engine.utils.cyberpunk2d.GenerateAgentsData;
 import ooga.view.game_menu.GameMenuView;
 import ooga.view.game_menu.GameMenu;
 import ooga.view.game_menu.SelectMenuView;
+import ooga.view.game_view.agent.agent2d.Agent2DDataHolder;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 
@@ -99,7 +103,11 @@ public class WindowControl {
     myGameController = new GameController(myModel, myDataLoader);
     myGameController.setMode(dark);
     try {
-      myGameView = new GameState2DView(myModel.getPlayers().size());
+      //TODO: attempting to make it compileable
+      Map<Integer, Agent2DDataHolder> dataHolderMap = new HashMap<>();
+      dataHolderMap.put(0, GenerateAgentsData.createSoldier(0f, 0f));
+      myGameView = new GameState2DView(dataHolderMap);
+      //myGameView = new GameState2DView(myModel.getPlayers().size());
       System.out.println(myModel.getPlayers().size());
       myGameController.setView(myGameView);
       myGameView.createWindow();
