@@ -1,7 +1,7 @@
 package ooga.controller;
 
+import java.io.IOException;
 import java.util.List;
-import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -13,18 +13,10 @@ import ooga.data.DataLoadingException;
 import ooga.data.DataStorerAPI;
 import ooga.game.GameType;
 import ooga.game.GameZelda2D;
-import ooga.model.Model;
-import ooga.model.interfaces.ModelInterface;
-import ooga.view.game_menu.GameMenuView;
 import ooga.view.game_menu.GameMenu;
+import ooga.view.game_menu.GameMenuView;
 import ooga.view.game_menu.SelectMenuView;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 
 public class WindowControl {
@@ -178,7 +170,6 @@ public class WindowControl {
   }
 
   private void selectGameMenu(){
-    myDataStorer.resetPlayerInfo();
     secondStage = new Stage();
     secondStage.setScene(mySelectView.getMenuView());
     secondStage.show();
@@ -221,13 +212,11 @@ public class WindowControl {
 
   private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
+    myDataStorer.resetPlayerInfo();
     GameZelda2D zelda2D = new GameZelda2D();
     setUpController();
     zelda2D.start();
-    while (zelda2D.getView() == null){
-      System.out.println(zelda2D.getView());
-    }
-    System.out.println(zelda2D.getView());
+    while (zelda2D.getView() == null);
     myGameController.setView(zelda2D.getView());
     myGameController.startTimer();
     //myStage.close();

@@ -1,12 +1,13 @@
 package ooga.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
 import ooga.data.PlayerStatus;
 import ooga.game.GameType;
+import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.PlayerPara;
 import ooga.model.gameElements.Element;
@@ -18,17 +19,14 @@ public class Model implements ModelInterface {
 
   private DataLoaderAPI dataLoader;
   private GameMap gameMap;
-  private List players;
-  private List npcs;
+  private Map players;
+  private Map npcs;
+  private int goalScore;
 
   public Model(DataLoaderAPI dataLoader) throws DataLoadingException {
     this.dataLoader = dataLoader;
 //    gameMap = new GameMapInstance(dataLoader);
     switch (GameType.byIndex(dataLoader.getGameType())) {
-//    switch (GameType.ZELDA) {
-      case MARIO:
-        initializeMario();
-        break;
       case ZELDA:
         initializeZelda();
         break;
@@ -37,16 +35,19 @@ public class Model implements ModelInterface {
     }
   }
 
-  private void initializeMario() {
-    //TODO: implement this
-  }
-
   private void initializeZelda() {
-    players = new ArrayList<ZeldaPlayer>();
-    npcs = dataLoader.getZeldaCharacters();
+    List<ZeldaCharacter> characters = dataLoader.getZeldaCharacters();
+    npcs = new HashMap<Integer, ZeldaCharacter>();
+    for (ZeldaCharacter c: characters) {
+      npcs.put(c.getId(), c);
+    }
+
+    players= new HashMap<Integer, ZeldaPlayer>();
     List<PlayerStatus> playerStatuses = dataLoader.getCurrentPlayers();
-    for (PlayerStatus p: playerStatuses) {
-      players.add(new ZeldaPlayer(p.getPlayerParam(PlayerPara.LIFE), p.getPlayerID()));
+    for (PlayerStatus p : playerStatuses) {
+      ZeldaPlayer current = new ZeldaPlayer(p.getPlayerParam(PlayerPara.LIFE), p.getPlayerID(),
+          p.getPlayerParam(PlayerPara.CURRENT_SCORE), p.getPlayerParam(PlayerPara.SCORE_GOAL));
+      players.put(p.getPlayerID(), current);
     }
   }
 
@@ -55,12 +56,12 @@ public class Model implements ModelInterface {
   }
 
   @Override
-  public List<?> getPlayers() {
+  public Map getPlayers() {
     return players;
   }
 
   @Override
-  public List<?> getNPCs() {
+  public Map getNPCs() {
     return npcs;
   }
 
@@ -78,4 +79,5 @@ public class Model implements ModelInterface {
   public List<?> getGameElements() {
     return null;
   }
+
 }
