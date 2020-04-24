@@ -16,6 +16,7 @@ import ooga.data.DataStorerAPI;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.PlayerPara;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
@@ -172,5 +173,9 @@ public class GameController {
 
   public void setColor(Color color) {
     myPauseControl.setColor(color);
+  }
+
+  public int getGameID() {
+    return myDataLoader.getCurrentPlayers().get(0).getPlayerParam(PlayerPara.Game);
   }
 }

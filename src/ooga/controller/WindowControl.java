@@ -40,6 +40,7 @@ public class WindowControl {
 
   private boolean isColored = false;
   private Color color = Color.WHITE;
+  private boolean resetGame = true;
 
   private ComboBox myLanguagePicker;
 
@@ -113,7 +114,7 @@ public class WindowControl {
     myLoadButton.setOnAction(e-> {
       try {
         loadlist();
-      } catch (DataLoadingException ex) {
+      } catch (DataLoadingException | IOException ex) {
         System.out.println("WINDOW CONTROL LOAD LAST PLAYED");
       }
     });
@@ -170,6 +171,7 @@ public class WindowControl {
   }
 
   private void selectGameMenu(){
+    resetGame = true;
     secondStage = new Stage();
     secondStage.setScene(mySelectView.getMenuView());
     secondStage.show();
@@ -212,7 +214,7 @@ public class WindowControl {
 
   private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
-    myDataStorer.resetPlayerInfo();
+    if(resetGame) myDataStorer.resetPlayerInfo();
     GameZelda2D zelda2D = new GameZelda2D();
     setUpController();
     zelda2D.start();
@@ -220,7 +222,7 @@ public class WindowControl {
     myGameController.setView(zelda2D.getView());
     myGameController.startTimer();
     //myStage.close();
-    secondStage.close();
+    if(resetGame) secondStage.close();
   }
 
   private void setUpController() throws DataLoadingException {
@@ -257,10 +259,16 @@ public class WindowControl {
     myUserProfileControl.switchMode(dark);
   }
 
-  private void loadlist() throws DataLoadingException {
+  private void loadlist() throws DataLoadingException, IOException {
     setUpController();
-    myGameController.pause();
-
+    resetGame = false;
+    int gameID = myGameController.getGameID();
+    System.out.println("gameID"+gameID);
+    switch (gameID){
+      case 0: startGame1();break;
+      case 1: startGame2(); break;
+      case 2: startGame3(); break;
+    }
   }
 
   public void setLife(int i) {
