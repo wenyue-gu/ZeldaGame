@@ -73,6 +73,7 @@ Interesting data files:
 
 Known Bugs:
     - the open gl window refuses to run on a mac computer
+    - sprinting animation not fully implemented
     
 
 - Extra credit:
