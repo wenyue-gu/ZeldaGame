@@ -23,7 +23,7 @@ public interface PlayerControlInterface{
 
   boolean checkScore(int score);
 
-  void updateScore();
+  boolean update();
 
   boolean hasWon();
 }

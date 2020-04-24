@@ -97,8 +97,8 @@ public class GameController {
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.updateKey();
       // TODO: complete this
-      mpc.updateScore();
-      if (mpc.hasWon()) finishGame(mpc);
+      if (!mpc.update()) finishGame(mpc); // this is dead
+      if (mpc.hasWon()) finishGame(mpc); // this is won
     }
     if(myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P))pause();
   }

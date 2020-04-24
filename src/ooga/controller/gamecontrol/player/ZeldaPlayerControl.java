@@ -184,11 +184,22 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     return score <= myPlayer.getScore();
   }
 
+  /**
+   * Return false if dead
+   * @return
+   */
   @Override
-  public void updateScore() {
+  public boolean update() {
     if (myPlayer.getState() == MovingState.SPRINT) {
       myPlayer.addScore(10);
     }
+
+    if (!myPlayer.isAlive()) {
+      death();
+      return false;
+    }
+
+    return true;
   }
 
   @Override

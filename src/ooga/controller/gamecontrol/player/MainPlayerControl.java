@@ -50,8 +50,8 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
-  public void updateScore() {
-    myPlayerControl.updateScore();
+  public boolean update() {
+    myPlayerControl.update();
   }
 
   @Override
