@@ -6,6 +6,7 @@ import ooga.model.enums.backend.Direction;
 import ooga.model.enums.backend.GamePara;
 import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -51,7 +52,11 @@ public interface DataLoaderAPI {
     String loadImagePath(int imageID, ImageCategory category);
 
 
+    Map<String, Animation2D> loadMeleeRobotAnimations();
+
     List<ZeldaCharacter> getZeldaCharacters();
 
     List<PlayerStatus> getCurrentPlayers();
+
+    Map<String, Animation2D> loadAnimation(AnimationType animationType);
 }

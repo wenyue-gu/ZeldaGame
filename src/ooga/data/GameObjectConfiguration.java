@@ -1,23 +1,29 @@
 package ooga.data;
 
-import com.google.gson.GsonBuilder;
-import ooga.model.characters.MarioCharacter;
-import ooga.model.characters.ZeldaCharacter;
-import ooga.model.enums.ImageCategory;
-import ooga.model.enums.backend.PlayerPara;
-import ooga.model.enums.TextCategory;
-import ooga.model.interfaces.gameMap.Cell;
+import static ooga.game.GameMain.HEIGHT;
+import static ooga.game.GameMain.WIDTH;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import ooga.model.characters.MarioCharacter;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.ImageCategory;
+import ooga.model.enums.TextCategory;
+import ooga.model.enums.backend.PlayerPara;
+import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
+import ooga.view.engine.io.Window;
 
 /**
  * this is the man, the object storing EVERY piece of info!
@@ -31,6 +37,7 @@ public class GameObjectConfiguration {
   public static String playerPath = "data/Player/";
   public static String zeldaCharacterPath = "data/ZeldaCharacter/";
   public static String textPath = "data/Text/";
+  public static String animationPath = "data/Animation2D/";
 
   private List<GameInfo> gameInfoList;
   private Map<String, GameMapGraph> gameMapList;
@@ -41,9 +48,14 @@ public class GameObjectConfiguration {
   private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
   private com.google.gson.Gson gsonLoad;
   private com.google.gson.Gson gsonStore;
+
+
+  private Map<String, Animation2D> meleeRobotAnimations;
+  private Map<String, Map<String, Animation2D>> animationMap;
   private List<Integer> currentPlayersID;
   private int currentPlayerID = 1;
   private int currentGameID = 1;
+
 
   private Map<Object, String> fieldToPathMap;
   private static GameObjectConfiguration gameObjectConfiguration;
@@ -62,7 +74,7 @@ public class GameObjectConfiguration {
     GsonBuilder gsonBuilder = new GsonBuilder();
     gsonBuilder.serializeNulls(); //ensure gson storing null values.
     gsonStore = gsonBuilder.create();
-    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
+    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter("ooga.model.map.GameCell"));
     gsonLoad = gsonBuilder.create();//3 lines above are the same as DataStorer
 
     gameInfoList = new ArrayList<>();
@@ -72,12 +84,11 @@ public class GameObjectConfiguration {
     playerList = new ArrayList<>();
     zeldaCharacterList = new ArrayList<>();
     textMap = new HashMap<>();
-
+    meleeRobotAnimations = new HashMap<>(); //delete after multiple agents occur
+    animationMap = new HashMap<>();
     fieldToPathMap = new HashMap<>();
 
-//        for (String i: fieldToPathMap.values()) {
-//            loadFilesUnderDirectory(fieldToPathMap.get(i), i.getClass());
-//        }
+
 
     loadGameEverything();
     fieldToPathMap.put(gameInfoList, GameInfoPath);
@@ -87,7 +98,8 @@ public class GameObjectConfiguration {
     fieldToPathMap.put(playerList, playerPath);
     fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
     fieldToPathMap.put(textMap, textPath);
-
+    fieldToPathMap.put(meleeRobotAnimations, animationPath);
+    fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
   }
 
   private void loadGameEverything() throws DataLoadingException {
@@ -98,6 +110,8 @@ public class GameObjectConfiguration {
     loadFilesUnderDirectory(playerPath, PlayerStatus.class);
     loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
     loadFilesUnderDirectory(textPath, textMap.getClass());
+    loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
+    loadFilesUnderDirectory(animationPath, animationMap.getClass()); //multiple agents draft (2,4)
   }
 
   private void loadFilesUnderDirectory(String myDirectoryPath, Class<?> classType)
@@ -137,6 +151,22 @@ public class GameObjectConfiguration {
             textMap.put(child.getName(),
                 loadJson(myDirectoryPath + child.getName(), classType));
             break;
+          case "Animation2D":
+            Window window = new Window(WIDTH, HEIGHT, "Game");
+            window.create();
+
+            Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
+            //delete after multiple agents occur
+            meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
+            createTextureToAnimation(meleeRobotAnimations);
+
+            
+            //change to support multiple agents (3,4)
+            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
+            createTextureToAnimation(tempAgent);
+            animationMap.put(child.getName(), tempAgent);
+            window.destroy();
+            break;
           default:
             throw new DataLoadingException(
                 "Cannot recognize configuration file name " + child.getPath()
@@ -152,11 +182,16 @@ public class GameObjectConfiguration {
     }
   }
 
+  private void createTextureToAnimation(Map<String, Animation2D> meleeRobotAnimations) {
+    for (Animation2D i : meleeRobotAnimations.values()) {
+      for (int j = 0; j < i.getFrameAmount(); j++) {
+//        i.getAnimatedFrames(j).createTexture();
+      }
+    }
+  }
 
-  /**
-   * two problems regarding centralized storing: 1. Need to store the relative information for
-   * storing ---- overly complicated 2. Cache problem for data synchronization.
-   */
+
+
   public void storeGameEverything() {
     for (Map.Entry<Object, String> i : fieldToPathMap.entrySet()) {
       String path = i.getValue();
@@ -198,6 +233,14 @@ public class GameObjectConfiguration {
             writeObjectTOJson(textMap.get(j), path + j);
           }
           break;
+        case "Animation2D":
+          //delete after multiple agents
+          writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
+
+          //use after using mulitple agents (4,4)
+          for (String j : animationMap.keySet()) {
+            writeObjectTOJson(animationMap.get(j), path + j);
+          }
       }
     }
   }
@@ -251,6 +294,7 @@ public class GameObjectConfiguration {
     this.zeldaCharacterList = zeldaCharacterList;
   }
 
+
   public Map<String, Map<String, String>> getTextMap() {
     return textMap;
   }
@@ -260,6 +304,15 @@ public class GameObjectConfiguration {
   }
 
   public <clazz> clazz loadJson(String fileName, Class clazz) {
+    try {
+      Reader reader = Files.newBufferedReader(Paths.get(fileName));
+      return (clazz) gsonLoad.fromJson(reader, clazz);
+    } catch (IOException e) {
+      System.out.println("file at " + fileName + "hasn't been created.");
+    }
+    return null;
+  }
+  public <clazz> clazz loadJson(String fileName, Type clazz) {
     try {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
       return (clazz) gsonLoad.fromJson(reader, clazz);
@@ -299,8 +352,6 @@ public class GameObjectConfiguration {
   public int getCurrentPlayerID() {
     return currentPlayersID.get(0);
   }
-
-
 
   public int getCurrentGameID() {
     return currentGameID;
@@ -399,5 +450,25 @@ public class GameObjectConfiguration {
       }
     }
     return null;
+  }
+
+  public Map<String, Animation2D> getMeleeRobotAnimations() {
+    return meleeRobotAnimations;
+  }
+
+  public void setMeleeRobotAnimations(Map<String, Animation2D> meleeRobot) {
+    meleeRobotAnimations = meleeRobot;
+  }
+
+  public void setAnimationMap(String agent, Map<String, Animation2D> agentAnimation) {
+    if (animationMap.containsKey(agent)) {
+      animationMap.replace(agent, agentAnimation);
+    } else {
+      animationMap.put(agent, agentAnimation);
+    }
+  }
+
+  public Map<String, Animation2D> getSpecificAgentAnimation(String agent) {
+    return animationMap.get(agent);
   }
 }

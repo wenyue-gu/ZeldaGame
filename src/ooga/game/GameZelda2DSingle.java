@@ -18,7 +18,7 @@ public class GameZelda2DSingle implements Runnable {
   }
 
   public void init() throws IOException {
-    view = new GameState2DView();
+//    view = new GameState2DView();
     view.createWindow();
   }
 
@@ -42,10 +42,10 @@ public class GameZelda2DSingle implements Runnable {
   private void update() throws InterruptedException {
     view.updateWindow();
     view.updateMap(); //empty method
-    view.renderNPCs(); // empty method
+//    view.renderNPCs(); // empty method
       if (animating) {
         animating = false;
-        view.updatePlayer(id, direction, state);
+//        view.updatePlayer(id, direction, state);
       }
     }
 

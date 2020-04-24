@@ -1,16 +1,19 @@
 package ooga.data;
 
 import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.AnimationType;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.backend.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 import java.io.File;
 import java.util.*;
 
+import static ooga.data.DataLoader.JSON_POSTFIX;
 import static ooga.data.DataLoader.SubMapPerMap;
 import static ooga.data.PlayerStatus.*;
 
@@ -229,8 +232,18 @@ public class DataStorer implements DataStorerAPI {
     }
 
     @Override
+    public void storeMeleeRobotAnimations(Map<String, Animation2D> animations) {
+        gameObjectConfiguration.setMeleeRobotAnimations(animations);
+    }
+
+    @Override
+    public void storeAnimations(Map<String, Animation2D> animations, AnimationType animationType) {
+        gameObjectConfiguration.setAnimationMap(animationType.toString() + JSON_POSTFIX, animations);
+    }
+
     public DataLoader getDataLoader(){
         return dataLoader;
     }
+
 
 }

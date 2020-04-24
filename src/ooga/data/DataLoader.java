@@ -1,5 +1,6 @@
 package ooga.data;
 
+
 import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 import java.awt.image.BufferedImage;
@@ -9,27 +10,31 @@ import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.AnimationType;
 import ooga.model.enums.CharacterProperty;
+import ooga.model.enums.ImageCategory;
 import ooga.model.enums.backend.CharacterType;
 import ooga.model.enums.backend.Direction;
 import ooga.model.enums.backend.GamePara;
-import ooga.model.enums.ImageCategory;
 import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 public class DataLoader implements DataLoaderAPI {
 
   public static final int SubMapPerMap = 4;
+  public static final String JSON_POSTFIX = ".json";
   //  private int currentGameID = 1;//the belonging of Game ID is a problem. Where should it get from?
 //  private int currentPlayerID = 1;
   private static GameObjectConfiguration gameObjectConfiguration;
+
   private com.google.gson.Gson gson;
 
   public DataLoader() throws DataLoadingException {
-    com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
-    gsonBuilder.serializeNulls(); //ensure gson storing null values.
-    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
-    gson = gsonBuilder.create();//3 lines above are the same as DataStorer
+//    com.google.gson.GsonBuilder gsonBuilder = new com.google.gson.GsonBuilder();
+//    gsonBuilder.serializeNulls(); //ensure gson storing null values.
+//    gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter());
+//    gson = gsonBuilder.create();//3 lines above are the same as DataStorer
     gameObjectConfiguration = GameObjectConfiguration.getInstance();
   }
 
@@ -207,6 +212,11 @@ public class DataLoader implements DataLoaderAPI {
     return loadValueOfMap(imageMap, key);
   }
 
+  @Override
+  public Map<String, Animation2D> loadMeleeRobotAnimations() {
+    return gameObjectConfiguration.getMeleeRobotAnimations();
+  }
+
   /**
    * load value of the map
    *
@@ -240,5 +250,8 @@ public class DataLoader implements DataLoaderAPI {
     return gameObjectConfiguration.getCurrentPlayers();
   }
 
-
+  @Override
+  public Map<String, Animation2D> loadAnimation(AnimationType animationType) {
+    return gameObjectConfiguration.getSpecificAgentAnimation(animationType.toString() + JSON_POSTFIX);
+  }
 }

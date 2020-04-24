@@ -1,11 +1,13 @@
 package ooga.data;
 
+import ooga.model.enums.AnimationType;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.backend.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 import java.util.Collection;
 import java.util.Map;
@@ -47,5 +49,10 @@ public interface  DataStorerAPI {
 
     void writeAllDataIntoDisk();
 
+    void storeMeleeRobotAnimations(Map<String, Animation2D> animations);
+
+    void storeAnimations(Map<String, Animation2D> animations, AnimationType animationType);
+
     DataLoaderAPI getDataLoader();
+
 }
