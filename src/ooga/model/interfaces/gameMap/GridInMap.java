@@ -1,6 +1,6 @@
 package ooga.model.interfaces.gameMap;
 
-import ooga.model.enums.Direction;
+import ooga.model.enums.backend.Direction;
 
 /**
  * This interface allows a map to contain multiple grids. IDs of grids around the current grid are
@@ -46,5 +46,9 @@ public interface  GridInMap extends SingleGrid {
    */
   void setGridIDOn(int row, int col, Direction direction, int gridID);
 
+  /**
+   * Loads this grid on specific level
+   * @param level the level of grid
+   */
   void loadGrid(int level);
 }

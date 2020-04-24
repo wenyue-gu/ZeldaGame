@@ -1,17 +1,17 @@
 package ooga.data;
 
-import ooga.model.characters.ZeldaCharacter;
-import ooga.model.enums.CharacterProperty;
-import ooga.model.enums.Direction;
-import ooga.model.enums.ImageCategory;
-import ooga.model.enums.PlayerPara;
-import ooga.model.interfaces.gameMap.Cell;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.CharacterProperty;
+import ooga.model.enums.ImageCategory;
+import ooga.model.enums.backend.CharacterType;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.PlayerPara;
+import ooga.model.interfaces.gameMap.Cell;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Testing for DataManagement.
@@ -73,7 +73,7 @@ public class  DataManagementTest {
     @Test
     public void characterLoadingStoringTest() {
 
-        ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4,0,0);
+        ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4,0,0, CharacterType.PLAYER);
         ZC.setFiringDirection(Direction.E);
         storer.storeCharacter(4, ZC);
         Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);

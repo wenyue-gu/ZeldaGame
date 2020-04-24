@@ -1,19 +1,24 @@
 package ooga.data;
 
 
-import ooga.model.characters.ZeldaCharacter;
-import ooga.model.enums.*;
-import ooga.model.interfaces.gameMap.Cell;
-import ooga.view.engine.graphics.animation.Animation2D;
+import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
+import javax.imageio.ImageIO;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.AnimationType;
+import ooga.model.enums.CharacterProperty;
+import ooga.model.enums.ImageCategory;
+import ooga.model.enums.backend.CharacterType;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.GamePara;
+import ooga.model.enums.backend.PlayerPara;
+import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
 public class DataLoader implements DataLoaderAPI {
 
@@ -145,7 +150,7 @@ public class DataLoader implements DataLoaderAPI {
 
   @Override
   public int loadCharacter(int ID, CharacterProperty property) {
-    ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1, 2);
+    ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1, 2, CharacterType.UNKNOWN);
 
 //    zeldaCharacter =  loadJson("data/ZeldaCharacter/" + characterKeyword + ID + ".json", zeldaCharacter.getClass());
     for (ZeldaCharacter i : gameObjectConfiguration.getZeldaCharacterList()) {

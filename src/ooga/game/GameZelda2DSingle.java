@@ -1,16 +1,65 @@
 package ooga.game;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.characters.ZeldaPlayer;
+import ooga.view.engine.utils.cyberpunk2d.GenerateAgentsData;
+import ooga.view.game_view.agent.agent2d.Agent2DDataHolder;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 public class GameZelda2DSingle implements Runnable {
 
   private Thread game;
   private GameState2DView view;
-  private boolean isUpdating = false;
+
+  private boolean isAnimating;
+  private boolean isAttacking;
   private int id;
   private String direction;
   private String state;
+  private Map<Integer, Agent2DDataHolder> dataHolderMap;
+
+  public GameZelda2DSingle(Map<Integer, ZeldaPlayer> players, Map<Integer, ZeldaCharacter> npcs)
+      throws IOException {
+    dataHolderMap = new HashMap<>();
+
+    for (ZeldaPlayer p: players.values()) {
+      System.out.println(p.getId());
+      dataHolderMap.put(p.getId(), GenerateAgentsData.createMeleeBot((float) p.getX(), (float) p.getY()));
+    }
+
+    for (ZeldaCharacter c: npcs.values()) {
+      Agent2DDataHolder holder = getData(c);
+      if (holder == null) {
+        System.out.println("holder is null");
+      } else {
+        dataHolderMap.put(c.getId(), holder);
+      }
+    }
+  }
+
+  private Agent2DDataHolder getData(ZeldaCharacter c) throws IOException {
+    float x = (float) c.getX();
+    float y = (float) c.getY();
+    switch (c.getType()) {
+      case BIGBOY:
+        return GenerateAgentsData.createBigBoy(x, y, c.getDirection().toString());
+      case SHIELD:
+        return GenerateAgentsData.createShieldman(x, y);
+      case TURRET:
+        return GenerateAgentsData.createTurret(x, y);
+      case WATCHERBOT:
+        return GenerateAgentsData.createWatcher(x, y, c.getDirection().toString());
+      case ENGINEERBOT:
+        return GenerateAgentsData.createEngineer(x, y);
+      case LOADSOLDIER:
+        return GenerateAgentsData.createSoldier(x, y);
+      default:
+        return null;
+    }
+  }
 
   public void start() {
     game = new Thread(this, "game");
@@ -18,7 +67,7 @@ public class GameZelda2DSingle implements Runnable {
   }
 
   public void init() throws IOException {
-    view = new GameState2DView(1);
+    view = new GameState2DView(dataHolderMap);
     view.createWindow();
   }
 
@@ -29,25 +78,29 @@ public class GameZelda2DSingle implements Runnable {
       e.printStackTrace();
     }
     while (!view.shouldWindowClose()) {
-      update();
+      try {
+        update();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
       render();
     }
     close();
   }
 
-  private void update() {
+  private void update() throws IOException {
     view.updateWindow();
     view.updateMap(); //empty method
-    view.renderNPCs(); // empty method
-    if (isUpdating){
-      view.updatePlayer(id,direction,state);
-      isUpdating = false;
+      if (isAnimating) {
+        isAnimating = false;
+        view.updateAgent(id, direction, state, isAttacking);
+      }
     }
 
-  }
 
-  public void updatePlayer(int id, String direction, String state) {
-    isUpdating = true;
+  public void updateCharacter(int id, String direction, String state, boolean isAttacking) {
+    isAnimating = true;
+    this.isAttacking = isAttacking;
     this.id = id;
     this.direction = direction;
     this.state = state;

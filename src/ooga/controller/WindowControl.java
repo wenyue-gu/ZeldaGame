@@ -13,6 +13,7 @@ import ooga.data.DataLoadingException;
 import ooga.data.DataStorerAPI;
 import ooga.game.GameType;
 import ooga.game.GameZelda2DSingle;
+import ooga.model.Model;
 import ooga.view.game_menu.GameMenu;
 import ooga.view.game_menu.GameMenuView;
 import ooga.view.game_menu.SelectMenuView;
@@ -40,6 +41,7 @@ public class WindowControl {
 
   private boolean isColored = false;
   private Color color = Color.WHITE;
+  private boolean resetGame = true;
 
   private ComboBox myLanguagePicker;
 
@@ -55,7 +57,7 @@ public class WindowControl {
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
 
-  private int myPlayerHP=0;
+  private int myPlayerHP = 0;
 
   private boolean dark = false;
   private String language = "English";
@@ -74,7 +76,7 @@ public class WindowControl {
     initializeButtons();
   }
 
-  public void setColor(Color color){
+  public void setColor(Color color) {
     isColored = true;
     this.color = color;
     myMenuView.changColor(color);
@@ -90,38 +92,40 @@ public class WindowControl {
     myDataStorer = datastorer;
   }
 
-  public void setDataLoader(DataLoaderAPI Loader){
+  public void setDataLoader(DataLoaderAPI Loader) {
     myDataLoader = Loader;
   }
 
-  private void setMenuScene(){
+  private void setMenuScene() {
     myStage.setScene(myMenuView.getMenuView());
   }
 
-  public void showWindowMenu(){myStage.show();}
+  public void showWindowMenu() {
+    myStage.show();
+  }
 
 
-  private void initializeButtons(){
+  private void initializeButtons() {
     myStartButton = myMenuView.getNewGameButton();
     //myStartButton.setOnAction(e->startGame(myStage));
-    myStartButton.setOnAction(e->selectGameMenu());
+    myStartButton.setOnAction(e -> selectGameMenu());
     myExitButton = myMenuView.getExitGameButton();
-    myExitButton.setOnAction(e->myStage.close());
+    myExitButton.setOnAction(e -> myStage.close());
     myChangeBackgroundButton = myMenuView.getBackgroundButton();
-    myChangeBackgroundButton.setOnAction(e->switchMode());
+    myChangeBackgroundButton.setOnAction(e -> switchMode());
     myLoadButton = myMenuView.getLoadButton();
-    myLoadButton.setOnAction(e-> {
+    myLoadButton.setOnAction(e -> {
       try {
         loadlist();
-      } catch (DataLoadingException ex) {
+      } catch (DataLoadingException | IOException ex) {
         System.out.println("WINDOW CONTROL LOAD LAST PLAYED");
       }
     });
     myUserButton = myMenuView.getUserButton();
-    myUserButton.setOnAction(e->showProfile());
+    myUserButton.setOnAction(e -> showProfile());
 
     myGameButton1 = mySelectView.getGame1();
-    myGameButton1.setOnAction(e-> {
+    myGameButton1.setOnAction(e -> {
       try {
         startGame1();
       } catch (DataLoadingException ex) {
@@ -129,7 +133,7 @@ public class WindowControl {
       }
     });
     myGameButton2 = mySelectView.getGame2();
-    myGameButton2.setOnAction(e-> {
+    myGameButton2.setOnAction(e -> {
       try {
         startGame2();
       } catch (Exception ex) {
@@ -137,16 +141,16 @@ public class WindowControl {
       }
     });
     myGameButton3 = mySelectView.getGame3();
-    myGameButton3.setOnAction(e->startGame3());
+    myGameButton3.setOnAction(e -> startGame3());
     mySettingButton = mySelectView.getSetting();
-    mySettingButton.setOnAction(e->changeSettings());
+    mySettingButton.setOnAction(e -> changeSettings());
 
     myLanguagePicker = myMenuView.getLanguagePicker();
     myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
 
     myColorPicker = myMenuView.getMyColorPicker();
     System.out.println(myColorPicker);
-    myColorPicker.setOnAction(e->setColor(myColorPicker.getValue()));
+    myColorPicker.setOnAction(e -> setColor(myColorPicker.getValue()));
 
   }
 
@@ -155,27 +159,27 @@ public class WindowControl {
   }
 
   private void showProfile() {
-    if(!isLogIn){
+    if (!isLogIn) {
       myLogIn.showLogIn();
-    }
-    else{
+    } else {
       setUser(myUserName);
     }
   }
 
-  public void setUser(String s){
+  public void setUser(String s) {
     isLogIn = true;
     myUserName = s;
     myUserProfileControl.setUserNameAndShow(s);
   }
 
-  private void selectGameMenu(){
+  private void selectGameMenu() {
+    resetGame = true;
     secondStage = new Stage();
     secondStage.setScene(mySelectView.getMenuView());
     secondStage.show();
   }
 
-  private void setLanguage(String language){
+  private void setLanguage(String language) {
     this.language = language;
     myMenuView.setLanguage(language);
     mySelectView.setLanguage(language);
@@ -212,29 +216,40 @@ public class WindowControl {
 
   private void startGame2() throws DataLoadingException, IOException {
     myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
-    myDataStorer.resetPlayerInfo();
-    GameZelda2DSingle zelda2D = new GameZelda2DSingle();
+    if (resetGame) {
+      myDataStorer.resetPlayerInfo();
+    }
+
     setUpController();
+    Model model = (Model) myGameController.getMyModel();
+    GameZelda2DSingle zelda2D = new GameZelda2DSingle(model.getPlayers(), model.getNPCs());
     zelda2D.start();
     while (zelda2D.getView() == null);
     myGameController.setView(zelda2D);
     myGameController.startTimer();
     //myStage.close();
-    secondStage.close();
+    if (resetGame) {
+      secondStage.close();
+    }
   }
 
   private void setUpController() throws DataLoadingException {
 //    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
     myGameController = new GameController(myDataStorer);
-    if(!isColored)myGameController.setMode(dark);
-    else myGameController.setColor(color);
+    if (!isColored) {
+      myGameController.setMode(dark);
+    } else {
+      myGameController.setColor(color);
+    }
     myGameController.setLanguage(language);
     myGameController.setWindowControl(this);
-    if(myPlayerHP>0) myGameController.setInitLife(myPlayerHP);
+    if (myPlayerHP > 0) {
+      myGameController.setInitLife(myPlayerHP);
+    }
   }
 
 
-  private void startGame3(){
+  private void startGame3() {
     secondStage.close();
   }
 
@@ -247,7 +262,7 @@ public class WindowControl {
   }
 
 
-  private void switchMode(){
+  private void switchMode() {
     dark = !dark;
     isColored = false;
     myMenuView.switchMode(dark);
@@ -257,18 +272,30 @@ public class WindowControl {
     myUserProfileControl.switchMode(dark);
   }
 
-  private void loadlist() throws DataLoadingException {
+  private void loadlist() throws DataLoadingException, IOException {
     setUpController();
-    myGameController.pause();
-
+    resetGame = false;
+    int gameID = myGameController.getGameID();
+    System.out.println("gameID" + gameID);
+    switch (gameID) {
+      case 0:
+        startGame1();
+        break;
+      case 1:
+        startGame2();
+        break;
+      case 2:
+        startGame3();
+        break;
+    }
   }
 
   public void setLife(int i) {
     myPlayerHP = i;
   }
 
-  public void saveUser(int score){
-    if(isLogIn){
+  public void saveUser(int score) {
+    if (isLogIn) {
       myUserProfileControl.writeScore(score);
       System.out.println("saved?");
     }

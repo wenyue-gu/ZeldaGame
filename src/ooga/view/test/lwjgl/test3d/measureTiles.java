@@ -1,17 +1,19 @@
 package ooga.view.test.lwjgl.test3d;
 
 import ooga.view.engine.maths.Vector3f;
+import ooga.view.engine.utils.SpriteCropper;
 import ooga.view.engine.utils.cyberpunk3d.MeasureMapModel;
+import org.lwjglx.test.spaceinvaders.Sprite;
 
 public class measureTiles implements Runnable {
 
   @Override
   public void run() {
-    printVector3f("4E", MeasureMapModel.getTileMeasurement("4E"));
-    printVector3f("E", MeasureMapModel.getTileMeasurement("E"));
-    printVector3f("I", MeasureMapModel.getTileMeasurement("I"));
-    printVector3f("L", MeasureMapModel.getTileMeasurement("L"));
-    printVector3f("T", MeasureMapModel.getTileMeasurement("T"));
+    printVector3f("4E", MeasureMapModel.getTileMeasurement("4E", Vector3f.zeros()));
+    printVector3f("E", MeasureMapModel.getTileMeasurement("E", Vector3f.zeros()));
+    printVector3f("I", MeasureMapModel.getTileMeasurement("I", Vector3f.zeros()));
+    printVector3f("L", MeasureMapModel.getTileMeasurement("L", Vector3f.zeros()));
+    printVector3f("T", MeasureMapModel.getTileMeasurement("T", Vector3f.zeros()));
   }
 
   private void printVector3f(String type, Vector3f x){

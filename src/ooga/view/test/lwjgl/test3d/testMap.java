@@ -8,6 +8,8 @@ import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.Camera;
+import ooga.view.engine.objects.GameObject;
+import ooga.view.engine.utils.Test;
 import ooga.view.game_view.map.map3d.Map3DView;
 import org.lwjgl.glfw.GLFW;
 
@@ -21,7 +23,7 @@ public class testMap implements Runnable {
 
   public Map3DView mapView;
   public String mapPath = "/view/data/3d/map_test.txt";
-  public Camera camera = new Camera(new Vector3f(100, 0, 0), new Vector3f(0, 1, -1));
+  public Camera camera = new Camera(new Vector3f(1640.0f, 880.0f, 40.0f), new Vector3f(0, 0, 0));
 
   public void start() {
     game = new Thread(this, "game");
@@ -51,6 +53,25 @@ public class testMap implements Runnable {
       if (Input.isKeyDown(GLFW.GLFW_KEY_F11)) {
         window.setFullscreen(!window.isFullscreen());
       }
+      if (Input.isKeyDown(GLFW.GLFW_KEY_UP)){
+        camera.moveXForward();
+      }
+      if (Input.isKeyDown(GLFW.GLFW_KEY_DOWN)){
+        camera.moveXBackward();
+      }
+      if (Input.isKeyDown(GLFW.GLFW_KEY_LEFT)){
+        camera.moveYForward();
+      }
+      if (Input.isKeyDown(GLFW.GLFW_KEY_RIGHT)){
+        camera.moveYBackward();
+      }
+      if (Input.isKeyDown(GLFW.GLFW_KEY_M)){
+        camera.moveZForward();
+      }
+      if (Input.isKeyDown(GLFW.GLFW_KEY_N)){
+        camera.moveZBackward();
+      }
+
     }
     close();
   }
@@ -58,6 +79,8 @@ public class testMap implements Runnable {
   private void update() {
     window.update();
     //object.update();
+    camera.update();
+    Test.printVector3f(camera.getPosition());
     if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
       System.out.println("X: " + Input.getScrollX() + ", Y: " + Input.getScrollY());
     }
@@ -77,4 +100,6 @@ public class testMap implements Runnable {
   public static void main(String[] args) {
     new testMap().start();
   }
+
+
 }

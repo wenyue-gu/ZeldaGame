@@ -22,4 +22,8 @@ public interface PlayerControlInterface{
   Movable1D getPlayer();
 
   boolean checkScore(int score);
+
+  boolean update();
+
+  boolean hasWon();
 }

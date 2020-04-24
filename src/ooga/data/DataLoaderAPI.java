@@ -2,6 +2,9 @@ package ooga.data;
 
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.*;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.GamePara;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.view.engine.graphics.animation.Animation2D;
 

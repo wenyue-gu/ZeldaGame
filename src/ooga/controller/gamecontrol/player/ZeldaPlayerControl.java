@@ -11,8 +11,8 @@ import ooga.controller.gamecontrol.playerInterface.AttackerControl;
 import ooga.controller.gamecontrol.playerInterface.MovableControll2D;
 import ooga.game.GameZelda2DSingle;
 import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.Direction;
-import ooga.model.enums.MovingState;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
@@ -22,7 +22,6 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   public static final String PROPERTY_MOVING_DIRECTION = "direction";
 
   private ZeldaPlayer myPlayer;
-  //private Player2DView playerView;
   private GameZelda2DSingle myView;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private Map<Integer, String> myGLFWMap = new HashMap<>();
@@ -76,7 +75,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void keyInput(KeyCode key)
-          throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     if (myKeyCodeMap.get(key) == null) {
       return;
     }
@@ -112,30 +111,19 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void attack0() {
     myPlayer.setState(MovingState.ATTACK1);
-    myPlayer.setAttack(0);
   }
 
   @Override
   public void attack1() {
     myPlayer.setState(MovingState.ATTACK1);
-    myPlayer.setAttack(1);
-
   }
 
   @Override
   public void attack2() {
     myPlayer.setState(MovingState.ATTACK3);
-    myPlayer.setAttack(2);
-
   }
 
-
-  public void sprintSE(){
-    myPlayer.setState(MovingState.SPRINT);
-    myPlayer.setDirection(Direction.SE);
-  }
-
-  public void death(){
+  public void death() {
     myPlayer.setState(MovingState.DEATH);
     myPlayer.setDirection(Direction.E);
   }
@@ -143,25 +131,33 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String s = evt.getPropertyName();
-    System.out.println(s);
+//    System.out.println(s);
     switch (s) {
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
-        myView.updatePlayer(myID, myPlayer.getDirection().toString(), myPlayer.getState().toString());
+        myView
+            .updateCharacter(myID, myPlayer.getDirection().toString(),
+                myPlayer.getState().toString(), (myPlayer.getState() == MovingState.ATTACK1
+                    || myPlayer.getState() == MovingState.ATTACK3));
     }
   }
 
   @Override
   public void updateKey() {
+    boolean keyPressed = false;
     try {
       for (int i : myGLFWMap.keySet()) {
-        if (myView.getView().isKeyDown(i)){
+        if (myView.getView().isKeyDown(i)) {
+          keyPressed = true;
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
-          System.out.println(myPlayer.getDirection().toString());
-          System.out.println(myPlayer.getState().toString());
+//            System.out.println(myPlayer.getDirection().toString());
+//            System.out.println(myPlayer.getState().toString());
+          break;
         }
       }
-
+      if (!keyPressed) {
+        keyReleased();
+      }
     } catch (Exception e) {
       e.printStackTrace();
       System.out.println("key map fault");
@@ -175,7 +171,9 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void setNewKeyMap(Map<Integer, String> map) {
-    if(map!=null) myGLFWMap = map;
+    if (map != null) {
+      myGLFWMap = map;
+    }
   }
 
   @Override
@@ -185,7 +183,31 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public boolean checkScore(int score) {
-    return score<=myPlayer.getScore();
+    return score <= myPlayer.getScore();
+  }
+
+  /**
+   * Return false if dead
+   *
+   * @return
+   */
+  @Override
+  public boolean update() {
+    if (myPlayer.getState() == MovingState.SPRINT) {
+      myPlayer.addScore(10);
+    }
+
+    if (!myPlayer.isAlive()) {
+      death();
+      return false;
+    }
+
+    return true;
+  }
+
+  @Override
+  public boolean hasWon() {
+    return myPlayer.hasWon();
   }
 
   public Map<KeyCode, String> getKeyCodeMap() {

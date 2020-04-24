@@ -1,7 +1,6 @@
 package ooga.model.interfaces;
 
-import ooga.model.enums.Direction;
-import ooga.model.gameElements.Element;
+import ooga.model.enums.backend.Direction;
 
 /**
  * Objects that implement this interface are allowed to attack other objects in different ways.
