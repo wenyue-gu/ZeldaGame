@@ -69,30 +69,58 @@ public class PauseControl {
         myGameController.save();
     }
 
+    /**
+     * sets window control to input (used for back to menu)
+     * @param windowControl
+     */
     public void setWindowControl(WindowControl windowControl) {
         myWindowControl = windowControl;
     }
 
+    /**
+     * sets view to input (used to close view window)
+     * @param view
+     */
     public void setView(GameState2DView view) {
         myView = view;
     }
 
+    /**
+     * sets the timer to be in sync with game (used to pause updating the game)
+     * @param myTimer
+     */
     public void setTimer(AnimationTimer myTimer) {
         this.myTimer = myTimer;
     }
 
+    /**
+     * ask view to set the background to light/dark
+     * @param dark
+     */
     public void setMode(boolean dark) {
         myPauseMenu.switchMode(dark);
     }
 
+    /**
+     * ask view to set language of button/label
+     * @param language string  that is the name of language
+     */
     public void setLanguage(String language){
         myPauseMenu.setLanguage(language);
     }
 
+    /**
+     * updates the score printed in view based on current list of score from game control
+     * @param sScoreList the current list of score
+     */
     public void updateScore(Map<Integer, Integer> sScoreList) {
         myPauseMenu.updateScore(sScoreList);
     }
 
+    /**
+     * ask view to set background color
+     * @param color color
+     */
     public void setColor(Color color) {
         myPauseMenu.changColor(color);
     }

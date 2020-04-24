@@ -1,10 +1,11 @@
-package ooga.controller.gamecontrol;
+package ooga.controller;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.controller.WindowControl;
+import ooga.controller.gamecontrol.GameController;
 import ooga.data.DataStorerAPI;
 import ooga.view.game_menu.FinishScreen;
 import ooga.view.game_menu.PauseMenu;
@@ -28,6 +29,10 @@ public class FinishControl {
     private DataStorerAPI myStorer;
     private GameController myGameController;
 
+    /**
+     * Create the finish control
+     * @param gameController
+     */
     public FinishControl(GameController gameController){
         myGameController = gameController;
         reset();
@@ -41,6 +46,12 @@ public class FinishControl {
         myGameController.reset();
     }
 
+    /**
+     * show the finish screen
+     * @param win       whether the player won the game or not
+     * @param id        the id of the plaeyr
+     * @param score     the score of the player
+     */
     public void showMenu(boolean win, int id, int score){
         myFinishScreen.setWin(win, id, score);
         save();
@@ -54,11 +65,6 @@ public class FinishControl {
         //buttonList = List.of(myResumeButton, myBackButton, mySaveButton);
     }
 
-    private void resumeGame(){
-        myStage.close();
-        //myTimer.start();
-    }
-
     private void backToMenu(){
         myGameController.save();
         myStage.close();
@@ -69,18 +75,35 @@ public class FinishControl {
         myGameController.save();
     }
 
+    /**
+     * set the window control to input; window control is used for back to menu (need
+     * to reopen window control menu)
+     * @param windowControl window control input
+     */
     public void setWindowControl(WindowControl windowControl) {
         myWindowControl = windowControl;
     }
 
+    /**
+     * ask the view to change background to light / dark mode
+     * @param dark boolean that determines which to use
+     */
     public void setMode(boolean dark) {
         myFinishScreen.switchMode(dark);
     }
 
+    /**
+     * ask view to change language of text / label / button
+     * @param language string that is the name of the language
+     */
     public void setLanguage(String language){
         myFinishScreen.setLanguage(language);
     }
 
+    /**
+     * ask view to set the color of the background
+     * @param color color
+     */
     public void setColor(Color color) {
         myFinishScreen.changColor(color);
     }

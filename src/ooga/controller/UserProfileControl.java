@@ -16,10 +16,6 @@ public class UserProfileControl {
 
     private Stage myStage;
     private UserProfileView myView;
-    private WindowControl myControl;
-
-    private Button LogInButton;
-    private Button SignUpButton;
 
     private Color mycolor = Color.WHITE;
     private boolean dark = false;
@@ -27,12 +23,20 @@ public class UserProfileControl {
     private boolean isColor = false;
     private String userName;
 
-    public UserProfileControl(WindowControl windowControl){
+    /**
+     * create the user profile control and create a new stage
+     */
+    public UserProfileControl(){
         myStage = new Stage();
-        myControl = windowControl;
     }
 
 
+    /**
+     * create the user profile view with the user name provided
+     * set the profile view to preferred color/language
+     * show the menu
+     * @param s user name
+     */
 
     public void setUserNameAndShow(String s){
         userName = s;
@@ -44,20 +48,48 @@ public class UserProfileControl {
         myStage.show();
     }
 
+    /**
+     * change the background to dark mode/back to normal
+     * is color is necessary since the view for this control is
+     * not created until a user name is passed in (ie, the view does not
+     * exist until user logs in and thus control need to remember if the color
+     * need to be set or if it is using the dark/light default backgrounds)
+     * @param dark
+     */
     public void switchMode(boolean dark) {
         this.dark = dark;
         isColor = false;
     }
 
+    /**
+     * set the language of all label/button on this menu
+     * @param language string that denotes the language
+     */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * set the color of background
+     * is color is necessary since the view for this control is
+     * not created until a user name is passed in (ie, the view does not
+     * exist until user logs in and thus control need to remember if the color
+     * need to be set or if it is using the dark/light default backgrounds)
+     * @param color color
+     */
     public void changColor(Color color) {
         mycolor = color;
         isColor = true;
     }
 
+
+    /**
+     * Saves the score to the resource file (property file) for the user
+     * The "score" is naturally the score of the last played game
+     * if it is higher than the highest score recorded, then change high score to it as well
+     * store it to the property folder for the user
+     * @param score     score of last played game
+     */
     public void writeScore(int score){
         Properties prop = new Properties();
         try {

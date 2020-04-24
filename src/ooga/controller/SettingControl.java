@@ -20,6 +20,11 @@ public class SettingControl {
 
     private Button ConfirmButton;
 
+    /**
+     * Create a setting menu
+     * @param windowControl passes in the window control used to create this menu since would need
+     *                      to send the information of player set life back to the window control and model
+     */
     public SettingControl(WindowControl windowControl){
         myStage = new Stage();
         myView = new SettingView();
@@ -53,19 +58,34 @@ public class SettingControl {
     }
 
 
+    /**
+     * ask the view to change the background to dark mode/back to normal
+     * @param dark true -> dark mode; false-> light mode
+     */
     public void switchMode(boolean dark) {
         myView.switchMode(dark);
     }
 
+    /**
+     * ask the view to change the language of all label/button on this menu
+     * @param language string that denotes the language
+     */
     public void setLanguage(String language) {
         myView.setLanguage(language);
     }
 
+    /**
+     * clear the previous input to hp value and show the menu
+     */
     public void showSetting() {
         myView.clearInput();
         myStage.show();
     }
 
+    /**
+     * ask the view to change the color of background
+     * @param color color
+     */
     public void changColor(Color color) {
         myView.changColor(color);
     }

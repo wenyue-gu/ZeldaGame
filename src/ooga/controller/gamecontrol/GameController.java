@@ -28,7 +28,7 @@ public class GameController {
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
   private PauseControl myPauseControl;
-  private ooga.controller.gamecontrol.FinishControl myFinishControl;
+  private FinishControl myFinishControl;
   private WindowControl myWindowControl;
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
@@ -44,7 +44,7 @@ public class GameController {
     myDataStorer = storer;
     myPauseControl = new PauseControl(this);
     setUpPlayerandNPC();
-    myFinishControl = new ooga.controller.gamecontrol.FinishControl(this);
+    myFinishControl = new FinishControl(this);
   }
 
 //  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
