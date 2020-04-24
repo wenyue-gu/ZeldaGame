@@ -176,4 +176,8 @@ public class GameController {
   public int getGameID() {
     return myDataLoader.getCurrentPlayers().get(0).getPlayerParam(PlayerPara.Game);
   }
+
+  public ModelInterface getMyModel() {
+    return myModel;
+  }
 }

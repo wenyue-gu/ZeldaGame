@@ -12,7 +12,7 @@ import ooga.model.move.MovingObject2D;
 
 import java.beans.PropertyChangeListener;
 
-public class  ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
+public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
 
   public static final int DEFAULT_ATTACK = 0;
   public static final int DEFAULT_WEAPON = 0;

@@ -131,12 +131,14 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String s = evt.getPropertyName();
-    System.out.println(s);
+//    System.out.println(s);
     switch (s) {
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
         myView
-            .updatePlayer(myID, myPlayer.getDirection().toString(), myPlayer.getState().toString());
+            .updateCharacter(myID, myPlayer.getDirection().toString(),
+                myPlayer.getState().toString(), (myPlayer.getState() == MovingState.ATTACK1
+                    || myPlayer.getState() == MovingState.ATTACK3));
     }
   }
 
@@ -145,13 +147,13 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     boolean keyPressed = false;
     try {
       for (int i : myGLFWMap.keySet()) {
-          if (myView.getView().isKeyDown(i)) {
-            keyPressed = true;
-            this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
+        if (myView.getView().isKeyDown(i)) {
+          keyPressed = true;
+          this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
 //            System.out.println(myPlayer.getDirection().toString());
 //            System.out.println(myPlayer.getState().toString());
-            break;
-          }
+          break;
+        }
       }
       if (!keyPressed) {
         keyReleased();
@@ -186,6 +188,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   /**
    * Return false if dead
+   *
    * @return
    */
   @Override

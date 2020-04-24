@@ -77,12 +77,12 @@ public class ModelDataLoadingTest {
 
     Map<Integer, ZeldaCharacter> npcs = (HashMap<Integer, ZeldaCharacter>)model.getNPCs();
     assertEquals(3, npcs.size());
-    assertEquals(200, npcs.get(0).getX());
-    assertEquals(100, npcs.get(0).getY());
-    assertEquals(0, npcs.get(1).getX());
-    assertEquals(0, npcs.get(1).getY());
-    assertEquals(300, npcs.get(4).getX());
-    assertEquals(-250, npcs.get(4).getY());
+    assertEquals(200, npcs.get(10).getX());
+    assertEquals(100, npcs.get(10).getY());
+    assertEquals(0, npcs.get(11).getX());
+    assertEquals(0, npcs.get(11).getY());
+    assertEquals(300, npcs.get(14).getX());
+    assertEquals(-250, npcs.get(14).getY());
   }
 
   @Test

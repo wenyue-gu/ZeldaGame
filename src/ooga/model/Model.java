@@ -3,7 +3,6 @@ package ooga.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
 import ooga.data.PlayerStatus;
@@ -40,8 +39,9 @@ public class Model implements ModelInterface {
     List<ZeldaCharacter> characters = dataLoader.getZeldaCharacters();
     npcs = new HashMap<Integer, ZeldaCharacter>();
     for (ZeldaCharacter c: characters) {
-      int rand = new Random().nextInt(CharacterType.values().length - 1) + 1;
-      c.setType(CharacterType.byIndex(rand));
+//      int rand = new Random().nextInt(CharacterType.values().length - 2) + 1;
+//      c.setType(CharacterType.byIndex(rand));
+      c.setType(CharacterType.LOADSOLDIER);
       npcs.put(c.getId(), c);
     }
 

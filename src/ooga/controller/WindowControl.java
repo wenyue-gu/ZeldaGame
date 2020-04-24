@@ -13,6 +13,7 @@ import ooga.data.DataLoadingException;
 import ooga.data.DataStorerAPI;
 import ooga.game.GameType;
 import ooga.game.GameZelda2DSingle;
+import ooga.model.Model;
 import ooga.view.game_menu.GameMenu;
 import ooga.view.game_menu.GameMenuView;
 import ooga.view.game_menu.SelectMenuView;
@@ -218,12 +219,12 @@ public class WindowControl {
     if (resetGame) {
       myDataStorer.resetPlayerInfo();
     }
-    GameZelda2DSingle zelda2D = new GameZelda2DSingle();
+
     setUpController();
+    Model model = (Model) myGameController.getMyModel();
+    GameZelda2DSingle zelda2D = new GameZelda2DSingle(model.getPlayers(), model.getNPCs());
     zelda2D.start();
-    while (zelda2D.getView() == null) {
-      ;
-    }
+    while (zelda2D.getView() == null);
     myGameController.setView(zelda2D);
     myGameController.startTimer();
     //myStage.close();
