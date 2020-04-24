@@ -40,6 +40,8 @@ public class GameState2DView extends GameStateView {
   private Window window;
   private double lasTimeUpdated = 0;
   private double currentTimeUpdated = 0;
+  private float zLayer = -0.1f;
+  private float Z_INC = -0.1f;
 
   //TODO: remove this part!
   //TODO: loop through a list of agents to update its alive status/ adding new
@@ -146,7 +148,7 @@ public class GameState2DView extends GameStateView {
 
   private Agent2DDataHolder positionNewAgent(Agent2DDataHolder data, Vector3f parentPosition,
       String parentDirection) {
-    float MOVEMENT_DELTA = 0f;
+    float MOVEMENT_DELTA = 100f;
     Agent2DDataHolder newAgentData = new Agent2DDataHolder(data);
     if (newAgentData.getInitialDirection().equals(GenerateAgentsData.getDirectionPlaceholder())) {
       newAgentData.setInitialDirection(parentDirection);
@@ -154,7 +156,7 @@ public class GameState2DView extends GameStateView {
 
     System.out.println("dead");
     Test.printVector3f(parentPosition);
-   Test.printVector3f(Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA));
+    Test.printVector3f(Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA));
 
     newAgentData.setPosition(Vector3f.add(parentPosition,
         Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA)));
@@ -162,6 +164,8 @@ public class GameState2DView extends GameStateView {
     Test.printVector3f(parentPosition);
     Test.printVector3f(newAgentData.getPosition());
 
+    newAgentData.getPosition().setZ(zLayer); zLayer+=Z_INC;
+    System.out.println(newAgentData.isBullet());
     //System.out.println("hah");
     return newAgentData;
   }

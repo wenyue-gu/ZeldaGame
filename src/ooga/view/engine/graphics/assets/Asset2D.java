@@ -84,6 +84,8 @@ public class Asset2D {
 
   public static Vector3f getBulletDelta(){return new Vector3f(0.0f, 15f, 0f);}
 
+  public static Vector3f getSummonDelta(){return new Vector3f(0.0f, -0.5f, 0f);}
+
   public static float getBulletSpeed(){return 70.0f;}
 
   public static Vector3f convertDirectionalSpeed(String direction, float speed_scale){

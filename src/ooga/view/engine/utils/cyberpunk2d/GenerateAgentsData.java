@@ -268,7 +268,7 @@ public class GenerateAgentsData {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     data.setShouldConsumed(true);
-
+    data.setSummon(true);
     // create initial params
     data.setType("Summon");
     data.setInitialAction(initialAction);

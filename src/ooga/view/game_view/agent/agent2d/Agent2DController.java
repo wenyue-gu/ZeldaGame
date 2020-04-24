@@ -30,6 +30,7 @@ public class Agent2DController extends AgentController {
     nextDict = data.getNextDict();
     //initialPos = data.getPosition();
     initialPos =   Vector3f.add(data.getPosition(), data.isBullet()?Asset2D.getBulletDelta():Vector3f.zeros());
+    initialPos =   Vector3f.add(initialPos, data.isSummon()?Asset2D.getSummonDelta():Vector3f.zeros());
     //isBullet = data.isBullet();
     this.setCurrentAnimation(direction, action);
   }
