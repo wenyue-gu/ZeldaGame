@@ -38,9 +38,13 @@ public class testMainView implements Runnable {
       try {
         update();
       } catch (IOException e) {
-        e.printStackTrace();
+        System.out.println("Exception in game scene update");
       }
-      render();
+      try {
+        render();
+      } catch (IOException e) {
+        System.out.println("Exception in game scene rendering");
+      }
     }
     close();
   }
@@ -55,7 +59,7 @@ public class testMainView implements Runnable {
       view.updateAgent(0,"E","SUMMON_BIGBOY", true);}
   }
 
-  private void render() {
+  private void render() throws IOException {
     view.renderAll();
     // can also render separately, renderWindow() is mandatory
   }

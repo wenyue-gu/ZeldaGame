@@ -20,6 +20,7 @@ public class Agent2DController extends AgentController {
   private Vector3f initialPos;
   private boolean shouldConsumed;
   private boolean shouldTerminated = false;
+  private boolean isSummon;
 
   public Agent2DController(Agent2DDataHolder data) {
     super();
@@ -32,12 +33,15 @@ public class Agent2DController extends AgentController {
     initialPos =   Vector3f.add(data.getPosition(), data.isBullet()?Asset2D.getBulletDelta():Vector3f.zeros());
     initialPos =   Vector3f.add(initialPos, data.isSummon()?Asset2D.getSummonDelta():Vector3f.zeros());
     shouldConsumed = data.shouldConsumed();
+    isSummon = data.isSummon();
     this.setCurrentAnimation(direction, action);
   }
 
   public void setShouldTerminated(boolean shouldTerminated) {
     this.shouldTerminated = shouldTerminated;
   }
+
+  public String getAction(){return action;}
 
   public void setObject(GameObject object) {
     this.object = object;
@@ -63,7 +67,7 @@ public class Agent2DController extends AgentController {
       if (nextDict.containsKey(action)) {
         setCurrentAnimation(direction, nextDict.get(action));
       } else {
-        setCurrentAnimation(direction, DEFAULT_ACTION);
+        setCurrentAnimation(direction, isSummon?action:DEFAULT_ACTION);
       }
 
       return (shouldConsumed || shouldTerminated) ? null:animationDict.getAnimation().getCurrentFrame();

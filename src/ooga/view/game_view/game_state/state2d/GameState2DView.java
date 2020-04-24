@@ -9,7 +9,6 @@ import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
 import ooga.view.engine.maths.Vector3f;
-import ooga.view.engine.utils.Test;
 import ooga.view.engine.utils.Timer;
 import ooga.view.engine.utils.cyberpunk2d.GenerateAgentsData;
 import ooga.view.game_view.agent.agent2d.Agent2DDataHolder;
@@ -17,11 +16,10 @@ import ooga.view.game_view.agent.agent2d.Agent2DView;
 import ooga.view.game_view.game_state.interfaces.GameStateView;
 import ooga.view.game_view.map.map2d.Map2DView;
 import org.lwjgl.glfw.GLFW;
-import org.lwjglx.Sys;
 
 public class GameState2DView extends GameStateView {
 
-  final private static double elapsedInterval= 1.0/10.0;
+  final private static double elapsedInterval = 1.0 / 10.0;
   private static final float BACKGROUND_COLOR_R = 22.0f / 255.0f;
   private static final float BACKGROUND_COLOR_G = 23.0f / 255.0f;
   private static final float BACKGROUND_COLOR_B = 25.0f / 255.0f;
@@ -59,11 +57,11 @@ public class GameState2DView extends GameStateView {
     this.box = new BoundingBox(map, agentMap, bulletMap);
   }
 
-  public float getCenterPositionX(int id){
+  public float getCenterPositionX(int id) {
     return agentMap.get(id).getCenterPosition().getX();
   }
 
-  public float getCenterPositionY(int id){
+  public float getCenterPositionY(int id) {
     return agentMap.get(id).getCenterPosition().getY();
   }
 
@@ -91,7 +89,8 @@ public class GameState2DView extends GameStateView {
   }
 
   @Override
-  public void updateAgent(int id, String direction, String state){}
+  public void updateAgent(int id, String direction, String state) {
+  }
 
   public void updateAgent(int id, String direction, String state, boolean isAttack)
       throws IOException {
@@ -104,7 +103,9 @@ public class GameState2DView extends GameStateView {
     lasTimeUpdated = currentTimeUpdated;
     //System.out.println("run");
 
-    if(state.equals("DEATH")) agentMap.get(id).terminate();
+    if (state.equals("DEATH")) {
+      agentMap.get(id).terminate();
+    }
     agentMap.get(id).update(direction, state);
 
     if (agentDataHolderMap.get(id).getSpawnerDict().containsKey(state)) // will spawn new agents
@@ -114,7 +115,7 @@ public class GameState2DView extends GameStateView {
       String parentDirection = agentMap.get(id).getCurrentDirection();
       Agent2DDataHolder newAgentData = positionNewAgent(
           agentDataHolderMap.get(id).getSpawnerDict().get(state),
-          parentPosition, parentDirection);
+          parentPosition, parentDirection, false);
       GenerateAgentsData.loadAnimations(newAgentData);
 
       if (box.canMove(parentPosition, newAgentData.getPosition())) {
@@ -132,12 +133,12 @@ public class GameState2DView extends GameStateView {
       }
     }
 
-    if (isAttack){
+    if (isAttack) {
 
     }
   }
 
-  public void updateBullets(){
+  public void updateBullets() {
     System.out.println(bulletMap.keySet().size());
     for (int key : bulletMap.keySet()) {
       //check if hit the agent or wall
@@ -145,14 +146,14 @@ public class GameState2DView extends GameStateView {
       //System.out.println(String.format("BEFORE:key is %d",key));
       //Test.printVector2f(bullet.getCenterPosition());
       bullet.update(bullet.getCurrentDirection(), "MOVE");
-     // System.out.println(String.format("AFTER:key is %d",key));
+      // System.out.println(String.format("AFTER:key is %d",key));
       //Test.printVector2f(bullet.getCenterPosition());
     }
   }
 
   private Agent2DDataHolder positionNewAgent(Agent2DDataHolder data, Vector3f parentPosition,
-      String parentDirection) {
-    float MOVEMENT_DELTA = 100f;
+      String parentDirection, boolean isOrigin) {
+    float MOVEMENT_DELTA = isOrigin ? 0f : 100f;
     Agent2DDataHolder newAgentData = new Agent2DDataHolder(data);
     if (newAgentData.getInitialDirection().equals(GenerateAgentsData.getDirectionPlaceholder())) {
       newAgentData.setInitialDirection(parentDirection);
@@ -168,7 +169,8 @@ public class GameState2DView extends GameStateView {
     //Test.printVector3f(parentPosition);
     //Test.printVector3f(newAgentData.getPosition());
 
-    newAgentData.getPosition().setZ(zLayer); zLayer+=Z_INC;
+    newAgentData.getPosition().setZ(zLayer);
+    zLayer += Z_INC;
     //System.out.println(newAgentData.isBullet());
     //System.out.println("hah");
     return newAgentData;
@@ -199,24 +201,42 @@ public class GameState2DView extends GameStateView {
   }
 
   @Override
-  public void renderAgents() { // get rid of dead agents
+  public void renderAgents() throws IOException { // get rid of dead agents
     for (int id : agentMap.keySet()) {
-      if (!agentMap.get(id).renderMesh(renderer)){
+      if (!agentMap.get(id).renderMesh(renderer)) {
         //render didn't succeed
+
+        //TODO if the agent is summoner, generate new agents
+
+        Vector3f parentPosition = new Vector3f(agentMap.get(id).getCenterPosition(), 0f);
+        String parentDirection = agentMap.get(id).getCurrentDirection();
+        Agent2DDataHolder newAgentData = positionNewAgent(
+            agentDataHolderMap.get(id).getSpawnerDict().get(agentMap.get(id).getAction()),
+            parentPosition, parentDirection, true);
+        GenerateAgentsData.loadAnimations(newAgentData);
+
+        if (box.canMove(parentPosition, newAgentData.getPosition())) {
+          //System.out.println(newAgentData.isBullet());
+            int newId = getNextAgentId();
+            agentDataHolderMap.put(newId, newAgentData);
+            agentMap.put(newId, new Agent2DView(newId, newAgentData));
+            agentMap.get(newId).createMesh();
+        }
+
         deleteAgent(id);
       }
     }
   }
 
   @Override
-  public void renderAll(){
+  public void renderAll() throws IOException {
     renderMap();
     renderAgents();
     renderBullets();
     renderWindow();
   }
 
-  public void renderBullets(){
+  public void renderBullets() {
     for (int id : bulletMap.keySet()) {
       bulletMap.get(id).renderMesh(renderer);
     }

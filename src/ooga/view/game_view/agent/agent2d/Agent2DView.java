@@ -63,4 +63,6 @@ public class Agent2DView extends AgentView {
     //System.out.println(action);
     if (action.equals(MOVE_ACTION)) controller.move(direction);
   }
+
+  public String getAction(){return controller.getAction();}
 }
