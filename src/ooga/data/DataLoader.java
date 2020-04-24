@@ -6,29 +6,23 @@ import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.view.engine.graphics.animation.Animation2D;
 
-import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
-
-
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import javax.imageio.ImageIO;
-import ooga.model.characters.ZeldaCharacter;
-import ooga.model.enums.CharacterProperty;
-import ooga.model.enums.Direction;
-import ooga.model.enums.GamePara;
-import ooga.model.enums.ImageCategory;
-import ooga.model.enums.PlayerPara;
-import ooga.model.interfaces.gameMap.Cell;
+
+import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 public class DataLoader implements DataLoaderAPI {
 
   public static final int SubMapPerMap = 4;
+  public static final String JSON_POSTFIX = ".json";
   //  private int currentGameID = 1;//the belonging of Game ID is a problem. Where should it get from?
 //  private int currentPlayerID = 1;
   private static GameObjectConfiguration gameObjectConfiguration;
+
   private com.google.gson.Gson gson;
 
   public DataLoader() throws DataLoadingException {
@@ -251,5 +245,8 @@ public class DataLoader implements DataLoaderAPI {
     return gameObjectConfiguration.getCurrentPlayers();
   }
 
-
+  @Override
+  public Map<String, Animation2D> loadAnimation(AnimationType animationType) {
+    return gameObjectConfiguration.getSpecificAgentAnimation(animationType.toString() + JSON_POSTFIX);
+  }
 }

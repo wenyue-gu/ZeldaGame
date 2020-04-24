@@ -54,4 +54,6 @@ public interface DataLoaderAPI {
     List<ZeldaCharacter> getZeldaCharacters();
 
     List<PlayerStatus> getCurrentPlayers();
+
+    Map<String, Animation2D> loadAnimation(AnimationType animationType);
 }

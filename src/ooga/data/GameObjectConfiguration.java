@@ -76,7 +76,6 @@ public class GameObjectConfiguration {
     gsonBuilder.serializeNulls(); //ensure gson storing null values.
     gsonStore = gsonBuilder.create();
     gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter("ooga.model.map.GameCell"));
-//    gsonBuilder.registerTypeAdapter(Animation2D.class, new InterfaceAdapter(Animation2D.class.getName()));
     gsonLoad = gsonBuilder.create();//3 lines above are the same as DataStorer
 
     gameInfoList = new ArrayList<>();
@@ -90,9 +89,7 @@ public class GameObjectConfiguration {
 
     fieldToPathMap = new HashMap<>();
 
-//        for (String i: fieldToPathMap.values()) {
-//            loadFilesUnderDirectory(fieldToPathMap.get(i), i.getClass());
-//        }
+
 
     loadGameEverything();
     fieldToPathMap.put(gameInfoList, GameInfoPath);
@@ -102,8 +99,8 @@ public class GameObjectConfiguration {
     fieldToPathMap.put(playerList, playerPath);
     fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
     fieldToPathMap.put(textMap, textPath);
-    fieldToPathMap.put(meleeRobotAnimations, animationPath);
-//    fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
+//    fieldToPathMap.put(meleeRobotAnimations, animationPath);
+    fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
   }
 
   private void loadGameEverything() throws DataLoadingException {
@@ -114,8 +111,8 @@ public class GameObjectConfiguration {
     loadFilesUnderDirectory(playerPath, PlayerStatus.class);
     loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
     loadFilesUnderDirectory(textPath, textMap.getClass());
-    loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
-//    loadFilesUnderDirectory(animationPath, animationMap.getClass()); //multiple agents draft (2,4)
+//    loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
+    loadFilesUnderDirectory(animationPath, animationMap.getClass()); //multiple agents draft (2,4)
   }
 
   private void loadFilesUnderDirectory(String myDirectoryPath, Class<?> classType)
@@ -160,13 +157,13 @@ public class GameObjectConfiguration {
             window.create();
 
             Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
-            //delete after multiple agents occur
-            meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
-            createTextureToAnimation(meleeRobotAnimations);
+//            //delete after multiple agents occur
+//            meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
+//            createTextureToAnimation(meleeRobotAnimations);
 
-//            //change to support multiple agents (3,4)
-//            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
-//            animationMap.put(child.getName(), tempAgent);
+            //change to support multiple agents (3,4)
+            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
+            animationMap.put(child.getName(), tempAgent);
             window.destroy();
             break;
           default:
@@ -193,10 +190,7 @@ public class GameObjectConfiguration {
   }
 
 
-  /**
-   * two problems regarding centralized storing: 1. Need to store the relative information for
-   * storing ---- overly complicated 2. Cache problem for data synchronization.
-   */
+
   public void storeGameEverything() {
     for (Map.Entry<Object, String> i : fieldToPathMap.entrySet()) {
       String path = i.getValue();
@@ -240,12 +234,12 @@ public class GameObjectConfiguration {
           break;
         case "Animation2D":
           //delete after multiple agents
-          writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
+//          writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
 
-//          //use after using mulitple agents (4,4)
-//          for (String j : animationMap.keySet()) {
-//            writeObjectTOJson(animationMap.get(j), path + j);
-//          }
+          //use after using mulitple agents (4,4)
+          for (String j : animationMap.keySet()) {
+            writeObjectTOJson(animationMap.get(j), path + j);
+          }
       }
     }
   }

@@ -1,5 +1,6 @@
 package ooga.data;
 
+import ooga.model.enums.AnimationType;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
@@ -49,6 +50,8 @@ public interface  DataStorerAPI {
     void writeAllDataIntoDisk();
 
     void storeMeleeRobotAnimations(Map<String, Animation2D> animations);
+
+    void storeAnimations(Map<String, Animation2D> animations, AnimationType animationType);
 
     DataLoaderAPI getDataLoader();
 
