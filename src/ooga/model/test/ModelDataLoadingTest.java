@@ -12,6 +12,7 @@ import ooga.data.DataStorer;
 import ooga.data.DataStorerAPI;
 import ooga.game.GameType;
 import ooga.model.Model;
+import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.backend.GamePara;
 import org.junit.jupiter.api.Test;
@@ -70,8 +71,18 @@ public class ModelDataLoadingTest {
   }
 
   @Test
-  public void npcLoading() {
+  public void npcLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
+    model = new Model(loader);
 
+    Map<Integer, ZeldaCharacter> npcs = (HashMap<Integer, ZeldaCharacter>)model.getNPCs();
+    assertEquals(3, npcs.size());
+    assertEquals(200, npcs.get(0).getX());
+    assertEquals(100, npcs.get(0).getY());
+    assertEquals(0, npcs.get(1).getX());
+    assertEquals(0, npcs.get(1).getY());
+    assertEquals(300, npcs.get(4).getX());
+    assertEquals(-250, npcs.get(4).getY());
   }
 
   @Test
