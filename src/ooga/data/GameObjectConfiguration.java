@@ -15,13 +15,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static ooga.game.GameMain.HEIGHT;
 import static ooga.game.GameMain.WIDTH;
@@ -30,7 +28,7 @@ import static ooga.game.GameMain.WIDTH;
  * this is the man, the object storing EVERY piece of info!
  */
 public class GameObjectConfiguration {
-
+  public static String RESOURCES_PACKAGE = "Data/param_and_path";
   public static String GameInfoPath = "data/GameInfo/";
   public static String GameMapPath = "data/GameMap/";
   public static String imageMapPath = "data/Image/";
@@ -49,6 +47,7 @@ public class GameObjectConfiguration {
   private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
   private com.google.gson.Gson gsonLoad;
   private com.google.gson.Gson gsonStore;
+  private ResourceBundle resources;
 
 
   private Map<String, Animation2D> meleeRobotAnimations;
@@ -78,32 +77,103 @@ public class GameObjectConfiguration {
     gsonBuilder.registerTypeAdapter(Cell.class, new InterfaceAdapter("ooga.model.map.GameCell"));
     gsonLoad = gsonBuilder.create();//3 lines above are the same as DataStorer
 
-    gameInfoList = new ArrayList<>();
-    gameMapList = new HashMap<>();
-    imageMap = new HashMap<>();
-    marioCharacterList = new ArrayList<>();
-    playerList = new ArrayList<>();
-    zeldaCharacterList = new ArrayList<>();
-    textMap = new HashMap<>();
-    meleeRobotAnimations = new HashMap<>(); //delete after multiple agents occur
-    animationMap = new HashMap<>();
+    resources = ResourceBundle.getBundle(RESOURCES_PACKAGE);
     fieldToPathMap = new HashMap<>();
 
+    try {
+      initiateDataStorageInstanceVariable();
+    } catch (IllegalAccessException | NoSuchFieldException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+//    gameInfoList = new ArrayList<>();
+//    gameMapList = new HashMap<>();
+//    imageMap = new HashMap<>();
+//    marioCharacterList = new ArrayList<>();
+//    playerList = new ArrayList<>();
+//    zeldaCharacterList = new ArrayList<>();
+//    textMap = new HashMap<>();
+//    meleeRobotAnimations = new HashMap<>(); //delete after multiple agents occur
+//    animationMap = new HashMap<>();
 
 
-    loadGameEverything();
-    fieldToPathMap.put(gameInfoList, GameInfoPath);
-    fieldToPathMap.put(gameMapList, GameMapPath);
-    fieldToPathMap.put(imageMap, imageMapPath);
-    fieldToPathMap.put(marioCharacterList, marioCharacterPath);
-    fieldToPathMap.put(playerList, playerPath);
-    fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
-    fieldToPathMap.put(textMap, textPath);
-    fieldToPathMap.put(meleeRobotAnimations, animationPath);
-    fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
+
+
+
+//    loadGameEverything();
+//    fieldToPathMap.put(gameInfoList, GameInfoPath);
+//    fieldToPathMap.put(gameMapList, GameMapPath);
+//    fieldToPathMap.put(imageMap, imageMapPath);
+//    fieldToPathMap.put(marioCharacterList, marioCharacterPath);
+//    fieldToPathMap.put(playerList, playerPath);
+//    fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
+//    fieldToPathMap.put(textMap, textPath);
+//    fieldToPathMap.put(meleeRobotAnimations, animationPath);
+//    fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
   }
 
+  private void initiateDataStorageInstanceVariable() throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
+    Class cls = this.getClass();
+    PlayerStatus d = new PlayerStatus(1);
+    Class cls1 = d.getClass();
+    Field field;
+    Window window = new Window(WIDTH, HEIGHT, "Game");
+    window.create();
+    for (String key : Collections.list(resources.getKeys())) {
+      field = cls.getDeclaredField(key);
+      List<String> a = Collections.list(resources.getKeys());
+      field.setAccessible(true);
+      String[] value = resources.getString(key).split(",");
+      String type = value[1];
+      String directoryPath = value[0];
+      String instanceClass = value[2];
+      if (type.equals("List")) {
+        field.set(this, new ArrayList<>());
+      } else if (type.equals("Map")) {
+        field.set(this, new HashMap<>());
+      }
+
+      File dir = new File(directoryPath);
+      File[] directoryListing = dir.listFiles();
+      for (File child : directoryListing) {
+        try {
+
+          loadFilesUnderDirectory1(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
+        } catch (Exception e) {
+          e.printStackTrace();
+
+//
+          Type type2 = new TypeToken<Map<String, Animation2D>>(){}.getType();
+////          //delete after multiple agents occur
+////          meleeRobotAnimations = loadJson(directoryPath + child.getName(), type2);
+////          createTextureToAnimation(meleeRobotAnimations);
+//
+//
+//          //change to support multiple agents (3,4)
+          Map<String, Animation2D> tempAgent = loadJson(directoryPath + child.getName(), type2);
+          createTextureToAnimation(tempAgent);
+          animationMap.put(child.getName(), tempAgent);
+
+        }
+
+      }
+    }
+    window.destroy();
+  }
+
+  private <K> void loadFilesUnderDirectory1(String myDirectoryPath, String fileName, Field field, Class clazz, String type) throws IllegalAccessException {
+    if (type.equals("List")) {
+      List<K> tempList = (List<K>) field.get(this);
+      tempList.add(loadJson(myDirectoryPath + fileName, clazz));
+      field.set(this, tempList);
+    } else if (type.equals("Map")) {
+      Map<String, K> tempMap = (Map<String, K>) field.get(this);
+      tempMap.put(fileName,
+              loadJson(myDirectoryPath + fileName, clazz));
+      field.set(this, tempMap);
+    }
+  }
   private void loadGameEverything() throws DataLoadingException {
+    Class a = textMap.getClass();
     loadFilesUnderDirectory(GameInfoPath, GameInfo.class);
     loadFilesUnderDirectory(GameMapPath, GameMapGraph.class);
     loadFilesUnderDirectory(imageMapPath, imageMap.getClass());
@@ -161,7 +231,7 @@ public class GameObjectConfiguration {
             meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
             createTextureToAnimation(meleeRobotAnimations);
 
-            
+
             //change to support multiple agents (3,4)
             Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
             createTextureToAnimation(tempAgent);
