@@ -5,67 +5,115 @@ import ooga.model.interfaces.gameMap.Cell;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class  GameCell implements Cell {
-    private ArrayList<Cell> neighbours;
-    private int ID;
-    private int cellState;
-    private int imageIndex;
-    private boolean walkable;
-    private transient BufferedImage bufferedImage;
+/**
+ * This class implements a single cell
+ *
+ * @author cady
+ */
+public class GameCell implements Cell {
 
-    public GameCell() {
+  private ArrayList<Cell> neighbours;
+  private int ID;
+  private int cellState;
+  private int imageIndex;
+  private boolean walkable;
+  private transient BufferedImage bufferedImage;
 
-    }
-    public GameCell(int ID) {
-        this.ID = ID;
-    }
-    @Override
-    public void setState(int state) {
-        cellState = state;
-    }
+  public GameCell() {
 
-    @Override
-    public int getState() {
-        return cellState;
-    }
+  }
 
-    @Override
-    public int getImage() {
-        return imageIndex;
-    }
+  public GameCell(int ID) {
+    this.ID = ID;
+  }
 
-    @Override
-    public void setImage(int imageIndex) {
-        this.imageIndex = imageIndex;
-    }
+  /**
+   * @param state the state value of the cell
+   */
+  @Override
+  public void setState(int state) {
+    cellState = state;
+  }
 
-    @Override
-    public int getUniqueID() {
-        return this.ID;
-    }
+  /**
+   * @return the state value of the cell
+   */
+  @Override
+  public int getState() {
+    return cellState;
+  }
 
-    @Override
-    public int setUniqueID() {
-        return this.ID;
-    }
+  /**
+   * @return the index of image
+   */
+  @Override
+  public int getImage() {
+    return imageIndex;
+  }
 
-    @Override
-    public boolean isMapCellWalkable() {
-        return walkable;
-    }
+  /**
+   * @param imageIndex index of the image
+   */
+  @Override
+  public void setImage(int imageIndex) {
+    this.imageIndex = imageIndex;
+  }
 
-    @Override
-    public void setWalkable(boolean walkable) {
-        this.walkable = walkable;
-    }
+  /**
+   * get cell's unique ID (unique within the level).
+   *
+   * @return cell's unique ID
+   */
+  @Override
+  public int getUniqueID() {
+    return this.ID;
+  }
 
-    @Override
-    public BufferedImage getBufferedImage() {
-        return bufferedImage;
-    }
-    
-    @Override
-    public void setBufferedImage(BufferedImage bufferedImage) {
-        this.bufferedImage = bufferedImage;
-    }
+  /**
+   * Sets the cell's ID
+   *
+   * @return the cell's ID
+   */
+  @Override
+  public void setUniqueID(int id) {
+    this.ID = id;
+  }
+
+  /**
+   * return whether the cell is walkable.
+   */
+  @Override
+  public boolean isMapCellWalkable() {
+    return walkable;
+  }
+
+  /**
+   * Sets if the cell is walkable
+   *
+   * @param walkable true if walkable
+   */
+  @Override
+  public void setWalkable(boolean walkable) {
+    this.walkable = walkable;
+  }
+
+  /**
+   * Gets the buffered image for this cell
+   *
+   * @return the buffered image
+   */
+  @Override
+  public BufferedImage getBufferedImage() {
+    return bufferedImage;
+  }
+
+  /**
+   * Sets the buffered image for this cell
+   *
+   * @param bufferedImage the buffered image
+   */
+  @Override
+  public void setBufferedImage(BufferedImage bufferedImage) {
+    this.bufferedImage = bufferedImage;
+  }
 }

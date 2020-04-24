@@ -41,7 +41,7 @@ public class Model implements ModelInterface {
     for (ZeldaCharacter c: characters) {
 //      int rand = new Random().nextInt(CharacterType.values().length - 2) + 1;
 //      c.setType(CharacterType.byIndex(rand));
-      c.setType(CharacterType.LOADSOLDIER);
+      c.setType(CharacterType.TURRET);
       npcs.put(c.getId(), c);
     }
 

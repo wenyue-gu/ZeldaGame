@@ -46,5 +46,9 @@ public interface  GridInMap extends SingleGrid {
    */
   void setGridIDOn(int row, int col, Direction direction, int gridID);
 
+  /**
+   * Loads this grid on specific level
+   * @param level the level of grid
+   */
   void loadGrid(int level);
 }

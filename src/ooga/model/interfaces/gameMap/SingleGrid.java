@@ -10,7 +10,7 @@ import ooga.model.enums.backend.Direction;
  * @author cady
  * @see Cell
  */
-public interface  SingleGrid {
+public interface SingleGrid {
 
   /**
    * Sets the size of this grid
@@ -70,5 +70,10 @@ public interface  SingleGrid {
    */
   boolean isGateCell(int row, int col, Direction direction);
 
+  /**
+   * Gets the entire gird
+   *
+   * @return the gird
+   */
   List<List<?>> getGrid();
 }

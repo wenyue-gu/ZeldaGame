@@ -66,7 +66,15 @@ public interface  Movable1D {
    */
   MovingState getState();
 
+  /**
+   * Sets the direction of moving
+   * @param direction of moving
+   */
   void setDirection(Direction direction);
 
+  /**
+   * Gets the direction of moving
+   * @return the direction of moving
+   */
   Direction getDirection();
 }
