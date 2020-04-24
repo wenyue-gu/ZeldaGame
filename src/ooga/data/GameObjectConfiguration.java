@@ -41,7 +41,7 @@ public class GameObjectConfiguration {
   private List<GameInfo> gameInfoList;
   private Map<String, GameMapGraph> gameMapList;
   private Map<String, Map<String, String>> imageMap;
-  private List<MarioCharacter> marioCharacterList;
+//  private List<MarioCharacter> marioCharacterList;
   private List<PlayerStatus> playerList;
   private List<ZeldaCharacter> zeldaCharacterList;
   private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
@@ -79,7 +79,7 @@ public class GameObjectConfiguration {
     gameInfoList = new ArrayList<>();
     gameMapList = new HashMap<>();
     imageMap = new HashMap<>();
-    marioCharacterList = new ArrayList<>();
+//    marioCharacterList = new ArrayList<>();
     playerList = new ArrayList<>();
     zeldaCharacterList = new ArrayList<>();
     textMap = new HashMap<>();
@@ -105,7 +105,7 @@ public class GameObjectConfiguration {
     loadFilesUnderDirectory(GameInfoPath, GameInfo.class);
     loadFilesUnderDirectory(GameMapPath, GameMapGraph.class);
     loadFilesUnderDirectory(imageMapPath, imageMap.getClass());
-    loadFilesUnderDirectory(marioCharacterPath, MarioCharacter.class);
+//    loadFilesUnderDirectory(marioCharacterPath, MarioCharacter.class);
     loadFilesUnderDirectory(playerPath, PlayerStatus.class);
     loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
     loadFilesUnderDirectory(textPath, textMap.getClass());
@@ -135,10 +135,10 @@ public class GameObjectConfiguration {
             imageMap.put(child.getName(),
                 loadJson(myDirectoryPath + child.getName(), classType));
             break;
-          case "MarioCharacter":
-            marioCharacterList
-                .add(loadJson(myDirectoryPath + child.getName(), classType));
-            break;
+//          case "MarioCharacter":
+//            marioCharacterList
+//                .add(loadJson(myDirectoryPath + child.getName(), classType));
+//            break;
           case "Player":
             playerList.add(loadJson(myDirectoryPath + child.getName(), classType));
             break;
@@ -269,13 +269,13 @@ public class GameObjectConfiguration {
     this.imageMap = imageMap;
   }
 
-  public List<MarioCharacter> getMarioCharacterList() {
-    return marioCharacterList;
-  }
+//  public List<MarioCharacter> getMarioCharacterList() {
+//    return marioCharacterList;
+//  }
 
-  public void setMarioCharacterList(List<MarioCharacter> marioCharacterList) {
-    this.marioCharacterList = marioCharacterList;
-  }
+//  public void setMarioCharacterList(List<MarioCharacter> marioCharacterList) {
+//    this.marioCharacterList = marioCharacterList;
+//  }
 
   public List<PlayerStatus> getPlayerList() {
     return playerList;
