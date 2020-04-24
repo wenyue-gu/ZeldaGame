@@ -3,6 +3,7 @@ package ooga.view.game_view.agent.agent2d;
 import com.google.gson.internal.LinkedHashTreeMap;
 import java.util.Map;
 import javafx.util.Pair;
+import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Vertex;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.maths.Vector3f;
@@ -52,7 +53,7 @@ public class Agent2DDataHolder {
     this.rotation = new Vector3f(other.getRotation());
     this.position = new Vector3f(other.getPosition());
     this.scale = new Vector3f(other.getScale());
-    this.vertices = Asset2D.getAgentVertices();
+    this.vertices = Mesh.verticesCopy(Asset2D.getAgentVertices());
     this.indices = Asset2D.getAgentIndices();
   }
 

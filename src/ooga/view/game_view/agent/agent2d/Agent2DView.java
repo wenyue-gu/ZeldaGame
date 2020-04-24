@@ -48,6 +48,8 @@ public class Agent2DView extends AgentView {
 
   public void update(String direction, String action) {
     controller.setCurrentAnimation(direction, action);
+    System.out.println(MOVE_ACTION);
+    System.out.println(action);
     if (action.equals(MOVE_ACTION)) controller.move(direction);
   }
 }

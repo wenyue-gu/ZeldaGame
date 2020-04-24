@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.util.Pair;
+import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.utils.cyberpunk2d.animtions.LoadBigBoyAnimations;
@@ -109,6 +110,7 @@ public class GenerateAgentsData {
 
     data.setSpeedScale(5.0f);
 
+    data.setIsObject(true);
     // create initial params
     data.setType("Bullet");
     data.setInitialAction("MOVE");
@@ -116,14 +118,13 @@ public class GenerateAgentsData {
     data.setDefaultAction("MOVE");
     data.setMoveAction("MOVE");
 
-    // create animation dict
-
-
     Vector3f position = new Vector3f(x,y,Z_POSITION);
     data.setPosition(position);
 
-    Vector3f scale = Asset2D.getNonPlayerScale();
+    Vector3f scale = Asset2D.getBulletScale();
     data.setScale(scale);
+
+    data.setVertices(Mesh.verticesCopy(Asset2D.getBulletVertices()));
 
     return data;
   }
@@ -162,26 +163,20 @@ public class GenerateAgentsData {
     data.setSpeedScale(5.0f);
 
     // create initial params
+    data.setIsObject(true);
     data.setType("TurretBullet");
     data.setInitialAction("MOVE");
     data.setInitialDirection(initialDirection);
     data.setDefaultAction("MOVE");
     data.setMoveAction("MOVE");
 
-    // create animation dict
-
-
-    // create empty triggered object dict
-    Map<String, Agent2DDataHolder> spawnerDict = new HashMap<>();
-    spawnerDict.put("ATTACK_1_SIDE", createTurretBullet(X_PLACEHOLDER, Y_PLACEHOLDER, "E"));
-    spawnerDict.put("ATTACK_2_SIDE", createTurretBullet(X_PLACEHOLDER, Y_PLACEHOLDER, "W"));
-    data.setSpawnerDict(spawnerDict);
-
     Vector3f position = new Vector3f(x,y,Z_POSITION);
     data.setPosition(position);
 
-    Vector3f scale = Asset2D.getNonPlayerScale();
+    Vector3f scale = Asset2D.getBulletScale();
     data.setScale(scale);
+
+    data.setVertices(Mesh.verticesCopy(Asset2D.getBulletVertices()));
 
     return data;}
 
@@ -348,7 +343,7 @@ public class GenerateAgentsData {
     Vector3f position = new Vector3f(x, y, Z_POSITION);
     data.setPosition(position);
 
-    Vector3f scale = Asset2D.getNonPlayerScale();
+    Vector3f scale = Asset2D.getPlayerScale();
     data.setScale(scale);
 
     return data;

@@ -21,7 +21,8 @@ public class testMainView implements Runnable {
 
   public void init() throws IOException {
     Map<Integer, Agent2DDataHolder> dataHolderMap = new HashMap<>();
-    dataHolderMap.put(0, GenerateAgentsData.createSoldier(0f, 0f));
+    dataHolderMap.put(0, GenerateAgentsData.createMeleeBot(0f, 0f));
+    dataHolderMap.put(1, GenerateAgentsData.createSoldier(0f, 1f));
    view = new GameState2DView(dataHolderMap);
    view.createWindow();
   }
@@ -46,6 +47,7 @@ public class testMainView implements Runnable {
   private void update() throws IOException {
     view.updateWindow();
     view.updateMap(); //empty method
+    view.updateBullets();
     if (view.isKeyDown(GLFW.GLFW_KEY_S)){
       view.updateAgent(0,"E","ATTACK", true);}
   }

@@ -33,7 +33,7 @@ public class Mesh {
 		Mesh.normalize(this);
 	}
 
-	private Vertex[] verticesCopy(Vertex[] v) {
+	public static Vertex[] verticesCopy(Vertex[] v) {
 		Vertex[] ret = new Vertex[v.length];
 		for (int i = 0; i < ret.length; i++) {
 			ret[i] = new Vertex(v[i]);

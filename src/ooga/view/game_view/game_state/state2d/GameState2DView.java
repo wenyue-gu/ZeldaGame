@@ -9,12 +9,14 @@ import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.io.Input;
 import ooga.view.engine.io.Window;
 import ooga.view.engine.maths.Vector3f;
+import ooga.view.engine.utils.Test;
 import ooga.view.engine.utils.cyberpunk2d.GenerateAgentsData;
 import ooga.view.game_view.agent.agent2d.Agent2DDataHolder;
 import ooga.view.game_view.agent.agent2d.Agent2DView;
 import ooga.view.game_view.game_state.interfaces.GameStateView;
 import ooga.view.game_view.map.map2d.Map2DView;
 import org.lwjgl.glfw.GLFW;
+import org.lwjglx.Sys;
 
 public class GameState2DView extends GameStateView {
 
@@ -90,6 +92,7 @@ public class GameState2DView extends GameStateView {
     agentMap.get(id).update(direction, state);
     if (agentDataHolderMap.get(id).getSpawnerDict().containsKey(state)) // will spawn new agents
     {
+      System.out.println("spawning");
       Vector3f parentPosition = new Vector3f(agentMap.get(id).getCenterPosition(), 0f);
       String parentDirection = agentMap.get(id).getCurrentDirection();
       Agent2DDataHolder newAgentData = positionNewAgent(
@@ -97,6 +100,7 @@ public class GameState2DView extends GameStateView {
           parentPosition, parentDirection);
       GenerateAgentsData.loadAnimations(newAgentData);
       if (box.canMove(parentPosition, newAgentData.getPosition())) {
+        System.out.println(newAgentData.isBullet());
         if (newAgentData.isBullet()) {
           int newId = getNextBulletId();
           bulletMap.put(newId, new Agent2DView(newId, newAgentData));
@@ -114,20 +118,26 @@ public class GameState2DView extends GameStateView {
   }
 
   public void updateBullets(){
+    System.out.println(bulletMap.keySet().size());
     for (int key : bulletMap.keySet()) {
       //check if hit the agent or wall
+      Agent2DView bullet = bulletMap.get(key);
+      bullet.update(bullet.getCurrentDirection(), "MOVE");
     }
   }
 
   private Agent2DDataHolder positionNewAgent(Agent2DDataHolder data, Vector3f parentPosition,
       String parentDirection) {
-    float MOVEMENT_DELTA = 1.5f;
+    float MOVEMENT_DELTA = 50f;
     Agent2DDataHolder newAgentData = new Agent2DDataHolder(data);
     if (newAgentData.getInitialDirection().equals(GenerateAgentsData.getDirectionPlaceholder())) {
       newAgentData.setInitialDirection(parentDirection);
     }
     newAgentData.setPosition(Vector3f.add(parentPosition,
         Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA)));
+    Test.printVector3f(parentPosition);
+    Test.printVector3f(newAgentData.getPosition());
+    System.out.println("hah");
     return newAgentData;
   }
 

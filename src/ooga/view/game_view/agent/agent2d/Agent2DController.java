@@ -39,29 +39,34 @@ public class Agent2DController extends AgentController {
   public void setCurrentAnimation(String direction, String action) {
     this.direction = direction;
     this.action = action;
+    System.out.println(action);
+    System.out.println(direction);
+    System.out.println(DEFAULT_ACTION);
     animationDict.setInUseAnimation(direction, action);
   }
 
   public Material getCurrentAnimatedMaterial() {
     Material frame = animationDict.getAnimation().getCurrentFrame();
     if (frame == null) {
+
       if (nextDict.containsKey(action)) {
         setCurrentAnimation(direction, nextDict.get(action));
       } else {
         setCurrentAnimation(direction, DEFAULT_ACTION);
       }
-      System.out.println(action);
-      System.out.println(direction);
-      System.out.println(DEFAULT_ACTION);
+
       return animationDict.getAnimation().getCurrentFrame();
     } else {
       return frame;
     }
   }
 
-  public String getCurrentDirection(){return direction;}
+  public String getCurrentDirection(){return animationDict.getDirection();}
+
+  public String getCurrentAction(){return animationDict.getCurrentAction();}
 
   public void move(String direction) { //TODO if valid
+    System.out.println("it moves");
     translate(Asset2D.convertDirectionalSpeed(direction, speedScale));
     //object.setPosition(Vector3f.add(object.getPosition(), Asset2D.convertDirectionalSpeed(direction, speedScale)));
   }
