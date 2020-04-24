@@ -13,12 +13,12 @@ import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
 import ooga.data.DataStorer;
 import ooga.data.DataStorerAPI;
+import ooga.game.GameZelda2DSingle;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
-import ooga.view.game_view.game_state.state2d.GameState2DView;
 import org.lwjgl.glfw.GLFW;
 
 public class GameController {
@@ -32,7 +32,7 @@ public class GameController {
   private DataStorerAPI myDataStorer;
   private boolean dark;
   private String language;
-  private GameState2DView myGameView;
+  private GameZelda2DSingle myGameView;
   private AnimationTimer myTimer;
 
   private int score = 100;
@@ -100,7 +100,7 @@ public class GameController {
       mpc.updateKey();
       if(mpc.checkScore(score)) finishGame(mpc);
     }
-    if(myGameView.isKeyDown(GLFW.GLFW_KEY_P))pause();
+    if(myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P))pause();
   }
 
   public void pause(){
@@ -122,9 +122,9 @@ public class GameController {
     myPauseControl.setLanguage(language);
   }
 
-  public void setView(GameState2DView view) {
+  public void setView(GameZelda2DSingle view) {
     myGameView = view;
-    myPauseControl.setView(view);
+    myPauseControl.setView(view.getView());
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setView(view);
     }

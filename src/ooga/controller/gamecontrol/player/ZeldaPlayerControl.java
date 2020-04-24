@@ -9,11 +9,11 @@ import javafx.scene.input.KeyCode;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import ooga.controller.gamecontrol.playerInterface.AttackerControl;
 import ooga.controller.gamecontrol.playerInterface.MovableControll2D;
+import ooga.game.GameZelda2DSingle;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.Direction;
 import ooga.model.enums.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
-import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
     AttackerControl, PropertyChangeListener {
@@ -23,7 +23,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   private ZeldaPlayer myPlayer;
   //private Player2DView playerView;
-  private GameState2DView myView;
+  private GameZelda2DSingle myView;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private Map<Integer, String> myGLFWMap = new HashMap<>();
   private int myID;
@@ -99,8 +99,8 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void left() {
-    myPlayer.setState(MovingState.SPRINT);
-    myPlayer.setDirection(Direction.W);
+//    myPlayer.setState(MovingState.SPRINT);
+//    myPlayer.setDirection(Direction.W);
   }
 
   @Override
@@ -155,7 +155,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   public void updateKey() {
     try {
       for (int i : myGLFWMap.keySet()) {
-        if (myView.isKeyDown(i)){
+        if (myView.getView().isKeyDown(i)){
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
           System.out.println(myPlayer.getDirection().toString());
           System.out.println(myPlayer.getState().toString());
@@ -169,7 +169,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setView(GameState2DView view) {
+  public void setView(GameZelda2DSingle view) {
     myView = view;
   }
 

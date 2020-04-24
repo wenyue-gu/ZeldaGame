@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import javafx.scene.input.KeyCode;
 import ooga.controller.gamecontrol.PlayerControlInterface;
+import ooga.game.GameZelda2DSingle;
 import ooga.model.interfaces.movables.Movable1D;
-import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 public class MainPlayerControl implements PlayerControlInterface {
   private PlayerControlInterface myPlayerControl;
@@ -70,7 +70,7 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
-  public void setView(GameState2DView view) {
+  public void setView(GameZelda2DSingle view) {
     myPlayerControl.setView(view);
   }
 }
