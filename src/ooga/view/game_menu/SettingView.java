@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -20,18 +19,17 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 
-public class LogInView implements MenuView{
+public class SettingView implements MenuView{
 
     private Scene myScene;
     private VBox vBox;
-    private TextField nameInput;
-    private PasswordField passwordInput;
-    private Label userName;
-    private Label userPassWord;
-    private PrettyButtons LogInButton;
-    private PrettyButtons SignUpButton;
+    private TextField HPInput;
+    private Label currentHP;
+    private Label HP;
+    private PrettyButtons Confirm;
     private List<PrettyButtons> myButtonList;
     private Label Message;
+    private int HPvalue;
 
     private String myLanguage = "English";
     private boolean dark = false;
@@ -40,7 +38,7 @@ public class LogInView implements MenuView{
     private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
 
 
-    public LogInView(){
+    public SettingView(){
         setUpLabel();
         setUpField();
         setUpButton();
@@ -50,26 +48,16 @@ public class LogInView implements MenuView{
     }
 
     private void setUpButton() {
-        LogInButton = new PrettyButtons("LogIn", myLanguage);
-        SignUpButton = new PrettyButtons("Signup", myLanguage);
-
-        myButtonList = List.of(LogInButton, SignUpButton);
+        Confirm = new PrettyButtons("Confirm", myLanguage);
+        myButtonList = List.of( Confirm);
     }
 
-    public String getNameInput(){
-        return nameInput.getText();
+    public String getHPInput(){
+        return HPInput.getText();
     }
 
-    public String getPasswordInput(){
-        return passwordInput.getText();
-    }
-
-    public Button getLogInButton(){
-        return LogInButton;
-    }
-
-    public Button getSignUpButton(){
-        return SignUpButton;
+    public Button getConfirm(){
+        return Confirm;
     }
 
     @Override
@@ -82,73 +70,73 @@ public class LogInView implements MenuView{
         this.dark = dark;
         vBox.setBackground(dark?darkMode:lightMode);
         for(PrettyButtons button:myButtonList) button.switchMode(dark);
-        userName.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
-        userPassWord.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
+        HP.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
+        currentHP.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
+
     }
 
     public void setLanguage(String language){
         myLanguage = language;
-        LogInButton.changeLanguage(myLanguage);
-        SignUpButton.changeLanguage(myLanguage);
+        Confirm.changeLanguage(myLanguage);
         changeLableText();
     }
 
     @Override
     public void changColor(Color color) {
         vBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-
     }
 
-
-    public void UserDNE(){
+    public void setHP(int i){
+        HPvalue = i;
         var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
-        Message.setText(resource.getString("UserDNE"));
+        currentHP.setText(resource.getString("currentHP")+HPvalue);
     }
 
-    public void logInFail(){
+    public void NotInt(){
         var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
-        Message.setText(resource.getString("LogInFail"));
-    }
-
-    public void signUpFail(){
-        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
-        Message.setText(resource.getString("SignUpFail"));
+        Message.setText(resource.getString("NotInt"));
     }
 
     private void setUpVBox() {
         vBox = new VBox(10);
         vBox.setMaxWidth(300);
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(userName, nameInput, userPassWord, passwordInput, LogInButton, SignUpButton, Message);
+        vBox.getChildren().addAll(currentHP, HP, HPInput, Confirm, Message);
     }
 
     private void setUpField() {
-        nameInput = new TextField();
-        nameInput.setMaxWidth(300);
-        passwordInput = new PasswordField();
-        passwordInput.setMaxWidth(300);
+        HPInput = new TextField();
+        HPInput.setMaxWidth(300);
     }
 
     private void setUpLabel() {
         var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
-        userName = new Label(resource.getString("UserName"));
-
-        userName.setFont(Font.font("Ariel", 18));
-        userPassWord = new Label(resource.getString("PassWord"));
-        userPassWord.setFont(Font.font("Ariel", 18));
+        if(HPvalue<=0) {
+            currentHP = new Label(resource.getString("currentHP")+resource.getString("defaultHP"));
+        }
+        else{
+            currentHP = new Label(resource.getString("currentHP")+HPvalue);
+        }
+        currentHP.setFont(Font.font("Ariel", 15));
+        HP = new Label(resource.getString("HP"));
+        HP.setFont(Font.font("Ariel", 18));
         Message = new Label("");
         Message.setFont(Font.font("Ariel", 18));
     }
 
     private void changeLableText(){
         var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
-        userName.setText(resource.getString("UserName"));
-        userPassWord.setText(resource.getString("PassWord"));
+        if(HPvalue<=0) {
+            currentHP.setText(resource.getString("currentHP")+resource.getString("defaultHP"));
+        }
+        else{
+            currentHP.setText(resource.getString("currentHP")+HPvalue);
+        }
+        HP.setText(resource.getString("HP"));
         Message.setText("");
     }
 
     public void clearInput() {
-        nameInput.clear();
-        passwordInput.clear();
+        HPInput.clear();
     }
 }

@@ -15,7 +15,7 @@ public class PlayerControlFactory {
 
   private void fillMap(){
     controlMap.put(1, new ZeldaPlayerControl());
-    controlMap.put(0, new MarioPlayerControl());
+//    controlMap.put(0, new MarioPlayerControl());
   }
 
   public PlayerControlInterface selectControl(int type){

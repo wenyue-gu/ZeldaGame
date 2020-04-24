@@ -3,6 +3,8 @@ package ooga.game;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ooga.controller.WindowControl;
+import ooga.controller.gamecontrol.GameController;
+import ooga.controller.gamecontrol.PauseControl;
 import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
@@ -27,9 +29,10 @@ public class GameMain extends Application {
 
   @Override
   public void start(Stage currentStage) throws DataLoadingException {
-    myDataLoader = new DataLoader();
-//    myDataStorer = new DataStorer();
-    myWindowControl = new WindowControl(currentStage, myDataLoader);
+
+    myDataStorer = new DataStorer();
+    myDataLoader = ((DataStorer) myDataStorer).getDataLoader();
+    myWindowControl = new WindowControl(currentStage, myDataStorer);
     myWindowControl.showWindow(TITLE, HEIGHT, WIDTH, RESIZABLE);
   }
 }

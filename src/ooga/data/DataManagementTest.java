@@ -9,6 +9,7 @@ import ooga.model.interfaces.gameMap.Cell;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,9 @@ public class  DataManagementTest {
      */
     @Test
     public void gameMapLoadingTest() throws DataLoadingException {
-        loader.setGameAndPlayer(1,1);
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(1);
+        loader.setGameAndPlayer(1,a);
         ExampleDataGenerator.generateTheMapForFirstSprint();
 
         Cell testCell = loader.loadCell(6, 2, 0, 1);

@@ -1,6 +1,7 @@
 package ooga.controller;
 
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.view.game_menu.LogInView;
 
@@ -59,6 +60,8 @@ public class LogInControl {
         }
 
         //TODO: create user profile properties
+        myControl.setUser(UserInput);
+        myStage.close();
 
     }
 
@@ -77,6 +80,7 @@ public class LogInControl {
         myControl.setUser(UserInput);
         //TODO: OPEN USER PROFILE AND NOTIFY WINDOW CONTROL OF USER
         //TODO: myControl.findUserProfile();
+        myControl.setUser(UserInput);
         myStage.close();
     }
 
@@ -91,5 +95,9 @@ public class LogInControl {
 
     public void setLanguage(String language) {
         myView.setLanguage(language);
+    }
+
+    public void changColor(Color color) {
+        myView.changColor(color);
     }
 }

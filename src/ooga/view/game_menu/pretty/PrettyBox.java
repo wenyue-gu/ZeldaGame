@@ -1,4 +1,4 @@
-package ooga.view.game_menu;
+package ooga.view.game_menu.pretty;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;

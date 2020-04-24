@@ -4,10 +4,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import ooga.view.game_menu.pretty.PrettyButtons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +78,12 @@ public class SelectMenuView implements SelectMenu {
     public void setLanguage(String language) {
         myLanguage = language;
         for(PrettyButtons button:myButtonList) button.changeLanguage(myLanguage);
+    }
+
+    @Override
+    public void changColor(Color color) {
+        vBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+
     }
 
     private void setColor(){

@@ -1,8 +1,8 @@
 package ooga.controller.gamecontrol;
 
 import javafx.scene.input.KeyCode;
+import ooga.game.GameZelda2DSingle;
 import ooga.model.interfaces.movables.Movable1D;
-import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -15,7 +15,11 @@ public interface PlayerControlInterface{
   int getID();
   void keyReleased();
   void updateKey();
-  void setView(GameState2DView view);
+  void setView(GameZelda2DSingle view);
 
     void setNewKeyMap(Map<Integer, String> map);
+
+  Movable1D getPlayer();
+
+  boolean checkScore(int score);
 }

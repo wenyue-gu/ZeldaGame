@@ -4,17 +4,21 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import ooga.view.game_menu.pretty.PrettyButtons;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PauseMenu implements MenuView {
 
     private PrettyButtons ResumeButton;
     private PrettyButtons BackToMenuButton;
     private PrettyButtons SaveGameButton;
+
+    private int score = 0;
 
     private List<PrettyButtons> myButtonList = new ArrayList<>();
 
@@ -23,14 +27,27 @@ public class PauseMenu implements MenuView {
     private boolean dark;
     private String myLanguage;
 
+    private Label currentScore;
+    private Label scorelist;
+
     private Background darkMode = new Background(new BackgroundFill(new Color(0.15,0.15,0.15,1), CornerRadii.EMPTY, Insets.EMPTY));
     private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
 
     public PauseMenu(){
         myLanguage = "English";
         setUpButton();
+        currentScore = new Label();
+        currentScore.setFont(Font.font("Ariel", 18));
+        scorelist = new Label();
+        scorelist.setFont(Font.font("Ariel", 18));
+        changeLabelText();
         setUpVBox();
         myScene = new Scene(vBox, 800, 800);
+    }
+
+    private void changeLabelText() {
+        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        currentScore.setText(resource.getString("currentScore"));
     }
 
     public Button getResumeButton(){return ResumeButton;}
@@ -48,6 +65,11 @@ public class PauseMenu implements MenuView {
     public void setLanguage(String language) {
         myLanguage = language;
         for(PrettyButtons button:myButtonList) button.changeLanguage(myLanguage);
+    }
+
+    @Override
+    public void changColor(Color color) {
+        vBox.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @Override
@@ -73,6 +95,15 @@ public class PauseMenu implements MenuView {
     private void setUpVBox(){
         vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(ResumeButton, BackToMenuButton, SaveGameButton);
+        vBox.getChildren().addAll(scorelist, ResumeButton, BackToMenuButton, SaveGameButton);
+    }
+
+    public void updateScore(Map<Integer, Integer> list){
+        String s = "";
+        for(int i:list.keySet()){
+            s+= "Player "+i+" score: "+list.get(i)+"; \n";
+        }
+        s+="\n\n";
+        scorelist.setText(s);
     }
 }

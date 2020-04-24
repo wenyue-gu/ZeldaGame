@@ -7,17 +7,19 @@ public class  ZeldaPlayer extends ZeldaCharacter implements Scorable {
 
   Scorer scorer;
 
-  public ZeldaPlayer(int initialHp, int id) {
+  public ZeldaPlayer(int initialHp, int id, double currentScore, double goal) {
     super(initialHp, id);
+    scorer= new Scorer(currentScore, goal);
   }
 
-  public ZeldaPlayer(int initialHp, int weapon, int id) {
+  public ZeldaPlayer(int initialHp, int weapon, int id, double currentScore, double goal) {
     super(initialHp, weapon, id);
+    scorer= new Scorer(currentScore, goal);
   }
 
-  public ZeldaPlayer(int initialHp, int weapon, int attack, int id, int x, int y) {
+  public ZeldaPlayer(int initialHp, int weapon, int attack, int id, int x, int y, double currentScore, double goal) {
     super(initialHp, weapon, attack, id, x, y);
-    scorer = new Scorer();
+    scorer= new Scorer(currentScore, goal);
   }
 
   @Override
@@ -28,6 +30,16 @@ public class  ZeldaPlayer extends ZeldaCharacter implements Scorable {
   @Override
   public double getScore() {
     return scorer.getScore();
+  }
+
+  @Override
+  public double getGoalScore() {
+    return scorer.getGoalScore();
+  }
+
+  @Override
+  public void setGoalScore(double goalScore) {
+    scorer.setScore(goalScore);
   }
 
   @Override

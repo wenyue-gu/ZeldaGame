@@ -2,16 +2,15 @@ package ooga.game;
 
 import java.io.IOException;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
-import org.lwjgl.glfw.GLFW;
 
-public class GameZelda2D implements Runnable {
+public class GameZelda2DSingle implements Runnable {
 
   private Thread game;
   private GameState2DView view;
-
-//  public GameZelda2D(GameState2DView view){
-//    this.view = view;
-//  }
+  private boolean isUpdating = false;
+  private int id;
+  private String direction;
+  private String state;
 
   public void start() {
     game = new Thread(this, "game");
@@ -40,8 +39,18 @@ public class GameZelda2D implements Runnable {
     view.updateWindow();
     view.updateMap(); //empty method
     view.renderNPCs(); // empty method
-    if (view.isKeyDown(GLFW.GLFW_KEY_S)){
-      view.updatePlayer(0,"E","SPRINT");}
+    if (isUpdating){
+      view.updatePlayer(id,direction,state);
+      isUpdating = false;
+    }
+
+  }
+
+  public void updatePlayer(int id, String direction, String state) {
+    isUpdating = true;
+    this.id = id;
+    this.direction = direction;
+    this.state = state;
   }
 
   private void render() {

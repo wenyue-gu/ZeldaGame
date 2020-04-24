@@ -1,4 +1,4 @@
-package ooga.view.game_menu;
+package ooga.view.game_menu.pretty;
 
 import java.util.Locale;
 import javafx.geometry.Insets;

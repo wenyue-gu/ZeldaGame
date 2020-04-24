@@ -26,7 +26,7 @@ public interface  DataStorerAPI {
 
     void StoreInventory(Inventory inventory);
 
-    void storePlayerParamToCurrentPlayer(PlayerPara para, int value);
+//    void storePlayerParamToCurrentPlayer(PlayerPara para, int value);
 
     void setPlayerParam(PlayerPara para, int value, int playerID);
 
@@ -49,4 +49,7 @@ public interface  DataStorerAPI {
     void writeAllDataIntoDisk();
 
     void storeMeleeRobotAnimations(Map<String, Animation2D> animations);
+
+    DataLoaderAPI getDataLoader();
+
 }

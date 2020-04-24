@@ -2,13 +2,15 @@ package ooga.controller.gamecontrol;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.controller.WindowControl;
+import ooga.data.DataStorerAPI;
 import ooga.view.game_menu.PauseMenu;
-import ooga.view.game_menu.PrettyButtons;
 import ooga.view.game_view.game_state.state2d.GameState2DView;
 
 import java.util.List;
+import java.util.Map;
 
 public class PauseControl {
 
@@ -24,15 +26,19 @@ public class PauseControl {
     private GameState2DView myView;
     private AnimationTimer myTimer;
 
-    public PauseControl(){
+    private DataStorerAPI myStorer;
+    private GameController myGameController;
+
+    public PauseControl(GameController gameController){
         myStage = new Stage();
         myPauseMenu = new PauseMenu();
+        myGameController = gameController;
         myStage.setScene(myPauseMenu.getMenuView());
         setUpButton();
     }
 
     public void showMenu(){
-        myTimer.stop();
+        //myTimer.stop();
         myStage.show();
     }
 
@@ -49,17 +55,18 @@ public class PauseControl {
 
     private void resumeGame(){
         myStage.close();
-        myTimer.start();
+        //myTimer.start();
     }
 
     private void backToMenu(){
+        myGameController.save();
         myStage.close();
         myView.closeWindow();
         myWindowControl.showWindowMenu();
     }
 
     private void save(){
-
+        myGameController.save();
     }
 
     public void setWindowControl(WindowControl windowControl) {
@@ -80,5 +87,13 @@ public class PauseControl {
 
     public void setLanguage(String language){
         myPauseMenu.setLanguage(language);
+    }
+
+    public void updateScore(Map<Integer, Integer> sScoreList) {
+        myPauseMenu.updateScore(sScoreList);
+    }
+
+    public void setColor(Color color) {
+        myPauseMenu.changColor(color);
     }
 }

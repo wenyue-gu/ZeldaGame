@@ -1,23 +1,19 @@
 package ooga.controller.gamecontrol.player;
 
-import ooga.controller.gamecontrol.playerInterface.AttackerControl;
-import ooga.controller.gamecontrol.playerInterface.MovableControll2D;
-import ooga.controller.gamecontrol.PlayerControlInterface;
-import javafx.scene.input.KeyCode;
-import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.Direction;
-import ooga.model.enums.MovingState;
-import ooga.model.interfaces.movables.Movable1D;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-
-import ooga.view.engine.io.Input;
-import ooga.view.game_view.game_state.state2d.GameState2DView;
-import org.lwjgl.glfw.GLFW;
+import javafx.scene.input.KeyCode;
+import ooga.controller.gamecontrol.PlayerControlInterface;
+import ooga.controller.gamecontrol.playerInterface.AttackerControl;
+import ooga.controller.gamecontrol.playerInterface.MovableControll2D;
+import ooga.game.GameZelda2DSingle;
+import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.Direction;
+import ooga.model.enums.MovingState;
+import ooga.model.interfaces.movables.Movable1D;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
     AttackerControl, PropertyChangeListener {
@@ -27,42 +23,35 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   private ZeldaPlayer myPlayer;
   //private Player2DView playerView;
-  private GameState2DView myView;
+  private GameZelda2DSingle myView;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private Map<Integer, String> myGLFWMap = new HashMap<>();
   private int myID;
 
 
   public ZeldaPlayerControl() {
-    //keycode map hard code
-    myKeyCodeMap.put(KeyCode.LEFT, "left");
-    myKeyCodeMap.put(KeyCode.RIGHT, "right");
-    myKeyCodeMap.put(KeyCode.UP, "up");
-    myKeyCodeMap.put(KeyCode.DOWN, "down");
-    myKeyCodeMap.put(KeyCode.Q, "attack0");
-    myKeyCodeMap.put(KeyCode.W, "attack1");
-
-    //glfw map hard code
-    myGLFWMap.put(GLFW.GLFW_KEY_LEFT, "left");
-    myGLFWMap.put(GLFW.GLFW_KEY_RIGHT, "right");
-    myGLFWMap.put(GLFW.GLFW_KEY_UP, "up");
-    myGLFWMap.put(GLFW.GLFW_KEY_DOWN, "down");
-    myGLFWMap.put(GLFW.GLFW_KEY_Q, "attack0");
-    myGLFWMap.put(GLFW.GLFW_KEY_W, "attack1");
-
-  }
-
-//  public void setPlayerView(Player2DView playerView) {
-//    this.playerView = playerView;
-//  }
-
-  public void setView(){
+//    //keycode map hard code
+//    myKeyCodeMap.put(KeyCode.LEFT, "left");
+//    myKeyCodeMap.put(KeyCode.RIGHT, "right");
+//    myKeyCodeMap.put(KeyCode.UP, "up");
+//    myKeyCodeMap.put(KeyCode.DOWN, "down");
+//    myKeyCodeMap.put(KeyCode.Q, "attack0");
+//    myKeyCodeMap.put(KeyCode.W, "attack1");
+//
+//    //glfw map hard code
+//    myGLFWMap.put(GLFW.GLFW_KEY_LEFT, "left");
+//    myGLFWMap.put(GLFW.GLFW_KEY_RIGHT, "right");
+//    myGLFWMap.put(GLFW.GLFW_KEY_UP, "up");
+//    myGLFWMap.put(GLFW.GLFW_KEY_DOWN, "down");
+//    myGLFWMap.put(GLFW.GLFW_KEY_Q, "attack0");
+//    myGLFWMap.put(GLFW.GLFW_KEY_W, "attack1");
 
   }
 
   @Override
   public void setMyPlayer(Movable1D myPlayer) {
     this.myPlayer = (ZeldaPlayer) myPlayer;
+    this.myPlayer.addListener(this);
   }
 
   @Override
@@ -110,8 +99,8 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void left() {
-    myPlayer.setState(MovingState.SPRINT);
-    myPlayer.setDirection(Direction.W);
+//    myPlayer.setState(MovingState.SPRINT);
+//    myPlayer.setDirection(Direction.W);
   }
 
   @Override
@@ -154,24 +143,22 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String s = evt.getPropertyName();
+    System.out.println(s);
     switch (s) {
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
-        //playerView.update(myPlayer.getDirection().toString(), myPlayer.getState().toString());
-        myView.updatePlayer(myID,myPlayer.getDirection().toString(), myPlayer.getState().toString());
+        myView.updatePlayer(myID, myPlayer.getDirection().toString(), myPlayer.getState().toString());
     }
   }
 
   @Override
   public void updateKey() {
-//    System.out.println("view"+myView);
     try {
-//      System.out.println(myGLFWMap.keySet());
       for (int i : myGLFWMap.keySet()) {
-        if (myView.isKeyDown(i)){
+        if (myView.getView().isKeyDown(i)){
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
-          myView.updatePlayer(myID,myPlayer.getDirection().toString(), myPlayer.getState().toString());
-          System.out.println(i);
+          System.out.println(myPlayer.getDirection().toString());
+          System.out.println(myPlayer.getState().toString());
         }
       }
 
@@ -182,13 +169,23 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setView(GameState2DView view) {
+  public void setView(GameZelda2DSingle view) {
     myView = view;
   }
 
   @Override
   public void setNewKeyMap(Map<Integer, String> map) {
     if(map!=null) myGLFWMap = map;
+  }
+
+  @Override
+  public Movable1D getPlayer() {
+    return myPlayer;
+  }
+
+  @Override
+  public boolean checkScore(int score) {
+    return score<=myPlayer.getScore();
   }
 
   public Map<KeyCode, String> getKeyCodeMap() {
