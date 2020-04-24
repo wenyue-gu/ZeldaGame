@@ -54,7 +54,7 @@ public class FinishControl {
      */
     public void showMenu(boolean win, int id, int score){
         myFinishScreen.setWin(win, id, score);
-        save();
+        //save();
         myStage.show();
     }
 
