@@ -31,9 +31,7 @@ public enum  MovingState {
 
   // Player
 //  IDLE,
-//  WALK,
   SPRINT,
-//  JUMP,
 //  DEATH,
   ATTACK1,
   ATTACK3,
