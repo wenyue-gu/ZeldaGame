@@ -3,6 +3,11 @@ package ooga.model.gameElements;
 import ooga.model.enums.backend.Direction;
 import ooga.model.interfaces.Attacker;
 
+/**
+ * This is the base class for all weapons
+ *
+ * @author cady
+ */
 public abstract class  WeaponBase implements Attacker {
 
   protected int weapon;
