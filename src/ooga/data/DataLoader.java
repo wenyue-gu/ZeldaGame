@@ -10,10 +10,11 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
-import ooga.model.enums.Direction;
-import ooga.model.enums.GamePara;
+import ooga.model.enums.backend.CharacterType;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.GamePara;
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.PlayerPara;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
 
 public class DataLoader implements DataLoaderAPI {
@@ -144,7 +145,7 @@ public class DataLoader implements DataLoaderAPI {
 
   @Override
   public int loadCharacter(int ID, CharacterProperty property) {
-    ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1, 2);
+    ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1, 2, CharacterType.UNKNOWN);
 
 //    zeldaCharacter =  loadJson("data/ZeldaCharacter/" + characterKeyword + ID + ".json", zeldaCharacter.getClass());
     for (ZeldaCharacter i : gameObjectConfiguration.getZeldaCharacterList()) {

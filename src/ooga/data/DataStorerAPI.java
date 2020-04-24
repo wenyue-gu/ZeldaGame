@@ -1,7 +1,7 @@
 package ooga.data;
 
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.PlayerPara;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;

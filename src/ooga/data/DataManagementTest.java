@@ -2,9 +2,9 @@
 //
 //import ooga.model.characters.ZeldaCharacter;
 //import ooga.model.enums.CharacterProperty;
-//import ooga.model.enums.Direction;
+//import ooga.model.enums.backend.Direction;
 //import ooga.model.enums.ImageCategory;
-//import ooga.model.enums.PlayerPara;
+//import ooga.model.enums.backend.PlayerPara;
 //import ooga.model.interfaces.gameMap.Cell;
 //import org.junit.Assert;
 //import org.junit.Test;

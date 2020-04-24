@@ -1,4 +1,4 @@
-package ooga.model.enums.states;
+package ooga.model.enums.backend.states;
 
 public enum  TurretState {
   ATTACK_1_SIDE,

@@ -1,8 +1,8 @@
 package ooga.model.map;
 
 import ooga.data.DataLoaderAPI;
-import ooga.model.enums.Direction;
-import ooga.model.enums.GamePara;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.GamePara;
 import ooga.model.interfaces.gameMap.GameMap;
 import ooga.model.interfaces.gameMap.GridInMap;
 

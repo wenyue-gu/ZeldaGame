@@ -1,7 +1,7 @@
 package ooga.model.interfaces.gameMap;
 
 import java.util.List;
-import ooga.model.enums.Direction;
+import ooga.model.enums.backend.Direction;
 
 /**
  * GameMap is the whole map for the game. It consists many {@link GridInMap} and talk to other parts

@@ -1,9 +1,9 @@
 package ooga.model.characters;
 
-import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
 import ooga.model.PropertyChangeNotifier;
-import ooga.model.enums.Direction;
-import ooga.model.enums.MovingState;
+import ooga.model.enums.backend.CharacterType;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.MovingState;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Alive;
 import ooga.model.interfaces.Attacker;
@@ -19,18 +19,20 @@ public class  ZeldaCharacter extends MovingObject2D implements Alive, Attacker, 
 
   private CharacterBase cb;
   private WeaponBase weaponBase;
+  protected CharacterType characterType;
   protected transient PropertyChangeNotifier notifier;
 
-  public ZeldaCharacter(int initialHp, int id) {
-    this(initialHp, DEFAULT_WEAPON, id);
+  public ZeldaCharacter(int initialHp, int id, CharacterType type) {
+    this(initialHp, DEFAULT_WEAPON, id, type);
   }
 
-  public ZeldaCharacter(int initialHp, int weapon, int id) {
-    this(initialHp, weapon, DEFAULT_ATTACK, id, DEFAULT_X, DEFAULT_Y);
+  public ZeldaCharacter(int initialHp, int weapon, int id, CharacterType type) {
+    this(initialHp, weapon, DEFAULT_ATTACK, id, DEFAULT_X, DEFAULT_Y, type);
   }
 
-  public ZeldaCharacter(int initialHp, int weapon, int attack, int id, int x, int y) {
+  public ZeldaCharacter(int initialHp, int weapon, int attack, int id, int x, int y, CharacterType type) {
     super(x, y);
+    characterType = type;
     cb = new CharacterBase(id, initialHp);
     this.weaponBase = new WeaponBase(weapon, attack, movingDirection) {
       @Override
@@ -92,6 +94,16 @@ public class  ZeldaCharacter extends MovingObject2D implements Alive, Attacker, 
   @Override
   public boolean isAlive() {
     return cb.isAlive();
+  }
+
+  @Override
+  public void setType(CharacterType type) {
+    this.characterType = type;
+  }
+
+  @Override
+  public CharacterType getType() {
+    return characterType;
   }
 
   @Override

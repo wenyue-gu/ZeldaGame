@@ -1,6 +1,6 @@
 package ooga.data;
 
-import ooga.model.enums.PlayerPara;
+import ooga.model.enums.backend.PlayerPara;
 
 import java.util.HashMap;
 import java.util.Map;

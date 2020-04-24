@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import ooga.data.DataLoaderAPI;
-import ooga.model.enums.Direction;
+import ooga.model.enums.backend.Direction;
 import ooga.model.interfaces.gameMap.SingleGrid;
 
 public class  GameSingleGrid implements SingleGrid {

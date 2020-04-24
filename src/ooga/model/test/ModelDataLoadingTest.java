@@ -13,7 +13,7 @@ import ooga.data.DataStorerAPI;
 import ooga.game.GameType;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.GamePara;
+import ooga.model.enums.backend.GamePara;
 import org.junit.jupiter.api.Test;
 
 public class ModelDataLoadingTest {

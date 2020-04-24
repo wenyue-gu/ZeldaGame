@@ -7,8 +7,8 @@
 //import javafx.scene.input.KeyCode;
 //import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
 //import ooga.model.characters.ZeldaPlayer;
-//import ooga.model.enums.Direction;
-//import ooga.model.enums.MovingState;
+//import ooga.model.enums.backend.Direction;
+//import ooga.model.enums.backend.MovingState;
 //import ooga.view.engine.graphics.Renderer2D;
 //import ooga.view.engine.graphics.Shader;
 //import ooga.view.engine.io.Input;

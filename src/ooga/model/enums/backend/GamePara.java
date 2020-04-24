@@ -1,4 +1,4 @@
-package ooga.model.enums;
+package ooga.model.enums.backend;
 
 public enum GamePara {
   NPC_NUM,

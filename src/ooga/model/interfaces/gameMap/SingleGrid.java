@@ -1,7 +1,7 @@
 package ooga.model.interfaces.gameMap;
 
 import java.util.List;
-import ooga.model.enums.Direction;
+import ooga.model.enums.backend.Direction;
 
 /**
  * This interface creates a single grid that is made up of {@link Cell}. The grid can be loaded from

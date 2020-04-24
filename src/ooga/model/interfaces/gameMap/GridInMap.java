@@ -1,6 +1,6 @@
 package ooga.model.interfaces.gameMap;
 
-import ooga.model.enums.Direction;
+import ooga.model.enums.backend.Direction;
 
 /**
  * This interface allows a map to contain multiple grids. IDs of grids around the current grid are

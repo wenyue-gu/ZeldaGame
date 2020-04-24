@@ -11,8 +11,8 @@ import ooga.controller.gamecontrol.playerInterface.AttackerControl;
 import ooga.controller.gamecontrol.playerInterface.MovableControll2D;
 import ooga.game.GameZelda2DSingle;
 import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.Direction;
-import ooga.model.enums.MovingState;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,

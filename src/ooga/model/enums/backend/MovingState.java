@@ -1,4 +1,4 @@
-package ooga.model.enums;
+package ooga.model.enums.backend;
 
 public enum  MovingState {
   // Big Boy
@@ -16,7 +16,9 @@ public enum  MovingState {
 //  IDLE,
   JUMP,
   FALL,
-  SUMMON,
+  SUMMON_TURRET,
+  SUMMON_BIGBOY,
+  SUMMON_WATCHER,
 
   // Load Soldier
 //  ATTACK,
@@ -35,7 +37,7 @@ public enum  MovingState {
 //  DEATH,
   ATTACK1,
   ATTACK3,
-  
+
   // Shield
 //  ATTACK,
 //  DEATH,

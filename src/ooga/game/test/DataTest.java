@@ -3,7 +3,7 @@ package ooga.game.test;
 import ooga.data.DataLoader;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
-import ooga.model.enums.GamePara;
+import ooga.model.enums.backend.GamePara;
 
 public class DataTest {
 

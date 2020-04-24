@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder;
 import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.PlayerPara;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.enums.TextCategory;
 import ooga.model.interfaces.gameMap.Cell;
 

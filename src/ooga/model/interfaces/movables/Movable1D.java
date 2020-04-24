@@ -1,7 +1,7 @@
 package ooga.model.interfaces.movables;
 
-import ooga.model.enums.Direction;
-import ooga.model.enums.MovingState;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.MovingState;
 
 /**
  * This interface can be used by objects that move on a 1D line.

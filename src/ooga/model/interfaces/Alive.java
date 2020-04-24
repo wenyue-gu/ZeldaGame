@@ -1,5 +1,7 @@
 package ooga.model.interfaces;
 
+import ooga.model.enums.backend.CharacterType;
+
 /**
  * Objects that implement this interface have certain HP values. HP can be deducted under certain
  * circumstances (for example, being attacked). This object "dies" if HP is equal to 0. HP cannot be smaller than 0.
@@ -41,4 +43,8 @@ public interface  Alive {
    * @return  if the HP is larger than 0
    */
   boolean isAlive();
+
+  void setType(CharacterType type);
+
+  CharacterType getType();
 }
