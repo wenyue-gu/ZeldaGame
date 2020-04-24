@@ -23,7 +23,6 @@ public class Model implements ModelInterface {
   private GameMap gameMap;
   private Map players;
   private Map npcs;
-  private int goalScore;
 
   public Model(DataLoaderAPI dataLoader) throws DataLoadingException {
     this.dataLoader = dataLoader;

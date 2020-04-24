@@ -111,27 +111,16 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   @Override
   public void attack0() {
     myPlayer.setState(MovingState.ATTACK1);
-    myPlayer.setAttack(0);
   }
 
   @Override
   public void attack1() {
     myPlayer.setState(MovingState.ATTACK1);
-    myPlayer.setAttack(1);
-
   }
 
   @Override
   public void attack2() {
     myPlayer.setState(MovingState.ATTACK3);
-    myPlayer.setAttack(2);
-
-  }
-
-
-  public void sprintSE() {
-    myPlayer.setState(MovingState.SPRINT);
-    myPlayer.setDirection(Direction.SE);
   }
 
   public void death() {
