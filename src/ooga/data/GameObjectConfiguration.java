@@ -161,6 +161,7 @@ public class GameObjectConfiguration {
             meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
             createTextureToAnimation(meleeRobotAnimations);
 
+            
             //change to support multiple agents (3,4)
             Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
             createTextureToAnimation(tempAgent);
