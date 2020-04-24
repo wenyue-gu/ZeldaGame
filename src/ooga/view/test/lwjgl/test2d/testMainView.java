@@ -21,8 +21,8 @@ public class testMainView implements Runnable {
 
   public void init() throws IOException {
     Map<Integer, Agent2DDataHolder> dataHolderMap = new HashMap<>();
-    dataHolderMap.put(0, GenerateAgentsData.createMeleeBot(0f, 0f));
-    dataHolderMap.put(1, GenerateAgentsData.createSoldier(0f, 1f));
+    dataHolderMap.put(0, GenerateAgentsData.createSoldier(-1f, 0f));
+    dataHolderMap.put(1, GenerateAgentsData.createSoldier(-1f, -0.5f));
    view = new GameState2DView(dataHolderMap);
    view.createWindow();
   }
