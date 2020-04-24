@@ -17,7 +17,7 @@ import ooga.game.GameZelda2DSingle;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.PlayerPara;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import org.lwjgl.glfw.GLFW;

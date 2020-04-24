@@ -18,7 +18,7 @@ public class GameZelda2DSingle implements Runnable {
   }
 
   public void init() throws IOException {
-    view = new GameState2DView(1);
+    view = new GameState2DView();
     view.createWindow();
   }
 
