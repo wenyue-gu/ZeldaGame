@@ -86,7 +86,7 @@ public class GameObjectConfiguration {
     zeldaCharacterList = new ArrayList<>();
     textMap = new HashMap<>();
     meleeRobotAnimations = new HashMap<>(); //delete after multiple agents occur
-
+    animationMap = new HashMap<>();
     fieldToPathMap = new HashMap<>();
 
 
@@ -99,7 +99,7 @@ public class GameObjectConfiguration {
     fieldToPathMap.put(playerList, playerPath);
     fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
     fieldToPathMap.put(textMap, textPath);
-//    fieldToPathMap.put(meleeRobotAnimations, animationPath);
+    fieldToPathMap.put(meleeRobotAnimations, animationPath);
     fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
   }
 
@@ -111,7 +111,7 @@ public class GameObjectConfiguration {
     loadFilesUnderDirectory(playerPath, PlayerStatus.class);
     loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
     loadFilesUnderDirectory(textPath, textMap.getClass());
-//    loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
+    loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
     loadFilesUnderDirectory(animationPath, animationMap.getClass()); //multiple agents draft (2,4)
   }
 
@@ -157,12 +157,13 @@ public class GameObjectConfiguration {
             window.create();
 
             Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
-//            //delete after multiple agents occur
-//            meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
-//            createTextureToAnimation(meleeRobotAnimations);
+            //delete after multiple agents occur
+            meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
+            createTextureToAnimation(meleeRobotAnimations);
 
             //change to support multiple agents (3,4)
             Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
+            createTextureToAnimation(tempAgent);
             animationMap.put(child.getName(), tempAgent);
             window.destroy();
             break;
@@ -234,7 +235,7 @@ public class GameObjectConfiguration {
           break;
         case "Animation2D":
           //delete after multiple agents
-//          writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
+          writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
 
           //use after using mulitple agents (4,4)
           for (String j : animationMap.keySet()) {
