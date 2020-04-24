@@ -234,7 +234,7 @@ public class WindowControl {
   }
 
   private void setUpController() throws DataLoadingException {
-//    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
+    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
     myGameController = new GameController(myDataStorer);
     if (!isColored) {
       myGameController.setMode(dark);
@@ -276,7 +276,7 @@ public class WindowControl {
     setUpController();
     resetGame = false;
     int gameID = myGameController.getGameID();
-    System.out.println("gameID" + gameID);
+    System.out.println("gameID " + gameID);
     switch (gameID) {
       case 0:
         startGame1();
@@ -288,6 +288,9 @@ public class WindowControl {
         startGame3();
         break;
     }
+
+//    setUpController();
+//    myGameController.finishGame(myGameController.getMPC(0), true);
   }
 
   public void setLife(int i) {

@@ -12,13 +12,12 @@ import ooga.view.game_menu.pretty.PrettyButtons;
 
 import java.util.*;
 
-public class PauseMenu implements MenuView {
+public class FinishScreen implements MenuView {
 
     private PrettyButtons ResumeButton;
     private PrettyButtons BackToMenuButton;
     private PrettyButtons SaveGameButton;
 
-    private int score = 0;
 
     private List<PrettyButtons> myButtonList = new ArrayList<>();
 
@@ -27,34 +26,51 @@ public class PauseMenu implements MenuView {
     private boolean dark;
     private String myLanguage;
 
-    private Label currentScore;
+    private Label finishText;
     private Label scorelist;
+
+    private boolean win = false;
+    private int score = 0;
+    private int id = 0;
 
     private Background darkMode = new Background(new BackgroundFill(new Color(0.15,0.15,0.15,1), CornerRadii.EMPTY, Insets.EMPTY));
     private Background lightMode = new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
 
-    public PauseMenu(){
+    public FinishScreen(){
         myLanguage = "English";
+        setUpLabel();
         setUpButton();
-        currentScore = new Label();
-        currentScore.setFont(Font.font("Ariel", 18));
-        scorelist = new Label();
-        scorelist.setFont(Font.font("Ariel", 18));
-        changeLabelText();
         setUpVBox();
         myScene = new Scene(vBox, 800, 800);
     }
 
-    private void changeLabelText() {
+    private void setUpLabel() {
+        finishText = new Label();
+        finishText.setFont(Font.font("Ariel", 18));
+        scorelist = new Label();
+        scorelist.setFont(Font.font("Ariel", 18));
+    }
+//
+//    private void changeLabelText() {
+//        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+//        if(win)finishText.setText(resource.getString("playerf") + " " + id + " " + resource.getString("win"));
+//        else finishText.setText(resource.getString("playerf") + " " + id + " " + resource.getString("dead"));
+//    }
+
+    public void setWin(boolean win, int id, int score){
+        this.win = win;
+        this.id = id;
+        this.score = score;
         var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
-        currentScore.setText(resource.getString("currentScore"));
+        if(win)finishText.setText(resource.getString("playerf") + " " + id + " " + resource.getString("win"));
+        else finishText.setText(resource.getString("playerf") + " " + id + " " + resource.getString("dead"));
+
+        scorelist.setText(resource.getString("playerscore")+" "+score);
     }
 
-    public Button getResumeButton(){return ResumeButton;}
 
     public Button getBackToMenuButton(){return BackToMenuButton;}
 
-    public Button getSaveGameButton(){return SaveGameButton;}
 
     @Override
     public Scene getMenuView() {
@@ -65,6 +81,7 @@ public class PauseMenu implements MenuView {
     public void setLanguage(String language) {
         myLanguage = language;
         for(PrettyButtons button:myButtonList) button.changeLanguage(myLanguage);
+        setWin(win, id, score);
     }
 
     @Override
@@ -83,29 +100,27 @@ public class PauseMenu implements MenuView {
         else vBox.setBackground(lightMode);
         for(PrettyButtons button:myButtonList) button.switchMode(dark);
 
+        finishText.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
         scorelist.setTextFill(dark?Color.DARKGRAY:Color.BLACK);
     }
 
     private void setUpButton(){
-        ResumeButton = new PrettyButtons("resume", myLanguage);
         BackToMenuButton = new PrettyButtons("menu", myLanguage);
-        SaveGameButton = new PrettyButtons("save", myLanguage) ;
-
-        myButtonList = List.of(ResumeButton, BackToMenuButton, SaveGameButton);
+        myButtonList = List.of( BackToMenuButton);
     }
 
     private void setUpVBox(){
         vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(scorelist, ResumeButton, BackToMenuButton, SaveGameButton);
+        vBox.getChildren().addAll(finishText, scorelist, BackToMenuButton);
     }
 
-    public void updateScore(Map<Integer, Integer> list){
-        String s = "";
-        for(int i:list.keySet()){
-            s+= "Player "+i+" score: "+list.get(i)+"; \n";
-        }
-        s+="\n\n";
-        scorelist.setText(s);
-    }
+//    public void updateScore(Map<Integer, Integer> list){
+//        String s = "";
+//        for(int i:list.keySet()){
+//            s+= "Player "+i+" score: "+list.get(i)+"; \n";
+//        }
+//        s+="\n\n";
+//        scorelist.setText(s);
+//    }
 }
