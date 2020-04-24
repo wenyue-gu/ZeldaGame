@@ -184,6 +184,18 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     return score <= myPlayer.getScore();
   }
 
+  @Override
+  public void updateScore() {
+    if (myPlayer.getState() == MovingState.SPRINT) {
+      myPlayer.addScore(10);
+    }
+  }
+
+  @Override
+  public boolean hasWon() {
+    return myPlayer.hasWon();
+  }
+
   public Map<KeyCode, String> getKeyCodeMap() {
     return myKeyCodeMap;
   }

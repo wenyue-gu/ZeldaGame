@@ -51,4 +51,9 @@ public class  Scorer implements Scorable {
     score += deltaScore;
   }
 
+  @Override
+  public boolean hasWon() {
+    return goalScore <= score;
+  }
+
 }

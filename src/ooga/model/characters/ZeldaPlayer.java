@@ -52,4 +52,9 @@ public class  ZeldaPlayer extends ZeldaCharacter implements Scorable {
   public void addScore(double deltaScore) {
     scorer.addScore(deltaScore);
   }
+
+  @Override
+  public boolean hasWon() {
+    return scorer.hasWon();
+  }
 }

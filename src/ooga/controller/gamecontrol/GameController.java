@@ -36,8 +36,6 @@ public class GameController {
   private GameZelda2DSingle myGameView;
   private AnimationTimer myTimer;
 
-  private int score = 100;
-
   public GameController(DataStorerAPI storer) throws DataLoadingException {
     myModel = new Model(storer.getDataLoader());
     myDataLoader = storer.getDataLoader();
@@ -67,7 +65,6 @@ public class GameController {
     setGameType(myDataLoader.getGameType());
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setID();
-      //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
         try {
             mpc.setNewKeyMap(myDataLoader.loadKeyCode(mpc.getID()));
         }
@@ -99,7 +96,9 @@ public class GameController {
     }
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.updateKey();
-      if(mpc.checkScore(score)) finishGame(mpc);
+      // TODO: complete this
+      mpc.updateScore();
+      if (mpc.hasWon()) finishGame(mpc);
     }
     if(myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P))pause();
   }

@@ -20,4 +20,5 @@ public interface Scorable {
 
   void addScore(double deltaScore);
 
+  boolean hasWon();
 }
