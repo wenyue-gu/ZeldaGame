@@ -1,9 +1,11 @@
 package ooga.data;
 
-import javafx.scene.input.KeyCode;
+import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.*;
 import ooga.model.interfaces.gameMap.Cell;
+import ooga.view.engine.graphics.animation.Animation2D;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
@@ -11,21 +13,26 @@ import java.util.Map;
  * The interface for game loader
  */
 public interface DataLoaderAPI {
-    int loadCurrentPlayerPara(PlayerPara playerPara);
+    int loadCurrentPlayerPara(PlayerPara playerPara) throws DataLoadingException;
 
-    int loadPlayerPara(PlayerPara playerPara, int playerID);
+    int loadPlayerPara(PlayerPara playerPara, int playerID) throws DataLoadingException;
 
     int loadGameParam(GamePara para);
 
     List<Direction> loadAvailableDirection(GamePara para);
 
-    void setGameAndPlayer(int GameID, int PlayerID);
+    void setGameAndPlayer(int GameID, List<Integer> PlayersID);
 
     int getGameType();
 
     Cell loadCell(int row, int col, int subMapID, int level);
 
     int getNextSubMapID(Direction direction, int current);
+
+    GameMapGraph loadMap(int level, int subMapID);
+
+    BufferedImage loadBufferImage(int ImageID, ImageCategory category);
+
     /**
      * load text files from the database. Keyword specifies one piece of data out of a category. Category can be Dialog content
      */
@@ -37,14 +44,16 @@ public interface DataLoaderAPI {
 
     int currentLevel();
 
-    Object loadInventoryElement(int ID);
-
-    Map<String, Integer> loadInternalStorage(String category);
-
-    Map<KeyCode, String> loadKeyCode(int playerID);
+    Map<Integer, String> loadKeyCode(int playerID) throws DataLoadingException;
 
     String loadImagePath(int imageID, ImageCategory category);
 
-    Integer loadInteger(String keyword, String category);
 
+    Map<String, Animation2D> loadMeleeRobotAnimations();
+
+    List<ZeldaCharacter> getZeldaCharacters();
+
+    List<PlayerStatus> getCurrentPlayers();
+
+    Map<String, Animation2D> loadAnimation(AnimationType animationType);
 }

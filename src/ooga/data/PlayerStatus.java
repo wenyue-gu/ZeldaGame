@@ -1,6 +1,5 @@
 package ooga.data;
 
-import javafx.scene.input.KeyCode;
 import ooga.model.enums.PlayerPara;
 
 import java.util.HashMap;
@@ -10,9 +9,14 @@ import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 public class PlayerStatus {
     public static int initLevel = 1;
+    public static int initLife = 5;
+    public static int initScoreGoal = 0;
+
+
     private int playerID;
     private Map<PlayerPara, Integer> playerParaMap;
-    private Map<KeyCode, String> keyCodeMap;
+    private Map<Integer, String> keyCodeMap;
+
 
 
     public PlayerStatus(int playerID) {
@@ -47,11 +51,11 @@ public class PlayerStatus {
     }
 
 
-    public void setKeyCodeMap(Map<KeyCode, String> keyCodeMap) {
+    public void setKeyCodeMap(Map<Integer, String> keyCodeMap) {
         this.keyCodeMap = keyCodeMap;
     }
 
-    public Map<KeyCode, String> getKeyCodeMap() {
+    public Map<Integer, String> getKeyCodeMap() {
         return keyCodeMap;
     }
 

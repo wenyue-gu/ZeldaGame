@@ -1,6 +1,6 @@
 package ooga.model.enums;
 
-public enum Direction {
+public enum  Direction {
 
   N,
   S,

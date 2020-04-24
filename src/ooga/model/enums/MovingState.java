@@ -1,6 +1,6 @@
 package ooga.model.enums;
 
-public enum MovingState {
+public enum  MovingState {
   IDLE(0),
   WALK(1),
   SPRINT(2),

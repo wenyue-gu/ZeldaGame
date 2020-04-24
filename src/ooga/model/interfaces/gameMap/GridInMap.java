@@ -9,7 +9,7 @@ import ooga.model.enums.Direction;
  * @author cady
  * @see SingleGrid
  */
-public interface GridInMap extends SingleGrid {
+public interface  GridInMap extends SingleGrid {
 
   /**
    * Sets the id of this grid

@@ -1,11 +1,5 @@
 package ooga.view.engine.graphics;
 
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
-import static org.lwjgl.opengl.GL11C.GL_TEXTURE_MIN_FILTER;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import ooga.view.engine.utils.ImageLoader;
 import ooga.view.engine.utils.SpriteSheet;
 import org.lwjgl.BufferUtils;
@@ -16,10 +10,17 @@ import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengl.GL11C.GL_TEXTURE_MIN_FILTER;
+
 public class Material {
 	private static int BYTES_PER_PIXEL = 3; //4 for RGBA, 3 for RGB
 	private String path;
-	private Texture texture;
+	private transient Texture texture;
 	private float width, height;
 	private int textureID;
 	
@@ -32,7 +33,7 @@ public class Material {
 	 */
 	public void createTexture() {
 		try {
-			System.out.println(path);
+			//System.out.println(path);
 			texture = TextureLoader.getTexture(path.split("[.]")[1], Material.class.getResourceAsStream(path), GL11.GL_NEAREST);
 			width = texture.getWidth();
 			height = texture.getHeight();

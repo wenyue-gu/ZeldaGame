@@ -12,6 +12,10 @@ public interface Scorable {
 
   double getScore();
 
+  double getGoalScore();
+
+  void setGoalScore(double goalScore);
+
   void setScore(double score);
 
   void addScore(double deltaScore);

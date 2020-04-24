@@ -10,7 +10,7 @@ import ooga.model.gameElements.Element;
  * @author cady
  * @see Alive
  */
-public interface Attacker {
+public interface  Attacker {
 
   /**
    * Sets weapon this object is holding

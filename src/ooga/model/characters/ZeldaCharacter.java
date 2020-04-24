@@ -9,11 +9,10 @@ import ooga.model.interfaces.Alive;
 import ooga.model.interfaces.Attacker;
 import ooga.model.interfaces.Notifier;
 import ooga.model.move.MovingObject2D;
-import ooga.model.test.listener.ExampleController;
 
 import java.beans.PropertyChangeListener;
 
-public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
+public class  ZeldaCharacter extends MovingObject2D implements Alive, Attacker, Notifier {
 
   public static final int DEFAULT_ATTACK = 0;
   public static final int DEFAULT_WEAPON = 0;
@@ -27,10 +26,11 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
   }
 
   public ZeldaCharacter(int initialHp, int weapon, int id) {
-    this(initialHp, weapon, DEFAULT_ATTACK, id);
+    this(initialHp, weapon, DEFAULT_ATTACK, id, DEFAULT_X, DEFAULT_Y);
   }
 
-  public ZeldaCharacter(int initialHp, int weapon, int attack, int id) {
+  public ZeldaCharacter(int initialHp, int weapon, int attack, int id, int x, int y) {
+    super(x, y);
     cb = new CharacterBase(id, initialHp);
     this.weaponBase = new WeaponBase(weapon, attack, movingDirection) {
       @Override

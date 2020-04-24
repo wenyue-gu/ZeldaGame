@@ -31,7 +31,7 @@ public class PngMerger {
     g.dispose();
 
     String newImagePath = String.format("resources/%s/%s", dir, newpath);
-    System.out.println(newImagePath);
+    //System.out.println(newImagePath);
     File outputfile = new File(newImagePath);
     ImageIO.write(combined, "png", outputfile);
 
@@ -57,7 +57,7 @@ public class PngMerger {
     g.dispose();
 
     String newImagePath = String.format("resources/%s", newpath);
-    System.out.println(newImagePath);
+    //System.out.println(newImagePath);
     File outputfile = new File(newImagePath);
     ImageIO.write(combined, "png", outputfile);
 

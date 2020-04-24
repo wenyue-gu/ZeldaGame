@@ -1,7 +1,6 @@
 package ooga.controller.gamecontrol.NPC;
 
 import javafx.scene.input.KeyCode;
-import ooga.controller.ZeldaControlInterface;
 import ooga.controller.gamecontrol.NPCControlInterface;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import ooga.model.interfaces.movables.Movable1D;
@@ -16,7 +15,7 @@ public class MainNPCControl implements NPCControlInterface {
     myNPCControlFactory = new NPCControlFactory();
   }
 
-  public void setControl(int gameType){
+  public  void setControl(int gameType){
     myNPCControl= myNPCControlFactory.selectControl(gameType);
   }
 

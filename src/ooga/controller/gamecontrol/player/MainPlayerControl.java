@@ -1,11 +1,11 @@
 package ooga.controller.gamecontrol.player;
 
-import ooga.controller.gamecontrol.PlayerControlInterface;
-import javafx.scene.input.KeyCode;
-import ooga.model.interfaces.movables.Movable1D;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import javafx.scene.input.KeyCode;
+import ooga.controller.gamecontrol.PlayerControlInterface;
+import ooga.game.GameZelda2DSingle;
+import ooga.model.interfaces.movables.Movable1D;
 
 public class MainPlayerControl implements PlayerControlInterface {
   private PlayerControlInterface myPlayerControl;
@@ -35,6 +35,21 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
+  public void setNewKeyMap(Map<Integer, String> map){
+    myPlayerControl.setNewKeyMap(map);
+  }
+
+  @Override
+  public Movable1D getPlayer() {
+    return myPlayerControl.getPlayer();
+  }
+
+  @Override
+  public boolean checkScore(int score) {
+    return myPlayerControl.checkScore(score);
+  }
+
+  @Override
   public void setID() {
     myPlayerControl.setID();
   }
@@ -49,5 +64,13 @@ public class MainPlayerControl implements PlayerControlInterface {
     myPlayerControl.keyReleased();
   }
 
+  @Override
+  public void updateKey(){
+    myPlayerControl.updateKey();
+  }
 
+  @Override
+  public void setView(GameZelda2DSingle view) {
+    myPlayerControl.setView(view);
+  }
 }

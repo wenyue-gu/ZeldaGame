@@ -1,5 +1,5 @@
 package ooga.model.characters;
 
-public class MarioCharacter {
+public class  MarioCharacter {
 
 }

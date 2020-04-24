@@ -8,7 +8,7 @@ import ooga.model.enums.MovingState;
  *
  * @author cady
  */
-public interface Movable1D {
+public interface  Movable1D {
 
   /**
    * Sets the x position of this object

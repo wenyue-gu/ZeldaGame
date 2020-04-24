@@ -1,20 +1,20 @@
 package ooga.view.game_view.agent.interfaces;
 
-import ooga.view.game_view.animation.interfaces.StateAnimation;
-import java.util.Map;
+import ooga.view.engine.graphics.Material;
+import ooga.view.engine.graphics.Mesh;
 
-public interface AgentController {
+abstract public class AgentController {
 
-  AgentView getAgentView(); // the returned data type depends on the 2D/3D.
+  protected static final String DEFAULT_ACTION = "IDLE";
+  protected String direction;
+  protected String action;
 
-  void update();
+  public AgentController(){}
 
-  void addStateAnimation(int ID, StateAnimation animation);
+  public abstract void setCurrentAnimation(String direction, String action);
 
-  void getStateAnimationMap(Map<Integer, StateAnimation> stateAnimationMap);
+  public abstract Material getMaterial();
 
-  void setAgentState(int ID);
-
-  int getAnimatingState();
+  public abstract void move(String direction, Mesh mesh);
 
 }
