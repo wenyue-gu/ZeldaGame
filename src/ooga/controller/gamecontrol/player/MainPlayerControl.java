@@ -51,7 +51,7 @@ public class MainPlayerControl implements PlayerControlInterface {
 
   @Override
   public boolean update() {
-    myPlayerControl.update();
+    return myPlayerControl.update();
   }
 
   @Override

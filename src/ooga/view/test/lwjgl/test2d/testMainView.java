@@ -33,17 +33,21 @@ public class testMainView implements Runnable {
       e.printStackTrace();
     }
     while (!view.shouldWindowClose()) {
-     update();
-     render();
+      try {
+        update();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      render();
     }
     close();
   }
 
-  private void update() {
+  private void update() throws IOException {
     view.updateWindow();
     view.updateMap(); //empty method
     if (view.isKeyDown(GLFW.GLFW_KEY_S)){
-      view.updateAgent(0,"E","SPRINT");}
+      view.updateAgent(0,"E","ATTACK", true);}
   }
 
   private void render() {
