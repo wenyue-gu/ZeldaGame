@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
-import ooga.controller.WindowControl;
+import ooga.controller.*;
 import ooga.controller.gamecontrol.NPC.MainNPCControl;
 import ooga.controller.gamecontrol.player.MainPlayerControl;
 import ooga.data.DataLoaderAPI;
@@ -28,6 +28,7 @@ public class GameController {
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
   private PauseControl myPauseControl;
+  private ooga.controller.gamecontrol.FinishControl myFinishControl;
   private WindowControl myWindowControl;
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
@@ -35,6 +36,7 @@ public class GameController {
   private String language;
   private GameZelda2DSingle myGameView;
   private AnimationTimer myTimer;
+  private boolean win;
 
   public GameController(DataStorerAPI storer) throws DataLoadingException {
     myModel = new Model(storer.getDataLoader());
@@ -42,6 +44,7 @@ public class GameController {
     myDataStorer = storer;
     myPauseControl = new PauseControl(this);
     setUpPlayerandNPC();
+    myFinishControl = new ooga.controller.gamecontrol.FinishControl(this);
   }
 
 //  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -97,8 +100,11 @@ public class GameController {
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.updateKey();
       // TODO: complete this
-      if (!mpc.update()) finishGame(mpc); // this is dead
-      if (mpc.hasWon()) finishGame(mpc); // this is won
+      if (!mpc.update()){
+        finishGame(mpc, false); // this is dead
+        win = false;
+      }
+      if (mpc.hasWon()) finishGame(mpc, true); // this is won
     }
     if(myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P))pause();
   }
@@ -108,18 +114,21 @@ public class GameController {
     myPauseControl.showMenu();
   }
 
-  private void finishGame(MainPlayerControl mpc) {
+  public void finishGame(MainPlayerControl mpc, boolean win) {
     //TODO: finish game and print id and score
+    myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer)mpc.getPlayer()).getScore());
   }
 
   public void setMode(boolean dark) {
     this.dark = dark;
     myPauseControl.setMode(dark);
+    myFinishControl.setMode(dark);
   }
 
   public void setLanguage(String language){
     this.language = language;
     myPauseControl.setLanguage(language);
+    myFinishControl.setLanguage(language);
   }
 
   public void setView(GameZelda2DSingle view) {
@@ -135,7 +144,9 @@ public class GameController {
   }
   public void setWindowControl(WindowControl windowControl) {
     myWindowControl = windowControl;
+    System.out.println(myWindowControl);
     myPauseControl.setWindowControl(windowControl);
+    myFinishControl.setWindowControl(windowControl);
   }
 
   public void keyReleased() {
@@ -171,6 +182,7 @@ public class GameController {
 
   public void setColor(Color color) {
     myPauseControl.setColor(color);
+    myFinishControl.setColor(color);
   }
 
   public int getGameID() {
@@ -179,5 +191,13 @@ public class GameController {
 
   public ModelInterface getMyModel() {
     return myModel;
+  }
+
+  public void reset() {
+    myDataStorer.resetPlayerInfo();
+  }
+
+  public MainPlayerControl getMPC(int i) {
+    return myMainPlayerController.get(i);
   }
 }
