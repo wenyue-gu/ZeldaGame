@@ -129,7 +129,7 @@ public class GenerateAgentsData {
     return data;
   }
 
-  public static Agent2DDataHolder createTurret(float x, float y)throws IOException {
+  public static Agent2DDataHolder createTurret(float x, float y) {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
@@ -157,7 +157,7 @@ public class GenerateAgentsData {
     return data;
   }
 
-  public static Agent2DDataHolder createTurretBullet(float x, float y, String initialDirection)throws IOException {
+  public static Agent2DDataHolder createTurretBullet(float x, float y, String initialDirection) {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     data.setSpeedScale(Asset2D.getBulletSpeed());
@@ -180,7 +180,7 @@ public class GenerateAgentsData {
 
     return data;}
 
-  public static Agent2DDataHolder createWatcher(float x, float y, String initialDirection)throws IOException {
+  public static Agent2DDataHolder createWatcher(float x, float y, String initialDirection) {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
@@ -294,7 +294,7 @@ public class GenerateAgentsData {
     return data;
   }
 
-  public static Agent2DDataHolder createShieldman(float x, float y)  throws IOException {
+  public static Agent2DDataHolder createShieldman(float x, float y) {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
@@ -322,7 +322,7 @@ public class GenerateAgentsData {
 
   }
 
-  public static Agent2DDataHolder createMeleeBot(float x, float y) throws IOException {
+  public static Agent2DDataHolder createMeleeBot(float x, float y) {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
     // create initial params
