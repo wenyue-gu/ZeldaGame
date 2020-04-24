@@ -18,5 +18,4 @@ public interface  ModelInterface {
   Map<Element, Integer> getInventory();
 
   List<?> getGameElements();
-
 }

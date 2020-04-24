@@ -20,15 +20,12 @@ public class Model implements ModelInterface {
   private GameMap gameMap;
   private List players;
   private List npcs;
+  private int goalScore;
 
   public Model(DataLoaderAPI dataLoader) throws DataLoadingException {
     this.dataLoader = dataLoader;
 //    gameMap = new GameMapInstance(dataLoader);
     switch (GameType.byIndex(dataLoader.getGameType())) {
-//    switch (GameType.ZELDA) {
-      case MARIO:
-        initializeMario();
-        break;
       case ZELDA:
         initializeZelda();
         break;
@@ -37,16 +34,15 @@ public class Model implements ModelInterface {
     }
   }
 
-  private void initializeMario() {
-    //TODO: implement this
-  }
-
   private void initializeZelda() {
-    players = new ArrayList<ZeldaPlayer>();
     npcs = dataLoader.getZeldaCharacters();
+
+    players = new ArrayList<ZeldaPlayer>();
     List<PlayerStatus> playerStatuses = dataLoader.getCurrentPlayers();
-    for (PlayerStatus p: playerStatuses) {
-      players.add(new ZeldaPlayer(p.getPlayerParam(PlayerPara.LIFE), p.getPlayerID()));
+    for (PlayerStatus p : playerStatuses) {
+      ZeldaPlayer current = new ZeldaPlayer(p.getPlayerParam(PlayerPara.LIFE), p.getPlayerID(),
+          p.getPlayerParam(PlayerPara.CURRENT_SCORE), p.getPlayerParam(PlayerPara.SCORE_GOAL));
+      players.add(current);
     }
   }
 
@@ -78,4 +74,5 @@ public class Model implements ModelInterface {
   public List<?> getGameElements() {
     return null;
   }
+
 }
