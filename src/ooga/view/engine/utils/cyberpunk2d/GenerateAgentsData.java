@@ -108,7 +108,7 @@ public class GenerateAgentsData {
       throws IOException {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
-    data.setSpeedScale(5.0f);
+    data.setSpeedScale(Asset2D.getBulletSpeed());
 
     data.setIsObject(true);
     // create initial params
@@ -160,7 +160,7 @@ public class GenerateAgentsData {
   public static Agent2DDataHolder createTurretBullet(float x, float y, String initialDirection)throws IOException {
     Agent2DDataHolder data = new Agent2DDataHolder();
 
-    data.setSpeedScale(5.0f);
+    data.setSpeedScale(Asset2D.getBulletSpeed());
 
     // create initial params
     data.setIsObject(true);

@@ -116,10 +116,12 @@ public class GameState2DView extends GameStateView {
         if (newAgentData.isBullet()) {
           int newId = getNextBulletId();
           bulletMap.put(newId, new Agent2DView(newId, newAgentData));
+          bulletMap.get(newId).createMesh();
         } else {
           int newId = getNextAgentId();
           agentDataHolderMap.put(newId, newAgentData);
           agentMap.put(newId, new Agent2DView(newId, newAgentData));
+          agentMap.get(newId).createMesh();
         }
       }
     }
@@ -134,8 +136,10 @@ public class GameState2DView extends GameStateView {
     for (int key : bulletMap.keySet()) {
       //check if hit the agent or wall
       Agent2DView bullet = bulletMap.get(key);
+      System.out.println(String.format("BEFORE:key is %d",key));
+      Test.printVector2f(bullet.getCenterPosition());
       bullet.update(bullet.getCurrentDirection(), "MOVE");
-      System.out.println(String.format("key is %d",key));
+      System.out.println(String.format("AFTER:key is %d",key));
       Test.printVector2f(bullet.getCenterPosition());
     }
   }
@@ -147,10 +151,17 @@ public class GameState2DView extends GameStateView {
     if (newAgentData.getInitialDirection().equals(GenerateAgentsData.getDirectionPlaceholder())) {
       newAgentData.setInitialDirection(parentDirection);
     }
+
+    System.out.println("dead");
+    Test.printVector3f(parentPosition);
+   Test.printVector3f(Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA));
+
     newAgentData.setPosition(Vector3f.add(parentPosition,
         Asset2D.convertDirectionalSpeed(newAgentData.getInitialDirection(), MOVEMENT_DELTA)));
+
     Test.printVector3f(parentPosition);
     Test.printVector3f(newAgentData.getPosition());
+
     //System.out.println("hah");
     return newAgentData;
   }

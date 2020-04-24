@@ -7,6 +7,7 @@ import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
+import ooga.view.engine.utils.Test;
 import ooga.view.game_view.agent.interfaces.AgentController;
 import ooga.view.game_view.animation.dict2d.Animation2DDict;
 
@@ -17,6 +18,7 @@ public class Agent2DController extends AgentController {
   private GameObject object;
   private float speedScale;
   private Vector3f initialPos;
+  private boolean isBullet;
 
   public Agent2DController(Agent2DDataHolder data) {
     super();
@@ -26,12 +28,16 @@ public class Agent2DController extends AgentController {
     action = data.getInitialAction();
     animationDict = data.getAgentAnimationDict();
     nextDict = data.getNextDict();
-    initialPos = data.getPosition();
+    //initialPos = data.getPosition();
+    initialPos =   Vector3f.add(data.getPosition(), data.isBullet()?Asset2D.getBulletDelta():Vector3f.zeros());
+    //isBullet = data.isBullet();
     this.setCurrentAnimation(direction, action);
   }
 
   public void setObject(GameObject object) {
     this.object = object;
+    System.out.println("ddddd");
+    Test.printVector3f(initialPos);
     translate(initialPos);
   }
 
