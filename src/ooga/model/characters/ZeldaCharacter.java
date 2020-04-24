@@ -19,7 +19,6 @@ public class  ZeldaCharacter extends MovingObject2D implements Alive, Attacker, 
 
   private CharacterBase cb;
   private WeaponBase weaponBase;
-  protected CharacterType characterType;
   protected transient PropertyChangeNotifier notifier;
 
   public ZeldaCharacter(int initialHp, int id, CharacterType type) {
@@ -32,8 +31,7 @@ public class  ZeldaCharacter extends MovingObject2D implements Alive, Attacker, 
 
   public ZeldaCharacter(int initialHp, int weapon, int attack, int id, int x, int y, CharacterType type) {
     super(x, y);
-    characterType = type;
-    cb = new CharacterBase(id, initialHp);
+    cb = new CharacterBase(id, initialHp, type);
     this.weaponBase = new WeaponBase(weapon, attack, movingDirection) {
       @Override
       public void fire() {
@@ -98,13 +96,14 @@ public class  ZeldaCharacter extends MovingObject2D implements Alive, Attacker, 
 
   @Override
   public void setType(CharacterType type) {
-    this.characterType = type;
+    cb.setType(type);
   }
 
   @Override
   public CharacterType getType() {
-    return characterType;
+    return cb.getType();
   }
+
 
   @Override
   public void setWeapon(int weapon) {

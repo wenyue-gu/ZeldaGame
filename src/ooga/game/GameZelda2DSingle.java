@@ -7,7 +7,7 @@ public class GameZelda2DSingle implements Runnable {
 
   private Thread game;
   private GameState2DView view;
-  private boolean isUpdating = false;
+  private boolean animating;
   private int id;
   private String direction;
   private String state;
@@ -29,25 +29,29 @@ public class GameZelda2DSingle implements Runnable {
       e.printStackTrace();
     }
     while (!view.shouldWindowClose()) {
-      update();
+      try {
+        update();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
       render();
     }
     close();
   }
 
-  private void update() {
+  private void update() throws InterruptedException {
     view.updateWindow();
     view.updateMap(); //empty method
     view.renderNPCs(); // empty method
-    if (isUpdating){
-      view.updatePlayer(id,direction,state);
-      isUpdating = false;
+      if (animating) {
+        animating = false;
+        view.updatePlayer(id, direction, state);
+      }
     }
 
-  }
 
   public void updatePlayer(int id, String direction, String state) {
-    isUpdating = true;
+    animating = true;
     this.id = id;
     this.direction = direction;
     this.state = state;

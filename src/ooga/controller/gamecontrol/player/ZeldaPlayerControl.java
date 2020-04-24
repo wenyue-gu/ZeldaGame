@@ -22,7 +22,6 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   public static final String PROPERTY_MOVING_DIRECTION = "direction";
 
   private ZeldaPlayer myPlayer;
-  //private Player2DView playerView;
   private GameZelda2DSingle myView;
   private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private Map<Integer, String> myGLFWMap = new HashMap<>();
@@ -76,7 +75,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void keyInput(KeyCode key)
-          throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     if (myKeyCodeMap.get(key) == null) {
       return;
     }
@@ -130,12 +129,12 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
 
-  public void sprintSE(){
+  public void sprintSE() {
     myPlayer.setState(MovingState.SPRINT);
     myPlayer.setDirection(Direction.SE);
   }
 
-  public void death(){
+  public void death() {
     myPlayer.setState(MovingState.DEATH);
     myPlayer.setDirection(Direction.E);
   }
@@ -147,21 +146,27 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     switch (s) {
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
-        myView.updatePlayer(myID, myPlayer.getDirection().toString(), myPlayer.getState().toString());
+        myView
+            .updatePlayer(myID, myPlayer.getDirection().toString(), myPlayer.getState().toString());
     }
   }
 
   @Override
   public void updateKey() {
+    boolean keyPressed = false;
     try {
       for (int i : myGLFWMap.keySet()) {
-        if (myView.getView().isKeyDown(i)){
-          this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
-          System.out.println(myPlayer.getDirection().toString());
-          System.out.println(myPlayer.getState().toString());
-        }
+          if (myView.getView().isKeyDown(i)) {
+            keyPressed = true;
+            this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
+//            System.out.println(myPlayer.getDirection().toString());
+//            System.out.println(myPlayer.getState().toString());
+            break;
+          }
       }
-
+      if (!keyPressed) {
+        keyReleased();
+      }
     } catch (Exception e) {
       e.printStackTrace();
       System.out.println("key map fault");
@@ -175,7 +180,9 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public void setNewKeyMap(Map<Integer, String> map) {
-    if(map!=null) myGLFWMap = map;
+    if (map != null) {
+      myGLFWMap = map;
+    }
   }
 
   @Override
@@ -185,7 +192,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   @Override
   public boolean checkScore(int score) {
-    return score<=myPlayer.getScore();
+    return score <= myPlayer.getScore();
   }
 
   public Map<KeyCode, String> getKeyCodeMap() {

@@ -1,14 +1,17 @@
 package ooga.model.characters;
 
+import ooga.model.enums.backend.CharacterType;
 import ooga.model.interfaces.Alive;
 
 public class  CharacterBase implements Alive {
   protected int hp;
   protected int id;
+  protected CharacterType characterType;
 
-  public CharacterBase(int id, int initialHP) {
+  public CharacterBase(int id, int initialHP, CharacterType characterType) {
     this.id = id;
     this.hp = initialHP;
+    this.characterType = characterType;
   }
 
   @Override
@@ -44,5 +47,15 @@ public class  CharacterBase implements Alive {
   @Override
   public boolean isAlive() {
     return hp > 0;
+  }
+
+  @Override
+  public void setType(CharacterType type) {
+    this.characterType = type;
+  }
+
+  @Override
+  public CharacterType getType() {
+    return characterType;
   }
 }
