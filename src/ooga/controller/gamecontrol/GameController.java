@@ -28,7 +28,7 @@ public class GameController {
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
   private PauseControl myPauseControl;
-  private ooga.controller.gamecontrol.FinishControl myFinishControl;
+  private FinishControl myFinishControl;
   private WindowControl myWindowControl;
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
@@ -44,12 +44,9 @@ public class GameController {
     myDataStorer = storer;
     myPauseControl = new PauseControl(this);
     setUpPlayerandNPC();
-    myFinishControl = new ooga.controller.gamecontrol.FinishControl(this);
+    myFinishControl = new FinishControl(this);
   }
 
-//  public void keyInput(KeyCode code) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-//     for(MainPlayerControl mpc:myMainPlayerController) mpc.keyInput(code);
-//  }
 
   public void startTimer(){
     myTimer = new AnimationTimer() {
@@ -63,7 +60,6 @@ public class GameController {
   }
 
   private void setUpPlayerandNPC(){
-    //setGameType(myDataLoader.getGameType());
     System.out.println(myDataLoader.getGameType());
     setGameType(myDataLoader.getGameType());
     for (MainPlayerControl mpc : myMainPlayerController) {
@@ -99,7 +95,6 @@ public class GameController {
     }
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.updateKey();
-      // TODO: complete this
       if (!mpc.update()){
         finishGame(mpc, false); // this is dead
         win = false;
@@ -115,7 +110,7 @@ public class GameController {
   }
 
   public void finishGame(MainPlayerControl mpc, boolean win) {
-    //TODO: finish game and print id and score
+    myTimer.stop();
     myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer)mpc.getPlayer()).getScore());
   }
 
@@ -139,9 +134,6 @@ public class GameController {
     }
   }
 
-  public int getPlayerSize() {
-      return myMainPlayerController.size();
-  }
   public void setWindowControl(WindowControl windowControl) {
     myWindowControl = windowControl;
     System.out.println(myWindowControl);

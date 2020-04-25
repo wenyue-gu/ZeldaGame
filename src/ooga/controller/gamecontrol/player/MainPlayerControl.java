@@ -11,6 +11,9 @@ public class MainPlayerControl implements PlayerControlInterface {
   private PlayerControlInterface myPlayerControl;
   private PlayerControlFactory myPlayerControlFactory;
 
+  /**
+   * Creates the control factory
+   */
   public MainPlayerControl(){
     myPlayerControlFactory = new PlayerControlFactory();
   }
@@ -19,19 +22,10 @@ public class MainPlayerControl implements PlayerControlInterface {
     myPlayerControl= myPlayerControlFactory.selectControl(gameType);
   }
 
-  @Override
-  public void keyInput(KeyCode key) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-    myPlayerControl.keyInput(key);
-  }
 
   @Override
   public void setMyPlayer(Movable1D player) {
     myPlayerControl.setMyPlayer(player);
-  }
-
-  @Override
-  public void setKeyCodeMap(Map<KeyCode, String> map) {
-    myPlayerControl.setKeyCodeMap(map);
   }
 
   @Override

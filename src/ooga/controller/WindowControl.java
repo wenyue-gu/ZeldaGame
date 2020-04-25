@@ -64,35 +64,35 @@ public class WindowControl {
 
   private GameState2DView myGameView;
 
-  public WindowControl(Stage currentStage) throws DataLoadingException {
+  /**
+   * Create the menu based on the stage provided
+   * @param currentStage
+   */
+  public WindowControl(Stage currentStage) {
     myStage = currentStage;
     myMenuView = new GameMenuView();
     mySelectView = new SelectMenuView();
     myLogIn = new LogInControl(this);
     mySettingControl = new SettingControl(this);
-    myUserProfileControl = new UserProfileControl(this);
+    myUserProfileControl = new UserProfileControl();
 
     setMenuScene();
     initializeButtons();
   }
 
-  public void setColor(Color color) {
-    isColored = true;
-    this.color = color;
-    myMenuView.changColor(color);
-    mySelectView.changColor(color);
-    myLogIn.changColor(color);
-    mySettingControl.changColor(color);
-    myUserProfileControl.changColor(color);
-  }
-
+  /**
+   * Create the window using the current stage and the data storer provided
+   * @param currentStage
+   * @param datastorer
+   * @throws DataLoadingException
+   */
   public WindowControl(Stage currentStage, DataStorerAPI datastorer) throws DataLoadingException {
     this(currentStage);
     setDataLoader(datastorer.getDataLoader());
     myDataStorer = datastorer;
   }
 
-  public void setDataLoader(DataLoaderAPI Loader) {
+  private void setDataLoader(DataLoaderAPI Loader) {
     myDataLoader = Loader;
   }
 
@@ -100,6 +100,9 @@ public class WindowControl {
     myStage.setScene(myMenuView.getMenuView());
   }
 
+  /**
+   * show menu
+   */
   public void showWindowMenu() {
     myStage.show();
   }
@@ -128,7 +131,7 @@ public class WindowControl {
     myGameButton1.setOnAction(e -> {
       try {
         startGame1();
-      } catch (DataLoadingException ex) {
+      } catch (DataLoadingException | IOException ex) {
         System.out.println("WINDOW CONTROL STARTGAME1");
       }
     });
@@ -141,7 +144,13 @@ public class WindowControl {
       }
     });
     myGameButton3 = mySelectView.getGame3();
-    myGameButton3.setOnAction(e -> startGame3());
+    myGameButton3.setOnAction(e -> {
+      try {
+        startGame3();
+      } catch (IOException|DataLoadingException ex) {
+        System.out.println("WINDOW CONTROL STARTGAME3");
+      }
+    });
     mySettingButton = mySelectView.getSetting();
     mySettingButton.setOnAction(e -> changeSettings());
 
@@ -149,9 +158,19 @@ public class WindowControl {
     myLanguagePicker.setOnAction(e -> setLanguage(myLanguagePicker.getValue().toString()));
 
     myColorPicker = myMenuView.getMyColorPicker();
-    System.out.println(myColorPicker);
     myColorPicker.setOnAction(e -> setColor(myColorPicker.getValue()));
 
+  }
+
+
+  private void setColor(Color color) {
+    isColored = true;
+    this.color = color;
+    myMenuView.changColor(color);
+    mySelectView.changColor(color);
+    myLogIn.changColor(color);
+    mySettingControl.changColor(color);
+    myUserProfileControl.changColor(color);
   }
 
   private void changeSettings() {
@@ -166,6 +185,10 @@ public class WindowControl {
     }
   }
 
+  /**
+   * When user logs in through user profile control, window control takes note of the username and that there is a user logged in
+   * @param s username
+   */
   public void setUser(String s) {
     isLogIn = true;
     myUserName = s;
@@ -188,34 +211,7 @@ public class WindowControl {
     myUserProfileControl.setLanguage(language);
   }
 
-  private void startGame1() throws DataLoadingException {
-//    System.out.println("111");
-//    //TODO: set up data and stuff for game one, then call startGame?
-//    myGameController = new GameController(myDataLoader);
-//    myGameController.setMode(dark);
-//    try {
-//
-//      myGameView = new GameState2DView(myGameController.getPlayerSize());
-//      myGameController.setView(myGameView);
-//      myGameView.createWindow();
-//      AnimationTimer timer = new AnimationTimer() {
-//      @Override
-//      public void handle(long now) {
-//        myGameController.update();
-//      }
-//    };
-//    timer.start();
-//
-//    secondStage.close();
-//    //myStage.close();
-//    }
-//    catch(Exception e){
-//      System.out.println("GameState2DViewError");
-//    }
-  }
-
-  private void startGame2() throws DataLoadingException, IOException {
-    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
+  private void startGame() throws DataLoadingException, IOException {
     if (resetGame) {
       myDataStorer.resetPlayerInfo();
     }
@@ -231,6 +227,16 @@ public class WindowControl {
     if (resetGame) {
       secondStage.close();
     }
+  }
+
+  private void startGame1() throws DataLoadingException, IOException {
+    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(1,2));
+    startGame();
+  }
+
+  private void startGame2() throws DataLoadingException, IOException {
+    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
+    startGame();
   }
 
   private void setUpController() throws DataLoadingException {
@@ -249,10 +255,18 @@ public class WindowControl {
   }
 
 
-  private void startGame3() {
-    secondStage.close();
+  private void startGame3() throws IOException, DataLoadingException {
+    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
+    startGame();
   }
 
+  /**
+   * Set up menu
+   * @param title       title of stage
+   * @param height      size of stage
+   * @param width       size of stage
+   * @param isResizable allow stage to be resized
+   */
   public void showWindow(String title, int height, int width, boolean isResizable) {
     myStage.setTitle(title);
     myStage.setWidth(width);
@@ -293,10 +307,18 @@ public class WindowControl {
 //    myGameController.finishGame(myGameController.getMPC(0), true);
   }
 
+  /**
+   * Allows window control and thus model in game controller to recognize player set initial hp
+   * @param i hp value set in setting
+   */
   public void setLife(int i) {
     myPlayerHP = i;
   }
 
+  /**
+   * Save score to user profile if there is a user logged in
+   * @param score the score of this game
+   */
   public void saveUser(int score) {
     if (isLogIn) {
       myUserProfileControl.writeScore(score);

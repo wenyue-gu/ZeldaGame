@@ -14,6 +14,7 @@ import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.backend.Direction;
 import ooga.model.enums.backend.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
+import org.lwjgl.glfw.GLFW;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
     AttackerControl, PropertyChangeListener {
@@ -54,11 +55,6 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setKeyCodeMap(Map<KeyCode, String> map) {
-    myKeyCodeMap = map;
-  }
-
-  @Override
   public void setID() {
     myID = myPlayer.getId();
   }
@@ -73,15 +69,7 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     myPlayer.setState(MovingState.IDLE);
   }
 
-  @Override
-  public void keyInput(KeyCode key)
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    if (myKeyCodeMap.get(key) == null) {
-      return;
-    }
-    this.getClass().getDeclaredMethod(myKeyCodeMap.get(key)).invoke(this);
 
-  }
 
 
   @Override
@@ -164,11 +152,19 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     }
   }
 
+  /**
+   * set the game view to input
+   * @param view
+   */
   @Override
   public void setView(GameZelda2DSingle view) {
     myView = view;
   }
 
+  /**
+   * set the key map to the map read in loader
+   * @param map input map
+   */
   @Override
   public void setNewKeyMap(Map<Integer, String> map) {
     if (map != null) {
@@ -176,11 +172,20 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     }
   }
 
+  /**
+   *
+   * @return the player
+   */
   @Override
   public Movable1D getPlayer() {
     return myPlayer;
   }
 
+  /**
+   * checks if player's score has exceeded goal
+   * @param score score
+   * @return true if player score > goal
+   */
   @Override
   public boolean checkScore(int score) {
     return score <= myPlayer.getScore();
@@ -210,11 +215,4 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     return myPlayer.hasWon();
   }
 
-  public Map<KeyCode, String> getKeyCodeMap() {
-    return myKeyCodeMap;
-  }
-
-  public Map<Integer, String> getKeyMap() {
-    return myGLFWMap;
-  }
 }
