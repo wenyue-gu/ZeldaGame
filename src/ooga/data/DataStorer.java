@@ -228,7 +228,7 @@ public class DataStorer implements DataStorerAPI {
      */
     @Override
     public void writeAllDataIntoDisk() {
-        gameObjectConfiguration.storeGameEverything();
+        gameObjectConfiguration.writeAllDataToDisk();
     }
 
     @Override

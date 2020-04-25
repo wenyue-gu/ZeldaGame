@@ -1,8 +1,5 @@
 package ooga.data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.ImageCategory;
@@ -10,7 +7,6 @@ import ooga.model.enums.backend.CharacterType;
 import ooga.model.enums.backend.Direction;
 import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
-//import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -18,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+//import org.junit.Assert;
 
 //import org.junit.Test;
 
@@ -70,7 +68,7 @@ public class  DataManagementTest {
         Cell testCell = loader.loadCell(6, 2, 0, 1);
         assertNotNull(testCell.getBufferedImage());
         assertTrue(testCell.isMapCellWalkable());
-        assertEquals(testCell.getImage(), 82);
+        assertEquals(82, testCell.getImage());
         System.out.println(testCell.getState());
 
     }
@@ -82,11 +80,14 @@ public class  DataManagementTest {
     public void characterLoadingStoringTest() {
 
         ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4,0,0, CharacterType.PLAYER);
+        ZeldaCharacter ZC2 = new ZeldaCharacter(93, 21, 33, 44,0,0, CharacterType.PLAYER);
         ZC.setFiringDirection(Direction.E);
         storer.storeCharacter(4, ZC);
-        assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);
-        assertEquals(loader.loadCharacter(4, CharacterProperty.ATTACK), 3);
-        loader.getGameObjectConfiguration().storeGameEverything();
+        storer.storeCharacter(3, ZC2);
+        assertEquals(9, loader.loadCharacter(4, CharacterProperty.HP));
+        assertEquals(3, loader.loadCharacter(4, CharacterProperty.ATTACK));
+        assertEquals(2, loader.getZeldaCharacters().size());
+        storer.writeAllDataIntoDisk();
     }
 
     @Test
@@ -99,7 +100,7 @@ public class  DataManagementTest {
         storer.storeKeyCode(keyCodeMap, 2);
         Map<Integer, String> keyCodeMap2 = loader.loadKeyCode(3);
         assertEquals("hello", loader.loadKeyCode(3).get(34));
-        loader.getGameObjectConfiguration().storeGameEverything();
+        storer.writeAllDataIntoDisk();
     }
     @Test
     public void imageLoadingStoringTest() {
@@ -107,6 +108,7 @@ public class  DataManagementTest {
         storer.storeImage("123", 2, ImageCategory.RESOURCE);
         String imagePath = loader.loadImagePath(2, ImageCategory.RESOURCE);
         assertEquals("123", imagePath);
+        storer.writeAllDataIntoDisk();
     }
 
     /**
@@ -119,7 +121,7 @@ public class  DataManagementTest {
         storer.setPlayerParam(PlayerPara.CURRENT_SCORE, 99, 3);
 
         assertEquals(99, loader.loadPlayerPara(PlayerPara.CURRENT_SCORE, 3));
-        loader.getGameObjectConfiguration().storeGameEverything();
+        storer.writeAllDataIntoDisk();
     }
 
 

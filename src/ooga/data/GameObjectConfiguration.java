@@ -15,11 +15,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static ooga.data.DataLoader.JSON_POSTFIX;
 import static ooga.game.GameMain.HEIGHT;
 import static ooga.game.GameMain.WIDTH;
 
@@ -78,37 +81,33 @@ public class GameObjectConfiguration {
   }
 
   private void initiateDataStorageInstanceVariable() throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
-    Class cls = this.getClass();
-    PlayerStatus d = new PlayerStatus(1);
-    Field field;
     Window window = new Window(WIDTH, HEIGHT, "Game");
     window.create();
     for (String key : Collections.list(resources.getKeys())) {
-      field = cls.getDeclaredField(key);
-      List<String> a = Collections.list(resources.getKeys());
-      field.setAccessible(true);
+      Field field = initializeFieldObject(key);
       String[] value = resources.getString(key).split(",");
       String type = value[1];
       String directoryPath = value[0];
       String instanceClass = value[2];
-      if (type.equals("List")) {
-        field.set(this, new ArrayList<>());
-      } else if (type.equals("Map")) {
-        field.set(this, new HashMap<>());
-      }
 
       File dir = new File(directoryPath);
       File[] directoryListing = dir.listFiles();
+      try {
+        field.set(this, new ArrayList<>());
+      } catch (Exception d) {
+        field.set(this, new HashMap<>());
+      }
       for (File child : directoryListing) {
-        try {
-          loadFilesUnderDirectory(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
-        } catch (Exception e) {
+        if (type.equals("List")) {
+          loadFilesUnderDirectoryForList(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
+        } else if (type.equals("Map")) {
+          loadFilesUnderDirectoryForMap(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
+        } else {
           Type type2 = new TypeToken<Map<String, Animation2D>>(){}.getType();
 ////          //delete after multiple agents occur
 ////          meleeRobotAnimations = loadJson(directoryPath + child.getName(), type2);
 ////          createTextureToAnimation(meleeRobotAnimations);
-//
-//
+
 //          //change to support multiple agents (3,4)
           Map<String, Animation2D> tempAgent = loadJson(directoryPath + child.getName(), type2);
           createTextureToAnimation(tempAgent);
@@ -120,17 +119,16 @@ public class GameObjectConfiguration {
     window.destroy();
   }
 
-  private <T> void loadFilesUnderDirectory (String myDirectoryPath, String fileName, Field field, Class clazz, String type) throws IllegalAccessException {
-    if (type.equals("List")) {
-      List<T> tempList = (List<T>) field.get(this);
-      tempList.add(loadJson(myDirectoryPath + fileName, clazz));
-      field.set(this, tempList);
-    } else if (type.equals("Map")) {
-      Map<String, T> tempMap = (Map<String, T>) field.get(this);
-      tempMap.put(fileName,
-              loadJson(myDirectoryPath + fileName, clazz));
-      field.set(this, tempMap);
-    }
+  private <T> void loadFilesUnderDirectoryForList (String myDirectoryPath, String fileName, Field field, Class clazz, String type) throws IllegalAccessException {
+    List<T> tempList = (List<T>) field.get(this);
+    tempList.add(loadJson(myDirectoryPath + fileName, clazz));
+    field.set(this, tempList);
+  }
+  private <T> void loadFilesUnderDirectoryForMap (String myDirectoryPath, String fileName, Field field, Class clazz, String type) throws IllegalAccessException {
+    Map<String, T> tempMap = (Map<String, T>) field.get(this);
+    tempMap.put(fileName,
+            loadJson(myDirectoryPath + fileName, clazz));
+    field.set(this, tempMap);
   }
 
   private void createTextureToAnimation(Map<String, Animation2D> meleeRobotAnimations) {
@@ -141,7 +139,57 @@ public class GameObjectConfiguration {
     }
   }
 
+  public void writeAllDataToDisk() {
+    for (String key : Collections.list(resources.getKeys())) {
 
+      try {
+        Field field = initializeFieldObject(key);
+        String[] value = resources.getString(key).split(",");
+        String type = value[1];
+        String directoryPath = value[0];
+
+        if (type.equals("List")) {
+          String getfileNameIDMethod = value[3];
+          storeListToDisk(field, directoryPath, getfileNameIDMethod);
+        } else {
+          storeMapToDisk(field, directoryPath);
+        }
+      } catch (IllegalAccessException | NoSuchFieldException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  private <T> void storeMapToDisk(Field field, String directoryPath) throws IllegalAccessException {
+    Map<String, T> tempMap = (Map<String, T>) field.get(this);
+    if (tempMap == null) {
+      System.out.println(1);
+    }
+    for (String j : tempMap.keySet()) {
+      writeObjectTOJson(tempMap.get(j), directoryPath + j);
+    }
+  }
+  private <E> void storeListToDisk(Field field, String directoryPath, String getfileNameIDMethod) throws IllegalAccessException {
+    List<E> tempList = (List<E>) field.get(this);
+    String[] pathArray = directoryPath.split("/");
+    String folderName = pathArray[pathArray.length - 1];
+
+    for (E j : tempList) {
+      Method methodcall = null;
+      try {
+        methodcall = j.getClass().getDeclaredMethod(getfileNameIDMethod); //getFileNameID method has to be no-arg
+        writeObjectTOJson(j, directoryPath + folderName + methodcall.invoke(j) + JSON_POSTFIX);//naming convention of GameInfo is changed.
+      } catch (NoSuchMethodException | InvocationTargetException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private Field initializeFieldObject(String key) throws NoSuchFieldException {
+    Class cls = this.getClass();
+    Field field = cls.getDeclaredField(key);
+    field.setAccessible(true);
+    return field;
+  }
 
   public void storeGameEverything() {
     for (Map.Entry<Object, String> i : fieldToPathMap.entrySet()) {
@@ -156,7 +204,7 @@ public class GameObjectConfiguration {
           break;
         case "GameMap":
           for (String j : gameMapList.keySet()) {
-            writeObjectTOJson(gameMapList.get(j), path + j);
+            writeObjectTOJson(gameMapList.get(j), path + j + ".json");
           }
 
           break;
@@ -186,7 +234,7 @@ public class GameObjectConfiguration {
           break;
         case "Animation2D":
           //delete after multiple agents
-          writeObjectTOJson(meleeRobotAnimations, path + "MeleeRobotAnimations" + ".json");
+          writeObjectTOJson(meleeRobotAnimations, path + "MELEE_ROBOT_ANIMATIONS" + ".json");
 
           //use after using mulitple agents (4,4)
           for (String j : animationMap.keySet()) {
@@ -247,15 +295,6 @@ public class GameObjectConfiguration {
     this.textMap = textMap;
   }
 
-  public <clazz> clazz loadJson(String fileName, Class clazz) {
-    try {
-      Reader reader = Files.newBufferedReader(Paths.get(fileName));
-      return (clazz) gsonLoad.fromJson(reader, clazz);
-    } catch (IOException e) {
-      System.out.println("file at " + fileName + "hasn't been created.");
-    }
-    return null;
-  }
   public <clazz> clazz loadJson(String fileName, Type clazz) {
     try {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
