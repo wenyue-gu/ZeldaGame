@@ -9,8 +9,6 @@ import ooga.model.enums.backend.PlayerPara;
 public class PlayerStatus {
     public static int initLevel = 1;
     public static int initLife = 5;
-    public static int initScoreGoal = 500;
-
 
     private int playerID;
     private Map<PlayerPara, Integer> playerParaMap;

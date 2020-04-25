@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import ooga.view.engine.graphics.Shader;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.graphics.render.Renderer2D;
@@ -141,7 +140,7 @@ public class GameState2DView extends GameStateView {
   }
 
   public void updateBullets() {
-    System.out.println(bulletMap.keySet().size());
+//    System.out.println(bulletMap.keySet().size());
     for (int key : bulletMap.keySet()) {
       //check if hit the agent or wall
       Agent2DView bullet = bulletMap.get(key);
@@ -204,15 +203,15 @@ public class GameState2DView extends GameStateView {
 
   @Override
   public void renderAgents() throws IOException { // get rid of dead agents
-    System.out.println("the set size of agents:");
-    System.out.println(agentMap.keySet().size());
+//    System.out.println("the set size of agents:");
+//    System.out.println(agentMap.keySet().size());
     for (int id : new HashSet<>(agentMap.keySet())) {
       //System.out.println(agentma);
-      System.out.println("here is another player");
-      System.out.println(agentMap.get(id).getId());
+//      System.out.println("here is another player");
+//      System.out.println(agentMap.get(id).getId());
       if (!agentMap.get(id).renderMesh(renderer)) {
-        System.out.println("the player's render return false");
-        System.out.println(agentMap.get(id).getId());
+//        System.out.println("the player's render return false");
+//        System.out.println(agentMap.get(id).getId());
         //render didn't succeed
 
         //TODO if the agent is summoner, generate new agents

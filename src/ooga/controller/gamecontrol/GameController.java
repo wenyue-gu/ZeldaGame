@@ -24,6 +24,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class GameController {
 
+  public static final double MIN_DIS = 2;
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
@@ -48,7 +49,7 @@ public class GameController {
   }
 
 
-  public void startTimer(){
+  public void startTimer() {
     myTimer = new AnimationTimer() {
       @Override
       public void handle(long now) {
@@ -59,19 +60,18 @@ public class GameController {
     myPauseControl.setTimer(myTimer);
   }
 
-  private void setUpPlayerandNPC(){
+  private void setUpPlayerandNPC() {
     System.out.println(myDataLoader.getGameType());
     setGameType(myDataLoader.getGameType());
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setID();
-        try {
-            mpc.setNewKeyMap(myDataLoader.loadKeyCode(mpc.getID()));
-        }
-        catch(Exception e){
-            System.out.println("load key error");
-        }
+      try {
+        mpc.setNewKeyMap(myDataLoader.loadKeyCode(mpc.getID()));
+      } catch (Exception e) {
+        System.out.println("load key error");
+      }
     }
-    for (MainNPCControl npc: myNPCControl) {
+    for (MainNPCControl npc : myNPCControl) {
       System.out.println(2);
       npc.setID();
     }
@@ -99,23 +99,40 @@ public class GameController {
     }
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.updateKey();
-      if (!mpc.update()){
+      if (!mpc.update()) {
         finishGame(mpc, false); // this is dead
         win = false;
       }
-      if (mpc.hasWon()) finishGame(mpc, true); // this is won
+      if (mpc.hasWon()) {
+        finishGame(mpc, true); // this is won
+      }
     }
-    if(myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P))pause();
+    if (myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P)) {
+      pause();
+    }
+    distanceCheck();
   }
 
-  public void pause(){
+  private void distanceCheck() {
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      for (MainNPCControl npc : myNPCControl) {
+        System.out.println("distance: ");
+        if (myGameView.getXPos(mpc.getID()) - myGameView.getXPos(npc.getID()) < MIN_DIS
+            || myGameView.getYPos(mpc.getID()) - myGameView.getYPos(npc.getID()) < MIN_DIS) {
+          npc.attack();
+        }
+      }
+    }
+  }
+
+  public void pause() {
     myPauseControl.updateScore(getSScoreList());
     myPauseControl.showMenu();
   }
 
   public void finishGame(MainPlayerControl mpc, boolean win) {
     myTimer.stop();
-    myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer)mpc.getPlayer()).getScore());
+    myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer) mpc.getPlayer()).getScore());
   }
 
   public void setMode(boolean dark) {
@@ -124,7 +141,7 @@ public class GameController {
     myFinishControl.setMode(dark);
   }
 
-  public void setLanguage(String language){
+  public void setLanguage(String language) {
     this.language = language;
     myPauseControl.setLanguage(language);
     myFinishControl.setLanguage(language);
@@ -136,7 +153,7 @@ public class GameController {
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setView(view);
     }
-    for (MainNPCControl npc: myNPCControl) {
+    for (MainNPCControl npc : myNPCControl) {
       npc.setView(view);
     }
   }
@@ -155,26 +172,27 @@ public class GameController {
   }
 
   public void save() {
-    for(MainPlayerControl mpc:myMainPlayerController){
-      ((DataStorer)myDataStorer).storeCharacter(mpc.getID(), (ZeldaCharacter)mpc.getPlayer());
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      ((DataStorer) myDataStorer).storeCharacter(mpc.getID(), (ZeldaCharacter) mpc.getPlayer());
     }
     myDataStorer.writeAllDataIntoDisk();
-    myWindowControl.saveUser((int)((ZeldaPlayer)myMainPlayerController.get(0).getPlayer()).getScore());
+    myWindowControl
+        .saveUser((int) ((ZeldaPlayer) myMainPlayerController.get(0).getPlayer()).getScore());
     System.out.println("game controller - save method called");
   }
 
   public void setInitLife(int i) {
-    for(MainPlayerControl mpc:myMainPlayerController){
-      ((ZeldaPlayer)mpc.getPlayer()).setHP(i);
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      ((ZeldaPlayer) mpc.getPlayer()).setHP(i);
     }
   }
 
-  private Map<Integer, Integer> getSScoreList(){
-    Map<Integer,Integer> ret = new HashMap<>();
-    for(MainPlayerControl mpc:myMainPlayerController){
+  private Map<Integer, Integer> getSScoreList() {
+    Map<Integer, Integer> ret = new HashMap<>();
+    for (MainPlayerControl mpc : myMainPlayerController) {
       int id = mpc.getID();
-      int score = (int)((ZeldaPlayer)mpc.getPlayer()).getScore();
-      ret.put(id,score);
+      int score = (int) ((ZeldaPlayer) mpc.getPlayer()).getScore();
+      ret.put(id, score);
     }
     return ret;
   }

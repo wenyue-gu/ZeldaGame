@@ -36,4 +36,11 @@ public class MainNPCControl implements NPCControlInterface {
     myNPCControl.setView(view);
   }
 
+  public int getID() {
+    return myNPCControl.getID();
+  }
+
+  public void attack() {
+    myNPCControl.attack();
+  }
 }

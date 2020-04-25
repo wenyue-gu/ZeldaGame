@@ -10,4 +10,8 @@ public interface NPCControlInterface extends ZeldaControlInterface {
   void setID();
 
   void setView(GameZelda2DSingle view);
+
+  int getID();
+
+  void attack();
 }

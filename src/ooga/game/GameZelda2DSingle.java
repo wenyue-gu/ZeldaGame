@@ -18,7 +18,7 @@ public class GameZelda2DSingle implements Runnable {
 
   private boolean isAnimating;
   private List<Boolean> isAttacking;
-  private List<Integer> id;
+  private List<Integer> ids;
   private List<String> direction;
   private List<String> state;
   private Map<Integer, Agent2DDataHolder> dataHolderMap;
@@ -27,7 +27,7 @@ public class GameZelda2DSingle implements Runnable {
       throws IOException {
     dataHolderMap = new HashMap<>();
     isAttacking = new ArrayList<>();
-    id = new ArrayList<>();
+    ids = new ArrayList<>();
     direction = new ArrayList<>();
     state = new ArrayList<>();
 
@@ -103,10 +103,11 @@ public class GameZelda2DSingle implements Runnable {
     view.updateWindow();
     view.updateBullets();
     view.updateMap(); //empty method
-    if (id.size() > 0) isAnimating = true;
+    System.out.println("SIZE: " + ids.size());
+    if (ids.size() > 0) isAnimating = true;
       if (isAnimating) {
-        view.updateAgent(id.get(0), direction.get(0), state.get(0), isAttacking.get(0));
-        id.remove(0);
+        view.updateAgent(ids.get(0), direction.get(0), state.get(0), isAttacking.get(0));
+        ids.remove(0);
         direction.remove(0);
         state.remove(0);
         isAttacking.remove(0);
@@ -116,11 +117,12 @@ public class GameZelda2DSingle implements Runnable {
 
 
   public void updateCharacter(int id, String direction, String state, boolean isAttacking) {
-    this.id.add(id);
+    this.ids.add(id);
     this.isAttacking.add(isAttacking);
     this.direction.add(direction);
     this.state.add(state);
   }
+
 
   private void render() throws IOException {
     view.renderAll();
@@ -133,5 +135,13 @@ public class GameZelda2DSingle implements Runnable {
 
   public GameState2DView getView() {
     return view;
+  }
+
+  public float getXPos(int id) {
+    return view.getCenterPositionX(id);
+  }
+
+  public float getYPos(int id) {
+    return view.getCenterPositionY(id);
   }
 }

@@ -17,6 +17,8 @@ public class SoldierControl implements NPCControlInterface, PropertyChangeListen
   private ZeldaCharacter myNPC;
   private int myID;
   private GameZelda2DSingle myView;
+  private int attackCounter = 0;
+  private MovingState lastState = MovingState.IDLE;
 
   public SoldierControl(){
   }
@@ -35,6 +37,13 @@ public class SoldierControl implements NPCControlInterface, PropertyChangeListen
     return myID;
   }
 
+  @Override
+  public void attack() {
+    if (myNPC.getState() != MovingState.ATTACK) {
+      myNPC.setState(MovingState.ATTACK);
+    }
+  }
+
   public void setView(GameZelda2DSingle view) {
     myView = view;
   }
@@ -51,7 +60,7 @@ public class SoldierControl implements NPCControlInterface, PropertyChangeListen
       case PROPERTY_MOVING_DIRECTION:
         myView
             .updateCharacter(myID, myNPC.getDirection().toString(),
-                myNPC.getState().toString(), (myNPC.getState() == MovingState.ATTACK1));
+                myNPC.getState().toString(), (myNPC.getState() == MovingState.ATTACK));
     }
   }
 
@@ -62,6 +71,11 @@ public class SoldierControl implements NPCControlInterface, PropertyChangeListen
 
   @Override
   public void update() {
-    myNPC.setState(MovingState.ATTACK);
+    if (myNPC.getState() != MovingState.IDLE && attackCounter > 1000) {
+      myNPC.setState(MovingState.IDLE);
+      attackCounter = 0;
+    } else {
+      attackCounter ++;
+    }
   }
 }

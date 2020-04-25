@@ -1,21 +1,25 @@
 package ooga.data;
 
+import static ooga.data.DataLoader.JSON_POSTFIX;
+import static ooga.data.DataLoader.SubMapPerMap;
+import static ooga.data.PlayerStatus.initLevel;
+import static ooga.data.PlayerStatus.initLife;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.AnimationType;
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.backend.PlayerPara;
 import ooga.model.enums.TextCategory;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.gameElements.WeaponBase;
 import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.view.engine.graphics.animation.Animation2D;
-
-import java.io.File;
-import java.util.*;
-
-import static ooga.data.DataLoader.JSON_POSTFIX;
-import static ooga.data.DataLoader.SubMapPerMap;
-import static ooga.data.PlayerStatus.*;
 
 //import ooga.model.gameElements.Weapon;
 
@@ -194,7 +198,7 @@ public class DataStorer implements DataStorerAPI {
         setPlayerParam(PlayerPara.CURRENT_LEVEL, initLevel, currentPlayerID);
         setPlayerParam(PlayerPara.LIFE, initLife, currentPlayerID);
         setPlayerParam(PlayerPara.CURRENT_SCORE, 0, currentPlayerID);
-        setPlayerParam(PlayerPara.SCORE_GOAL, initScoreGoal, currentPlayerID);
+//        setPlayerParam(PlayerPara.SCORE_GOAL, initScoreGoal, currentPlayerID);
     }
 
     private int nextAvailableID(int level) {
