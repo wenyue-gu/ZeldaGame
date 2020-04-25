@@ -43,7 +43,6 @@ public class GameObjectConfiguration {
   private ResourceBundle resources;
 
 
-  private Map<String, Animation2D> meleeRobotAnimations;
   private Map<String, Map<String, Animation2D>> animationMap;
   private List<Integer> currentPlayersID;
   private int currentPlayerID = 1;
@@ -104,11 +103,7 @@ public class GameObjectConfiguration {
           loadFilesUnderDirectoryForMap(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
         } else {
           Type type2 = new TypeToken<Map<String, Animation2D>>(){}.getType();
-////          //delete after multiple agents occur
-////          meleeRobotAnimations = loadJson(directoryPath + child.getName(), type2);
-////          createTextureToAnimation(meleeRobotAnimations);
 
-//          //change to support multiple agents (3,4)
           Map<String, Animation2D> tempAgent = loadJson(directoryPath + child.getName(), type2);
           createTextureToAnimation(tempAgent);
           animationMap.put(child.getName(), tempAgent);
@@ -189,59 +184,6 @@ public class GameObjectConfiguration {
     Field field = cls.getDeclaredField(key);
     field.setAccessible(true);
     return field;
-  }
-
-  public void storeGameEverything() {
-    for (Map.Entry<Object, String> i : fieldToPathMap.entrySet()) {
-      String path = i.getValue();
-      String[] folderName = path.split("/");
-      switch (folderName[1]) {
-        case "GameInfo":
-          for (GameInfo j : gameInfoList) {
-            writeObjectTOJson(j,
-                    path + "Game" + j.getGameType() + "level" + j.getLevelNum() + ".json");
-          }
-          break;
-        case "GameMap":
-          for (String j : gameMapList.keySet()) {
-            writeObjectTOJson(gameMapList.get(j), path + j + ".json");
-          }
-
-          break;
-        case "Image":
-          for (String j : imageMap.keySet()) {
-            writeObjectTOJson(imageMap.get(j), path + j);
-          }
-          break;
-        case "MarioCharacter":
-//          System.out.println("MarioCharacter storing is not supported");
-//                    marioCharacterList.add(loadJson(myDirectoryPath + child.getName(), classType));
-          break;
-        case "Player":
-          for (PlayerStatus j : playerList) {
-            writeObjectTOJson(j, path + "player" + j.getPlayerID() + ".json");
-          }
-          break;
-        case "ZeldaCharacter":
-          for (ZeldaCharacter j : zeldaCharacterList) {
-            writeObjectTOJson(j, path + "CharacterData" + j.getId() + ".json");
-          }
-          break;
-        case "Text":
-          for (String j : textMap.keySet()) {
-            writeObjectTOJson(textMap.get(j), path + j);
-          }
-          break;
-        case "Animation2D":
-          //delete after multiple agents
-          writeObjectTOJson(meleeRobotAnimations, path + "MELEE_ROBOT_ANIMATIONS" + ".json");
-
-          //use after using mulitple agents (4,4)
-          for (String j : animationMap.keySet()) {
-            writeObjectTOJson(animationMap.get(j), path + j);
-          }
-      }
-    }
   }
 
 
@@ -433,14 +375,6 @@ public class GameObjectConfiguration {
       }
     }
     return null;
-  }
-
-  public Map<String, Animation2D> getMeleeRobotAnimations() {
-    return meleeRobotAnimations;
-  }
-
-  public void setMeleeRobotAnimations(Map<String, Animation2D> meleeRobot) {
-    meleeRobotAnimations = meleeRobot;
   }
 
   public void setAnimationMap(String agent, Map<String, Animation2D> agentAnimation) {

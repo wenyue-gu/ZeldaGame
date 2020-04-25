@@ -3,10 +3,9 @@ package ooga.data;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.AnimationType;
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.backend.PlayerPara;
 import ooga.model.enums.TextCategory;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.gameElements.WeaponBase;
-import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.view.engine.graphics.animation.Animation2D;
 
@@ -20,7 +19,6 @@ import static ooga.data.PlayerStatus.*;
 //import ooga.model.gameElements.Weapon;
 
 public class DataStorer implements DataStorerAPI {
-    private Map<String, String> generalLevelFile;
     private com.google.gson.Gson gson;
     private DataLoader dataLoader; //for just tentative measure.
     private GameObjectConfiguration gameObjectConfiguration;
@@ -32,10 +30,6 @@ public class DataStorer implements DataStorerAPI {
         dataLoader = new DataLoader();
         gameObjectConfiguration = dataLoader.getGameObjectConfiguration();
 
-        //delete in the future and move into property files.
-        generalLevelFile = new HashMap<>();
-        generalLevelFile.put("fileName", "level");
-        generalLevelFile.put("map", "MapOfLevel");
     }
 
     //todo: test not done
@@ -55,7 +49,7 @@ public class DataStorer implements DataStorerAPI {
     }
 
 
-    //@Override
+    @Override
     public void storeCharacter(int characterID, ZeldaCharacter character) {
 
         character.setId(characterID);
@@ -70,16 +64,6 @@ public class DataStorer implements DataStorerAPI {
 //        writeObjectTOJson(character, "data/ZeldaCharacter/" + characterKeyword + characterID + ".json");
     }
 
-    @Override
-    public void StoreInventory(Inventory inventory) {
-        System.out.println("store Inventory is not implemented");
-    }
-    
-//    @Override
-//    public void storePlayerParamToCurrentPlayer(PlayerPara para, int value) {
-//        int playerID = gameObjectConfiguration.getCurrentPlayersID();
-//        setPlayerParam(para, value, playerID);
-//    }
 
     @Override
     public void setPlayerParam(PlayerPara param, int value, int playerID) {
@@ -229,11 +213,6 @@ public class DataStorer implements DataStorerAPI {
     @Override
     public void writeAllDataIntoDisk() {
         gameObjectConfiguration.writeAllDataToDisk();
-    }
-
-    @Override
-    public void storeMeleeRobotAnimations(Map<String, Animation2D> animations) {
-        gameObjectConfiguration.setMeleeRobotAnimations(animations);
     }
 
     @Override
