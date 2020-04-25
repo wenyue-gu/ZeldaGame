@@ -21,11 +21,8 @@ public interface  DataStorerAPI {
 
     void StoreText(String text, String keyword, TextCategory category);
 
-//    void storeCharacter(int ID, UnchangableCharacter character);
-
+    @Deprecated
     void storeWeapons(int ID, WeaponBase weapon);
-
-    //    void storePlayerParamToCurrentPlayer(PlayerPara para, int value);
 
     void storeCharacter(int characterID, ZeldaCharacter character);
 

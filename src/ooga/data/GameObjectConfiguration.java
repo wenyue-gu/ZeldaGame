@@ -75,7 +75,7 @@ public class GameObjectConfiguration {
     try {
       initiateDataStorageInstanceVariable();
     } catch (IllegalAccessException | NoSuchFieldException | ClassNotFoundException e) {
-      e.printStackTrace();
+      throw new DataLoadingException(e.getMessage(), e);
     }
   }
 
@@ -152,7 +152,7 @@ public class GameObjectConfiguration {
           storeMapToDisk(field, directoryPath);
         }
       } catch (IllegalAccessException | NoSuchFieldException e) {
-        e.printStackTrace();
+        throw new DataLoadingException(e.getMessage(), e);
       }
     }
   }
@@ -173,7 +173,7 @@ public class GameObjectConfiguration {
         methodcall = j.getClass().getDeclaredMethod(getfileNameIDMethod); //getFileNameID method has to be no-arg
         writeObjectTOJson(j, directoryPath + folderName + methodcall.invoke(j) + JSON_POSTFIX);//naming convention of GameInfo is changed.
       } catch (NoSuchMethodException | InvocationTargetException e) {
-        e.printStackTrace();
+        throw new DataLoadingException(e.getMessage(), e);
       }
     }
   }
@@ -240,9 +240,8 @@ public class GameObjectConfiguration {
       Reader reader = Files.newBufferedReader(Paths.get(fileName));
       return (clazz) gsonLoad.fromJson(reader, clazz);
     } catch (IOException e) {
-      System.out.println("file at " + fileName + "hasn't been created.");
+      throw new DataLoadingException(String.format("file at %s hasn't been created.", fileName), e);
     }
-    return null;
   }
 
 
@@ -253,7 +252,7 @@ public class GameObjectConfiguration {
       Writer1.flush();
       Writer1.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new DataLoadingException(e.getMessage(), e);
       //throw appropriate Exceptions
     }
   }
@@ -348,7 +347,7 @@ public class GameObjectConfiguration {
   public void setTextMap(String text, String keyword, TextCategory category) {
     Map<String, String> tempTextMap = textMap.get(category.toString());
     if (tempTextMap == null) {
-      System.out.println("category not found (330 config)");
+      throw new DataLoadingException("text category not found");
     }
     tempTextMap = insertElementToMap(tempTextMap, keyword, text);
     textMap.replace(category.toString(), tempTextMap);

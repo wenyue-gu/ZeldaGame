@@ -13,7 +13,6 @@ import java.io.File;
 import java.util.*;
 
 import static ooga.data.DataLoader.JSON_POSTFIX;
-import static ooga.data.DataLoader.SubMapPerMap;
 import static ooga.data.PlayerStatus.initLevel;
 import static ooga.data.PlayerStatus.initLife;
 
@@ -46,7 +45,7 @@ public class DataStorer implements DataStorerAPI {
 
     @Override
     public void storeWeapons(int ID, WeaponBase weapon) {
-        System.out.println("store weapons is not implemented");
+        throw new DataLoadingException("store weapons is not implemented");
     }
 
 
@@ -123,17 +122,15 @@ public class DataStorer implements DataStorerAPI {
      * @param level
      */
     @Override
-    //todo: testing is not done.
-    public void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level) throws DataLoadingException {
-        int subMapID = nextAvailableID(level);
-        storeSubMapForCurrentGame(map, level, subMapID);
+    public void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level) {
+        throw new DataLoadingException("map stored didn't fit in dimension");
     }
     @Override
-    public void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID) throws DataLoadingException {
+    public void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID) {
         storeSubMap( map, level, subMapID, gameObjectConfiguration.getCurrentGameID());
     }
     @Override
-    public void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) throws DataLoadingException {
+    public void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) {
         if (map.size() != GameMapGraph.SUBMAP_ROW_NUM * GameMapGraph.SUBMAP_COL_NUM) {
             throw new DataLoadingException("map stored didn't fit in dimension");
         }
@@ -174,31 +171,6 @@ public class DataStorer implements DataStorerAPI {
         setPlayerParam(PlayerPara.CURRENT_SCORE, 0, currentPlayerID);
     }
 
-    private int nextAvailableID(int level) throws DataLoadingException {
-        Map<String, GameMapGraph> currentGameMapList =  gameObjectConfiguration.getGameMapList();
-        int i = 0;
-        boolean flag = false;
-        while (i < SubMapPerMap) {
-            for (GameMapGraph j :currentGameMapList.values()) {
-                if (j.getSubMapID() == i) {
-                    flag = true;
-                }
-            }
-            if (flag) {
-                i++;
-                flag = false;
-            } else {
-                break;
-            }
-        }
-        if (i >= SubMapPerMap) {
-            throw new DataLoadingException("not more empty submap to add to! Please use storeSubMap(Collection<Cell> map, int level, int subMapID) method");
-            //todo: throw errors.
-        }
-
-        return i;
-
-    }
 
     /**
      * call this method before program ends and all data will not be stored into disk without calling this method.
