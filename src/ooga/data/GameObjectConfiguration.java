@@ -136,10 +136,9 @@ public class GameObjectConfiguration {
       File[] directoryListing = dir.listFiles();
       for (File child : directoryListing) {
         try {
-
           loadFilesUnderDirectory1(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
         } catch (Exception e) {
-          e.printStackTrace();
+//          e.printStackTrace();
 
 //
           Type type2 = new TypeToken<Map<String, Animation2D>>(){}.getType();

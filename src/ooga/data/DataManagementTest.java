@@ -6,12 +6,16 @@ import ooga.model.enums.Direction;
 import ooga.model.enums.ImageCategory;
 import ooga.model.enums.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
-import org.junit.Assert;
-import org.junit.Test;
+//import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+//import org.junit.Test;
 
 /**
  * Testing for DataManagement.
@@ -60,9 +64,9 @@ public class  DataManagementTest {
         ExampleDataGenerator.generateTheMapForFirstSprint();
 
         Cell testCell = loader.loadCell(6, 2, 0, 1);
-        Assert.assertNotNull(testCell.getBufferedImage());
-        Assert.assertTrue(testCell.isMapCellWalkable());
-        Assert.assertEquals(testCell.getImage(), 82);
+        assertNotNull(testCell.getBufferedImage());
+        assertTrue(testCell.isMapCellWalkable());
+        assertEquals(testCell.getImage(), 82);
         System.out.println(testCell.getState());
 
     }
@@ -76,8 +80,8 @@ public class  DataManagementTest {
         ZeldaCharacter ZC = new ZeldaCharacter(9, 2, 3, 4,0,0);
         ZC.setFiringDirection(Direction.E);
         storer.storeCharacter(4, ZC);
-        Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);
-        Assert.assertEquals(loader.loadCharacter(4, CharacterProperty.ATTACK), 3);
+        assertEquals(loader.loadCharacter(4, CharacterProperty.HP), 9);
+        assertEquals(loader.loadCharacter(4, CharacterProperty.ATTACK), 3);
         loader.getGameObjectConfiguration().storeGameEverything();
     }
 
@@ -90,7 +94,7 @@ public class  DataManagementTest {
         storer.storeKeyCode(keyCodeMap, 3);
         storer.storeKeyCode(keyCodeMap, 2);
         Map<Integer, String> keyCodeMap2 = loader.loadKeyCode(3);
-        Assert.assertEquals("hello", loader.loadKeyCode(3).get(34));
+        assertEquals("hello", loader.loadKeyCode(3).get(34));
         loader.getGameObjectConfiguration().storeGameEverything();
     }
     @Test
@@ -98,7 +102,7 @@ public class  DataManagementTest {
         storer.storeImage("321", 2, ImageCategory.RESOURCE);
         storer.storeImage("123", 2, ImageCategory.RESOURCE);
         String imagePath = loader.loadImagePath(2, ImageCategory.RESOURCE);
-        Assert.assertEquals("123", imagePath);
+        assertEquals("123", imagePath);
     }
 
     /**
@@ -110,7 +114,7 @@ public class  DataManagementTest {
         storer.addPlayer(3);
         storer.setPlayerParam(PlayerPara.CURRENT_SCORE, 99, 3);
 
-        Assert.assertEquals(99, loader.loadPlayerPara(PlayerPara.CURRENT_SCORE, 3));
+        assertEquals(99, loader.loadPlayerPara(PlayerPara.CURRENT_SCORE, 3));
         loader.getGameObjectConfiguration().storeGameEverything();
     }
 
