@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
-import ooga.controller.*;
+import ooga.controller.FinishControl;
+import ooga.controller.WindowControl;
 import ooga.controller.gamecontrol.NPC.MainNPCControl;
 import ooga.controller.gamecontrol.player.MainPlayerControl;
 import ooga.data.DataLoaderAPI;
@@ -97,19 +98,31 @@ public class GameController {
       npc.update();
     }
     for (MainPlayerControl mpc : myMainPlayerController) {
-      mpc.updateKey();
-      if (!mpc.update()) {
-        finishGame(mpc, false); // this is dead
-        win = false;
-      }
-      if (mpc.hasWon()) {
-        finishGame(mpc, true); // this is won
+      if (!mpc.isHurt()) {
+        mpc.updateKey();
+        if (!mpc.update()) {
+          finishGame(mpc, false); // this is dead
+          win = false;
+        }
+        if (mpc.hasWon()) {
+          finishGame(mpc, true); // this is won
+        }
       }
     }
     if (myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P)) {
       pause();
     }
     distanceCheck();
+    attackCheck();
+  }
+
+  private void attackCheck() {
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      if (myGameView.isAttacked(mpc.getID())) {
+        mpc.getHurt();
+      }
+    }
+
   }
 
   private void distanceCheck() {

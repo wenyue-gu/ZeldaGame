@@ -64,6 +64,8 @@ public class Model implements ModelInterface {
           p.getPlayerParam(PlayerPara.CURRENT_SCORE),
           p.getPlayerParam(PlayerPara.SCORE_GOAL),
           CharacterType.PLAYER);
+      current.setX(-1);
+      current.setY(0);
       players.put(p.getPlayerID(), current);
     }
   }

@@ -62,7 +62,7 @@ public class testMainView implements Runnable {
     if (view.isKeyDown(GLFW.GLFW_KEY_W)){
       view.updateAgent(2,"E","WALK", false);}
     if (view.isKeyDown(GLFW.GLFW_KEY_Q)){
-      view.updateAgent(3,"E","SPRINT", false);}
+      view.updateAgent(2,"E","DEATH", true);}
     }
 
   private void render() throws IOException {
