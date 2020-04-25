@@ -72,7 +72,6 @@ public class GameController {
       }
     }
     for (MainNPCControl npc : myNPCControl) {
-      System.out.println(2);
       npc.setID();
     }
   }
@@ -132,7 +131,8 @@ public class GameController {
 
   public void finishGame(MainPlayerControl mpc, boolean win) {
     myTimer.stop();
-    myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer) mpc.getPlayer()).getScore());
+    myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer)mpc.getPlayer()).getScore());
+    myFinishControl.setScore(getSScoreList());
   }
 
   public void setMode(boolean dark) {
