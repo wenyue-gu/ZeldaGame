@@ -267,7 +267,6 @@ public class GenerateAgentsData {
     // create animation dict
     data.setType("Shieldman");
 
-
     // create empty combo dict
     Map<String, String> comboDict = new HashMap<>();
     comboDict.put("JUMP", "FALL");
@@ -301,6 +300,7 @@ public class GenerateAgentsData {
     data.setPrevDict(prevDict);
 
     // create animation dict
+    data.setSpeedScale(10f);
 
     data.setHalfBounds(Asset2D.getPlayerBounds());
 
