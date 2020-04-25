@@ -1,12 +1,11 @@
 package ooga.model.map;
 
-import ooga.data.DataLoaderAPI;
-import ooga.model.enums.backend.Direction;
-import ooga.model.interfaces.gameMap.SingleGrid;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import ooga.data.DataLoaderAPI;
+import ooga.model.enums.backend.Direction;
+import ooga.model.interfaces.gameMap.SingleGrid;
 
 /**
  * This class implements a single grid in a map

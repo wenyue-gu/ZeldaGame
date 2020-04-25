@@ -1,11 +1,9 @@
 package ooga.model.map;
 
+import java.util.*;
 import ooga.data.DataLoaderAPI;
 import ooga.model.enums.backend.Direction;
 import ooga.model.interfaces.gameMap.GridInMap;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class implements grids' relationship in a map
