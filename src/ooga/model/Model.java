@@ -51,6 +51,7 @@ public class Model implements ModelInterface {
         npcs.put(zc.getId(), zc);
       }
     }
+    ((ZeldaCharacter) npcs.get(10)).setType(CharacterType.BIGBOY);
 
     players = new HashMap<Integer, ZeldaPlayer>();
     List<PlayerStatus> playerStatuses = dataLoader.getCurrentPlayers();

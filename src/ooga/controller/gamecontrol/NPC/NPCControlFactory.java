@@ -15,7 +15,8 @@ public class NPCControlFactory {
   }
 
   private void fillMap(){
-    controlMap.put(1, new SoldierControl());
+    controlMap.put(2, new SoldierControl());
+    controlMap.put(1, new BigBoyControl());
 //    controlMap.put(0, new MarioNPCControl());
   }
 

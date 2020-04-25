@@ -86,7 +86,7 @@ public class GameController {
 
     for (Object NPC : myModel.getNPCs().values()) {
       MainNPCControl npcControl = new MainNPCControl();
-      npcControl.setControl(gameType);
+      npcControl.setControl(((ZeldaCharacter)NPC).getType().getIndex());
       npcControl.setMyNPC((Movable1D) NPC);
       myNPCControl.add(npcControl);
     }
