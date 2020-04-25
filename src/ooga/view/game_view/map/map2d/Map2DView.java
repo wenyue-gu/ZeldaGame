@@ -52,8 +52,16 @@ public class Map2DView extends MapView {
 
   }
 
+  public int getTileTotal(){return titles.length;}
+
+  public Tile2DView getTile(int idx){return titles[idx];}
+
   public boolean isWalkable(int i, int j){
     return titles[getIndex(i,j)].isWalkable();
+  }
+
+  public boolean isWalkable(int i){
+    return titles[i].isWalkable();
   }
 
   public float getPosX(int i, int j){return titles[getIndex(i,j)].getGameObject().getMesh().getVertices()[3].getPosition().getX();}

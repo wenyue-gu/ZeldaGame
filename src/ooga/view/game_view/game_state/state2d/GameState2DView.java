@@ -54,7 +54,7 @@ public class GameState2DView extends GameStateView {
     this.bulletMap = new HashMap<>();
     this.numPlayers = agentsData.keySet().size();
     this.agentMap = new HashMap<>();
-    this.box = new BoundingBox(map, agentMap, bulletMap);
+    this.box = new BoundingBox(map, agentMap);
   }
 
   public float getCenterPositionX(int id) {
@@ -113,24 +113,26 @@ public class GameState2DView extends GameStateView {
       //System.out.println("spawning");
       Vector3f parentPosition = new Vector3f(agentMap.get(id).getCenterPosition(), 0f);
       String parentDirection = agentMap.get(id).getCurrentDirection();
+
+      Vector3f newAgentDelta = Vector3f.zeros();
       Agent2DDataHolder newAgentData = positionNewAgent(
           agentDataHolderMap.get(id).getSpawnerDict().get(state),
           parentPosition, parentDirection, false);
       GenerateAgentsData.loadAnimations(newAgentData);
 
-      if (box.canMove(parentPosition, newAgentData.getPosition())) {
-        //System.out.println(newAgentData.isBullet());
-        if (newAgentData.isBullet()) {
-          int newId = getNextBulletId();
-          bulletMap.put(newId, new Agent2DView(newId, newAgentData));
+      int newId = getNextBulletId();
+      Agent2DView newAgent = new Agent2DView(newId, newAgentData);
+
+      if (newAgentData.isBullet() && box.canMove(false, true, newAgent, newAgentDelta)) {
+          bulletMap.put(newId, newAgent);
           bulletMap.get(newId).createMesh();
-        } else {
-          int newId = getNextAgentId();
-          agentDataHolderMap.put(newId, newAgentData);
-          agentMap.put(newId, new Agent2DView(newId, newAgentData));
-          agentMap.get(newId).createMesh();
-        }
       }
+      else if (!newAgentData.isBullet() && box.canMove(true, false, newAgent, newAgentDelta)) {
+        agentDataHolderMap.put(newId, newAgentData);
+        agentMap.put(newId, newAgent);
+        agentMap.get(newId).createMesh();
+      }
+
     }
 
     if (isAttack) {
@@ -210,16 +212,20 @@ public class GameState2DView extends GameStateView {
 
         Vector3f parentPosition = new Vector3f(agentMap.get(id).getCenterPosition(), 0f);
         String parentDirection = agentMap.get(id).getCurrentDirection();
+
+        Vector3f newAgentDelta = Vector3f.zeros();
+
         Agent2DDataHolder newAgentData = positionNewAgent(
             agentDataHolderMap.get(id).getSpawnerDict().get(agentMap.get(id).getAction()),
             parentPosition, parentDirection, true);
         GenerateAgentsData.loadAnimations(newAgentData);
 
-        if (box.canMove(parentPosition, newAgentData.getPosition())) {
-          //System.out.println(newAgentData.isBullet());
-            int newId = getNextAgentId();
+        int newId = getNextAgentId();
+        Agent2DView newAgent = new Agent2DView(newId, newAgentData);
+
+        if (box.canMove(true, false, newAgent, newAgentDelta)) {
             agentDataHolderMap.put(newId, newAgentData);
-            agentMap.put(newId, new Agent2DView(newId, newAgentData));
+            agentMap.put(newId, newAgent);
             agentMap.get(newId).createMesh();
         }
 

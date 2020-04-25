@@ -16,16 +16,24 @@ public class Agent2DView extends AgentView {
 
   protected Agent2DController controller;
   private boolean shouldTerminated = false;
+  private Vector2f halfBounds;
 
-  public Agent2DView(int id, Agent2DDataHolder data) throws IOException {
+  public Agent2DView(int id, Agent2DDataHolder data) {
     super(data.getMoveAction());
     this.id = id;
     vertices = data.getVertices();
     indices = data.getIndices();
+    halfBounds = data.getHalfBounds();
     controller = new Agent2DController(data);
     mesh = new Mesh(vertices, indices, controller.getCurrentAnimatedMaterial());
     object = new GameObject(Vector3f.zeros(), data.getRotation(), data.getScale(), mesh);
     controller.setObject(object);
+  }
+
+  public int getId(){return id;}
+
+  public Vector2f getHalfBounds() {
+    return halfBounds;
   }
 
   public void terminate(){
