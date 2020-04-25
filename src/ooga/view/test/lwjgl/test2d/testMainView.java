@@ -21,8 +21,10 @@ public class testMainView implements Runnable {
 
   public void init() throws IOException {
     Map<Integer, Agent2DDataHolder> dataHolderMap = new HashMap<>();
-    dataHolderMap.put(0, GenerateAgentsData.createSoldier(0f, 0f));
-   view = new GameState2DView(dataHolderMap);
+    //dataHolderMap.put(0, GenerateAgentsData.createSoldier(-1f, 0f));
+    //dataHolderMap.put(1, GenerateAgentsData.createSoldier(-1f, -0.5f));
+    dataHolderMap.put(0, GenerateAgentsData.createEngineer(-1f, 0f));
+    view = new GameState2DView(dataHolderMap);
    view.createWindow();
   }
 
@@ -36,9 +38,13 @@ public class testMainView implements Runnable {
       try {
         update();
       } catch (IOException e) {
-        e.printStackTrace();
+        System.out.println("Exception in game scene update");
       }
-      render();
+      try {
+        render();
+      } catch (IOException e) {
+        System.out.println("Exception in game scene rendering");
+      }
     }
     close();
   }
@@ -46,11 +52,14 @@ public class testMainView implements Runnable {
   private void update() throws IOException {
     view.updateWindow();
     view.updateMap(); //empty method
-    if (view.isKeyDown(GLFW.GLFW_KEY_S)){
+    view.updateBullets();
+    if (view.isKeyDown(GLFW.GLFW_KEY_A)){
       view.updateAgent(0,"E","ATTACK", true);}
+    if (view.isKeyDown(GLFW.GLFW_KEY_S)){
+      view.updateAgent(0,"E","SUMMON_BIGBOY", true);}
   }
 
-  private void render() {
+  private void render() throws IOException {
     view.renderAll();
     // can also render separately, renderWindow() is mandatory
   }

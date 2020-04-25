@@ -36,6 +36,15 @@ public class Asset2D {
     };
   }
 
+  public static Vertex[] getBulletVertices(){
+    return new Vertex[]{
+        new Vertex(new Vector3f(-0.2f, 0.1f, -0.01f), new Vector3f(1.0f, 0.0f, 0.0f), new Vector2f(0.0f, 0.0f)),
+        new Vertex(new Vector3f(-0.2f, -0.1f, -0.01f), new Vector3f(0.0f, 1.0f, 0.0f), new Vector2f(0.0f, 1f)),
+        new Vertex(new Vector3f(0.2f, -0.1f, -0.01f), new Vector3f(0.0f, 0.0f, 1.0f), new Vector2f(1f, 1f)),
+        new Vertex(new Vector3f(0.2f, 0.1f, -0.01f), new Vector3f(1.0f, 1.0f, 0.0f), new Vector2f(1f, 0.0f))
+    };
+  }
+
   public static int[] getAgentIndices(){
     return new int[] {
         0, 1, 2,
@@ -70,6 +79,14 @@ public class Asset2D {
   public static Vector3f getNonPlayerScale(){
     return new Vector3f(0.8f, 0.8f, 0.8f);
   }
+
+  public static Vector3f getBulletScale(){return new Vector3f(0.03f, 0.015f, 0.1f);}
+
+  public static Vector3f getBulletDelta(){return new Vector3f(0.0f, 15f, 0f);}
+
+  public static Vector3f getSummonDelta(){return new Vector3f(0.0f, -0.5f, 0f);}
+
+  public static float getBulletSpeed(){return 70.0f;}
 
   public static Vector3f convertDirectionalSpeed(String direction, float speed_scale){
     if (direction.equals("E")){

@@ -3,6 +3,7 @@ package ooga.view.game_view.agent.agent2d;
 import com.google.gson.internal.LinkedHashTreeMap;
 import java.util.Map;
 import javafx.util.Pair;
+import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Vertex;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.maths.Vector3f;
@@ -17,6 +18,7 @@ public class Agent2DDataHolder {
   private String moveAction = "SPRINT";
   private boolean shouldConsumed = false;
   private boolean isBullet = false;
+  private boolean isSummon = false;
   private float speedScale = 1.0f;
   private Map<String, String> nextDict = new LinkedHashTreeMap<>();
   private Map<Pair<Pair<String, Boolean>, String>, String> prevDict = new LinkedHashTreeMap<>();
@@ -39,6 +41,7 @@ public class Agent2DDataHolder {
   public Agent2DDataHolder(Agent2DDataHolder other) {
     this.type = other.type;
     this.isBullet = other.isBullet;
+    this.isSummon = other.isSummon;
     this.initialDirection = other.getInitialDirection();
     this.initialAction = other.getInitialAction();
     this.defaultAction = other.getDefaultAction();
@@ -48,12 +51,20 @@ public class Agent2DDataHolder {
     this.nextDict = Map.copyOf(other.getNextDict());
     this.prevDict = Map.copyOf(other.getPrevDict());
     this.spawnerDict = Map.copyOf(other.getSpawnerDict());
-   // this.agentAnimationDict = new Animation2DDict(other.getAgentAnimationDict());
+    // this.agentAnimationDict = new Animation2DDict(other.getAgentAnimationDict());
     this.rotation = new Vector3f(other.getRotation());
     this.position = new Vector3f(other.getPosition());
     this.scale = new Vector3f(other.getScale());
-    this.vertices = Asset2D.getAgentVertices();
+    this.vertices = Mesh.verticesCopy(Asset2D.getAgentVertices());
     this.indices = Asset2D.getAgentIndices();
+  }
+
+  public boolean isSummon() {
+    return isSummon;
+  }
+
+  public void setSummon(boolean summon) {
+    isSummon = summon;
   }
 
   public String getType() {

@@ -7,6 +7,7 @@ import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
+import ooga.view.engine.utils.Test;
 import ooga.view.game_view.agent.interfaces.AgentController;
 import ooga.view.game_view.animation.dict2d.Animation2DDict;
 
@@ -17,8 +18,11 @@ public class Agent2DController extends AgentController {
   private GameObject object;
   private float speedScale;
   private Vector3f initialPos;
+  private boolean shouldConsumed;
+  private boolean shouldTerminated = false;
+  private boolean isSummon;
 
-  public Agent2DController(Agent2DDataHolder data) throws IOException {
+  public Agent2DController(Agent2DDataHolder data) {
     super();
     DEFAULT_ACTION = data.getDefaultAction();
     direction = data.getInitialDirection();
@@ -26,12 +30,23 @@ public class Agent2DController extends AgentController {
     action = data.getInitialAction();
     animationDict = data.getAgentAnimationDict();
     nextDict = data.getNextDict();
-    initialPos = data.getPosition();
+    initialPos =   Vector3f.add(data.getPosition(), data.isBullet()?Asset2D.getBulletDelta():Vector3f.zeros());
+    initialPos =   Vector3f.add(initialPos, data.isSummon()?Asset2D.getSummonDelta():Vector3f.zeros());
+    shouldConsumed = data.shouldConsumed();
+    isSummon = data.isSummon();
     this.setCurrentAnimation(direction, action);
   }
 
+  public void setShouldTerminated(boolean shouldTerminated) {
+    this.shouldTerminated = shouldTerminated;
+  }
+
+  public String getAction(){return action;}
+
   public void setObject(GameObject object) {
     this.object = object;
+    System.out.println("ddddd");
+    Test.printVector3f(initialPos);
     translate(initialPos);
   }
 
@@ -39,29 +54,34 @@ public class Agent2DController extends AgentController {
   public void setCurrentAnimation(String direction, String action) {
     this.direction = direction;
     this.action = action;
+    //System.out.println(action);
+    //System.out.println(direction);
+    //System.out.println(DEFAULT_ACTION);
     animationDict.setInUseAnimation(direction, action);
   }
 
   public Material getCurrentAnimatedMaterial() {
     Material frame = animationDict.getAnimation().getCurrentFrame();
     if (frame == null) {
+
       if (nextDict.containsKey(action)) {
         setCurrentAnimation(direction, nextDict.get(action));
       } else {
-        setCurrentAnimation(direction, DEFAULT_ACTION);
+        setCurrentAnimation(direction, isSummon?action:DEFAULT_ACTION);
       }
-      System.out.println(action);
-      System.out.println(direction);
-      System.out.println(DEFAULT_ACTION);
-      return animationDict.getAnimation().getCurrentFrame();
+
+      return (shouldConsumed || shouldTerminated) ? null:animationDict.getAnimation().getCurrentFrame();
     } else {
       return frame;
     }
   }
 
-  public String getCurrentDirection(){return direction;}
+  public String getCurrentDirection(){return animationDict.getDirection();}
+
+  public String getCurrentAction(){return animationDict.getCurrentAction();}
 
   public void move(String direction) { //TODO if valid
+    //System.out.println("it moves");
     translate(Asset2D.convertDirectionalSpeed(direction, speedScale));
     //object.setPosition(Vector3f.add(object.getPosition(), Asset2D.convertDirectionalSpeed(direction, speedScale)));
   }
