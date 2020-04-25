@@ -107,4 +107,8 @@ public class FinishControl {
     public void setColor(Color color) {
         myFinishScreen.changColor(color);
     }
+
+    public void setScore(Map<Integer, Integer> sScoreList) {
+        myFinishScreen.updateScore(sScoreList);
+    }
 }

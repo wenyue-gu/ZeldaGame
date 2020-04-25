@@ -65,7 +65,7 @@ public class FinishScreen implements MenuView {
         if(win)finishText.setText(resource.getString("playerf") + " " + id + " " + resource.getString("win"));
         else finishText.setText(resource.getString("playerf") + " " + id + " " + resource.getString("dead"));
 
-        scorelist.setText(resource.getString("playerscore")+" "+score);
+        //scorelist.setText(resource.getString("playerscore")+" "+score);
     }
 
 
@@ -115,12 +115,13 @@ public class FinishScreen implements MenuView {
         vBox.getChildren().addAll(finishText, scorelist, BackToMenuButton);
     }
 
-//    public void updateScore(Map<Integer, Integer> list){
-//        String s = "";
-//        for(int i:list.keySet()){
-//            s+= "Player "+i+" score: "+list.get(i)+"; \n";
-//        }
-//        s+="\n\n";
-//        scorelist.setText(s);
-//    }
+    public void updateScore(Map<Integer, Integer> list){
+        var resource = ResourceBundle.getBundle("menu", new Locale(myLanguage));
+        String s = "";
+        for(int i:list.keySet()){
+            s+= (resource.getString("playerf")+i+resource.getString("playerscore")+list.get(i)+"; \n");
+        }
+        s+="\n\n";
+        scorelist.setText(s);
+    }
 }

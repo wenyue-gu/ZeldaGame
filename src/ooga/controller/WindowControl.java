@@ -240,7 +240,6 @@ public class WindowControl {
   }
 
   private void setUpController() throws DataLoadingException {
-    myDataLoader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(CURRENT_PLAYER_ID));
     myGameController = new GameController(myDataStorer);
     if (!isColored) {
       myGameController.setMode(dark);

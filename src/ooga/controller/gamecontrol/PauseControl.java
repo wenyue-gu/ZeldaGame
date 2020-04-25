@@ -55,7 +55,7 @@ public class PauseControl {
 
     private void resumeGame(){
         myStage.close();
-        //myTimer.start();
+        myTimer.start();
     }
 
     private void backToMenu(){

@@ -112,6 +112,7 @@ public class GameController {
   public void finishGame(MainPlayerControl mpc, boolean win) {
     myTimer.stop();
     myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer)mpc.getPlayer()).getScore());
+    myFinishControl.setScore(getSScoreList());
   }
 
   public void setMode(boolean dark) {
