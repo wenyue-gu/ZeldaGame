@@ -2,7 +2,9 @@ package ooga.view.game_view.game_state.state2d;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import ooga.view.engine.graphics.Shader;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.graphics.render.Renderer2D;
@@ -34,7 +36,6 @@ public class GameState2DView extends GameStateView {
   private Map2DView map;
   private Map<Integer, Agent2DView> agentMap;
   private Map<Integer, Agent2DView> bulletMap;
-  private int numPlayers;
   private Window window;
   private double lasTimeUpdated = 0;
   private double currentTimeUpdated = 0;
@@ -49,10 +50,9 @@ public class GameState2DView extends GameStateView {
   //        1) whether the attack is made (1. a method to calc the distance between two objects or with wall)
   private Map<Integer, Agent2DDataHolder> agentDataHolderMap;
 
-  public GameState2DView(Map<Integer, Agent2DDataHolder> agentsData) throws IOException {
+  public GameState2DView(Map<Integer, Agent2DDataHolder> agentsData) {
     this.agentDataHolderMap = agentsData;
     this.bulletMap = new HashMap<>();
-    this.numPlayers = agentsData.keySet().size();
     this.agentMap = new HashMap<>();
     this.box = new BoundingBox(map, agentMap);
   }
@@ -204,8 +204,15 @@ public class GameState2DView extends GameStateView {
 
   @Override
   public void renderAgents() throws IOException { // get rid of dead agents
-    for (int id : agentMap.keySet()) {
+    System.out.println("the set size of agents:");
+    System.out.println(agentMap.keySet().size());
+    for (int id : new HashSet<>(agentMap.keySet())) {
+      //System.out.println(agentma);
+      System.out.println("here is another player");
+      System.out.println(agentMap.get(id).getId());
       if (!agentMap.get(id).renderMesh(renderer)) {
+        System.out.println("the player's render return false");
+        System.out.println(agentMap.get(id).getId());
         //render didn't succeed
 
         //TODO if the agent is summoner, generate new agents

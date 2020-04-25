@@ -22,7 +22,7 @@ public class testMainView implements Runnable {
   public void init() throws IOException {
     Map<Integer, Agent2DDataHolder> dataHolderMap = new HashMap<>();
     //dataHolderMap.put(0, GenerateAgentsData.createSoldier(-1f, 0f));
-    dataHolderMap.put(1, GenerateAgentsData.createSoldier(-1f, -0.5f));
+    dataHolderMap.put(1, GenerateAgentsData.createSoldier(-1f, -0.8f));
     dataHolderMap.put(0, GenerateAgentsData.createEngineer(-1f, 0f));
     view = new GameState2DView(dataHolderMap);
    view.createWindow();
