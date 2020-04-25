@@ -5,6 +5,7 @@ import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.graphics.Material;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Vertex;
+import ooga.view.engine.maths.Vector2f;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
 import ooga.view.engine.utils.cyberpunk2d.Text2DMapReader;
@@ -35,6 +36,7 @@ public class Tile2DView extends TileView {
     }
   }
 
+  public Vector2f getCenterLocation(){return mesh.getCenter();}
 
   public boolean isWalkable(){return controller.isWalkable();}
 

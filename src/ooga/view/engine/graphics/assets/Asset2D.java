@@ -86,7 +86,15 @@ public class Asset2D {
 
   public static Vector3f getSummonDelta(){return new Vector3f(0.0f, -0.5f, 0f);}
 
-  public static float getBulletSpeed(){return 70.0f;}
+  public static Vector2f getNonPlayerBounds(){return new Vector2f(0.5f*getNonPlayerScale().getX(), 0.5f*getNonPlayerScale().getY());}
+
+  public static Vector2f getPlayerBounds(){return new Vector2f(0.5f*getPlayerScale().getX(), 0.5f*getPlayerScale().getY());}
+
+  public static Vector2f getBulletBounds(){return new Vector2f(0.2f*getBulletScale().getX(), 0.2f*getBulletScale().getY());}
+
+  public static Vector2f getMapTileBounds(){return new Vector2f(1f*getMapScale().getX(), 1f*getMapScale().getY());}
+
+  public static float getBulletSpeed(){return 100.0f;}
 
   public static Vector3f convertDirectionalSpeed(String direction, float speed_scale){
     if (direction.equals("E")){
