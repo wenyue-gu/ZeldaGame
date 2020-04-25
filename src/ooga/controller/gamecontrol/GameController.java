@@ -24,7 +24,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class GameController {
 
-  public static final double MIN_DIS = 0.1;
+  public static final double MIN_DIS = 1;
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
@@ -86,7 +86,7 @@ public class GameController {
 
     for (Object NPC : myModel.getNPCs().values()) {
       MainNPCControl npcControl = new MainNPCControl();
-      npcControl.setControl(((ZeldaCharacter)NPC).getType().getIndex());
+      npcControl.setControl(((ZeldaCharacter) NPC).getType().getIndex());
       npcControl.setMyNPC((Movable1D) NPC);
       myNPCControl.add(npcControl);
     }
@@ -115,9 +115,8 @@ public class GameController {
   private void distanceCheck() {
     for (MainPlayerControl mpc : myMainPlayerController) {
       for (MainNPCControl npc : myNPCControl) {
-        if (Math.abs(myGameView.getXPos(mpc.getID()) - myGameView.getXPos(npc.getID())) < MIN_DIS
-            || Math.abs(myGameView.getYPos(mpc.getID()) - myGameView.getYPos(npc.getID())) < MIN_DIS) {
-          System.out.println("in range");
+        if (Math.abs(myGameView.getXPos(mpc.getID()) - myGameView.getXPos(npc.getID())) < MIN_DIS &&
+            Math.abs(myGameView.getYPos(mpc.getID()) - myGameView.getYPos(npc.getID())) < MIN_DIS) {
           npc.attack();
         }
       }
@@ -131,7 +130,7 @@ public class GameController {
 
   public void finishGame(MainPlayerControl mpc, boolean win) {
     myTimer.stop();
-    myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer)mpc.getPlayer()).getScore());
+    myFinishControl.showMenu(win, mpc.getID(), (int) ((ZeldaPlayer) mpc.getPlayer()).getScore());
     myFinishControl.setScore(getSScoreList());
   }
 

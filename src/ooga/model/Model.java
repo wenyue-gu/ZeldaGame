@@ -6,6 +6,7 @@ import static ooga.model.characters.ZeldaCharacter.DEFAULT_WEAPON;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
 import ooga.data.PlayerStatus;
@@ -44,14 +45,15 @@ public class Model implements ModelInterface {
     npcs = new HashMap<Integer, ZeldaCharacter>();
     for (ZeldaCharacter c : characters) {
 //      int rand = new Random().nextInt(CharacterType.values().length - 2) + 1;
-//      c.setType(CharacterType.byIndex(rand));
+      int rand = new Random().nextInt(3) + 1;
       if (c.getId() >= THRESHOLD) {
         ZeldaCharacter zc = new ZeldaCharacter(c.getHP(), DEFAULT_WEAPON, DEFAULT_ATTACK, c.getId(),
             c.getX(), c.getY(), CharacterType.LOADSOLDIER);
+//        zc.setType(CharacterType.byIndex(rand));
+        zc.setType(CharacterType.ENGINEERBOT);
         npcs.put(zc.getId(), zc);
       }
     }
-    ((ZeldaCharacter) npcs.get(10)).setType(CharacterType.BIGBOY);
 
     players = new HashMap<Integer, ZeldaPlayer>();
     List<PlayerStatus> playerStatuses = dataLoader.getCurrentPlayers();

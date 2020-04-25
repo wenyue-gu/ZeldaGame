@@ -4,6 +4,7 @@ import ooga.controller.gamecontrol.NPCControlInterface;
 
 import java.util.HashMap;
 import java.util.Map;
+import ooga.model.enums.backend.CharacterType;
 
 public class NPCControlFactory {
 
@@ -15,8 +16,9 @@ public class NPCControlFactory {
   }
 
   private void fillMap(){
-    controlMap.put(2, new SoldierControl());
-    controlMap.put(1, new BigBoyControl());
+    controlMap.put(CharacterType.LOADSOLDIER.getIndex(), new SoldierControl());
+    controlMap.put(CharacterType.BIGBOY.getIndex(), new BigBoyControl());
+    controlMap.put(CharacterType.ENGINEERBOT.getIndex(), new EngineerBotControl());
 //    controlMap.put(0, new MarioNPCControl());
   }
 

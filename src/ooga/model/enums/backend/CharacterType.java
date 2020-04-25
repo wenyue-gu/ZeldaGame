@@ -3,8 +3,8 @@ package ooga.model.enums.backend;
 public enum CharacterType {
   PLAYER(0),
   BIGBOY(1),
-  ENGINEERBOT(3),
-  LOADSOLDIER(2),
+  ENGINEERBOT(2),
+  LOADSOLDIER(3),
   SHIELD(4),
   TURRET(5),
   WATCHERBOT(6),
