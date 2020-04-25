@@ -25,6 +25,12 @@ public class Mesh {
 		Mesh.normalize(this);
 	}
 
+	public Mesh(Vertex[] vertices, int[] indices, Material material, boolean isMap) {
+		this.vertices = vertices;
+		this.indices = indices;
+		this.material = material;
+	}
+
 	public Mesh(Mesh mesh, Vector3f rotation){
 		this.vertices = verticesCopy(mesh.vertices);
 		this.indices = mesh.getIndices().clone();
