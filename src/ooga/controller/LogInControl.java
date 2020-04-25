@@ -20,6 +20,11 @@ public class LogInControl {
     private Button LogInButton;
     private Button SignUpButton;
 
+    /**
+     * Create login control using the windowcontrol where it is created
+     * window control passed in is necessary to take the "islogin" information and user name
+     * @param windowControl windowcontrol in which the login control is created
+     */
     public LogInControl(WindowControl windowControl){
         myStage = new Stage();
         myView = new LogInView();
@@ -58,8 +63,6 @@ public class LogInControl {
         catch(Exception e){
             System.out.println("Something went wrong...");
         }
-
-        //TODO: create user profile properties
         myControl.setUser(UserInput);
         myStage.close();
 
@@ -78,25 +81,38 @@ public class LogInControl {
             return;
         }
         myControl.setUser(UserInput);
-        //TODO: OPEN USER PROFILE AND NOTIFY WINDOW CONTROL OF USER
-        //TODO: myControl.findUserProfile();
         myControl.setUser(UserInput);
         myStage.close();
     }
 
+    /**
+     * clear login input (user name and password) and show the stage
+     */
     public void showLogIn(){
         myView.clearInput();
         myStage.show();
     }
 
+    /**
+     * ask view to switch the mode to dark mode / light mode
+     * @param dark boolean that determines if should be dark or light
+     */
     public void switchMode(boolean dark) {
         myView.switchMode(dark);
     }
 
+    /**
+     * ask view to switch language of button/label
+     * @param language string that represents name of said language
+     */
     public void setLanguage(String language) {
         myView.setLanguage(language);
     }
 
+    /**
+     * ask view to change background color
+     * @param color color
+     */
     public void changColor(Color color) {
         myView.changColor(color);
     }

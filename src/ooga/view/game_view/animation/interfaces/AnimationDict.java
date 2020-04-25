@@ -22,6 +22,14 @@ abstract public class AnimationDict {
     resetAnimationDict();
   }
 
+  public String getCurrentAction() {
+    return currentAction;
+  }
+
+  public String getDirection() {
+    return direction;
+  }
+
   abstract protected void resetAnimationDict();
 
 }

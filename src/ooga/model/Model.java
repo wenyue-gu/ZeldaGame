@@ -1,8 +1,12 @@
 package ooga.model;
 
+import static ooga.model.characters.ZeldaCharacter.DEFAULT_ATTACK;
+import static ooga.model.characters.ZeldaCharacter.DEFAULT_WEAPON;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import ooga.data.DataLoaderAPI;
 import ooga.data.DataLoadingException;
 import ooga.data.PlayerStatus;
@@ -18,6 +22,7 @@ import ooga.model.interfaces.gameMap.GameMap;
 @SuppressWarnings("unchecked")
 public class Model implements ModelInterface {
 
+  public static final int THRESHOLD = 10;
   private DataLoaderAPI dataLoader;
   private GameMap gameMap;
   private Map players;
@@ -38,14 +43,19 @@ public class Model implements ModelInterface {
   private void initializeZelda() {
     List<ZeldaCharacter> characters = dataLoader.getZeldaCharacters();
     npcs = new HashMap<Integer, ZeldaCharacter>();
-    for (ZeldaCharacter c: characters) {
+    for (ZeldaCharacter c : characters) {
 //      int rand = new Random().nextInt(CharacterType.values().length - 2) + 1;
-//      c.setType(CharacterType.byIndex(rand));
-      c.setType(CharacterType.TURRET);
-      npcs.put(c.getId(), c);
+      int rand = new Random().nextInt(3) + 1;
+      if (c.getId() >= THRESHOLD) {
+        ZeldaCharacter zc = new ZeldaCharacter(c.getHP(), DEFAULT_WEAPON, DEFAULT_ATTACK, c.getId(),
+            c.getX(), c.getY(), CharacterType.LOADSOLDIER);
+//        zc.setType(CharacterType.byIndex(rand));
+        zc.setType(CharacterType.ENGINEERBOT);
+        npcs.put(zc.getId(), zc);
+      }
     }
 
-    players= new HashMap<Integer, ZeldaPlayer>();
+    players = new HashMap<Integer, ZeldaPlayer>();
     List<PlayerStatus> playerStatuses = dataLoader.getCurrentPlayers();
     for (PlayerStatus p : playerStatuses) {
       ZeldaPlayer current = new ZeldaPlayer(
@@ -54,6 +64,8 @@ public class Model implements ModelInterface {
           p.getPlayerParam(PlayerPara.CURRENT_SCORE),
           p.getPlayerParam(PlayerPara.SCORE_GOAL),
           CharacterType.PLAYER);
+      current.setX(-1);
+      current.setY(0);
       players.put(p.getPlayerID(), current);
     }
   }

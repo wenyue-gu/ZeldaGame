@@ -31,12 +31,13 @@ public class Animation2DDict extends AnimationDict {
     }
   }
 
+
   public Animation2D getAnimation(){
 
     for (Pair<Pair<String, Boolean>, String> key: prevDict.keySet()){
-      if (currentAction.equals(key.getValue()) && (
-          key.getKey().getValue() && previousAction.equals(key.getKey().getKey())) ||
-          (!key.getKey().getValue() && !previousAction.equals(key.getKey().getKey()))){
+     // revDict.put(new Pair<>(new Pair<>("SPRINT",false), "SPRINT"), "PRESPRINT")
+      if (currentAction.equals(key.getValue()) && ((key.getKey().getValue() && previousAction.equals(key.getKey().getKey())) ||
+          (!key.getKey().getValue() && !previousAction.equals(key.getKey().getKey())))){
         return getAnimationMap(direction, prevDict.get(key));
       }
     }

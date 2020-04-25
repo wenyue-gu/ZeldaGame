@@ -1,21 +1,18 @@
 package ooga.model.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import ooga.data.DataLoader;
-import ooga.data.DataLoaderAPI;
-import ooga.data.DataLoadingException;
-import ooga.data.DataStorer;
-import ooga.data.DataStorerAPI;
+import ooga.data.*;
 import ooga.game.GameType;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.backend.GamePara;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModelDataLoadingTest {
   DataLoaderAPI loader;
@@ -98,4 +95,22 @@ public class ModelDataLoadingTest {
     assertEquals(8, keyMap.size());
     assertEquals("left", keyMap.get(263));
   }
-}
+
+  @Test
+  public void lifeLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
+    model = new Model(loader);
+    Map<Integer, ZeldaPlayer> players = (HashMap<Integer, ZeldaPlayer>) model.getPlayers();
+
+    assertEquals(5, players.get(0).getHP());
+  }
+
+  @Test
+  public void npcLifeLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
+    model = new Model(loader);
+    Map<Integer, ZeldaCharacter> characters = (HashMap<Integer, ZeldaCharacter>) model.getNPCs();
+
+    assertEquals(1, characters.get(10).getHP());
+  }
+ }

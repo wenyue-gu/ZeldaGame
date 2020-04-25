@@ -28,6 +28,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
   private WeaponBase weaponBase;
   protected transient PropertyChangeNotifier notifier;
 
+
   /**
    * Creates a new instance of ZeldaCharacter
    *
@@ -62,7 +63,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
    * @param x         the initial x position
    * @param y         the initial y position
    */
-  public ZeldaCharacter(int initialHp, int weapon, int attack, int id, int x, int y,
+  public ZeldaCharacter(int initialHp, int weapon, int attack, int id, double x, double y,
       CharacterType type) {
     super(x, y);
     cb = new CharacterBase(id, initialHp, type);
