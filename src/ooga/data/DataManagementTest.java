@@ -87,7 +87,7 @@ public class  DataManagementTest {
         assertEquals(9, loader.loadCharacter(4, CharacterProperty.HP));
         assertEquals(3, loader.loadCharacter(4, CharacterProperty.ATTACK));
 //        assertEquals(2, loader.getZeldaCharacters().size());
-        storer.writeAllDataIntoDisk();
+//        storer.writeAllDataIntoDisk();
     }
 
     @Test
@@ -100,7 +100,7 @@ public class  DataManagementTest {
         storer.storeKeyCode(keyCodeMap, 2);
         Map<Integer, String> keyCodeMap2 = loader.loadKeyCode(3);
         assertEquals("hello", loader.loadKeyCode(3).get(34));
-        storer.writeAllDataIntoDisk();
+//        storer.writeAllDataIntoDisk();
     }
     @Test
     public void imageLoadingStoringTest() {
@@ -108,7 +108,7 @@ public class  DataManagementTest {
         storer.storeImage("123", 2, ImageCategory.RESOURCE);
         String imagePath = loader.loadImagePath(2, ImageCategory.RESOURCE);
         assertEquals("123", imagePath);
-        storer.writeAllDataIntoDisk();
+//        storer.writeAllDataIntoDisk();
     }
 
     /**
@@ -121,7 +121,7 @@ public class  DataManagementTest {
         storer.setPlayerParam(PlayerPara.CURRENT_SCORE, 99, 3);
 
         assertEquals(99, loader.loadPlayerPara(PlayerPara.CURRENT_SCORE, 3));
-        storer.writeAllDataIntoDisk();
+//        storer.writeAllDataIntoDisk();
     }
 
 

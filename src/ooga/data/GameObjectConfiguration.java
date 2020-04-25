@@ -81,7 +81,7 @@ public class GameObjectConfiguration {
 
 
   private void initiateDataStorageInstanceVariable() throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
-    Window window = new Window(WIDTH, HEIGHT, "Game");
+    Window window = new Window(WIDTH, HEIGHT, RESOURCES_PACKAGE);
     window.create();
     for (String key : Collections.list(resources.getKeys())) {
       Field field = initializeFieldObject(key);
@@ -379,14 +379,23 @@ public class GameObjectConfiguration {
   }
 
   public void setAnimationMap(String agent, Map<String, Animation2D> agentAnimation) {
-    if (animationMap.containsKey(agent)) {
-      animationMap.replace(agent, agentAnimation);
-    } else {
-      animationMap.put(agent, agentAnimation);
-    }
+    insertElementToMap(animationMap, agent, agentAnimation);
+//    if (animationMap.containsKey(agent)) {
+//      animationMap.replace(agent, agentAnimation);
+//    } else {
+//      animationMap.put(agent, agentAnimation);
+//    }
   }
 
   public Map<String, Animation2D> getSpecificAgentAnimation(String agent) {
     return animationMap.get(agent);
+  }
+
+  public <K, V> void insertElementToMap(Map<K, V> map, K newkey, V newValue) {
+    if (map.containsKey(newkey)) {
+      map.replace(newkey, newValue);
+    } else {
+      map.put(newkey, newValue);
+    }
   }
 }
