@@ -1,5 +1,8 @@
 package ooga.model;
 
+import static ooga.model.characters.ZeldaCharacter.DEFAULT_ATTACK;
+import static ooga.model.characters.ZeldaCharacter.DEFAULT_WEAPON;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,17 +42,17 @@ public class Model implements ModelInterface {
   private void initializeZelda() {
     List<ZeldaCharacter> characters = dataLoader.getZeldaCharacters();
     npcs = new HashMap<Integer, ZeldaCharacter>();
-    for (ZeldaCharacter c: characters) {
+    for (ZeldaCharacter c : characters) {
 //      int rand = new Random().nextInt(CharacterType.values().length - 2) + 1;
 //      c.setType(CharacterType.byIndex(rand));
       if (c.getId() >= THRESHOLD) {
-        c.setType(CharacterType.LOADSOLDIER);
-        c.initializeNotifier();
-        npcs.put(c.getId(), c);
+        ZeldaCharacter zc = new ZeldaCharacter(c.getHP(), DEFAULT_WEAPON, DEFAULT_ATTACK, c.getId(),
+            c.getX(), c.getY(), CharacterType.LOADSOLDIER);
+        npcs.put(zc.getId(), zc);
       }
     }
 
-    players= new HashMap<Integer, ZeldaPlayer>();
+    players = new HashMap<Integer, ZeldaPlayer>();
     List<PlayerStatus> playerStatuses = dataLoader.getCurrentPlayers();
     for (PlayerStatus p : playerStatuses) {
       ZeldaPlayer current = new ZeldaPlayer(
