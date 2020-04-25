@@ -1,11 +1,13 @@
 package ooga.model.map;
 
+import ooga.data.DataLoaderAPI;
+import ooga.data.DataLoadingException;
+import ooga.model.enums.backend.Direction;
+import ooga.model.interfaces.gameMap.SingleGrid;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import ooga.data.DataLoaderAPI;
-import ooga.model.enums.backend.Direction;
-import ooga.model.interfaces.gameMap.SingleGrid;
 
 /**
  * This class implements a single grid in a map
@@ -64,7 +66,7 @@ public class GameSingleGrid implements SingleGrid {
    * @param level
    */
   @Override
-  public void loadGrid(int id, int level) {
+  public void loadGrid(int id, int level) throws DataLoadingException {
     for (int r = 0; r < length; r++) {
       List<GameCell> currentRow = new ArrayList<>();
       for (int c = 0; c < width; c++) {

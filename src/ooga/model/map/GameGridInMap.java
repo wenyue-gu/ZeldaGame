@@ -1,9 +1,12 @@
 package ooga.model.map;
 
-import java.util.*;
 import ooga.data.DataLoaderAPI;
+import ooga.data.DataLoadingException;
 import ooga.model.enums.backend.Direction;
 import ooga.model.interfaces.gameMap.GridInMap;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class implements grids' relationship in a map
@@ -82,7 +85,7 @@ public class  GameGridInMap extends GameSingleGrid implements GridInMap {
    * @param level the level of grid
    */
   @Override
-  public void loadGrid(int level) {
+  public void loadGrid(int level) throws DataLoadingException {
     loadGrid(this.id, level);
   }
 }

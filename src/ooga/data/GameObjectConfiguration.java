@@ -158,9 +158,6 @@ public class GameObjectConfiguration {
   }
   private <T> void storeMapToDisk(Field field, String directoryPath) throws IllegalAccessException {
     Map<String, T> tempMap = (Map<String, T>) field.get(this);
-    if (tempMap == null) {
-      System.out.println(1);
-    }
     for (String j : tempMap.keySet()) {
       writeObjectTOJson(tempMap.get(j), directoryPath + j);
     }
@@ -263,12 +260,7 @@ public class GameObjectConfiguration {
 
   public void setImageMap(Map<String, String> newImageMap, ImageCategory imageCategory) {
     String newKey = imageCategory.toString();
-    if (imageMap.containsKey(newKey)) {
-      imageMap.replace(newKey, newImageMap);
-    } else {
-      imageMap.put(newKey, newImageMap);
-    }
-
+    insertElementToMap(imageMap, newKey, newImageMap);
   }
 
   public List<Integer> getCurrentPlayersID() {
@@ -354,15 +346,12 @@ public class GameObjectConfiguration {
   }
 
   public void setTextMap(String text, String keyword, TextCategory category) {
-    Map<String, String> tempTextMap = textMap.get(category);
+    Map<String, String> tempTextMap = textMap.get(category.toString());
     if (tempTextMap == null) {
       System.out.println("category not found (330 config)");
     }
-    if (tempTextMap.keySet().contains(keyword)) {
-      tempTextMap.replace(keyword, text);
-    } else {
-      tempTextMap.put(keyword, text);
-    }
+    tempTextMap = insertElementToMap(tempTextMap, keyword, text);
+    textMap.replace(category.toString(), tempTextMap);
   }
 
   public GameInfo getCurrentGameInfo() {
@@ -380,22 +369,28 @@ public class GameObjectConfiguration {
 
   public void setAnimationMap(String agent, Map<String, Animation2D> agentAnimation) {
     insertElementToMap(animationMap, agent, agentAnimation);
-//    if (animationMap.containsKey(agent)) {
-//      animationMap.replace(agent, agentAnimation);
-//    } else {
-//      animationMap.put(agent, agentAnimation);
-//    }
   }
 
   public Map<String, Animation2D> getSpecificAgentAnimation(String agent) {
     return animationMap.get(agent);
   }
 
-  public <K, V> void insertElementToMap(Map<K, V> map, K newkey, V newValue) {
+  public <K, V> Map<K, V> insertElementToMap(Map<K, V> map, K newkey, V newValue) {
     if (map.containsKey(newkey)) {
       map.replace(newkey, newValue);
     } else {
       map.put(newkey, newValue);
     }
+    return map;
   }
+//  public <E> List<E> setelementInListWithID(List<E> list, E element, int ID) {
+//    List<E> tempList = new ArrayList<>();
+//    for (E i : list) {
+//      if (i.getPlayerID() != ID) {
+//        tempList.add(i);
+//      }
+//    }
+//    tempList.add(element);
+//    list = tempList;
+//  }
 }

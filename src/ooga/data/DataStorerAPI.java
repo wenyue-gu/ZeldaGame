@@ -37,11 +37,11 @@ public interface  DataStorerAPI {
 
     void storeImage(String image, int ImageID, ImageCategory imageCategory);
     @Deprecated
-    void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level);
+    void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level) throws DataLoadingException;
 
-    void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID);
+    void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID) throws DataLoadingException;
 
-    void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID);
+    void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) throws DataLoadingException;
 
     void resetPlayerInfo();
 

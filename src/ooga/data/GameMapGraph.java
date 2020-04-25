@@ -99,7 +99,7 @@ public class GameMapGraph {
    * causes circular dependency between loader and gameMapGraph class Since buffer imaged is not
    * stored in Json, we have to load them manually.
    */
-  public void addBufferImage2D(DataLoader dataLoader) {
+  public void addBufferImage2D(DataLoader dataLoader) throws DataLoadingException {
     for (Cell[] cellRow : cellArray) {
       for (Cell cell : cellRow) {
         cell.setBufferedImage(dataLoader.loadBufferImage(cell.getImage(), ImageCategory.MAP2D));

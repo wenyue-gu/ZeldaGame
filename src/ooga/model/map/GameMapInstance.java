@@ -1,6 +1,7 @@
 package ooga.model.map;
 
 import ooga.data.DataLoaderAPI;
+import ooga.data.DataLoadingException;
 import ooga.model.enums.backend.Direction;
 import ooga.model.enums.backend.GamePara;
 import ooga.model.interfaces.gameMap.GameMap;
@@ -34,7 +35,7 @@ public class GameMapInstance implements GameMap {
   }
 
   //TODO: possibly have non-consecutive ids
-  private void initialize() {
+  private void initialize() throws DataLoadingException {
     for (int i = 0; i < loader.loadGameParam(GamePara.GRID_NUM); i++) {
       GridInMap grid = new GameGridInMap(loader, i);
       grid.loadGrid(grid.getID(), level);

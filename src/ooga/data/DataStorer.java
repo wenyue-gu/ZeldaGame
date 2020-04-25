@@ -109,18 +109,12 @@ public class DataStorer implements DataStorerAPI {
         Map<String, String> imageMap = gameObjectConfiguration.getImageMap().get(imageCategory.toString());
 
         if (imageMap != null) {
-            if (!imageMap.containsKey(imageIDString + ".json")) {
-                imageMap.put(imageIDString, imagePath);
-            } else {
-                imageMap.replace(imageIDString, imagePath);
-            }
+            imageMap = gameObjectConfiguration.insertElementToMap(imageMap, imageIDString + JSON_POSTFIX, imagePath);
         } else {
             imageMap = new HashMap<>();
             imageMap.put(imageIDString, imagePath);
         }
         gameObjectConfiguration.setImageMap(imageMap, imageCategory);
-
-//        writeObjectTOJson(imageMap, filePath);
     }
 
     /**
@@ -130,19 +124,18 @@ public class DataStorer implements DataStorerAPI {
      */
     @Override
     //todo: testing is not done.
-    public void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level) {
+    public void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level) throws DataLoadingException {
         int subMapID = nextAvailableID(level);
         storeSubMapForCurrentGame(map, level, subMapID);
     }
     @Override
-    public void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID) {
+    public void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID) throws DataLoadingException {
         storeSubMap( map, level, subMapID, gameObjectConfiguration.getCurrentGameID());
     }
     @Override
-    public void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) {
+    public void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) throws DataLoadingException {
         if (map.size() != GameMapGraph.SUBMAP_ROW_NUM * GameMapGraph.SUBMAP_COL_NUM) {
-            System.out.println("map stored didn't fit in dimension");
-            //todo: throw an exception
+            throw new DataLoadingException("map stored didn't fit in dimension");
         }
 
         GameMapGraph mapGraph = new GameMapGraph(level, subMapID, GameMapGraph.SUBMAP_ROW_NUM, GameMapGraph.SUBMAP_COL_NUM, gameID);
@@ -179,10 +172,9 @@ public class DataStorer implements DataStorerAPI {
         setPlayerParam(PlayerPara.CURRENT_LEVEL, initLevel, currentPlayerID);
         setPlayerParam(PlayerPara.LIFE, initLife, currentPlayerID);
         setPlayerParam(PlayerPara.CURRENT_SCORE, 0, currentPlayerID);
-//        setPlayerParam(PlayerPara.SCORE_GOAL, initScoreGoal, currentPlayerID);
     }
 
-    private int nextAvailableID(int level) {
+    private int nextAvailableID(int level) throws DataLoadingException {
         Map<String, GameMapGraph> currentGameMapList =  gameObjectConfiguration.getGameMapList();
         int i = 0;
         boolean flag = false;
@@ -200,7 +192,7 @@ public class DataStorer implements DataStorerAPI {
             }
         }
         if (i >= SubMapPerMap) {
-            System.out.println("not more empty submap to add to! Please use storeSubMap(Collection<Cell> map, int level, int subMapID) method");
+            throw new DataLoadingException("not more empty submap to add to! Please use storeSubMap(Collection<Cell> map, int level, int subMapID) method");
             //todo: throw errors.
         }
 
