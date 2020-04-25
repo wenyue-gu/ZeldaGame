@@ -105,6 +105,7 @@ public class GameZelda2DSingle implements Runnable {
     view.updateMap(); //empty method
     if (ids.size() > 0) isAnimating = true;
       if (isAnimating) {
+        System.out.println("SIZE: " + ids.size());
         System.out.printf("Rendering, id: %d, direction :%s, state :%s, isAttacking: %s", ids.get(0), direction.get(0), state.get(0), isAttacking.get(0));
         view.updateAgent(ids.get(0), direction.get(0), state.get(0), isAttacking.get(0));
         ids.remove(0);

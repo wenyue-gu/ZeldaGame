@@ -56,7 +56,7 @@ public class SoldierControl implements NPCControlInterface, PropertyChangeListen
     switch (s) {
       case PROPERTY_STATE:
       case PROPERTY_MOVING_DIRECTION:
-        System.out.println("notified");
+//        System.out.println("notified");
         myView
             .updateCharacter(myID, myNPC.getDirection().toString(),
                 myNPC.getState().toString(), (myNPC.getState() == MovingState.ATTACK));
@@ -72,7 +72,7 @@ public class SoldierControl implements NPCControlInterface, PropertyChangeListen
   public void update() {
 //    System.out.println(myNPC.getState());
     attack();
-    if (myNPC.getState() == MovingState.ATTACK && attackCounter > 100) {
+    if (myNPC.getState() == MovingState.ATTACK && attackCounter > 500) {
       myNPC.setState(MovingState.IDLE);
       attackCounter = 0;
     } else {

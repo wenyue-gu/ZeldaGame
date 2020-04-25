@@ -1,8 +1,8 @@
 package ooga.view.game_view.game_state.state2d;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import ooga.view.engine.graphics.Shader;
 import ooga.view.engine.graphics.assets.Asset2D;
@@ -20,7 +20,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class GameState2DView extends GameStateView {
 
-  final private static double elapsedInterval = 1.0 / 10.0;
+  final private static double elapsedInterval = 1.0 / 100.0;
   private static final float BACKGROUND_COLOR_R = 22.0f / 255.0f;
   private static final float BACKGROUND_COLOR_G = 23.0f / 255.0f;
   private static final float BACKGROUND_COLOR_B = 25.0f / 255.0f;
