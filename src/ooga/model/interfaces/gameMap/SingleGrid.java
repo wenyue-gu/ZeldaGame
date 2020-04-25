@@ -1,8 +1,6 @@
 package ooga.model.interfaces.gameMap;
 
 import java.util.List;
-
-import ooga.data.DataLoadingException;
 import ooga.model.enums.backend.Direction;
 
 /**
@@ -42,7 +40,7 @@ public interface SingleGrid {
    * @param id
    * @param level
    */
-  void loadGrid(int id, int level) throws DataLoadingException;
+  void loadGrid(int id, int level);
 
   /**
    * Gets the cell state at a specific location
