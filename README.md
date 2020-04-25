@@ -73,7 +73,10 @@ Interesting data files:
 
 Known Bugs:
     - the open gl window refuses to run on a mac computer
-    - sprinting animation not fully implemented
+    - If one opens a game, close it, opens another game multiple times, javafx freezes and stops responsing. 
+    We suspect it is a problem with a new Game controller and thus a new timer created each time the user reopens 
+    a game window, but was not able to fix the problem.
+    - sprinting animation extremely slow / not fully implemented
     
 
 - Extra credit:
