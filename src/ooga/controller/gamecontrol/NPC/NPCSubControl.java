@@ -90,6 +90,8 @@ public class NPCSubControl implements NPCControlInterface, PropertyChangeListene
 
   @Override
   public void update() {
+//    System.out.println(myNPC.getId()+ ": " + myNPC.getState());
+//    System.out.println(attackCounter);
     if (!myNPC.isAlive()) {
       myNPC.setState(MovingState.DEATH);
     }
@@ -104,21 +106,25 @@ public class NPCSubControl implements NPCControlInterface, PropertyChangeListene
       return;
     }
 
-    if (myNPC.getState() == MovingState.IDLE) {
-      if (new Random().nextInt(300) == 0) {
-        switch (new Random().nextInt(2)) {
-          case 0:
-            myNPC.setDirection(Direction.E);
-            break;
-          case 1:
-            myNPC.setDirection(Direction.E);
-        }
-        myNPC.setState(MovingState.WALK);
-      }
-    }
+    randomMove();
   }
 
-  protected boolean isAttacking() {
-    return myNPC.getState() == MovingState.ATTACK;
+    private void randomMove() {
+      if (myNPC.getState() == MovingState.IDLE) {
+        if (new Random().nextInt(2) == 0) {
+          switch (new Random().nextInt(2)) {
+            case 0:
+              myNPC.setDirection(Direction.E);
+              break;
+            case 1:
+              myNPC.setDirection(Direction.E);
+          }
+          myNPC.setState(MovingState.WALK);
+        }
+      }
+    }
+
+    protected boolean isAttacking () {
+      return myNPC.getState() != MovingState.IDLE;
+    }
   }
-}
