@@ -138,7 +138,6 @@ public class GameState2DView extends GameStateView {
           agentMap.get(newId).createMesh();
         }
       }
-
     }
 
     if (isAttack) {

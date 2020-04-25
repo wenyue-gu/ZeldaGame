@@ -13,10 +13,10 @@ import ooga.view.game_view.animation.dict2d.Animation2DDict;
 public class Agent2DDataHolder {
 
   private String type;
-  private String initialDirection = "E";
-  private String initialAction = "IDLE";
-  private String defaultAction = "IDLE";
-  private String moveAction = "SPRINT";
+  private String initialDirection;
+  private String initialAction;
+  private String defaultAction;
+  private String moveAction;
   private boolean shouldConsumed = false;
   private boolean isBullet = false;
   private boolean isSummon = false;
