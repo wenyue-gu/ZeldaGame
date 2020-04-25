@@ -77,12 +77,12 @@ public class Asset2D {
   }
 
   public static Vector3f getNonPlayerScale(){
-    return new Vector3f(0.8f, 0.8f, 0.8f);
+    return new Vector3f(0.3f, 0.3f, 0.3f);
   }
 
   public static Vector3f getBulletScale(){return new Vector3f(0.03f, 0.015f, 0.1f);}
 
-  public static Vector3f getBulletDelta(){return new Vector3f(0.0f, 15f, 0f);}
+  public static Vector3f getBulletDelta(){return new Vector3f(0.0f, 5f, 0f);}
 
   public static Vector3f getSummonDelta(){return new Vector3f(0.0f, -0.5f, 0f);}
 

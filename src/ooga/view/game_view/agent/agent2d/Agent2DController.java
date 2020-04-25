@@ -81,7 +81,7 @@ public class Agent2DController extends AgentController {
   public String getCurrentAction(){return animationDict.getCurrentAction();}
 
   public void move(String direction) { //TODO if valid
-    System.out.println("it moves");
+    //System.out.println("it moves");
     translate(Asset2D.convertDirectionalSpeed(direction, speedScale));
     //object.setPosition(Vector3f.add(object.getPosition(), Asset2D.convertDirectionalSpeed(direction, speedScale)));
   }
