@@ -1,10 +1,9 @@
 package ooga.view.game_view.agent.agent2d;
 
-import java.io.IOException;
 import ooga.view.engine.graphics.Material;
 import ooga.view.engine.graphics.Mesh;
-import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.graphics.Vertex;
+import ooga.view.engine.graphics.render.Renderer2D;
 import ooga.view.engine.maths.Vector2f;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
@@ -67,8 +66,8 @@ public class Agent2DView extends AgentView {
 
   public void update(String direction, String action) {
     controller.setCurrentAnimation(direction, action);
-    System.out.println(MOVE_ACTION);
-    System.out.println(action);
+//    System.out.println(MOVE_ACTION);
+//    System.out.println(action);
     if (action.equals(MOVE_ACTION)) controller.move(direction);
   }
 

@@ -70,16 +70,11 @@ public class SoldierControl implements NPCControlInterface, PropertyChangeListen
 
   @Override
   public void update() {
-//    System.out.println(myNPC.getState());
-    attack();
     if (myNPC.getState() == MovingState.ATTACK && attackCounter > 500) {
       myNPC.setState(MovingState.IDLE);
       attackCounter = 0;
     } else {
       attackCounter ++;
-//      System.out.println(attackCounter);
     }
-//    System.out.println(myID + ": " + myNPC.getState() );
   }
-
 }

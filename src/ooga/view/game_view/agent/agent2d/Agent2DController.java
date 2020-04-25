@@ -1,9 +1,7 @@
 package ooga.view.game_view.agent.agent2d;
 
-import java.io.IOException;
 import java.util.Map;
 import ooga.view.engine.graphics.Material;
-import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.assets.Asset2D;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.engine.objects.GameObject;
@@ -81,7 +79,7 @@ public class Agent2DController extends AgentController {
   public String getCurrentAction(){return animationDict.getCurrentAction();}
 
   public void move(String direction) { //TODO if valid
-    System.out.println("it moves");
+//    System.out.println("it moves");
     translate(Asset2D.convertDirectionalSpeed(direction, speedScale));
     //object.setPosition(Vector3f.add(object.getPosition(), Asset2D.convertDirectionalSpeed(direction, speedScale)));
   }

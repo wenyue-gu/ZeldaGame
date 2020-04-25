@@ -24,7 +24,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class GameController {
 
-  public static final double MIN_DIS = 2;
+  public static final double MIN_DIS = 0.1;
   private ModelInterface myModel;
   private List<MainPlayerControl> myMainPlayerController = new ArrayList<>(); //user controled player
   private List<MainNPCControl> myNPCControl = new ArrayList<>();
@@ -110,18 +110,15 @@ public class GameController {
     if (myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P)) {
       pause();
     }
-//    distanceCheck();
+    distanceCheck();
   }
 
   private void distanceCheck() {
     for (MainPlayerControl mpc : myMainPlayerController) {
       for (MainNPCControl npc : myNPCControl) {
-//        System.out.println("XdistanceM: " + myGameView.getXPos(mpc.getID()));
-//        System.out.println("YdistanceM: " + myGameView.getYPos(mpc.getID()));
-//        System.out.println("XdistanceN: " + myGameView.getXPos(npc.getID()));
-//        System.out.println("YdistanceN: " + myGameView.getYPos(npc.getID()));
         if (Math.abs(myGameView.getXPos(mpc.getID()) - myGameView.getXPos(npc.getID())) < MIN_DIS
             || Math.abs(myGameView.getYPos(mpc.getID()) - myGameView.getYPos(npc.getID())) < MIN_DIS) {
+          System.out.println("in range");
           npc.attack();
         }
       }
