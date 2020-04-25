@@ -31,6 +31,7 @@ public class GameController {
   private PauseControl myPauseControl;
   private FinishControl myFinishControl;
   private WindowControl myWindowControl;
+  private DisplayStatusControl mydDsplayControl;
   private DataLoaderAPI myDataLoader;
   private DataStorerAPI myDataStorer;
   private boolean dark;
@@ -43,9 +44,11 @@ public class GameController {
     myModel = new Model(storer.getDataLoader());
     myDataLoader = storer.getDataLoader();
     myDataStorer = storer;
-    myPauseControl = new PauseControl(this);
     setUpPlayerandNPC();
+    myPauseControl = new PauseControl(this);
     myFinishControl = new FinishControl(this);
+    mydDsplayControl = new DisplayStatusControl();
+    mydDsplayControl.showMenu();
   }
 
 
@@ -93,6 +96,7 @@ public class GameController {
   }
 
   public void update() {
+    mydDsplayControl.update(getSScoreList(), getLifeList());
     for (MainNPCControl npc : myNPCControl) {
       npc.update();
     }
@@ -125,6 +129,7 @@ public class GameController {
 
   public void pause() {
     myPauseControl.updateScore(getSScoreList());
+    myPauseControl.updateLife(getLifeList());
     myPauseControl.showMenu();
   }
 
@@ -192,6 +197,16 @@ public class GameController {
       int id = mpc.getID();
       int score = (int) ((ZeldaPlayer) mpc.getPlayer()).getScore();
       ret.put(id, score);
+    }
+    return ret;
+  }
+
+  private Map<Integer, Integer> getLifeList() {
+    Map<Integer, Integer> ret = new HashMap<>();
+    for (MainPlayerControl mpc : myMainPlayerController) {
+      int id = mpc.getID();
+      int hp = ((ZeldaPlayer) mpc.getPlayer()).getHP();
+      ret.put(id, hp);
     }
     return ret;
   }
