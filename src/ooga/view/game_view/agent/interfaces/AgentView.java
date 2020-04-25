@@ -8,7 +8,7 @@ import ooga.view.game_view.agent.agent2d.Agent2DController;
 
 abstract public class AgentView {
 
-  protected static String MOVE_ACTION;
+  protected String MOVE_ACTION;
 
   protected int id;
   protected Vertex[] vertices;
