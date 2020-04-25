@@ -3,10 +3,9 @@ package ooga.data;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.AnimationType;
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.backend.PlayerPara;
 import ooga.model.enums.TextCategory;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.gameElements.WeaponBase;
-import ooga.model.interfaces.Inventory;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.view.engine.graphics.animation.Animation2D;
 
@@ -22,11 +21,8 @@ public interface  DataStorerAPI {
 
     void StoreText(String text, String keyword, TextCategory category);
 
-//    void storeCharacter(int ID, UnchangableCharacter character);
-
+    @Deprecated
     void storeWeapons(int ID, WeaponBase weapon);
-
-    //    void storePlayerParamToCurrentPlayer(PlayerPara para, int value);
 
     void storeCharacter(int characterID, ZeldaCharacter character);
 
@@ -37,14 +33,12 @@ public interface  DataStorerAPI {
     void storeKeyCode(Map<Integer, String> keyCodeMap, int playerID);
 
     void storeImage(String image, int ImageID, ImageCategory imageCategory);
+    @Deprecated
+    void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level) throws DataLoadingException;
 
-    void storeSubMapWithSubmapIDRandom(Collection<Cell> map, int level);
+    void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID) throws DataLoadingException;
 
-
-
-    void storeSubMapForCurrentGame(Collection<Cell> map, int level, int subMapID);
-
-    void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID);
+    void storeSubMap(Collection<Cell> map, int level, int subMapID, int gameID) throws DataLoadingException;
 
     void resetPlayerInfo();
 

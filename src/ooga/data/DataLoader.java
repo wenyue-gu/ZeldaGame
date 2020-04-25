@@ -5,7 +5,6 @@ import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.AnimationType;
 import ooga.model.enums.CharacterProperty;
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.backend.CharacterType;
 import ooga.model.enums.backend.Direction;
 import ooga.model.enums.backend.GamePara;
 import ooga.model.enums.backend.PlayerPara;
@@ -27,8 +26,6 @@ public class DataLoader implements DataLoaderAPI {
   public static final String JSON_POSTFIX = ".json";
   private static GameObjectConfiguration gameObjectConfiguration;
 
-  private com.google.gson.Gson gson;
-
   public DataLoader() throws DataLoadingException {
     gameObjectConfiguration = GameObjectConfiguration.getInstance();
   }
@@ -48,7 +45,6 @@ public class DataLoader implements DataLoaderAPI {
         return gameInfo.getGameType();
       case PLAYER_NUM:
         return gameInfo.getPlayer_ID().size();
-      //TODO: move XY to player
       case INIT_POS_X:
         return gameInfo.getInitialPosition()[0];
       case INIT_POS_Y:
@@ -60,10 +56,11 @@ public class DataLoader implements DataLoaderAPI {
   @Override
   public int loadPlayerPara(PlayerPara playerPara, int playerID) throws DataLoadingException {
     PlayerStatus playerStatus = gameObjectConfiguration.getPlayerWithID(playerID);
-    if (playerStatus != null) {
+    try {
       return playerStatus.getPlayerParam(playerPara);
+    } catch (Exception e) {
+      throw new DataLoadingException(String.format("Player %d does not exist", playerID), e);
     }
-    throw new DataLoadingException("Player " + playerID + " does not exist");
   }
 
   @Override
@@ -94,7 +91,7 @@ public class DataLoader implements DataLoaderAPI {
   }
 
   @Override
-  public Cell loadCell(int row, int col, int subMapID, int level) {
+  public Cell loadCell(int row, int col, int subMapID, int level) throws DataLoadingException {
     return loadMap(level, subMapID).getElement(row, col);
   }
 
@@ -104,64 +101,51 @@ public class DataLoader implements DataLoaderAPI {
   }
 
   @Override
-  public GameMapGraph loadMap(int level, int subMapID) {
+  public GameMapGraph loadMap(int level, int subMapID) throws DataLoadingException {
 
     GameMapGraph map = new GameMapGraph();
     GameInfo gameInfo = gameObjectConfiguration.getCurrentGameInfo();
-    String keyOfSubmap = gameInfo.getSubMapInfo().get(level).get(subMapID) + ".json";
+    String keyOfSubmap = gameInfo.getSubMapInfo().get(level).get(subMapID) + JSON_POSTFIX;
     try {
       Map<String, GameMapGraph> tempMap = gameObjectConfiguration.getGameMapList();
       if (tempMap.containsKey(keyOfSubmap)) {
         map = tempMap.get(keyOfSubmap);
         map.addBufferImage2D(this);//only works for 2D
       } else {
-        //todo: throw errors for file not found.
+        throw new DataLoadingException(String.format("Map File not found with key %s", keyOfSubmap));
       }
 
-//      map = loadJson("data/GameMap/"+ gameInfo.getSubMapInfo().get(level).get(subMapID), map.getClass());
     } catch (Exception e) {
-      e.printStackTrace();
+      throw new DataLoadingException(e.getMessage(), e);
     }
     return map;
   }
 
   @Override
-  public BufferedImage loadBufferImage(int ImageID, ImageCategory category) {
+  public BufferedImage loadBufferImage(int ImageID, ImageCategory category) throws DataLoadingException {
     String imagePath = loadImagePath(ImageID, category);
     try {
       return ImageIO.read(new File(imagePath));
     } catch (IOException e) {
-      // If the image cannot be loaded, the window closes
-      System.err.println(imagePath + " was not loaded.");
+      throw new DataLoadingException(imagePath + " was not loaded.", e);
     }
-    return null;
+
   }
 
   @Override
-  public String loadText(String keyword, String category) {
+  public String loadText(String keyword, String category) throws DataLoadingException {
     Map<String, String> textMap = gameObjectConfiguration.getTextMap().get(category);
     return loadValueOfMap(textMap, keyword);
   }
 
   @Override
-  public int loadCharacter(int ID, CharacterProperty property) {
-    ZeldaCharacter zeldaCharacter = new ZeldaCharacter(1, 2, CharacterType.UNKNOWN);
-
-//    zeldaCharacter =  loadJson("data/ZeldaCharacter/" + characterKeyword + ID + ".json", zeldaCharacter.getClass());
-    for (ZeldaCharacter i : gameObjectConfiguration.getZeldaCharacterList()) {
-      if (i.getId() == ID) {
-        zeldaCharacter = i;
-      }
-    }
-
-
-    return property.getProperty(zeldaCharacter);
+  public int loadCharacter(int ID, CharacterProperty property) throws DataLoadingException {
+    throw new DataLoadingException("load character property is not supported");
   }
 
   @Override
-  public int loadWeapon(int ID, int property) {
-    System.out.println("load weapon is not supported");
-    return 0;
+  public int loadWeapon(int ID, int property) throws DataLoadingException {
+    throw new DataLoadingException("load weapon is not supported");
   }
 
   @Override
@@ -177,12 +161,13 @@ public class DataLoader implements DataLoaderAPI {
    */
   @Override
   public Map<Integer, String> loadKeyCode(int playerID) throws DataLoadingException {
-    PlayerStatus player = gameObjectConfiguration.getPlayerWithID(playerID);
-    if (player == null) {
-      throw new DataLoadingException(
-          "Player with" + playerID + "is not found while loading key code");
+    PlayerStatus player;
+    try {
+      player = gameObjectConfiguration.getPlayerWithID(playerID);
+    } catch (Exception e) {
+      throw new DataLoadingException(String.format("Player with %s is not found while loading key code", playerID)
+              , e);
     }
-
     return player.getKeyCodeMap();
   }
 
@@ -194,7 +179,7 @@ public class DataLoader implements DataLoaderAPI {
    * @return
    */
   @Override
-  public String loadImagePath(int imageID, ImageCategory category) {
+  public String loadImagePath(int imageID, ImageCategory category) throws DataLoadingException {
     Map<String, String> imageMap = gameObjectConfiguration.getImageMap().get(category.toString());
     String key = String.valueOf(imageID);
     return loadValueOfMap(imageMap, key);
@@ -207,12 +192,12 @@ public class DataLoader implements DataLoaderAPI {
    * @param key
    * @return
    */
-  private String loadValueOfMap(Map<String, String> map, String key) {
+  private String loadValueOfMap(Map<String, String> map, String key) throws DataLoadingException {
     if (map != null && checkKeyExist(map, key)) {
       return map.get(key);
+    } else {
+      throw new DataLoadingException("image not found");
     }
-    //todo: throw errors for file not found. Throw errors when imageID is not found in the file.
-    return null;
   }
 
   private <K, V> boolean checkKeyExist(Map<K, V> map, K key) {
