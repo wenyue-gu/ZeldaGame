@@ -2,11 +2,10 @@ package ooga.data;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import ooga.model.characters.MarioCharacter;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.enums.ImageCategory;
-import ooga.model.enums.PlayerPara;
 import ooga.model.enums.TextCategory;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.gameMap.Cell;
 import ooga.view.engine.graphics.animation.Animation2D;
 import ooga.view.engine.io.Window;
@@ -33,7 +32,6 @@ public class GameObjectConfiguration {
   private List<GameInfo> gameInfoList;
   private Map<String, GameMapGraph> gameMapList;
   private Map<String, Map<String, String>> imageMap;
-  private List<MarioCharacter> marioCharacterList;
   private List<PlayerStatus> playerList;
   private List<ZeldaCharacter> zeldaCharacterList;
   private Map<String, Map<String, String>> textMap; //Map<Category, Map<Keyword, Text>>
@@ -138,7 +136,7 @@ public class GameObjectConfiguration {
   private void createTextureToAnimation(Map<String, Animation2D> meleeRobotAnimations) {
     for (Animation2D i : meleeRobotAnimations.values()) {
       for (int j = 0; j < i.getFrameAmount(); j++) {
-        i.getAnimatedFrames(j).createTexture();
+        i.getAnimatedFrame(j).createTexture();
       }
     }
   }
@@ -153,7 +151,7 @@ public class GameObjectConfiguration {
         case "GameInfo":
           for (GameInfo j : gameInfoList) {
             writeObjectTOJson(j,
-                path + "Game" + j.getGameType() + "level" + j.getLevelNum() + ".json");
+                    path + "Game" + j.getGameType() + "level" + j.getLevelNum() + ".json");
           }
           break;
         case "GameMap":
@@ -223,13 +221,6 @@ public class GameObjectConfiguration {
     this.imageMap = imageMap;
   }
 
-  public List<MarioCharacter> getMarioCharacterList() {
-    return marioCharacterList;
-  }
-
-  public void setMarioCharacterList(List<MarioCharacter> marioCharacterList) {
-    this.marioCharacterList = marioCharacterList;
-  }
 
   public List<PlayerStatus> getPlayerList() {
     return playerList;
@@ -351,11 +342,11 @@ public class GameObjectConfiguration {
       }
     }
 
-      return null;
+    return null;
   }
 
   public List<PlayerStatus> getCurrentPlayers() {
-      return getPlayersWithID(currentPlayersID);
+    return getPlayersWithID(currentPlayersID);
   }
 
   public PlayerStatus getCurrentPlayer() {

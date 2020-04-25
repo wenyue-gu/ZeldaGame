@@ -7,8 +7,9 @@ import java.lang.reflect.InvocationTargetException;
 import javafx.scene.input.KeyCode;
 import ooga.controller.gamecontrol.player.ZeldaPlayerControl;
 import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.Direction;
-import ooga.model.enums.MovingState;
+import ooga.model.enums.backend.CharacterType;
+import ooga.model.enums.backend.Direction;
+import ooga.model.enums.backend.MovingState;
 import org.junit.jupiter.api.Test;
 
 
@@ -17,7 +18,7 @@ public class PlayerKeyInputTest {
     ZeldaPlayerControl control;
 
     void setUp(){
-        player = new ZeldaPlayer(100,0, 0, 0);
+        player = new ZeldaPlayer(100,0, 0, 0, CharacterType.PLAYER);
         control = new ZeldaPlayerControl();
         control.setMyPlayer(player);
     }

@@ -50,6 +50,11 @@ public class MainPlayerControl implements PlayerControlInterface {
   }
 
   @Override
+  public boolean update() {
+    return myPlayerControl.update();
+  }
+
+  @Override
   public void setID() {
     myPlayerControl.setID();
   }
@@ -72,5 +77,10 @@ public class MainPlayerControl implements PlayerControlInterface {
   @Override
   public void setView(GameZelda2DSingle view) {
     myPlayerControl.setView(view);
+  }
+
+  @Override
+  public boolean hasWon() {
+    return myPlayerControl.hasWon();
   }
 }

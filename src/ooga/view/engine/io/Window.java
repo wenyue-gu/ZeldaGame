@@ -1,22 +1,20 @@
 package ooga.view.engine.io;
 
 import static org.lwjgl.opengl.GL11C.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11C.GL_SRC_ALPHA;
 
+import ooga.view.engine.maths.Matrix4f;
+import ooga.view.engine.maths.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
-
-import ooga.view.engine.maths.Matrix4f;
-import ooga.view.engine.maths.Vector3f;
 import org.lwjgl.opengl.GL30;
 
 public class Window {
-	private static final float fov = 70.0f;
+	private static final float fov = 80.0f;
 	private static final float near_plane = 0.1f;
-	private static final float far_plane = 1000.0f;
+	private static final float far_plane = 20000.0f;
 	private int width, height;
 	private String title;
 	private long window;

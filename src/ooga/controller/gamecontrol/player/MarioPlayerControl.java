@@ -7,8 +7,8 @@
 //import javafx.scene.input.KeyCode;
 //import ooga.game.GameZelda2DSingle;
 //import ooga.model.characters.MarioPlayer;
-//import ooga.model.enums.Direction;
-//import ooga.model.enums.MovingState;
+//import ooga.model.enums.backend.Direction;
+//import ooga.model.enums.backend.MovingState;
 //import ooga.model.interfaces.movables.Movable1D;
 //import ooga.view.game_view.game_state.state2d.GameState2DView;
 //

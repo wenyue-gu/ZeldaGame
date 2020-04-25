@@ -1,13 +1,13 @@
 package ooga.data;
 
-import ooga.model.enums.Direction;
+import ooga.model.enums.backend.Direction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ooga.model.enums.Direction.*;
+import static ooga.model.enums.backend.Direction.*;
 
 public class GameInfo {
     private int[] initialPosition;

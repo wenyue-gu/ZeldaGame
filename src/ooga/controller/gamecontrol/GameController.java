@@ -17,6 +17,7 @@ import ooga.game.GameZelda2DSingle;
 import ooga.model.Model;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.backend.PlayerPara;
 import ooga.model.interfaces.ModelInterface;
 import ooga.model.interfaces.movables.Movable1D;
 import org.lwjgl.glfw.GLFW;
@@ -34,8 +35,6 @@ public class GameController {
   private String language;
   private GameZelda2DSingle myGameView;
   private AnimationTimer myTimer;
-
-  private int score = 100;
 
   public GameController(DataStorerAPI storer) throws DataLoadingException {
     myModel = new Model(storer.getDataLoader());
@@ -66,7 +65,6 @@ public class GameController {
     setGameType(myDataLoader.getGameType());
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setID();
-      //mpc.setKeyCodeMap(myDataLoader.loadKeyCode(mpc.getID(), "KeyCode"));
         try {
             mpc.setNewKeyMap(myDataLoader.loadKeyCode(mpc.getID()));
         }
@@ -98,7 +96,9 @@ public class GameController {
     }
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.updateKey();
-      if(mpc.checkScore(score)) finishGame(mpc);
+      // TODO: complete this
+      if (!mpc.update()) finishGame(mpc); // this is dead
+      if (mpc.hasWon()) finishGame(mpc); // this is won
     }
     if(myGameView.getView().isKeyDown(GLFW.GLFW_KEY_P))pause();
   }
@@ -171,5 +171,13 @@ public class GameController {
 
   public void setColor(Color color) {
     myPauseControl.setColor(color);
+  }
+
+  public int getGameID() {
+    return myDataLoader.getCurrentPlayers().get(0).getPlayerParam(PlayerPara.Game);
+  }
+
+  public ModelInterface getMyModel() {
+    return myModel;
   }
 }

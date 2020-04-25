@@ -1,20 +1,18 @@
 package ooga.model.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import ooga.data.*;
+import ooga.game.GameType;
+import ooga.model.Model;
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.characters.ZeldaPlayer;
+import ooga.model.enums.backend.GamePara;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ooga.data.DataLoader;
-import ooga.data.DataLoaderAPI;
-import ooga.data.DataLoadingException;
-import ooga.data.DataStorer;
-import ooga.data.DataStorerAPI;
-import ooga.game.GameType;
-import ooga.model.Model;
-import ooga.model.characters.ZeldaPlayer;
-import ooga.model.enums.GamePara;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModelDataLoadingTest {
   DataLoaderAPI loader;
@@ -70,8 +68,18 @@ public class ModelDataLoadingTest {
   }
 
   @Test
-  public void npcLoading() {
+  public void npcLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
+    model = new Model(loader);
 
+    Map<Integer, ZeldaCharacter> npcs = (HashMap<Integer, ZeldaCharacter>)model.getNPCs();
+    assertEquals(3, npcs.size());
+    assertEquals(200, npcs.get(10).getX());
+    assertEquals(100, npcs.get(10).getY());
+    assertEquals(0, npcs.get(11).getX());
+    assertEquals(0, npcs.get(11).getY());
+    assertEquals(300, npcs.get(14).getX());
+    assertEquals(-250, npcs.get(14).getY());
   }
 
   @Test

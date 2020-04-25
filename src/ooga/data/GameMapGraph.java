@@ -1,6 +1,6 @@
 package ooga.data;
 
-import ooga.model.enums.Direction;
+import ooga.model.enums.backend.Direction;
 import ooga.model.enums.DisplayParam;
 import ooga.model.enums.ImageCategory;
 import ooga.model.interfaces.gameMap.Cell;

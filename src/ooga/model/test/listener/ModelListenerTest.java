@@ -1,13 +1,15 @@
 package ooga.model.test.listener;
 
-import ooga.model.characters.ZeldaCharacter;
-import ooga.model.enums.MovingState;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import ooga.model.characters.ZeldaCharacter;
+import ooga.model.enums.backend.CharacterType;
+import ooga.model.enums.backend.MovingState;
+import org.junit.jupiter.api.Test;
 
 class  ModelListenerTest {
   ExampleController ec = new ExampleController();
-  ZeldaCharacter zeldaCharacter = new ZeldaCharacter(0,0);
+  ZeldaCharacter zeldaCharacter = new ZeldaCharacter(0,0, CharacterType.PLAYER);
 
   @Test
   void listenCharacterStateChange() {
