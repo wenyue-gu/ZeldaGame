@@ -3,12 +3,17 @@ package ooga.view.engine.utils;
 import javafx.util.Pair;
 import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Vertex;
+import ooga.view.engine.maths.Vector2f;
 import ooga.view.engine.maths.Vector3f;
 
 public class Test {
 
   public static void printVector3f(Vector3f vec){
     System.out.println(String.format("(%s, %s, %s)",vec.getX(), vec.getY(), vec.getZ()));
+  }
+
+  public static void printVector2f(Vector2f vec){
+    System.out.println(String.format("(%s, %s)",vec.getX(), vec.getY()));
   }
 
   public static void printMeshVertices(Mesh mesh){

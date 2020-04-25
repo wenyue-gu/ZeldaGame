@@ -95,4 +95,22 @@ public class ModelDataLoadingTest {
     assertEquals(8, keyMap.size());
     assertEquals("left", keyMap.get(263));
   }
-}
+
+  @Test
+  public void lifeLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
+    model = new Model(loader);
+    Map<Integer, ZeldaPlayer> players = (HashMap<Integer, ZeldaPlayer>) model.getPlayers();
+
+    assertEquals(5, players.get(0).getHP());
+  }
+
+  @Test
+  public void npcLifeLoading() throws DataLoadingException {
+    loader.setGameAndPlayer(GameType.ZELDA.getIndex(), List.of(0));
+    model = new Model(loader);
+    Map<Integer, ZeldaCharacter> characters = (HashMap<Integer, ZeldaCharacter>) model.getNPCs();
+
+    assertEquals(1, characters.get(10).getHP());
+  }
+ }

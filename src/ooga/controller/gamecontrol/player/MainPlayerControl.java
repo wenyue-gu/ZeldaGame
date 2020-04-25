@@ -1,8 +1,6 @@
 package ooga.controller.gamecontrol.player;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-import javafx.scene.input.KeyCode;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import ooga.game.GameZelda2DSingle;
 import ooga.model.interfaces.movables.Movable1D;
@@ -11,6 +9,9 @@ public class MainPlayerControl implements PlayerControlInterface {
   private PlayerControlInterface myPlayerControl;
   private PlayerControlFactory myPlayerControlFactory;
 
+  /**
+   * Creates the control factory
+   */
   public MainPlayerControl(){
     myPlayerControlFactory = new PlayerControlFactory();
   }
@@ -19,19 +20,10 @@ public class MainPlayerControl implements PlayerControlInterface {
     myPlayerControl= myPlayerControlFactory.selectControl(gameType);
   }
 
-  @Override
-  public void keyInput(KeyCode key) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-    myPlayerControl.keyInput(key);
-  }
 
   @Override
   public void setMyPlayer(Movable1D player) {
     myPlayerControl.setMyPlayer(player);
-  }
-
-  @Override
-  public void setKeyCodeMap(Map<KeyCode, String> map) {
-    myPlayerControl.setKeyCodeMap(map);
   }
 
   @Override
@@ -82,5 +74,15 @@ public class MainPlayerControl implements PlayerControlInterface {
   @Override
   public boolean hasWon() {
     return myPlayerControl.hasWon();
+  }
+
+  @Override
+  public void getHurt() {
+    myPlayerControl.getHurt();
+  }
+
+  @Override
+  public boolean isHurt() {
+    return myPlayerControl.isHurt();
   }
 }

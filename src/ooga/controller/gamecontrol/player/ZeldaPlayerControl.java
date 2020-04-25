@@ -2,10 +2,8 @@ package ooga.controller.gamecontrol.player;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-import javafx.scene.input.KeyCode;
 import ooga.controller.gamecontrol.PlayerControlInterface;
 import ooga.controller.gamecontrol.playerInterface.AttackerControl;
 import ooga.controller.gamecontrol.playerInterface.MovableControll2D;
@@ -23,9 +21,10 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
 
   private ZeldaPlayer myPlayer;
   private GameZelda2DSingle myView;
-  private Map<KeyCode, String> myKeyCodeMap = new HashMap<>();
   private Map<Integer, String> myGLFWMap = new HashMap<>();
   private int myID;
+
+  private int hurtCount;
 
 
   public ZeldaPlayerControl() {
@@ -54,11 +53,6 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   }
 
   @Override
-  public void setKeyCodeMap(Map<KeyCode, String> map) {
-    myKeyCodeMap = map;
-  }
-
-  @Override
   public void setID() {
     myID = myPlayer.getId();
   }
@@ -72,17 +66,6 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
   public void keyReleased() {
     myPlayer.setState(MovingState.IDLE);
   }
-
-  @Override
-  public void keyInput(KeyCode key)
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    if (myKeyCodeMap.get(key) == null) {
-      return;
-    }
-    this.getClass().getDeclaredMethod(myKeyCodeMap.get(key)).invoke(this);
-
-  }
-
 
   @Override
   public void up() {
@@ -150,11 +133,12 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
         if (myView.getView().isKeyDown(i)) {
           keyPressed = true;
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
-//            System.out.println(myPlayer.getDirection().toString());
-//            System.out.println(myPlayer.getState().toString());
+          System.out.println(myPlayer.getDirection().toString());
+          System.out.println(myPlayer.getState().toString());
           break;
         }
       }
+
       if (!keyPressed) {
         keyReleased();
       }
@@ -164,11 +148,19 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     }
   }
 
+  /**
+   * set the game view to input
+   * @param view
+   */
   @Override
   public void setView(GameZelda2DSingle view) {
     myView = view;
   }
 
+  /**
+   * set the key map to the map read in loader
+   * @param map input map
+   */
   @Override
   public void setNewKeyMap(Map<Integer, String> map) {
     if (map != null) {
@@ -176,11 +168,20 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     }
   }
 
+  /**
+   *
+   * @return the player
+   */
   @Override
   public Movable1D getPlayer() {
     return myPlayer;
   }
 
+  /**
+   * checks if player's score has exceeded goal
+   * @param score score
+   * @return true if player score > goal
+   */
   @Override
   public boolean checkScore(int score) {
     return score <= myPlayer.getScore();
@@ -210,11 +211,23 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
     return myPlayer.hasWon();
   }
 
-  public Map<KeyCode, String> getKeyCodeMap() {
-    return myKeyCodeMap;
+  @Override
+  public void getHurt() {
+    myPlayer.setState(MovingState.ATTACK1);
+    myPlayer.subtractHP(1);
   }
 
-  public Map<Integer, String> getKeyMap() {
-    return myGLFWMap;
+  @Override
+  public boolean isHurt() {
+    if (myPlayer.getState() == MovingState.ATTACK1 && hurtCount > 200){
+      myPlayer.setState(MovingState.IDLE);
+      hurtCount = 0;
+      return false;
+    } else if (myPlayer.getState() == MovingState.ATTACK1) {
+      hurtCount ++;
+      return true;
+    }
+//    System.out.println("Hurt: " + hurtCount);
+    return false;
   }
 }

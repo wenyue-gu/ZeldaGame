@@ -14,7 +14,8 @@ import java.util.*;
 
 import static ooga.data.DataLoader.JSON_POSTFIX;
 import static ooga.data.DataLoader.SubMapPerMap;
-import static ooga.data.PlayerStatus.*;
+import static ooga.data.PlayerStatus.initLevel;
+import static ooga.data.PlayerStatus.initLife;
 
 //import ooga.model.gameElements.Weapon;
 
@@ -178,7 +179,7 @@ public class DataStorer implements DataStorerAPI {
         setPlayerParam(PlayerPara.CURRENT_LEVEL, initLevel, currentPlayerID);
         setPlayerParam(PlayerPara.LIFE, initLife, currentPlayerID);
         setPlayerParam(PlayerPara.CURRENT_SCORE, 0, currentPlayerID);
-        setPlayerParam(PlayerPara.SCORE_GOAL, initScoreGoal, currentPlayerID);
+//        setPlayerParam(PlayerPara.SCORE_GOAL, initScoreGoal, currentPlayerID);
     }
 
     private int nextAvailableID(int level) {

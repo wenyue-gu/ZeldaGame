@@ -16,13 +16,13 @@ abstract public class GameStateView {
 
   abstract public void updateWindow();
 
-  public void renderAll(){
+  public void renderAll() throws IOException {
     renderMap();
     renderAgents();
     renderWindow();
   }
 
-  abstract public void renderAgents();
+  abstract public void renderAgents() throws IOException;
 
   abstract public void renderMap();
 

@@ -79,6 +79,7 @@ public class GameObjectConfiguration {
     }
   }
 
+
   private void initiateDataStorageInstanceVariable() throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
     Window window = new Window(WIDTH, HEIGHT, "Game");
     window.create();
@@ -107,6 +108,7 @@ public class GameObjectConfiguration {
           Map<String, Animation2D> tempAgent = loadJson(directoryPath + child.getName(), type2);
           createTextureToAnimation(tempAgent);
           animationMap.put(child.getName(), tempAgent);
+
         }
 
       }
@@ -210,7 +212,6 @@ public class GameObjectConfiguration {
   public void setImageMap(Map<String, Map<String, String>> imageMap) {
     this.imageMap = imageMap;
   }
-
 
   public List<PlayerStatus> getPlayerList() {
     return playerList;

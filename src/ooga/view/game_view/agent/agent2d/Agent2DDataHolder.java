@@ -3,21 +3,24 @@ package ooga.view.game_view.agent.agent2d;
 import com.google.gson.internal.LinkedHashTreeMap;
 import java.util.Map;
 import javafx.util.Pair;
+import ooga.view.engine.graphics.Mesh;
 import ooga.view.engine.graphics.Vertex;
 import ooga.view.engine.graphics.assets.Asset2D;
+import ooga.view.engine.maths.Vector2f;
 import ooga.view.engine.maths.Vector3f;
 import ooga.view.game_view.animation.dict2d.Animation2DDict;
 
 public class Agent2DDataHolder {
 
   private String type;
-  private String initialDirection = "E";
-  private String initialAction = "IDLE";
-  private String defaultAction = "IDLE";
-  private String moveAction = "SPRINT";
+  private String initialDirection;
+  private String initialAction;
+  private String defaultAction;
+  private String moveAction;
   private boolean shouldConsumed = false;
   private boolean isBullet = false;
-  private float speedScale = 1.0f;
+  private boolean isSummon = false;
+  private float speedScale = 10.0f;
   private Map<String, String> nextDict = new LinkedHashTreeMap<>();
   private Map<Pair<Pair<String, Boolean>, String>, String> prevDict = new LinkedHashTreeMap<>();
   // what would come next to the current animation
@@ -32,6 +35,7 @@ public class Agent2DDataHolder {
 
   private Vertex[] vertices = Asset2D.getAgentVertices();
   private int[] indices = Asset2D.getAgentIndices();
+  private Vector2f halfBounds;
 
   public Agent2DDataHolder() {
   }
@@ -39,6 +43,7 @@ public class Agent2DDataHolder {
   public Agent2DDataHolder(Agent2DDataHolder other) {
     this.type = other.type;
     this.isBullet = other.isBullet;
+    this.isSummon = other.isSummon;
     this.initialDirection = other.getInitialDirection();
     this.initialAction = other.getInitialAction();
     this.defaultAction = other.getDefaultAction();
@@ -48,12 +53,28 @@ public class Agent2DDataHolder {
     this.nextDict = Map.copyOf(other.getNextDict());
     this.prevDict = Map.copyOf(other.getPrevDict());
     this.spawnerDict = Map.copyOf(other.getSpawnerDict());
-   // this.agentAnimationDict = new Animation2DDict(other.getAgentAnimationDict());
     this.rotation = new Vector3f(other.getRotation());
     this.position = new Vector3f(other.getPosition());
     this.scale = new Vector3f(other.getScale());
-    this.vertices = Asset2D.getAgentVertices();
+    this.vertices = Mesh.verticesCopy(Asset2D.getAgentVertices());
     this.indices = Asset2D.getAgentIndices();
+    this.halfBounds = other.halfBounds;
+  }
+
+  public void setHalfBounds(Vector2f halfBounds) {
+    this.halfBounds = halfBounds;
+  }
+
+  public Vector2f getHalfBounds() {
+    return halfBounds;
+  }
+
+  public boolean isSummon() {
+    return isSummon;
+  }
+
+  public void setSummon(boolean summon) {
+    isSummon = summon;
   }
 
   public String getType() {

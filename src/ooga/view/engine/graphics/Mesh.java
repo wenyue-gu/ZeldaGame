@@ -25,6 +25,12 @@ public class Mesh {
 		Mesh.normalize(this);
 	}
 
+	public Mesh(Vertex[] vertices, int[] indices, Material material, boolean isMap) {
+		this.vertices = vertices;
+		this.indices = indices;
+		this.material = material;
+	}
+
 	public Mesh(Mesh mesh, Vector3f rotation){
 		this.vertices = verticesCopy(mesh.vertices);
 		this.indices = mesh.getIndices().clone();
@@ -33,7 +39,7 @@ public class Mesh {
 		Mesh.normalize(this);
 	}
 
-	private Vertex[] verticesCopy(Vertex[] v) {
+	public static Vertex[] verticesCopy(Vertex[] v) {
 		Vertex[] ret = new Vertex[v.length];
 		for (int i = 0; i < ret.length; i++) {
 			ret[i] = new Vertex(v[i]);
@@ -158,7 +164,7 @@ public class Mesh {
 	}
 
 	public Vector2f getCenter(){
-		return new Vector2f(getMinX() + (getMaxX()-getMaxX())/2.0f, getMinY() + (getMaxY() - getMinY()));
+		return new Vector2f(getMinX() + (getMaxX()-getMaxX())/2.0f, getMinY() + (getMaxY() - getMinY())/2.0f);
 	}
 
 	private float getMaxX(){
