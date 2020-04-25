@@ -29,14 +29,6 @@ import static ooga.game.GameMain.WIDTH;
  */
 public class GameObjectConfiguration {
   public static String RESOURCES_PACKAGE = "Data/param_and_path";
-  public static String GameInfoPath = "data/GameInfo/";
-  public static String GameMapPath = "data/GameMap/";
-  public static String imageMapPath = "data/Image/";
-  public static String marioCharacterPath = "data/MarioCharacter/";
-  public static String playerPath = "data/Player/";
-  public static String zeldaCharacterPath = "data/ZeldaCharacter/";
-  public static String textPath = "data/Text/";
-  public static String animationPath = "data/Animation2D/";
 
   private List<GameInfo> gameInfoList;
   private Map<String, GameMapGraph> gameMapList;
@@ -85,36 +77,11 @@ public class GameObjectConfiguration {
     } catch (IllegalAccessException | NoSuchFieldException | ClassNotFoundException e) {
       e.printStackTrace();
     }
-//    gameInfoList = new ArrayList<>();
-//    gameMapList = new HashMap<>();
-//    imageMap = new HashMap<>();
-//    marioCharacterList = new ArrayList<>();
-//    playerList = new ArrayList<>();
-//    zeldaCharacterList = new ArrayList<>();
-//    textMap = new HashMap<>();
-//    meleeRobotAnimations = new HashMap<>(); //delete after multiple agents occur
-//    animationMap = new HashMap<>();
-
-
-
-
-
-//    loadGameEverything();
-//    fieldToPathMap.put(gameInfoList, GameInfoPath);
-//    fieldToPathMap.put(gameMapList, GameMapPath);
-//    fieldToPathMap.put(imageMap, imageMapPath);
-//    fieldToPathMap.put(marioCharacterList, marioCharacterPath);
-//    fieldToPathMap.put(playerList, playerPath);
-//    fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
-//    fieldToPathMap.put(textMap, textPath);
-//    fieldToPathMap.put(meleeRobotAnimations, animationPath);
-//    fieldToPathMap.put(animationMap, animationPath);  //multiple agents draft (1,4)
   }
 
   private void initiateDataStorageInstanceVariable() throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
     Class cls = this.getClass();
     PlayerStatus d = new PlayerStatus(1);
-    Class cls1 = d.getClass();
     Field field;
     Window window = new Window(WIDTH, HEIGHT, "Game");
     window.create();
@@ -136,11 +103,8 @@ public class GameObjectConfiguration {
       File[] directoryListing = dir.listFiles();
       for (File child : directoryListing) {
         try {
-          loadFilesUnderDirectory1(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
+          loadFilesUnderDirectory(directoryPath, child.getName(), field, Class.forName(instanceClass), type);
         } catch (Exception e) {
-//          e.printStackTrace();
-
-//
           Type type2 = new TypeToken<Map<String, Animation2D>>(){}.getType();
 ////          //delete after multiple agents occur
 ////          meleeRobotAnimations = loadJson(directoryPath + child.getName(), type2);
@@ -151,7 +115,6 @@ public class GameObjectConfiguration {
           Map<String, Animation2D> tempAgent = loadJson(directoryPath + child.getName(), type2);
           createTextureToAnimation(tempAgent);
           animationMap.put(child.getName(), tempAgent);
-
         }
 
       }
@@ -159,7 +122,7 @@ public class GameObjectConfiguration {
     window.destroy();
   }
 
-  private <T> void loadFilesUnderDirectory1(String myDirectoryPath, String fileName, Field field, Class clazz, String type) throws IllegalAccessException {
+  private <T> void loadFilesUnderDirectory (String myDirectoryPath, String fileName, Field field, Class clazz, String type) throws IllegalAccessException {
     if (type.equals("List")) {
       List<T> tempList = (List<T>) field.get(this);
       tempList.add(loadJson(myDirectoryPath + fileName, clazz));
@@ -171,86 +134,6 @@ public class GameObjectConfiguration {
       field.set(this, tempMap);
     }
   }
-//  private void loadGameEverything() throws DataLoadingException {
-//    Class a = textMap.getClass();
-//    loadFilesUnderDirectory(GameInfoPath, GameInfo.class);
-//    loadFilesUnderDirectory(GameMapPath, GameMapGraph.class);
-//    loadFilesUnderDirectory(imageMapPath, imageMap.getClass());
-//    loadFilesUnderDirectory(marioCharacterPath, MarioCharacter.class);
-//    loadFilesUnderDirectory(playerPath, PlayerStatus.class);
-//    loadFilesUnderDirectory(zeldaCharacterPath, ZeldaCharacter.class);
-//    loadFilesUnderDirectory(textPath, textMap.getClass());
-//    loadFilesUnderDirectory(animationPath, meleeRobotAnimations.getClass());
-//    loadFilesUnderDirectory(animationPath, animationMap.getClass()); //multiple agents draft (2,4)
-//  }
-//
-//  private void loadFilesUnderDirectory(String myDirectoryPath, Class<?> classType)
-//      throws DataLoadingException {
-//    File dir = new File(myDirectoryPath);
-//    File[] directoryListing = dir.listFiles();
-//    if (directoryListing != null) {
-//      for (File child : directoryListing) {
-//        // Do something with child
-//        //TODO: possibly with a Reflection
-//        String[] realFileName = myDirectoryPath.split("/");
-//        switch (realFileName[1]) {
-//          case "GameInfo":
-//            gameInfoList.add(loadJson(myDirectoryPath + child.getName(), classType));
-//            break;
-//          case "GameMap":
-//            gameMapList
-//                .put(child.getName(),
-//                    loadJson(myDirectoryPath + child.getName(), classType));
-//            break;
-//          case "Image":
-//            imageMap.put(child.getName(),
-//                loadJson(myDirectoryPath + child.getName(), classType));
-//            break;
-//          case "MarioCharacter":
-//            marioCharacterList
-//                .add(loadJson(myDirectoryPath + child.getName(), classType));
-//            break;
-//          case "Player":
-//            playerList.add(loadJson(myDirectoryPath + child.getName(), classType));
-//            break;
-//          case "ZeldaCharacter":
-//            zeldaCharacterList
-//                .add(loadJson(myDirectoryPath + child.getName(), classType));
-//            break;
-//          case "Text":
-//            textMap.put(child.getName(),
-//                loadJson(myDirectoryPath + child.getName(), classType));
-//            break;
-//          case "Animation2D":
-//            Window window = new Window(WIDTH, HEIGHT, "Game");
-//            window.create();
-//
-//            Type type = new TypeToken<Map<String, Animation2D>>(){}.getType();
-//            //delete after multiple agents occur
-//            meleeRobotAnimations = loadJson(animationPath + child.getName(), type);
-//            createTextureToAnimation(meleeRobotAnimations);
-//
-//
-//            //change to support multiple agents (3,4)
-//            Map<String, Animation2D> tempAgent = loadJson(animationPath + child.getName(), type);
-//            createTextureToAnimation(tempAgent);
-//            animationMap.put(child.getName(), tempAgent);
-//            window.destroy();
-//            break;
-//          default:
-//            throw new DataLoadingException(
-//                "Cannot recognize configuration file name " + child.getPath()
-//                    + " or file is not in the correct format.");
-//
-//        }
-//      }
-//    } else {
-//      // Handle the case where dir is not really a directory.
-//      // Checking dir.isDirectory() above would not be sufficient
-//      // to avoid race conditions with another process that deletes
-//      // directories.
-//    }
-//  }
 
   private void createTextureToAnimation(Map<String, Animation2D> meleeRobotAnimations) {
     for (Animation2D i : meleeRobotAnimations.values()) {
