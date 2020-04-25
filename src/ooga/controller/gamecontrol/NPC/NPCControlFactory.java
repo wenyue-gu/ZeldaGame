@@ -19,6 +19,7 @@ public class NPCControlFactory {
     controlMap.put(CharacterType.LOADSOLDIER.getIndex(), new SoldierControl());
     controlMap.put(CharacterType.BIGBOY.getIndex(), new BigBoyControl());
     controlMap.put(CharacterType.ENGINEERBOT.getIndex(), new EngineerBotControl());
+    controlMap.put(CharacterType.SHIELD.getIndex(), new ShieldControl());
 //    controlMap.put(0, new MarioNPCControl());
   }
 
