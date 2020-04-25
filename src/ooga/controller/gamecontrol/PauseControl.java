@@ -124,4 +124,8 @@ public class PauseControl {
     public void setColor(Color color) {
         myPauseMenu.changColor(color);
     }
+
+    public void updateLife(Map<Integer, Integer> lifeList) {
+        myPauseMenu.updateLife(lifeList);
+    }
 }
