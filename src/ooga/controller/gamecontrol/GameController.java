@@ -95,8 +95,11 @@ public class GameController {
 
   public void update() {
     for (MainNPCControl npc : myNPCControl) {
-      npc.update();
+      if (!npc.isHurt()) {
+        npc.update();
+      }
     }
+
     for (MainPlayerControl mpc : myMainPlayerController) {
       if (!mpc.isHurt()) {
         mpc.updateKey();
@@ -123,6 +126,11 @@ public class GameController {
       }
     }
 
+    for (MainNPCControl npc : myNPCControl) {
+      if (myGameView.isAttacked(npc.getID())) {
+        npc.getHurt();
+      }
+    }
   }
 
   private void distanceCheck() {
