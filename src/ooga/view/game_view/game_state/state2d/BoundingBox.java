@@ -20,13 +20,13 @@ public class BoundingBox  {
   }
 
   public boolean canMove(boolean isAgent, boolean isBullet, Agent2DView object, Vector3f delta){
+    //return true;
+    if (isAgent) return canAgentMove(object, delta);
+    if (isBullet) return canBulletMove(object, delta);
+
+    System.out.println("WHY ARE YOU CALLING CANMOVE() - not bullet or agent");
+
     return true;
-   // if (isAgent) return canAgentMove(object, delta);
-  //  if (isBullet) return canBulletMove(object, delta);
-
-   // System.out.println("WHY ARE YOU CALLING CANMOVE() - not bullet or agent");
-
-   // return true;
   }
 
 
@@ -37,7 +37,7 @@ public class BoundingBox  {
 
     for(int agentId:agents.keySet()){
       if (agentId != agent.getId()){
-        isValid = isValid&isClose(agents.get(agentId).getCenterPosition(), agents.get(agentId).getHalfBounds(),
+        isValid = isValid& notClose(agents.get(agentId).getCenterPosition(), agents.get(agentId).getHalfBounds(),
             move(agent.getCenterPosition(),delta), agent.getHalfBounds(), eps);
       }
     }
@@ -54,8 +54,9 @@ public class BoundingBox  {
     boolean isValid = true;
 
     for(int tileIdx =0; tileIdx<map.getTileTotal(); tileIdx++){
-      isValid = isValid&isClose(map.getTile(tileIdx).getCenterLocation(), Asset2D.getMapTileBounds(),
-          move(object.getCenterPosition(),delta), object.getHalfBounds(), eps);
+      isValid = isValid&(map.getTile(tileIdx).isWalkable()||
+          notClose(map.getTile(tileIdx).getCenterLocation(), Asset2D.getMapTileBounds(),
+          move(object.getCenterPosition(),delta), object.getHalfBounds(), eps));
     }
     return isValid;
   }
@@ -68,7 +69,7 @@ public class BoundingBox  {
   public int isBulletAttack(Agent2DView bullet){
 
     for(int agentId:agents.keySet()){
-      if (isClose(agents.get(agentId).getCenterPosition(), agents.get(agentId).getHalfBounds(),
+      if (!notClose(agents.get(agentId).getCenterPosition(), agents.get(agentId).getHalfBounds(),
           bullet.getCenterPosition(), bullet.getHalfBounds(), eps))
       {
         return agentId;
@@ -78,20 +79,20 @@ public class BoundingBox  {
     return NON_ID;
   }
 
-  private boolean isClose(Vector2f posA, Vector2f halfBoundsA, Vector2f posB, Vector2f halfBoundsB, float dis){
+  private boolean notClose(Vector2f posA, Vector2f halfBoundsA, Vector2f posB, Vector2f halfBoundsB, float dis){
     float distanceX = Math.abs(posA.getX() - posB.getX());
     float distanceY = Math.abs(posA.getY() - posB.getY());
 
     float boundsX = halfBoundsA.getX() + halfBoundsB.getY();
     float boundsY = halfBoundsB.getY() + halfBoundsB.getY();
 
-    return !(distanceX - boundsX < dis) && !(distanceY - boundsY < dis);
+    return (!(distanceX - boundsX < dis) && !(distanceY - boundsY < dis));
   }
 
   public int isAttackEffective(Agent2DView attacker){
     for (int agentId:agents.keySet()){
       if (agentId!=attacker.getId() && isAgentDirection(attacker.getCenterPosition(), agents.get(agentId).getCenterPosition(), attacker.getCurrentDirection())
-      && isClose(attacker.getCenterPosition(), attacker.getHalfBounds(), agents.get(agentId).getCenterPosition(), agents.get(agentId).getHalfBounds(), MELEE_ATTACK_RANGE)){
+      && !notClose(attacker.getCenterPosition(), attacker.getHalfBounds(), agents.get(agentId).getCenterPosition(), agents.get(agentId).getHalfBounds(), MELEE_ATTACK_RANGE)){
         return agentId;
       }
     }
