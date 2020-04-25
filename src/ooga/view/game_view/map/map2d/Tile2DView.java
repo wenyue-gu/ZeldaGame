@@ -13,7 +13,7 @@ import ooga.view.engine.utils.cyberpunk2d.Text2DMapReader;
 import ooga.view.game_view.map.interfaces.TileView;
 
 public class Tile2DView extends TileView {
-  private static final float delta = 0;
+  private static final float delta = 17;
   private Tile2DController controller;
 
   private Vertex[] vertices;
@@ -24,11 +24,11 @@ public class Tile2DView extends TileView {
     this.indices = Asset2D.getTileIndices();
 
     controller = new Tile2DController(map_x, map_y, mapReader);
-
-    mesh = new Mesh( setLocation(map_x, map_y, vertices), this.indices, controller.getMaterial());
-    Test.printThreeMeshVertices(mesh);
+    //Test.printVector3f(setLocation(map_x, map_y, vertices)[0].getPosition());
+    mesh = new Mesh( setLocation(map_x, map_y, vertices), this.indices, controller.getMaterial(), true);
+    //Test.printThreeMeshVertices(mesh);
     object = new GameObject(Asset2D.getMapPosition(), Asset2D.getMapRotation(), Asset2D.getMapScale(), mesh);
-    Test.printThreeMeshVertices(mesh);
+    //Test.printThreeMeshVertices(mesh);
   }
 
   private Vertex[] setLocation(int x, int y, Vertex[] originalVertices){
@@ -38,7 +38,7 @@ public class Tile2DView extends TileView {
     for (int i=0; i<newVertices.length; i++){
       newVertices[i] = new Vertex(originalVertices[i]);
       newVertices[i].setPosition(Vector3f.add(originalVertices[i].getPosition(), translator));
-      Test.printVector3f(newVertices[i].getPosition());
+      //Test.printVector3f(newVertices[i].getPosition());
     }
     return newVertices;
   }
