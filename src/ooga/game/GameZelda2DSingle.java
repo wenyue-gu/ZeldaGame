@@ -1,7 +1,9 @@
 package ooga.game;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import ooga.model.characters.ZeldaCharacter;
 import ooga.model.characters.ZeldaPlayer;
@@ -15,15 +17,20 @@ public class GameZelda2DSingle implements Runnable {
   private GameState2DView view;
 
   private boolean isAnimating;
-  private boolean isAttacking;
-  private int id;
-  private String direction;
-  private String state;
+  private List<Boolean> isAttacking;
+  private List<Integer> id;
+  private List<String> direction;
+  private List<String> state;
   private Map<Integer, Agent2DDataHolder> dataHolderMap;
 
   public GameZelda2DSingle(Map<Integer, ZeldaPlayer> players, Map<Integer, ZeldaCharacter> npcs)
       throws IOException {
     dataHolderMap = new HashMap<>();
+    isAttacking = new ArrayList<>();
+    id = new ArrayList<>();
+    direction = new ArrayList<>();
+    state = new ArrayList<>();
+
 
     for (ZeldaPlayer p: players.values()) {
       System.out.println(p.getId());
@@ -83,30 +90,39 @@ public class GameZelda2DSingle implements Runnable {
       } catch (IOException e) {
         e.printStackTrace();
       }
-      render();
+      try {
+        render();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
     close();
   }
 
   private void update() throws IOException {
     view.updateWindow();
+    view.updateBullets();
     view.updateMap(); //empty method
+    if (id.size() > 0) isAnimating = true;
       if (isAnimating) {
+        view.updateAgent(id.get(0), direction.get(0), state.get(0), isAttacking.get(0));
+        id.remove(0);
+        direction.remove(0);
+        state.remove(0);
+        isAttacking.remove(0);
         isAnimating = false;
-        view.updateAgent(id, direction, state, isAttacking);
       }
     }
 
 
   public void updateCharacter(int id, String direction, String state, boolean isAttacking) {
-    isAnimating = true;
-    this.isAttacking = isAttacking;
-    this.id = id;
-    this.direction = direction;
-    this.state = state;
+    this.id.add(id);
+    this.isAttacking.add(isAttacking);
+    this.direction.add(direction);
+    this.state.add(state);
   }
 
-  private void render() {
+  private void render() throws IOException {
     view.renderAll();
     // can also render separately, renderWindow() is mandatory
   }

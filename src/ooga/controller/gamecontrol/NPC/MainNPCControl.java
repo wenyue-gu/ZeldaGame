@@ -1,11 +1,8 @@
 package ooga.controller.gamecontrol.NPC;
 
-import javafx.scene.input.KeyCode;
 import ooga.controller.gamecontrol.NPCControlInterface;
-import ooga.controller.gamecontrol.PlayerControlInterface;
+import ooga.game.GameZelda2DSingle;
 import ooga.model.interfaces.movables.Movable1D;
-
-import java.util.Map;
 
 public class MainNPCControl implements NPCControlInterface {
   private NPCControlInterface myNPCControl;
@@ -29,4 +26,14 @@ public class MainNPCControl implements NPCControlInterface {
   public void setMyNPC(Movable1D NPC) {
     myNPCControl.setMyNPC(NPC);
   }
+
+  public void setID() {
+    myNPCControl.setID();
+  }
+
+  @Override
+  public void setView(GameZelda2DSingle view) {
+    myNPCControl.setView(view);
+  }
+
 }

@@ -1,16 +1,15 @@
 package ooga.data;
 
-import ooga.model.enums.backend.PlayerPara;
+import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static ooga.model.map.GameGridInMap.ID_NOT_DEFINED;
+import ooga.model.enums.backend.PlayerPara;
 
 public class PlayerStatus {
     public static int initLevel = 1;
     public static int initLife = 5;
-    public static int initScoreGoal = 0;
+    public static int initScoreGoal = 500;
 
 
     private int playerID;

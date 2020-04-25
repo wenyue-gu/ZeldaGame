@@ -18,6 +18,7 @@ import ooga.model.interfaces.gameMap.GameMap;
 @SuppressWarnings("unchecked")
 public class Model implements ModelInterface {
 
+  public static final int THRESHOLD = 10;
   private DataLoaderAPI dataLoader;
   private GameMap gameMap;
   private Map players;
@@ -41,8 +42,11 @@ public class Model implements ModelInterface {
     for (ZeldaCharacter c: characters) {
 //      int rand = new Random().nextInt(CharacterType.values().length - 2) + 1;
 //      c.setType(CharacterType.byIndex(rand));
-      c.setType(CharacterType.TURRET);
-      npcs.put(c.getId(), c);
+      if (c.getId() >= THRESHOLD) {
+        c.setType(CharacterType.LOADSOLDIER);
+        c.initializeNotifier();
+        npcs.put(c.getId(), c);
+      }
     }
 
     players= new HashMap<Integer, ZeldaPlayer>();

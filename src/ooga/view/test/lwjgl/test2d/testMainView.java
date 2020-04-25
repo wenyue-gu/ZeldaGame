@@ -23,7 +23,9 @@ public class testMainView implements Runnable {
     Map<Integer, Agent2DDataHolder> dataHolderMap = new HashMap<>();
     //dataHolderMap.put(0, GenerateAgentsData.createSoldier(-1f, 0f));
     //dataHolderMap.put(1, GenerateAgentsData.createSoldier(-1f, -0.5f));
-    dataHolderMap.put(0, GenerateAgentsData.createEngineer(-1f, 0f));
+    dataHolderMap.put(0, GenerateAgentsData.createMeleeBot(-1f, 0f));
+    dataHolderMap.put(1, GenerateAgentsData.createSoldier(0.5f, -1f));
+//    System.out.println(dataHolderMap.size());
     view = new GameState2DView(dataHolderMap);
    view.createWindow();
   }
@@ -53,10 +55,13 @@ public class testMainView implements Runnable {
     view.updateWindow();
     view.updateMap(); //empty method
     view.updateBullets();
-    if (view.isKeyDown(GLFW.GLFW_KEY_A)){
-      view.updateAgent(0,"E","ATTACK", true);}
-    if (view.isKeyDown(GLFW.GLFW_KEY_S)){
-      view.updateAgent(0,"E","SUMMON_BIGBOY", true);}
+//    if (view.isKeyDown(GLFW.GLFW_KEY_A)){
+//      view.updateAgent(0,"E","ATTACK", true);}
+//    if (view.isKeyDown(GLFW.GLFW_KEY_S)){
+//      view.updateAgent(0,"E","SUMMON_BIGBOY", true);}
+    if (view.isKeyDown(GLFW.GLFW_KEY_DOWN)) {
+      view.updateAgent(0, "S", "SPRINT", false);
+    }
   }
 
   private void render() throws IOException {

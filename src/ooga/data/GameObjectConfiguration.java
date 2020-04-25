@@ -93,7 +93,7 @@ public class GameObjectConfiguration {
     fieldToPathMap.put(gameInfoList, GameInfoPath);
     fieldToPathMap.put(gameMapList, GameMapPath);
     fieldToPathMap.put(imageMap, imageMapPath);
-    fieldToPathMap.put(marioCharacterList, marioCharacterPath);
+//    fieldToPathMap.put(marioCharacterList, marioCharacterPath);
     fieldToPathMap.put(playerList, playerPath);
     fieldToPathMap.put(zeldaCharacterList, zeldaCharacterPath);
     fieldToPathMap.put(textMap, textPath);

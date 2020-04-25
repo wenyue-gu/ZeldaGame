@@ -2,7 +2,6 @@ package ooga.controller.gamecontrol.player;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.input.KeyCode;
@@ -14,7 +13,6 @@ import ooga.model.characters.ZeldaPlayer;
 import ooga.model.enums.backend.Direction;
 import ooga.model.enums.backend.MovingState;
 import ooga.model.interfaces.movables.Movable1D;
-import org.lwjgl.glfw.GLFW;
 
 public class ZeldaPlayerControl implements PlayerControlInterface, MovableControll2D,
     AttackerControl, PropertyChangeListener {
@@ -138,8 +136,8 @@ public class ZeldaPlayerControl implements PlayerControlInterface, MovableContro
         if (myView.getView().isKeyDown(i)) {
           keyPressed = true;
           this.getClass().getDeclaredMethod(myGLFWMap.get(i)).invoke(this);
-//            System.out.println(myPlayer.getDirection().toString());
-//            System.out.println(myPlayer.getState().toString());
+            System.out.println(myPlayer.getDirection().toString());
+            System.out.println(myPlayer.getState().toString());
           break;
         }
       }

@@ -71,6 +71,10 @@ public class GameController {
             System.out.println("load key error");
         }
     }
+    for (MainNPCControl npc: myNPCControl) {
+      System.out.println(2);
+      npc.setID();
+    }
   }
 
   private void setGameType(int gameType) {
@@ -131,6 +135,9 @@ public class GameController {
     myPauseControl.setView(view.getView());
     for (MainPlayerControl mpc : myMainPlayerController) {
       mpc.setView(view);
+    }
+    for (MainNPCControl npc: myNPCControl) {
+      npc.setView(view);
     }
   }
 

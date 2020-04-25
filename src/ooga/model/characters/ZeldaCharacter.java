@@ -28,6 +28,7 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
   private WeaponBase weaponBase;
   protected transient PropertyChangeNotifier notifier;
 
+
   /**
    * Creates a new instance of ZeldaCharacter
    *
@@ -228,5 +229,9 @@ public class ZeldaCharacter extends MovingObject2D implements Alive, Attacker, N
   @Override
   public void fire() {
     weaponBase.fire();
+  }
+
+  public void initializeNotifier() {
+    notifier = new PropertyChangeNotifier(this);
   }
 }

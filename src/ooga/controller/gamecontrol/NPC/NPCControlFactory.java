@@ -1,7 +1,6 @@
 package ooga.controller.gamecontrol.NPC;
 
 import ooga.controller.gamecontrol.NPCControlInterface;
-import ooga.controller.gamecontrol.PlayerControlInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ public class NPCControlFactory {
   }
 
   private void fillMap(){
-    controlMap.put(1, new ZeldaNPCControl());
+    controlMap.put(1, new SoldierControl());
 //    controlMap.put(0, new MarioNPCControl());
   }
 
